@@ -1,3 +1,10 @@
+# visual studio
+*.VC.db
+*.VC.VC.opendb
+
+# Prerequisites
+*.d
+
 # Compiled Object files
 *.slo
 *.lo
@@ -24,6 +31,9 @@
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
+
+# Logs
+*.log
+*.suo
