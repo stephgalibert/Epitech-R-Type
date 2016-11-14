@@ -5,6 +5,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "ProjectResource.h"
+
 class FPSCounter
 {
 public:
@@ -17,7 +19,7 @@ public:
 	void draw(sf::RenderWindow &window);
 
 private:
-	sf::Font _font;
+	//sf::Font _font;
 	sf::Text _text;
 
 	float _delta;

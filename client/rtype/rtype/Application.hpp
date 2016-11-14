@@ -5,9 +5,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Chrono.h"
-#include "SplashScreen.h"
-#include "FPSCounter.h"
+#include "Timer.hpp"
+#include "SplashScreen.hpp"
+#include "FPSCounter.hpp"
+
+#include "ProjectResource.h"
 
 class Application
 {
@@ -15,16 +17,17 @@ public:
 	Application(void);
 	~Application(void);
 
+	/* Initialisé l'application */
 	void init(void);
+
+	/* Boucle principale */
 	void loop(void);
 
 private:
 	void draw(void);
 
-	sf::ContextSettings _cx;
+	Timer _timer;
 	sf::RenderWindow _window;
-
-	Tools::Chronometer _timer;
 
 	SplashScreen _splash;
 	FPSCounter _fps;

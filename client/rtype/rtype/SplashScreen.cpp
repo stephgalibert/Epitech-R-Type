@@ -1,4 +1,4 @@
-#include "SplashScreen.h"
+#include "SplashScreen.hpp"
 
 SplashScreen::SplashScreen(void)
 	: _fsm(State::ST_Increase),

@@ -1,9 +1,11 @@
-#include "Application.h"
+#include "Application.hpp"
 
 Application::Application(void)
 {
-	_cx.antialiasingLevel = 8;
-	_window.create(sf::VideoMode(1920, 1080), "R-Type", sf::Style::Default, _cx);
+	sf::ContextSettings context;
+	context.antialiasingLevel = 8;
+
+	_window.create(sf::VideoMode(1920, 1080), "R-Type", sf::Style::Default, context);
 	_window.setVerticalSyncEnabled(true);
 }
 
@@ -14,6 +16,7 @@ Application::~Application(void)
 void Application::init(void)
 {
 	try {
+		ProjectResource::load();
 		_splash.init();
 		_fps.init();
 	}
@@ -21,7 +24,7 @@ void Application::init(void)
 		throw (std::runtime_error(e.what()));
 	}
 
-	_timer.toggle();
+	_timer.restart();
 }
 
 void Application::loop(void)

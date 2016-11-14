@@ -1,4 +1,4 @@
-#include "FPSCounter.h"
+#include "FPSCounter.hpp"
 
 FPSCounter::FPSCounter(void)
 {
@@ -10,10 +10,13 @@ FPSCounter::~FPSCounter(void)
 
 void FPSCounter::init(void)
 {
-	if (!_font.loadFromFile("./rsrc/font/pixelmix.ttf")) {
-		throw (std::runtime_error("./rsrc/font/pixelmix.ttf not found"));
+	try {
+		_text.setFont(ProjectResource::getFontByKey("main"));
 	}
-	_text.setFont(_font);
+	catch (std::exception const& e) {
+		throw (std::runtime_error(e.what()));
+	}
+
 	_text.setCharacterSize(16);
 	_text.setFillColor(sf::Color::Yellow);
 	_text.setString("0 FPS");
