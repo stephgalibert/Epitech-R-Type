@@ -19,9 +19,7 @@ public:
 	void draw(sf::RenderWindow &window);
 
 private:
-	//sf::Font _font;
 	sf::Text _text;
-
 	float _delta;
 };
 

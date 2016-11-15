@@ -70,7 +70,7 @@ void MusicBox::addSample(std::string const& name, MemoryFile const& file)
 		sample = new sf::Music;
 		if (!sample->openFromMemory(file.data, file.size)) {
 			delete (sample);
-			throw (std::runtime_error(name + " not found"));
+			throw (std::runtime_error(name + " not found lol"));
 		}
 		_sample.insert(std::make_pair(name, sample));
 	}

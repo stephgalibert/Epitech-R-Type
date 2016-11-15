@@ -4,7 +4,9 @@
 #include <fstream>
 #include <stdexcept>
 
-struct MemoryFile
+#include <boost/noncopyable.hpp>
+
+struct MemoryFile : private boost::noncopyable
 {
 	MemoryFile(void);
 	MemoryFile(std::string const& filename);

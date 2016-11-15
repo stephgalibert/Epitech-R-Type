@@ -1,11 +1,3 @@
-//
-// MusicBox.hpp for indie in /home/galibe_s/rendu/bomberman/source/music
-//
-// Made by stephane galibert
-// Login   <galibe_s@epitech.net>
-//
-// Started on  Wed May 18 22:55:21 2016 stephane galibert
-// Last update Thu May 19 15:01:06 2016 stephane galibert
 #pragma once
 
 # include <SFML/Audio.hpp>

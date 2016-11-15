@@ -16,11 +16,14 @@ Application::~Application(void)
 void Application::init(void)
 {
 	try {
-		ProjectResource::load();
+		StaticTools::Log.open("debug.log", std::ios::out | std::ios::app);
+		ProjectResource::Load();
 		_splash.init();
 		_fps.init();
+		ProjectResource::Musics.play("main_theme");
 	}
 	catch (std::exception const& e) {
+		StaticTools::Log << e.what() << std::endl;
 		throw (std::runtime_error(e.what()));
 	}
 

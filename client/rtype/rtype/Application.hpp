@@ -9,7 +9,9 @@
 #include "SplashScreen.hpp"
 #include "FPSCounter.hpp"
 
+#include "StaticTools.h"
 #include "ProjectResource.h"
+
 
 class Application
 {
@@ -17,7 +19,7 @@ public:
 	Application(void);
 	~Application(void);
 
-	/* Initialisé l'application */
+	/* Initialise l'application */
 	void init(void);
 
 	/* Boucle principale */
@@ -29,6 +31,7 @@ private:
 	Timer _timer;
 	sf::RenderWindow _window;
 
+	MusicBox _music;
 	SplashScreen _splash;
 	FPSCounter _fps;
 };

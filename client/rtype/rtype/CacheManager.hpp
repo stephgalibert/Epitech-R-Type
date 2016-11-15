@@ -26,7 +26,7 @@ private:
 
 
 template<typename Key, typename Cache>
-Cache &CacheManager::operator[](Key const& key)
+Cache &CacheManager<Key, Cache>::operator[](Key const& key)
 {
 	if (_cache.find(key) != _cache.end()) {
 		return (_cache[key]);
@@ -35,7 +35,7 @@ Cache &CacheManager::operator[](Key const& key)
 }
 
 template<typename Key, typename Cache>
-Cache const& CacheManager::operator[](Key const& key) const
+Cache const& CacheManager<Key, Cache>::operator[](Key const& key) const
 {
 	if (_cache.find(key) != _cache.end()) {
 		return (_cache.at(key));
@@ -44,13 +44,13 @@ Cache const& CacheManager::operator[](Key const& key) const
 }
 
 template<typename Key, typename Cache>
-void CacheManager::insert(Key const& key, Cache const& cache)
+void CacheManager<Key, Cache>::insert(Key const& key, Cache const& cache)
 {
 	_cache.insert(std::make_pair(key, cache));
 }
 
 template<typename Key, typename Cache>
-bool CacheManager::find(Key const& key)
+bool CacheManager<Key, Cache>::find(Key const& key)
 {
 	return (_cache.find(key) != _cache.end());
 }
