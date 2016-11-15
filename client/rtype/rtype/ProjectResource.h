@@ -14,6 +14,7 @@ class ProjectResource
 {
 public:
 	static void Load(void);
+
 	static sf::Font const& GetFontByKey(std::string const& key);
 	static MemoryFile const& GetMemoryFileByKey(std::string const& key);
 
@@ -26,7 +27,7 @@ private:
 	static void AddMemoryFile(std::string const& key, std::string const& path);
 	static void AddMusic(std::string const& name, MemoryFile const& mf);
 
-	static std::unordered_map<std::string, sf::Font> Fonts;
-	static std::unordered_map<std::string, MemoryFile> MemoryFiles;
+	static CacheManager<std::string, sf::Font> Fonts;
+	static CacheManager<std::string, MemoryFile> MemoryFiles;
 };
 

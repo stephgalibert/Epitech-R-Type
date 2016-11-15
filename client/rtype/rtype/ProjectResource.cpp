@@ -1,8 +1,8 @@
 #include "ProjectResource.h"
 #include <Windows.h>
 
-std::unordered_map<std::string, sf::Font> ProjectResource::Fonts;
-std::unordered_map<std::string, MemoryFile> ProjectResource::MemoryFiles;
+CacheManager<std::string, sf::Font> ProjectResource::Fonts;
+CacheManager<std::string, MemoryFile> ProjectResource::MemoryFiles;
 MusicBox ProjectResource::Musics;
 SoundBox ProjectResource::Sounds;
 
@@ -21,7 +21,7 @@ void ProjectResource::Load(void)
 
 sf::Font const& ProjectResource::GetFontByKey(std::string const& key)
 {
-	if (Fonts.find(key) != Fonts.cend()) {
+	if (Fonts.find(key)) {
 		return (Fonts.at(key));
 	}
 	throw std::runtime_error("Fonts '" + key + "' not found");
@@ -29,9 +29,10 @@ sf::Font const& ProjectResource::GetFontByKey(std::string const& key)
 
 MemoryFile const& ProjectResource::GetMemoryFileByKey(std::string const& key)
 {
-	if (MemoryFiles.find(key) != MemoryFiles.cend()) {
+	if (MemoryFiles.find(key)) {
 		return (MemoryFiles.at(key));
 	}
+
 	throw std::runtime_error("Memory file '" + key + "' not found");
 }
 
@@ -41,7 +42,7 @@ void ProjectResource::AddFont(std::string const& key, std::string const& fontNam
 	if (!font.loadFromFile(fontName)) {
 		throw (std::runtime_error(fontName));
 	}
-	Fonts.insert(std::make_pair(key, font));
+	Fonts.insert(key, font);
 }
 
 void ProjectResource::AddMemoryFile(std::string const& key, std::string const& path)
@@ -51,7 +52,6 @@ void ProjectResource::AddMemoryFile(std::string const& key, std::string const& p
 		MemoryFiles[key].load();
 	}
 	catch (std::exception const& e) {
-		MemoryFiles.erase(key);
 		throw (std::runtime_error(e.what()));
 	}
 }
