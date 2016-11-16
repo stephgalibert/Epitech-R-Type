@@ -4,30 +4,32 @@
 #include <stdexcept>
 #include <unordered_map>
 
+#include "IResourceManager.hpp"
+
 #include "MusicBox.hpp"
 #include "SoundBox.hpp"
-#include "MemoryFile.hpp"
 #include "CacheManager.hpp"
 #include "StaticTools.hpp"
 
-class ProjectResource
+class ProjectResource : public IResourceManager
 {
 public:
-	static void Load(void);
-
-	static sf::Font const& GetFontByKey(std::string const& key);
-	static MemoryFile const& GetMemoryFileByKey(std::string const& key);
+	static const std::string MAIN_FONT;
+	static const std::string MAIN_THEME;
 
 public:
-	static MusicBox Musics;
-	static SoundBox Sounds;
+	ProjectResource(void);
+	virtual ~ProjectResource(void);
+
+	virtual void load(void);
+	sf::Font const& getFontByKey(std::string const& key) const;
+	sf::Music &getMusicByKey(std::string const& key);
 
 private:
-	static void AddFont(std::string const& key, std::string const& fontName);
-	static void AddMemoryFile(std::string const& key, std::string const& path);
-	static void AddMusic(std::string const& name, MemoryFile const& mf);
+	void addFont(std::string const& key, std::string const& fontName);
+	void addMusic(std::string const& key, std::string const& path);
 
-	static CacheManager<std::string, sf::Font> Fonts;
-	static CacheManager<std::string, MemoryFile> MemoryFiles;
+	CacheManager<std::string, sf::Font> _fonts;
+	MusicBox _musics;
 };
 

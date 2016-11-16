@@ -1,7 +1,61 @@
 #include "ProjectResource.hpp"
-#include <Windows.h>
 
-CacheManager<std::string, sf::Font> ProjectResource::Fonts;
+const std::string ProjectResource::MAIN_FONT = "main_font";
+const std::string ProjectResource::MAIN_THEME = "main_theme";
+
+ProjectResource::ProjectResource(void)
+{
+}
+
+ProjectResource::~ProjectResource(void)
+{
+}
+
+void ProjectResource::load(void)
+{
+	try {
+		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
+		addMusic(MAIN_THEME, "rsrc/music/main_theme.wav");
+	}
+	catch (std::runtime_error const& e) {
+		throw (e);
+	}
+}
+
+sf::Font const& ProjectResource::getFontByKey(std::string const& key) const
+{
+	if (_fonts.find(key)) {
+		return (_fonts.at(key));
+	}
+	throw std::runtime_error("Fonts '" + key + "' not found");
+}
+
+sf::Music &ProjectResource::getMusicByKey(std::string const& key)
+{
+	try {
+		return (_musics.getMusic(key));
+	}
+	catch (std::exception const& e) {
+		throw (std::runtime_error(e.what()));
+	}
+}
+
+void ProjectResource::addFont(std::string const& key, std::string const& fontName)
+{
+	sf::Font font;
+	if (!font.loadFromFile(fontName)) {
+		throw (std::runtime_error(fontName));
+	}
+	_fonts.insert(key, font);
+}
+
+void ProjectResource::addMusic(std::string const& key, std::string const& path)
+{
+	_musics.addSample(key, path);
+}
+
+
+/*CacheManager<std::string, sf::Font> ProjectResource::Fonts;
 CacheManager<std::string, MemoryFile> ProjectResource::MemoryFiles;
 MusicBox ProjectResource::Musics;
 SoundBox ProjectResource::Sounds;
@@ -64,4 +118,4 @@ void ProjectResource::AddMusic(std::string const& name, MemoryFile const& mf)
 	catch (std::exception const& e) {
 		throw (std::runtime_error(e.what()));
 	}
-}
+}*/

@@ -154,12 +154,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AController.cpp" />
     <ClCompile Include="AEntity.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="FirstLevel.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Generator.cpp" />
-    <ClCompile Include="InputListener.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="LevelResource.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
@@ -175,16 +180,23 @@
     <ClCompile Include="XMLReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AController.hpp" />
     <ClInclude Include="AEntity.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="CacheManager.hpp" />
+    <ClInclude Include="FirstLevel.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="Generator.hpp" />
     <ClInclude Include="IClient.hpp" />
-    <ClInclude Include="InputListener.hpp" />
+    <ClInclude Include="ILevel.hpp" />
+    <ClInclude Include="InputHandler.hpp" />
     <ClInclude Include="IReader.hpp" />
     <ClInclude Include="IRequest.hpp" />
+    <ClInclude Include="IResourceManager.hpp" />
     <ClInclude Include="ISound.hpp" />
+    <ClInclude Include="LevelResource.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="ProjectResource.hpp" />

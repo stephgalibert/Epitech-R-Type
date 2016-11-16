@@ -8,10 +8,10 @@ FPSCounter::~FPSCounter(void)
 {
 }
 
-void FPSCounter::init(void)
+void FPSCounter::init(ProjectResource &resource)
 {
 	try {
-		_text.setFont(ProjectResource::GetFontByKey("main"));
+		_text.setFont(resource.getFontByKey(ProjectResource::MAIN_FONT));
 	}
 	catch (std::exception const& e) {
 		throw (std::runtime_error(e.what()));

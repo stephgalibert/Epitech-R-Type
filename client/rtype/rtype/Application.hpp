@@ -2,15 +2,19 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_map>
 
 #include <SFML/Graphics.hpp>
 
 #include "Timer.hpp"
-#include "SplashScreen.hpp"
-#include "FPSCounter.hpp"
-
 #include "StaticTools.hpp"
+
+#include "InputHandler.hpp"
 #include "ProjectResource.hpp"
+#include "MainMenu.hpp"
+#include "Game.hpp"
+
+#include "FPSCounter.hpp"
 
 
 class Application
@@ -26,14 +30,22 @@ public:
 	void loop(void);
 
 private:
-	void draw(void);
+	enum class State : short
+	{
+		ST_None = 0,
+		ST_MainMenu = 1,
+		ST_Game = 2
+	};
 
+private:
 	Timer _timer;
+	ProjectResource _resource;
+	InputHandler _inputHandler;
 	sf::RenderWindow _window;
 
-	/* exemple */
-	MusicBox _music;
-	SplashScreen _splash;
+	State _fsm;
+	std::unordered_map<State, AController *> _controllers;
+
 	FPSCounter _fps;
 };
 

@@ -6,31 +6,22 @@ Application::Application(void)
 	context.antialiasingLevel = 8;
 
 	_window.create(sf::VideoMode(1920, 1080), "R-Type", sf::Style::Default, context);
-	_window.setPosition(sf::Vector2i(0, 0));
 	_window.setVerticalSyncEnabled(true);
 }
 
 Application::~Application(void)
 {
-	for (auto it : _controllers) {
-		it.second->recycle();
-		delete (it.second);
-	}
 }
 
 void Application::init(void)
 {
 	try {
 		StaticTools::Log.open(".log", std::ios::out | std::ios::app);
-		_fsm = State::ST_MainMenu;
+		ProjectResource::Load();
 
-		_resource.load();
-		_fps.init(_resource);
-
-		_controllers[State::ST_MainMenu] = new MainMenu(_resource);
-		_controllers[State::ST_Game] = new Game(_resource);
-		
-		_controllers.at(_fsm)->init();
+		_splash.init();
+		_fps.init();
+		ProjectResource::Musics.play("main_theme");
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -40,7 +31,6 @@ void Application::init(void)
 	_timer.restart();
 }
 
-// les états peuvent se changer d'eux même => à faire
 void Application::loop(void)
 {
 	sf::Event event;
@@ -52,20 +42,26 @@ void Application::loop(void)
 
 		while (_window.pollEvent(event))
 		{
-			_inputHandler.OnEvent(event);
-			if (_inputHandler.isExiting()) {
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 				_window.close();
+				break;
 			}
 		}
 
-		_controllers.at(_fsm)->input(_inputHandler);
-
+		_splash.update(delta);
 		_fps.update(delta);
-		_controllers.at(_fsm)->update(delta);
 
-		_window.clear();
-		_controllers.at(_fsm)->draw(_window);
-		_fps.draw(_window);
-		_window.display();
+		draw();
 	}
+
+}
+
+void Application::draw(void)
+{
+	_window.clear();
+	_splash.draw(_window);
+	_fps.draw(_window);
+	_window.display();
 }

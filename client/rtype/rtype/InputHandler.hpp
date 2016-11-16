@@ -5,11 +5,11 @@
 
 #include <SFML/Graphics.hpp>
 
-class InputListener
+class InputHandler
 {
 public:
-	InputListener(void);
-	virtual ~InputListener(void);
+	InputHandler(void);
+	virtual ~InputHandler(void);
 
 	virtual void OnEvent(sf::Event const& e);
 

@@ -76,10 +76,32 @@ void MusicBox::addSample(std::string const& name, MemoryFile const& file)
 	}
 }
 
+void MusicBox::addSample(std::string const& name, std::string const& path)
+{
+	sf::Music *sample = NULL;
+
+	if (_sample.find(name) == _sample.cend()) {
+		sample = new sf::Music;
+		if (!sample->openFromFile(path)) {
+			delete (sample);
+			throw (std::runtime_error(name + " not found lol"));
+		}
+		_sample.insert(std::make_pair(name, sample));
+	}
+}
+
 sf::SoundSource::Status MusicBox::getStatus(std::string const& name) const
 {
 	if (_sample.find(name) == _sample.cend()) {
-		throw (std::runtime_error("Soundbox: can not get " + name + " status"));
+		throw (std::runtime_error("MusicBox: can not get " + name + " status"));
 	}
 	return (_sample.at(name)->getStatus());
+}
+
+sf::Music &MusicBox::getMusic(std::string const& key)
+{
+	if (_sample.find(key) == _sample.cend()) {
+		throw (std::runtime_error("MusicBox: can not get " + key + " status"));
+	}
+	return (*_sample.at(key));
 }

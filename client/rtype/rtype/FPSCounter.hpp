@@ -13,7 +13,7 @@ public:
 	FPSCounter(void);
 	~FPSCounter(void);
 
-	void init(void);
+	void init(ProjectResource &resource);
 	void update(float delta);
 
 	void draw(sf::RenderWindow &window);
