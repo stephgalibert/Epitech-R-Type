@@ -1,4 +1,4 @@
-#include "ProjectResource.h"
+#include "ProjectResource.hpp"
 #include <Windows.h>
 
 CacheManager<std::string, sf::Font> ProjectResource::Fonts;

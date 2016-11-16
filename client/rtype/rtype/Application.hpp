@@ -9,8 +9,8 @@
 #include "SplashScreen.hpp"
 #include "FPSCounter.hpp"
 
-#include "StaticTools.h"
-#include "ProjectResource.h"
+#include "StaticTools.hpp"
+#include "ProjectResource.hpp"
 
 
 class Application
@@ -31,6 +31,7 @@ private:
 	Timer _timer;
 	sf::RenderWindow _window;
 
+	/* exemple */
 	MusicBox _music;
 	SplashScreen _splash;
 	FPSCounter _fps;

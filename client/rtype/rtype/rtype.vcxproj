@@ -90,6 +90,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +124,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,10 +163,13 @@
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
+    <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="StaticTools.cpp" />
+    <ClCompile Include="TCPClient.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UDPClient.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,15 +178,20 @@
     <ClInclude Include="CacheManager.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="Generator.hpp" />
+    <ClInclude Include="IClient.hpp" />
     <ClInclude Include="InputListener.hpp" />
     <ClInclude Include="ISound.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MusicBox.hpp" />
-    <ClInclude Include="ProjectResource.h" />
+    <ClInclude Include="ProjectResource.hpp" />
+    <ClInclude Include="Protocol.hpp" />
+    <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="SplashScreen.hpp" />
-    <ClInclude Include="StaticTools.h" />
+    <ClInclude Include="StaticTools.hpp" />
+    <ClInclude Include="TCPClient.hpp" />
     <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="UDPClient.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -8,7 +8,7 @@
 #include "SoundBox.hpp"
 #include "MemoryFile.hpp"
 #include "CacheManager.hpp"
-#include "StaticTools.h"
+#include "StaticTools.hpp"
 
 class ProjectResource
 {

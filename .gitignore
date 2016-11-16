@@ -39,6 +39,3 @@
 *.log
 *.suo
 *.tlog
-*.pdb
-*.idb
-*.ilk

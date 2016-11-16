@@ -16,8 +16,9 @@ Application::~Application(void)
 void Application::init(void)
 {
 	try {
-		StaticTools::Log.open("debug.log", std::ios::out | std::ios::app);
+		StaticTools::Log.open(".log", std::ios::out | std::ios::app);
 		ProjectResource::Load();
+
 		_splash.init();
 		_fps.init();
 		ProjectResource::Musics.play("main_theme");

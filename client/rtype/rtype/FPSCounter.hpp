@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "ProjectResource.h"
+#include "ProjectResource.hpp"
 
 class FPSCounter
 {
