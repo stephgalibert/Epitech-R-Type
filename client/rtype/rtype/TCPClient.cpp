@@ -86,19 +86,11 @@ void TCPClient::write(void)
 			boost::asio::placeholders::bytes_transferred));
 }
 
-//void TCPClient::handshake(void)
-//{
-//	_socket.async_handshake(boost::asio::ssl::stream_base::client,
-//		boost::bind(&TCPClient::do_handshake, this,
-//			boost::asio::placeholders::error));
-//}
-
 void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip::tcp::resolver::iterator)
 {
 	if (!ec) {
 		StaticTools::Log << "Connected in TCP mod" << std::endl;
 		StaticTools::Log << "Handshaking ..." << std::endl;
-		//handshake();
 	} else {
 		_timer.expires_from_now(boost::posix_time::seconds(5));
 		_timer.async_wait(boost::bind(&TCPClient::connect, this));
@@ -141,22 +133,6 @@ void TCPClient::do_write(boost::system::error_code const& ec, size_t)
 		}
 	}
 }
-
-//void TCPClient::do_handshake(boost::system::error_code const& ec)
-//{
-//	if (!ec) {
-//		StaticTools::Log << "Handshake success" << std::endl;
-//		_connected = true;
-//		write(StaticTools::CreatePacket(PacketType::PT_NewClient, StaticTools::Mac));
-//
-//		read();
-//	}
-//	else {
-//		StaticTools::Log << "Handshake failed" << std::endl;
-//		_timer.expires_from_now(boost::posix_time::seconds(5));
-//		_timer.async_wait(boost::bind(&TCPClient::handshake, this));
-//	}
-//}
 
 void TCPClient::runThread(void)
 {

@@ -31,12 +31,10 @@ public:
 private:
 	void read(void);
 	void write(void);
-	//void handshake(void);
 
 	void do_connect(boost::system::error_code const& ec, boost::asio::ip::tcp::resolver::iterator);
 	void do_read(boost::system::error_code const& ec, size_t);
 	void do_write(boost::system::error_code const& ec, size_t);
-	//void do_handshake(boost::system::error_code const& ec);
 
 	void runThread(void);
 

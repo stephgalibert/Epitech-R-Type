@@ -163,6 +163,7 @@
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
+    <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UDPClient.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="XMLReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AEntity.hpp" />
@@ -180,11 +182,14 @@
     <ClInclude Include="Generator.hpp" />
     <ClInclude Include="IClient.hpp" />
     <ClInclude Include="InputListener.hpp" />
+    <ClInclude Include="IReader.hpp" />
+    <ClInclude Include="IRequest.hpp" />
     <ClInclude Include="ISound.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="Protocol.hpp" />
+    <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="SplashScreen.hpp" />
@@ -193,6 +198,7 @@
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="UDPClient.hpp" />
     <ClInclude Include="World.hpp" />
+    <ClInclude Include="XMLReader.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
