@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <unordered_map>
+#include <memory>
 
 #include "IResourceManager.hpp"
 
@@ -22,14 +23,17 @@ public:
 	virtual ~ProjectResource(void);
 
 	virtual void load(void);
-	sf::Font const& getFontByKey(std::string const& key) const;
+	sf::Font &getFontByKey(std::string const& key);
+	sf::Texture *getTextureByKey(std::string const& key);
 	sf::Music &getMusicByKey(std::string const& key);
 
 private:
 	void addFont(std::string const& key, std::string const& fontName);
+	void addTexture(std::string const& key, std::string const& path);
 	void addMusic(std::string const& key, std::string const& path);
 
 	CacheManager<std::string, sf::Font> _fonts;
+	std::unordered_map<std::string, sf::Texture *> _textures;
 	MusicBox _musics;
 };
 

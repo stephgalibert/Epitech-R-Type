@@ -54,8 +54,8 @@ void SplashScreen::st_none(float delta)
 
 void SplashScreen::st_increase(float delta)
 {
-	if (_delta < 2.f) {
-		_rect.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)(255 - (_delta / 2.f * 255.f))));
+	if (_delta < 1.f) {
+		_rect.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)(255 - (_delta / 1.f * 255.f))));
 	}
 	else {
 		_delta = 0.f;
@@ -73,8 +73,8 @@ void SplashScreen::st_fix(float delta)
 
 void SplashScreen::st_decrease(float delta)
 {
-	if (_delta < 3.f) {
-		_rect.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)(_delta / 3.f * 255.f)));
+	if (_delta < 2.f) {
+		_rect.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)(_delta / 2.f * 255.f)));
 	}
 	else {
 		_delta = 0.f;

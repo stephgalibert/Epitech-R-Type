@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "AController.hpp"
+#include "Background.hpp"
 #include "SplashScreen.hpp"
 
 class MainMenu : public AController
@@ -19,6 +20,7 @@ public:
 	virtual void recycle(void);
 
 private:
+	Background _background;
 	SplashScreen _splash;
 };
 

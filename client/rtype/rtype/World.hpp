@@ -13,7 +13,7 @@
 class World
 {
 public:
-	World(void);
+	World(ProjectResource &resource);
 	~World(void);
 
 	/* Init le monde */
@@ -29,7 +29,7 @@ public:
 	template<typename T>
 	AEntity *spawnEntity(void)
 	{
-		AEntity *entity = new T;
+		AEntity *entity = new T(_resource);
 
 		try {
 			entity->init();
@@ -45,6 +45,6 @@ public:
 	}
 
 private:
-	/* La liste des entités présent dans le monde */
+	ProjectResource &_resource;
 	std::list<AEntity *> _entities;
 };

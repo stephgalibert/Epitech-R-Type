@@ -155,8 +155,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AController.cpp" />
+    <ClCompile Include="ADrawable.cpp" />
     <ClCompile Include="AEntity.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="FirstLevel.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -183,12 +185,14 @@
     <ClInclude Include="AController.hpp" />
     <ClInclude Include="AEntity.hpp" />
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Background.hpp" />
     <ClInclude Include="CacheManager.hpp" />
     <ClInclude Include="FirstLevel.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Generator.hpp" />
     <ClInclude Include="IClient.hpp" />
+    <ClInclude Include="ADrawable.hpp" />
     <ClInclude Include="ILevel.hpp" />
     <ClInclude Include="InputHandler.hpp" />
     <ClInclude Include="IReader.hpp" />

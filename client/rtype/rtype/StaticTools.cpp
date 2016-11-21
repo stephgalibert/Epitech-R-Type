@@ -2,12 +2,9 @@
 
 std::ofstream StaticTools::Log;
 
-StaticTools::StaticTools(void)
+sf::Vector2i StaticTools::GetResolution(void)
 {
-}
-
-StaticTools::~StaticTools(void)
-{
+	return (sf::Vector2i(1920, 1080));
 }
 
 Packet *StaticTools::CreatePacket(PacketType type, std::string const& data)

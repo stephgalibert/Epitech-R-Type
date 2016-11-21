@@ -16,5 +16,8 @@ public:
 	virtual void update(float delta);
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
+
+private:
+
 };
 

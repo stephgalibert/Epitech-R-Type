@@ -2,10 +2,12 @@
 
 Application::Application(void)
 {
+	sf::Vector2i reso = StaticTools::GetResolution();
+
 	sf::ContextSettings context;
 	context.antialiasingLevel = 8;
 
-	_window.create(sf::VideoMode(1920, 1080), "R-Type", sf::Style::Default, context);
+	_window.create(sf::VideoMode(reso.x, reso.y), "R-Type", sf::Style::Default, context);
 	_window.setPosition(sf::Vector2i(0, 0));
 	_window.setVerticalSyncEnabled(true);
 }

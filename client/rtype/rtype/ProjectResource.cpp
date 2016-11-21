@@ -9,25 +9,37 @@ ProjectResource::ProjectResource(void)
 
 ProjectResource::~ProjectResource(void)
 {
+	for (auto it : _textures) {
+		delete it.second;
+	}
 }
 
 void ProjectResource::load(void)
 {
 	try {
 		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
-		addMusic(MAIN_THEME, "rsrc/music/main_theme.wav");
+		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
+		addTexture("background", "./rsrc/sprites/background.jpg");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);
 	}
 }
 
-sf::Font const& ProjectResource::getFontByKey(std::string const& key) const
+sf::Font &ProjectResource::getFontByKey(std::string const& key)
 {
 	if (_fonts.find(key)) {
-		return (_fonts.at(key));
+		return (_fonts[key]);
 	}
 	throw std::runtime_error("Fonts '" + key + "' not found");
+}
+
+sf::Texture *ProjectResource::getTextureByKey(std::string const& key)
+{
+	if (_textures.find(key) != _textures.cend()) {
+		return (_textures[key]);
+	}
+	throw std::runtime_error("Texture " + key + "not found");
 }
 
 sf::Music &ProjectResource::getMusicByKey(std::string const& key)
@@ -54,68 +66,13 @@ void ProjectResource::addMusic(std::string const& key, std::string const& path)
 	_musics.addSample(key, path);
 }
 
-
-/*CacheManager<std::string, sf::Font> ProjectResource::Fonts;
-CacheManager<std::string, MemoryFile> ProjectResource::MemoryFiles;
-MusicBox ProjectResource::Musics;
-SoundBox ProjectResource::Sounds;
-
-void ProjectResource::Load(void)
+void ProjectResource::addTexture(std::string const& key, std::string const& path)
 {
-	try {
-		AddFont("main", "./rsrc/font/pixelmix.ttf");
-		AddMemoryFile("main_theme", "rsrc/music/main_theme.wav");
-
-		Musics.addSample("main_theme", MemoryFiles["main_theme"]);
+	sf::Texture *texture = new sf::Texture;
+	if (!texture->loadFromFile(path)) {
+		throw (std::runtime_error("texture: " + path + " not found"));
 	}
-	catch (std::runtime_error const& e) {
-		throw (e);
-	}
+	texture->setSmooth(true);
+	texture->setRepeated(true);
+	_textures.insert(std::make_pair(key, texture));
 }
-
-sf::Font const& ProjectResource::GetFontByKey(std::string const& key)
-{
-	if (Fonts.find(key)) {
-		return (Fonts.at(key));
-	}
-	throw std::runtime_error("Fonts '" + key + "' not found");
-}
-
-MemoryFile const& ProjectResource::GetMemoryFileByKey(std::string const& key)
-{
-	if (MemoryFiles.find(key)) {
-		return (MemoryFiles.at(key));
-	}
-
-	throw std::runtime_error("Memory file '" + key + "' not found");
-}
-
-void ProjectResource::AddFont(std::string const& key, std::string const& fontName)
-{
-	sf::Font font;
-	if (!font.loadFromFile(fontName)) {
-		throw (std::runtime_error(fontName));
-	}
-	Fonts.insert(key, font);
-}
-
-void ProjectResource::AddMemoryFile(std::string const& key, std::string const& path)
-{
-	MemoryFiles[key].filename = path;
-	try {
-		MemoryFiles[key].load();
-	}
-	catch (std::exception const& e) {
-		throw (std::runtime_error(e.what()));
-	}
-}
-
-void ProjectResource::AddMusic(std::string const& name, MemoryFile const& mf)
-{
-	try {
-		Musics.addSample(name, mf);
-	}
-	catch (std::exception const& e) {
-		throw (std::runtime_error(e.what()));
-	}
-}*/
