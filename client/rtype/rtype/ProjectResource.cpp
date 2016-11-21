@@ -72,7 +72,5 @@ void ProjectResource::addTexture(std::string const& key, std::string const& path
 	if (!texture->loadFromFile(path)) {
 		throw (std::runtime_error("texture: " + path + " not found"));
 	}
-	texture->setSmooth(true);
-	texture->setRepeated(true);
 	_textures.insert(std::make_pair(key, texture));
 }

@@ -1,7 +1,8 @@
 #include "AEntity.hpp"
 
-AEntity::AEntity(ProjectResource &resource)
+AEntity::AEntity(World &world, ProjectResource &resource)
 	: ADrawable(resource),
+	  _world(world),
 	  _waitingForRecycle(false)
 {
 }

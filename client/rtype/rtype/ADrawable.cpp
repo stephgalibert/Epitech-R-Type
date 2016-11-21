@@ -1,4 +1,5 @@
 #include "ADrawable.hpp"
+#include "World.hpp"
 
 ADrawable::ADrawable(ProjectResource &resource)
 	: _resource(resource),
@@ -14,11 +15,6 @@ ADrawable::~ADrawable(void)
 	}
 }
 
-ProjectResource &ADrawable::getResource(void)
-{
-	return (_resource);
-}
-
 void ADrawable::setShape(sf::Shape *shape)
 {
 	_shape = shape;
@@ -32,9 +28,19 @@ void ADrawable::setTexture(sf::Texture *texture)
 	}
 }
 
+ProjectResource &ADrawable::getResource(void)
+{
+	return (_resource);
+}
+
 sf::Shape *ADrawable::getShape(void) const
 {
 	return (_shape);
+}
+
+sf::Texture *ADrawable::getTexture(void) const
+{
+	return (_texture);
 }
 
 void ADrawable::draw(sf::RenderTarget& target, sf::RenderStates states) const

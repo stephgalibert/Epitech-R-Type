@@ -29,7 +29,7 @@ public:
 	template<typename T>
 	AEntity *spawnEntity(void)
 	{
-		AEntity *entity = new T(_resource);
+		AEntity *entity = new T(*this, _resource);
 
 		try {
 			entity->init();
@@ -48,3 +48,5 @@ private:
 	ProjectResource &_resource;
 	std::list<AEntity *> _entities;
 };
+
+//World *TheWorld = NULL;

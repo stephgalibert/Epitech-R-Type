@@ -5,7 +5,7 @@
 class AEntity : public ADrawable
 {
 public:
-	AEntity(ProjectResource &_resource);
+	AEntity(World &world, ProjectResource &_resource);
 	virtual ~AEntity(void);
 
 	/* Callback utilisé par World pour init l'objet */
@@ -24,6 +24,7 @@ public:
 	bool isWaitingForRecycle(void) const;
 
 private:
+	World &_world;
 	/* cf. isWaitingForRecycle() */
 	bool _waitingForRecycle;
 };

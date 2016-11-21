@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class SplashScreen
+class SplashScreen //: public ALayer
 {
 public:
 	SplashScreen(void);

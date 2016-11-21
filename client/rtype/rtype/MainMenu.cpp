@@ -2,7 +2,9 @@
 
 MainMenu::MainMenu(ProjectResource &resource)
 	: AController(resource),
-	  _background(resource)
+	  _world(resource),
+	  _background(resource),
+	  _fsm(State::ST_Splash)
 {
 }
 
@@ -33,14 +35,24 @@ bool MainMenu::input(InputHandler &input)
 void MainMenu::update(float delta)
 {
 	std::cout << "main menu update" << std::endl;
-	_splash.update(delta);
-	_background.update(delta);
+
+	if (!_splash.isFinished()) {
+		_splash.update(delta);
+	}
+	else {
+		_background.update(delta);
+	}
 }
 
 void MainMenu::draw(sf::RenderWindow &window)
 {
-	_splash.draw(window);
-	window.draw(_background);
+	if (!_splash.isFinished()) {
+		_splash.draw(window);
+	}
+	else {
+		window.draw(_background);
+	}
+	//_world.display(window);
 }
 
 void MainMenu::recycle(void)
