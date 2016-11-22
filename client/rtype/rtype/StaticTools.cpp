@@ -4,7 +4,7 @@ std::ofstream StaticTools::Log;
 
 sf::Vector2i StaticTools::GetResolution(void)
 {
-	return (sf::Vector2i(1920, 1080));
+	return (sf::Vector2i(800, 480));
 }
 
 void StaticTools::GetPosition(uint32_t position, uint16_t &x, uint16_t &y)
@@ -23,7 +23,7 @@ uint32_t StaticTools::SerializePosition(uint16_t x, uint16_t y)
 	uint32_t position;
 
 	position = x;
-	position << 16;
+	position = position << 16;
 	position &= y;
 
 	return (position);

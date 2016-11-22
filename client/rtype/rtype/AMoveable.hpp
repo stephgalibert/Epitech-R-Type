@@ -8,7 +8,20 @@ public:
 	AMoveable();
 	virtual ~AMoveable();
 
-	//void move(int x, int y);
-	//void setPosition(int x)
+	virtual void init(void) = 0;
+	virtual void update(float delta) = 0;
+	virtual void destroy(void) = 0;
+
+	void move(void);
+
+	void setVelocity(float velocity);
+	float getVelocity(void) const;
+
+	void setAngle(float angle);
+	float getAngle(void) const;
+
+private:
+	float _velocity;
+	float _angle;
 };
 

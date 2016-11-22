@@ -17,10 +17,10 @@ void FPSCounter::init()
 		throw (std::runtime_error(e.what()));
 	}
 
-	_text.setCharacterSize(16);
+	_text.setCharacterSize(14);
 	_text.setFillColor(sf::Color::Yellow);
 	_text.setString("0 FPS");
-	_text.setPosition(sf::Vector2f(10, 10));
+	_text.setPosition(sf::Vector2f(7, 7));
 }
 
 void FPSCounter::update(float delta)

@@ -3,7 +3,11 @@
 #include <iostream>
 #include <string>
 
+#include "World.hpp"
 #include "AController.hpp"
+
+#include "Background.hpp"
+#include "Player.hpp"
 
 class GameController : public AController
 {
@@ -18,6 +22,7 @@ public:
 	virtual void recycle(void);
 
 private:
-
+	APC *_player;
+	Background _bg;
 };
 

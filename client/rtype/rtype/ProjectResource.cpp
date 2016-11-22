@@ -20,7 +20,6 @@ void ProjectResource::load(void)
 	try {
 		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
 		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
-		addTexture("background", "./rsrc/sprites/background.jpg");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);
@@ -40,7 +39,7 @@ sf::Texture *ProjectResource::getTextureByKey(std::string const& key)
 	if (_textures.find(key) != _textures.cend()) {
 		return (_textures[key]);
 	}
-	throw std::runtime_error("Texture " + key + "not found");
+	throw std::runtime_error("Texture " + key + " not found");
 }
 
 sf::Music &ProjectResource::getMusicByKey(std::string const& key)

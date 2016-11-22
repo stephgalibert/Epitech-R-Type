@@ -7,7 +7,7 @@ CMDCreateParty::CMDCreateParty(std::string const& host, std::string const& pwd)
 
 	_data = (CreateParty *)malloc(sizeof(CreateParty) + host.size() + pwd.size() + 2);
 	_data->cmdType = getCommandType();
-	_data->size = serial.size();
+	_data->size = (uint16_t)serial.size();
 
 	while (i < serial.size()) {
 		_data->data[i] = serial.at(i);

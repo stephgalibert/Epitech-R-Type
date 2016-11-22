@@ -17,17 +17,17 @@ void Background::init(void)
 {
 	//_fader = new Fader(Fader::FadeIn);
 
-	sf::Vector2i resolution = StaticTools::GetResolution();
+	_resolution = StaticTools::GetResolution();
 	sf::RectangleShape *shape = new sf::RectangleShape;
 
 	shape->setPosition(sf::Vector2f(0, 0));
-	shape->setSize(sf::Vector2f((float)resolution.x, (float)resolution.y));
+	shape->setSize(sf::Vector2f((float)_resolution.x, (float)_resolution.y));
 
 	setShape(shape);
-	setTexture(ProjectResource::TheProjectResource.getTextureByKey("background"));
+	setTexture(LevelResource::TheLevelResource.getTextureByKey("background"));
 
 	getTexture()->setRepeated(true);
-	getShape()->setTextureRect(sf::IntRect(0, 400, 1920, 1080));
+	getShape()->setTextureRect(sf::IntRect(0, 400, _resolution.x, _resolution.y));
 
 	_fsm = State::ST_Parallax;
 }
@@ -63,8 +63,8 @@ void Background::st_fadeIn(float delta)
 void Background::st_parallax(float delta)
 {
 	if (_delta > 0.03) {
-		getShape()->setTextureRect(sf::IntRect(getShape()->getTextureRect().left + (int)std::ceil(delta * 5.f), 400, 1920, 1080));
-	
+		getShape()->setTextureRect(sf::IntRect(getShape()->getTextureRect().left
+			+ (int)std::ceil(delta * 5.f), 400, _resolution.x, _resolution.y));
 		_delta = 0;
 	}
 }

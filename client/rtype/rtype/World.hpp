@@ -13,25 +13,20 @@
 class World
 {
 public:
-	static World *TheWorld;
+	static World TheWorld;
 public:
 	World(void);
 	~World(void);
 
-	/* Init le monde */
 	void init(void);
-
-	/* Met à jour le monde */
 	void update(float delta);
-
-	/* Affiche le monde */
 	void display(sf::RenderWindow &window);
+	void recycle(void);
 
-	/* Retourne une entité T alloué et initialisé */
 	template<typename T>
-	AEntity *spawnEntity(void)
+	T *spawnEntity(void)
 	{
-		AEntity *entity = new T(*this, _resource);
+		T *entity = new T;
 
 		try {
 			entity->init();
@@ -40,9 +35,7 @@ public:
 			delete (entity);
 			throw (std::runtime_error(e.what()));
 		}
-
 		_entities.push_front(entity);
-
 		return (entity);
 	}
 

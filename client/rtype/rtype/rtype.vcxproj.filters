@@ -43,6 +43,12 @@
     <Filter Include="Fichiers sources\protocol">
       <UniqueIdentifier>{70a2c2e7-5baa-43ae-8673-610ef1ed2618}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\game">
+      <UniqueIdentifier>{fffd7ae6-d601-4b1e-a81d-c6a114e3d412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\game">
+      <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,16 +60,10 @@
     <ClCompile Include="Application.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="FPSCounter.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="AController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Layouts.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="ACollidable.cpp">
@@ -147,17 +147,11 @@
     <ClCompile Include="InputHandler.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
-    <ClCompile Include="FirstLevel.cpp">
-      <Filter>Fichiers sources\resources</Filter>
-    </ClCompile>
     <ClCompile Include="MusicBox.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
     <ClCompile Include="SoundBox.cpp">
       <Filter>Fichiers sources\resources</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="CMDSpawn.cpp">
       <Filter>Fichiers sources\protocol</Filter>
@@ -201,30 +195,24 @@
     <ClCompile Include="Player.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="FPSCounter.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="SplashScreen.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ILevel.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="FirstLevel.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="AController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Background.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Layouts.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ADrawable.hpp">
@@ -332,9 +320,6 @@
     <ClInclude Include="SoundBox.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
-    <ClInclude Include="World.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Protocol.hpp">
       <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
@@ -382,6 +367,12 @@
     </ClInclude>
     <ClInclude Include="Player.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="World.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

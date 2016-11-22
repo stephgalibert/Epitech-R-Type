@@ -1,6 +1,6 @@
 #include "World.hpp"
 
-World *World::TheWorld = NULL;
+World World::TheWorld;
 
 World::World(void)
 {
@@ -8,10 +8,7 @@ World::World(void)
 
 World::~World(void)
 {
-	for (auto it : _entities) {
-		it->recycle();
-		delete (it);
-	}
+	recycle();
 }
 
 void World::init(void)
@@ -37,9 +34,16 @@ void World::update(float delta)
 
 void World::display(sf::RenderWindow &window)
 {
-	window.clear();
 	for (auto it : _entities) {
 		window.draw(*it);
 	}
-	window.display();
+}
+
+void World::recycle(void)
+{
+	for (auto it : _entities) {
+		it->recycle();
+		delete (it);
+	}
+	_entities.clear();
 }

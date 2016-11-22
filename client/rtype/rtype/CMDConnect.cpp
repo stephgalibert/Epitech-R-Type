@@ -7,7 +7,7 @@ CMDConnect::CMDConnect(std::string const& host, std::string const& pwd)
 
 	_data = (Connect *)malloc(sizeof(Connect) + serial.size() + 1);
 	_data->cmdType = getCommandType();
-	_data->size = serial.size();
+	_data->size = (uint16_t)serial.size();
 
 	while (i < serial.size()) {
 		_data->data[i] = serial.at(i);

@@ -7,7 +7,7 @@ Application::Application(void)
 	sf::ContextSettings context;
 	context.antialiasingLevel = 8;
 
-	_window.create(sf::VideoMode(reso.x, reso.y), "R-Type", sf::Style::Default, context);
+	_window.create(sf::VideoMode(reso.x, reso.y), "R-Type", sf::Style::Close, context);
 	_window.setPosition(sf::Vector2i(0, 0));
 	_window.setVerticalSyncEnabled(true);
 }
@@ -24,7 +24,7 @@ void Application::init(void)
 {
 	try {
 		StaticTools::Log.open(".log", std::ios::out | std::ios::app);
-		_fsm = State::ST_MainMenu;
+		_fsm = State::ST_Game;
 
 		ProjectResource::TheProjectResource.load();
 		_fps.init();

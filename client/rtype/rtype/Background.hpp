@@ -4,7 +4,7 @@
 #include <functional>
 
 #include "ADrawable.hpp"
-#include "ProjectResource.hpp"
+#include "LevelResource.hpp"
 #include "StaticTools.hpp"
 
 class Background : public ADrawable

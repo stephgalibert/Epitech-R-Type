@@ -4,7 +4,6 @@
 
 #include <SFML\Graphics.hpp>
 
-//#include "World.hpp"
 #include "ProjectResource.hpp"
 
 class ADrawable : public sf::Drawable, public sf::Transformable

@@ -6,31 +6,38 @@ GameController::GameController()
 
 GameController::~GameController(void)
 {
+	recycle();
 }
 
 void GameController::init(void)
 {
+	LevelResource::TheLevelResource.load();
+	World::TheWorld.init();
 
+	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
+	_player = World::TheWorld.spawnEntity<Player>();
+	_bg.init();
 }
 
 bool GameController::input(InputHandler &input)
 {
-	(void)input;
+	_player->input(input);
 	return (false);
 
 }
 void GameController::update(float delta)
 {
-	(void)delta;
-	std::cout << "game update" << std::endl;
+	_bg.update(delta);
+	World::TheWorld.update(delta);
 }
 
 void GameController::draw(sf::RenderWindow &window)
 {
-	(void)window;
+	window.draw(_bg);
+	World::TheWorld.display(window);
 }
 
 void GameController::recycle(void)
 {
-	std::cout << "game recycle" << std::endl;
+	World::TheWorld.recycle();
 }
