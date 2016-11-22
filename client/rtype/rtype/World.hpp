@@ -13,7 +13,9 @@
 class World
 {
 public:
-	World(ProjectResource &resource);
+	static World *TheWorld;
+public:
+	World(void);
 	~World(void);
 
 	/* Init le monde */
@@ -45,8 +47,5 @@ public:
 	}
 
 private:
-	ProjectResource &_resource;
 	std::list<AEntity *> _entities;
 };
-
-//World *TheWorld = NULL;

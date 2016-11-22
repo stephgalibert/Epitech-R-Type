@@ -11,8 +11,11 @@
 class StaticTools
 {
 public:
-	static Packet *CreatePacket(PacketType type, std::string const& data);
+	static CommandType GetPacketType(char *packet);
 	static sf::Vector2i GetResolution(void);
+	static void GetPosition(uint32_t position, uint16_t &x, uint16_t &y);
+	static std::string SerializeLoginServer(std::string const& host, std::string const& pwd);
+	static uint32_t SerializePosition(uint16_t x, uint16_t y);
 
 	static std::ofstream Log;
 };

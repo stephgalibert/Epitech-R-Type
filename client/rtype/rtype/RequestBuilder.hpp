@@ -19,9 +19,9 @@ public:
 	RequestBuilder(void);
 	~RequestBuilder(void);
 
-	std::unique_ptr<IRequest> create(PacketType type) const;
+	std::unique_ptr<IRequest> create(CommandType type) const;
 private:
 	//std::unique_ptr<IRequest> kill(void) const;
 
-	std::unordered_map<PacketType, Cmds> _cmds;
+	std::unordered_map<CommandType, Cmds> _cmds;
 };

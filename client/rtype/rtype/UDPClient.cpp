@@ -24,7 +24,7 @@ void UDPClient::connect(void)
 
 
 
-void UDPClient::write(Packet* packet)
+void UDPClient::write(ICommand *packet)
 {
 	bool writeInProgress = !_toWrites.empty();
 
@@ -37,7 +37,7 @@ void UDPClient::write(Packet* packet)
 void UDPClient::do_write(boost::system::error_code const& ec, size_t)
 {
 	if (!ec) {
-		Packet *packet = _toWrites.front();
+		ICommand *packet = _toWrites.front();
 		free(packet);
 
 		_toWrites.pop();
@@ -49,7 +49,7 @@ void UDPClient::do_write(boost::system::error_code const& ec, size_t)
 
 void UDPClient::read(void)
 {
-	_socket.async_receive_from(_read.prepare(2048), _sender,
+	_socket.async_receive_from(_read.prepare(1024), _sender,
 		boost::bind(&UDPClient::do_read, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
@@ -58,10 +58,10 @@ void UDPClient::read(void)
 void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 {
 	if (!ec) {
-		Packet const* packet = boost::asio::buffer_cast<Packet const *>(_read.data());
+		char const* packet = boost::asio::buffer_cast<char const *>(_read.data());
 		_read.consume(len);
 		
-		Packet *reply = NULL;
+		ICommand *reply = NULL;
 		_reqHandler.request(*this, packet, &reply);
 
 		if (reply) {
@@ -74,8 +74,9 @@ void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 
 void UDPClient::write(void)
 {
-	Packet *packet = _toWrites.front();
-	_socket.async_send_to(boost::asio::buffer(packet, sizeof(Packet) + packet->size), _sender,
+	ICommand *packet = _toWrites.front();
+	// get packet size
+	_socket.async_send_to(boost::asio::buffer(packet->getData(), packet->getSize()), _sender,
 		boost::bind(&UDPClient::do_write, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
@@ -111,13 +112,8 @@ bool UDPClient::isConnected(void) const
 	return (true);
 }
 
-IClient &UDPClient::operator<<(Packet *packet)
+IClient &UDPClient::operator<<(ICommand *packet)
 {
 	write(packet);
 	return (*this);
-}
-
-Packet *UDPClient::createPacket(PacketType type, std::string const& data)
-{
-	return (StaticTools::CreatePacket(type, data));
 }

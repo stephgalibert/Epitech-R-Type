@@ -11,11 +11,10 @@
 
 #include "InputHandler.hpp"
 #include "ProjectResource.hpp"
-#include "MainMenu.hpp"
-#include "Game.hpp"
+#include "MainMenuController.hpp"
+#include "GameController.hpp"
 
 #include "FPSCounter.hpp"
-
 
 class Application
 {
@@ -38,8 +37,9 @@ private:
 	};
 
 private:
+	void draw(void);
+
 	Timer _timer;
-	ProjectResource _resource;
 	InputHandler _inputHandler;
 	sf::RenderWindow _window;
 

@@ -16,7 +16,7 @@ public:
     
 	float getElapsedTime(void);
 
-	private:
+private:
 	std::chrono::steady_clock::time_point _begin;
 	std::chrono::steady_clock::time_point _current;
 	bool _running;

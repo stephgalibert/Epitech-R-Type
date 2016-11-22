@@ -6,5 +6,5 @@
 struct IRequest
 {
 	virtual ~IRequest(void) {}
-	virtual void execute(IClient &client, std::string const& param, Packet **toSend) = 0;
+	virtual void execute(IClient &client, char *data, char **toSend) = 0;
 };

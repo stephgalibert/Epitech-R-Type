@@ -1,7 +1,8 @@
 #include "World.hpp"
 
-World::World(ProjectResource &resource)
-	: _resource(resource)
+World *World::TheWorld = NULL;
+
+World::World(void)
 {
 }
 

@@ -3,13 +3,14 @@
 #include <unordered_map>
 #include <functional>
 
-#include "ALayer.hpp"
+#include "ADrawable.hpp"
+#include "ProjectResource.hpp"
 #include "StaticTools.hpp"
 
-class Background : public ALayer
+class Background : public ADrawable
 {
 public:
-	Background(ProjectResource &resource);
+	Background(void);
 	virtual ~Background(void);
 
 	virtual void init(void);
@@ -34,6 +35,7 @@ private:
 
 	std::unordered_map<State, std::function<void(float)> > _states;
 	sf::Vector2i _resolution;
+
 	//Fader *_fader;
 };
 

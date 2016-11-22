@@ -17,6 +17,7 @@ class ProjectResource : public IResourceManager
 public:
 	static const std::string MAIN_FONT;
 	static const std::string MAIN_THEME;
+	static ProjectResource TheProjectResource;
 
 public:
 	ProjectResource(void);

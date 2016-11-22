@@ -23,7 +23,7 @@ public:
 	RequestHandler(void);
 	~RequestHandler(void);
 
-	void request(IClient &client, Packet const *received, Packet **toSend);
+	void request(IClient &client, char const *received, ICommand **toSend);
 
  private:
 	//RequestBuilder _builder;

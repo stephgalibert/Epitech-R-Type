@@ -2,7 +2,7 @@
 
 #include <list>
 
-#include "ALayer.hpp"
+//#include "ALayer.hpp"
 
 class Layouts
 {
@@ -11,6 +11,6 @@ public:
 	~Layouts();
 
 private:
-	std::list<ALayer> _layers;
+	//std::list<ALayer> _layers;
 };
 

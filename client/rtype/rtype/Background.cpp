@@ -1,8 +1,7 @@
 #include "Background.hpp"
 
-Background::Background(ProjectResource &resource)
-	: ALayer(resource),
-	  _delta(0),
+Background::Background(void)
+	: _delta(0),
 	  _fsm(State::ST_FadeIn)
 {
 	_states[State::ST_None] = std::bind(&Background::st_none, this, std::placeholders::_1);
@@ -25,7 +24,7 @@ void Background::init(void)
 	shape->setSize(sf::Vector2f((float)resolution.x, (float)resolution.y));
 
 	setShape(shape);
-	setTexture(getResource().getTextureByKey("background"));
+	setTexture(ProjectResource::TheProjectResource.getTextureByKey("background"));
 
 	getTexture()->setRepeated(true);
 	getShape()->setTextureRect(sf::IntRect(0, 400, 1920, 1080));
@@ -65,6 +64,7 @@ void Background::st_parallax(float delta)
 {
 	if (_delta > 0.03) {
 		getShape()->setTextureRect(sf::IntRect(getShape()->getTextureRect().left + (int)std::ceil(delta * 5.f), 400, 1920, 1080));
+	
 		_delta = 0;
 	}
 }

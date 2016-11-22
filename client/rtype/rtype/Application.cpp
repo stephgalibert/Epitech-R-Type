@@ -26,11 +26,11 @@ void Application::init(void)
 		StaticTools::Log.open(".log", std::ios::out | std::ios::app);
 		_fsm = State::ST_MainMenu;
 
-		_resource.load();
-		_fps.init(_resource);
+		ProjectResource::TheProjectResource.load();
+		_fps.init();
 
-		_controllers[State::ST_MainMenu] = new MainMenu(_resource);
-		_controllers[State::ST_Game] = new Game(_resource);
+		_controllers[State::ST_MainMenu] = new MainMenuController();
+		_controllers[State::ST_Game] = new GameController();
 		
 		_controllers.at(_fsm)->init();
 	}
@@ -65,9 +65,16 @@ void Application::loop(void)
 		_fps.update(delta);
 		_controllers.at(_fsm)->update(delta);
 
-		_window.clear();
-		_controllers.at(_fsm)->draw(_window);
-		_fps.draw(_window);
-		_window.display();
+		draw();
 	}
+}
+
+void Application::draw(void)
+{
+	_window.clear();
+
+	_controllers.at(_fsm)->draw(_window);
+	_fps.draw(_window); // !
+
+	_window.display();
 }
