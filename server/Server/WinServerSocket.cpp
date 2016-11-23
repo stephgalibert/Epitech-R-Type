@@ -1,8 +1,6 @@
 #include "WinServerSocket.h"
 #include "WinSocket.h"
 
-
-
 WinServerSocket::WinServerSocket(SocketType type) {
 	_socket = 0;
 	_type = type;
@@ -19,11 +17,13 @@ WinServerSocket::~WinServerSocket() {
 bool WinServerSocket::init(std::string const & listenHost, short listenPort) {
 	SOCKADDR_IN sin;
 	int ret = 0;
+	u_long socket_state = 1;
 
 	sin.sin_addr.s_addr = inet_addr(listenHost.c_str());
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(listenPort);
 	_socket = socket(AF_INET, _type, 0);
+	ioctlsocket(_socket, FIONBIO, &socket_state);
 	if (_socket <= 0)
 		return false;
 	ret = bind(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin));
@@ -39,7 +39,7 @@ bool WinServerSocket::init(std::string const & listenHost, short listenPort) {
 }
 
 ISocket * WinServerSocket::accept() {
-	ISocket *socket = new WinSocket(_type);
+	ISocket *socket = new WinSocket(static_cast<WinSocket::SocketType>(_type));
 	SOCKADDR_IN csin;
 	SOCKET csock;
 	int sinsize;

@@ -4,15 +4,15 @@
 #include <sys/socket.h>
 
 
-class WinServerSocket :
+class UnixServerSocket :
 	public IServerSocket {
 public:
 	enum SocketType {
 		TCP = SOCK_STREAM,
 		UDP = SOCK_DGRAM
 	};
-	WinServerSocket(SocketType type);
-	virtual ~WinServerSocket();
+	UnixServerSocket(SocketType type);
+	virtual ~UnixServerSocket();
 	virtual bool init(std::string const & listenHost, short listenPort);
 	virtual ISocket* accept();
 private:
