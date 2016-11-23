@@ -10,7 +10,11 @@
 
 #include "Application.hpp"
 
-Application::Application(PartyManager & cm)
-  : _cm(cm)
-{
+Application::Application(PartyManager & pm) :_pm(pm) {
+}
+
+void Application::init() {
+}
+
+void Application::run() {
 }
