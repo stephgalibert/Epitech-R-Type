@@ -2,11 +2,10 @@
 
 Player::Player()
 {
-	_delta = 0.f;	
-	_targetFrame = 2;
-	_currentFrame = 2;
-
+	setTargetFrame(2);
+	setCurrentFrame(2);
 	setVelocity(150.f);
+	setID(1); // !
 }
 
 Player::~Player(void)
@@ -15,15 +14,16 @@ Player::~Player(void)
 
 void Player::init(void)
 {
+	setOrigin(17, 8);
 	sf::RectangleShape *shape = new sf::RectangleShape;
 	shape->setSize(sf::Vector2f(34, 16));
-	shape->setPosition(sf::Vector2f(20, 80));
+	setPosition(20, 80);
 
 	try {
 		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("players");
 
 		texture->setSmooth(true);
-		shape->setTextureRect(sf::IntRect(1, 0, 33, 16));
+		shape->setTextureRect(sf::IntRect(1, (getID() - 1) * 18, 33, 16));
 
 		setShape(shape);
 		setTexture(texture);
@@ -34,38 +34,14 @@ void Player::init(void)
 	}
 }
 
-void Player::update(float delta)
-{
-	_delta += delta;
-
-	updateFrame();
-	move(delta);
-}
-
 void Player::destroy(void)
 {
-}
-
-void Player::updateFrame(void)
-{
-	if (_delta > 0.1) {
-		if (_currentFrame != _targetFrame) {
-			if (_currentFrame < _targetFrame) {
-				++_currentFrame;
-			}
-			else if (_currentFrame > _targetFrame) {
-				--_currentFrame;
-			}
-		}
-		getShape()->setTextureRect(sf::IntRect(_currentFrame * 33 + 1, 0, 33, 16));
-		_delta = 0;
-	}
 }
 
 void Player::input(InputHandler &input)
 {
 	setAngle(-1);
-	_targetFrame = 2;
+	setTargetFrame(2);
 
 	if (input.isJoystickPresent()) {
 		joystick(input);
@@ -79,11 +55,11 @@ void Player::keyboard(InputHandler &input)
 {
 	if (input.isKeyDown(sf::Keyboard::Key::Up)) {
 		setAngle(-90.f);
-		_targetFrame = 4;
+		setTargetFrame(4);
 	}
 	else if (input.isKeyDown(sf::Keyboard::Key::Down)) {
 		setAngle(90.f);
-		_targetFrame = 0;
+		setTargetFrame(0);
 	}
 
 	if (input.isKeyDown(sf::Keyboard::Key::Right)) {
@@ -92,18 +68,22 @@ void Player::keyboard(InputHandler &input)
 	else if (input.isKeyDown(sf::Keyboard::Key::Left)) {
 		setAngle(-180.f - getAngle() / 2.f);
 	}
+
+	if (input.isKeyDown(sf::Keyboard::Space)) {
+		shoot();
+	}
 }
 
 void Player::joystick(InputHandler &input)
 {
 	if (input.getJoystickAxis(0, sf::Joystick::Y) < -InputHandler::JOYSTICK_DEAD_ZONE) {
 		setAngle(-90.f);
-		_targetFrame = 4;
+		setTargetFrame(4);
 	}
 	else if (input.getJoystickAxis(0, sf::Joystick::Y) > InputHandler::JOYSTICK_DEAD_ZONE)
 	{
 		setAngle(90.f);
-		_targetFrame = 0;
+		setTargetFrame(0);
 	}
 
 	if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
@@ -114,6 +94,6 @@ void Player::joystick(InputHandler &input)
 	}
 
 	if (input.isJoystickButtonDown(0)) {
-		std::cout << "fire" << std::endl;
+		shoot();
 	}
 }

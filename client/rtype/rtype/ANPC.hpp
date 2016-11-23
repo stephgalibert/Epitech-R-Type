@@ -5,8 +5,8 @@
 class ANPC : public AShip
 {
 public:
-	ANPC();
-	virtual ~ANPC();
+	ANPC(void);
+	virtual ~ANPC(void);
 
 	virtual void init(void) = 0;
 	virtual void update(float delta) = 0;

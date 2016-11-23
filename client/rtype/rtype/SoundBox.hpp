@@ -19,7 +19,9 @@ public:
 	virtual void setVolumeBySample(std::string const& sample, float value);
 	virtual float getVolumeBySample(std::string const& sample);
 	virtual void addSample(std::string const& name, MemoryFile const& file);
+	virtual void addSample(std::string const& name, std::string const& file);
 	virtual sf::SoundSource::Status getStatus(std::string const& name) const;
+	sf::Sound *getSound(std::string const& key) const;
 
 private:
 	struct SoundStruct

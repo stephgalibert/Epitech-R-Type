@@ -35,7 +35,7 @@ public:
 			delete (entity);
 			throw (std::runtime_error(e.what()));
 		}
-		_entities.push_front(entity);
+		_entities.push_back(entity);
 		return (entity);
 	}
 

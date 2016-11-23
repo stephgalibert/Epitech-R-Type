@@ -144,9 +144,6 @@
     <ClCompile Include="LevelResource.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
-      <Filter>Fichiers sources\tools</Filter>
-    </ClCompile>
     <ClCompile Include="MusicBox.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
@@ -200,6 +197,15 @@
     </ClCompile>
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="AExplosion.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +317,6 @@
     <ClInclude Include="ISound.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandler.hpp">
-      <Filter>Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
     <ClInclude Include="MusicBox.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
@@ -373,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="FPSCounter.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="AExplosion.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

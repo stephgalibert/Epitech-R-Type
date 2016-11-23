@@ -15,5 +15,6 @@ public:
 	virtual void setVolumeBySample(std::string const& sample, float value) = 0;
 	virtual float getVolumeBySample(std::string const& sample) = 0;
 	virtual void addSample(std::string const& name, MemoryFile const& file) = 0;
+	virtual void addSample(std::string const& name, std::string const& path) = 0;
 	virtual sf::SoundSource::Status getStatus(std::string const& name) const = 0;
 };

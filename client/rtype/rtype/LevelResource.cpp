@@ -16,7 +16,9 @@ void LevelResource::load(void)
 		addTexture("players", "./rsrc/sprites/players.png");
 		addTexture("background", "./rsrc/sprites/background.png");
 		addTexture("background2", "./rsrc/sprites/background2.png");
+		addTexture("explosions", "./rsrc/sprites/explosions.png");
 		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
+		addSound("explosions", "./rsrc/music/explosion.ogg");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);
@@ -41,6 +43,16 @@ sf::Music &LevelResource::getMusicByKey(std::string const& key)
 	}
 }
 
+sf::Sound *LevelResource::getSoundByKey(std::string const& key)
+{
+	try {
+		return (_sounds.getSound(key));
+	}
+	catch (std::exception const& e) {
+		throw (std::runtime_error(e.what()));
+	}
+}
+
 void LevelResource::addTexture(std::string const& key, std::string const& path)
 {
 	sf::Texture *texture = new sf::Texture;
@@ -53,4 +65,9 @@ void LevelResource::addTexture(std::string const& key, std::string const& path)
 void LevelResource::addMusic(std::string const& key, std::string const& path)
 {
 	_musics.addSample(key, path);
+}
+
+void LevelResource::addSound(std::string const& key, std::string const& path)
+{
+	_sounds.addSample(key, path);
 }

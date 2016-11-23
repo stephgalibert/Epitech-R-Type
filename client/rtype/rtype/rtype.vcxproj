@@ -162,6 +162,7 @@
     <ClCompile Include="ADestroyable.cpp" />
     <ClCompile Include="ADrawable.cpp" />
     <ClCompile Include="AEntity.cpp" />
+    <ClCompile Include="AExplosion.cpp" />
     <ClCompile Include="AMoveable.cpp" />
     <ClCompile Include="ANPC.cpp" />
     <ClCompile Include="APC.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="CMDPing.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Generator.cpp" />
@@ -213,6 +215,7 @@
     <ClInclude Include="AController.hpp" />
     <ClInclude Include="ADestroyable.hpp" />
     <ClInclude Include="AEntity.hpp" />
+    <ClInclude Include="AExplosion.hpp" />
     <ClInclude Include="AMoveable.hpp" />
     <ClInclude Include="ANPC.hpp" />
     <ClInclude Include="APC.hpp" />
@@ -231,6 +234,7 @@
     <ClInclude Include="CMDPing.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
+    <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="GameController.hpp" />
     <ClInclude Include="Generator.hpp" />

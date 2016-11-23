@@ -1,9 +1,9 @@
 #include "ANPC.hpp"
 
-ANPC::ANPC()
+ANPC::ANPC(void)
 {
 }
 
-ANPC::~ANPC()
+ANPC::~ANPC(void)
 {
 }

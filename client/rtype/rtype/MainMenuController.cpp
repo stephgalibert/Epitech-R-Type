@@ -31,8 +31,6 @@ bool MainMenuController::input(InputHandler &input)
 
 void MainMenuController::update(float delta)
 {
-	std::cout << "main menu update" << std::endl;
-
 	/*if (!_splash.isFinished()) {
 		_splash.update(delta);
 	}
@@ -54,5 +52,4 @@ void MainMenuController::draw(sf::RenderWindow &window)
 
 void MainMenuController::recycle(void)
 {
-	std::cout << "main menu recycle" << std::endl;
 }

@@ -20,7 +20,7 @@ public:
 	virtual void setVolumeBySample(std::string const& sample, float value);
 	virtual float getVolumeBySample(std::string const& sample);
 	virtual void addSample(std::string const& name, MemoryFile const& file);
-	void addSample(std::string const& name, std::string const& path);
+	virtual void addSample(std::string const& name, std::string const& path);
 	virtual sf::SoundSource::Status getStatus(std::string const& name) const;
 	sf::Music &getMusic(std::string const& key);
 private:
