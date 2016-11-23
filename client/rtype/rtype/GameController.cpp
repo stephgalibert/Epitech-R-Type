@@ -33,7 +33,8 @@ void GameController::update(float delta)
 
 void GameController::draw(sf::RenderWindow &window)
 {
-	window.draw(_bg);
+	//window.draw(_bg);
+	_bg.draw(window);
 	World::TheWorld.display(window);
 }
 

@@ -10,11 +10,11 @@ AMoveable::~AMoveable(void)
 {
 }
 
-void AMoveable::move(void)
+void AMoveable::move(float delta)
 {
 	if (_angle != -1) {
-		ADestroyable::move(std::cosf(_angle * (2.f * 3.14159265f) / 360.f) * _velocity,
-			std::sinf(_angle * (2.f * 3.14159265f) / 360.f) * _velocity);
+		ADestroyable::move(std::cosf(_angle * (2.f * 3.14159265f) / 360.f) * _velocity * delta,
+			std::sinf(_angle * (2.f * 3.14159265f) / 360.f) * _velocity * delta);
 	}
 }
 

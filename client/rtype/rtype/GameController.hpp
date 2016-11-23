@@ -22,7 +22,7 @@ public:
 	virtual void recycle(void);
 
 private:
-	APC *_player;
+	Player *_player;
 	Background _bg;
 };
 

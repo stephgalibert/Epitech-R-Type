@@ -12,7 +12,7 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
-	void move(void);
+	void move(float delta);
 
 	void setVelocity(float velocity);
 	float getVelocity(void) const;

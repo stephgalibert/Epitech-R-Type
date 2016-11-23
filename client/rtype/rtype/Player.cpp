@@ -6,7 +6,7 @@ Player::Player()
 	_targetFrame = 2;
 	_currentFrame = 2;
 
-	setVelocity(3.f);
+	setVelocity(150.f);
 }
 
 Player::~Player(void)
@@ -39,7 +39,7 @@ void Player::update(float delta)
 	_delta += delta;
 
 	updateFrame();
-	move();
+	move(delta);
 }
 
 void Player::destroy(void)
@@ -65,7 +65,6 @@ void Player::updateFrame(void)
 void Player::input(InputHandler &input)
 {
 	setAngle(-1);
-
 	_targetFrame = 2;
 
 	if (input.isKeyDown(sf::Keyboard::Key::Up)) {
