@@ -67,6 +67,16 @@ void Player::input(InputHandler &input)
 	setAngle(-1);
 	_targetFrame = 2;
 
+	if (input.isJoystickPresent()) {
+		joystick(input);
+	}
+	else {
+		keyboard(input);
+	}
+}
+
+void Player::keyboard(InputHandler &input)
+{
 	if (input.isKeyDown(sf::Keyboard::Key::Up)) {
 		setAngle(-90.f);
 		_targetFrame = 4;
@@ -81,5 +91,29 @@ void Player::input(InputHandler &input)
 	}
 	else if (input.isKeyDown(sf::Keyboard::Key::Left)) {
 		setAngle(-180.f - getAngle() / 2.f);
+	}
+}
+
+void Player::joystick(InputHandler &input)
+{
+	if (input.getJoystickAxis(0, sf::Joystick::Y) < -InputHandler::JOYSTICK_DEAD_ZONE) {
+		setAngle(-90.f);
+		_targetFrame = 4;
+	}
+	else if (input.getJoystickAxis(0, sf::Joystick::Y) > InputHandler::JOYSTICK_DEAD_ZONE)
+	{
+		setAngle(90.f);
+		_targetFrame = 0;
+	}
+
+	if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
+		setAngle(-180.f - getAngle() / 2.f);
+	}
+	else if (input.getJoystickAxis(0, sf::Joystick::X) > InputHandler::JOYSTICK_DEAD_ZONE) {
+		setAngle(getAngle() / 2.f);
+	}
+
+	if (input.isJoystickButtonDown(0)) {
+		std::cout << "fire" << std::endl;
 	}
 }

@@ -20,6 +20,8 @@ public:
 
 private:
 	void updateFrame(void);
+	void keyboard(InputHandler &input);
+	void joystick(InputHandler &input);
 
 	float _delta;
 	uint8_t _targetFrame;
