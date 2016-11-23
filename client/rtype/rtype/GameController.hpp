@@ -23,6 +23,7 @@ public:
 
 private:
 	Player *_player;
-	Background _bg;
+	Background _back;
+	Background _front;
 };
 

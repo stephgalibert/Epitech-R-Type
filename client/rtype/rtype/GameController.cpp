@@ -1,6 +1,8 @@
 #include "GameController.hpp"
 
 GameController::GameController()
+	: _back("background", 0.03f),
+	  _front("background2", 0.01f)
 {
 }
 
@@ -16,7 +18,8 @@ void GameController::init(void)
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
 	_player = World::TheWorld.spawnEntity<Player>();
-	_bg.init();
+	_back.init();
+	_front.init();
 }
 
 bool GameController::input(InputHandler &input)
@@ -27,14 +30,15 @@ bool GameController::input(InputHandler &input)
 }
 void GameController::update(float delta)
 {
-	_bg.update(delta);
+	_back.update(delta);
+	_front.update(delta);
 	World::TheWorld.update(delta);
 }
 
 void GameController::draw(sf::RenderWindow &window)
 {
-	//window.draw(_bg);
-	_bg.draw(window);
+	_back.draw(window);
+	_front.draw(window);
 	World::TheWorld.display(window);
 }
 

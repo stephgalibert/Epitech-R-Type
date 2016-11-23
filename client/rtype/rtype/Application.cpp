@@ -28,6 +28,7 @@ void Application::init(void)
 
 		ProjectResource::TheProjectResource.load();
 		_fps.init();
+		_inputHandler.init();
 
 		_controllers[State::ST_MainMenu] = new MainMenuController();
 		_controllers[State::ST_Game] = new GameController();

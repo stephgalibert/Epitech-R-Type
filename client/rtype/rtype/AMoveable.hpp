@@ -22,6 +22,7 @@ public:
 
 private:
 	float _velocity;
-	float _angle;
+	float _degrees;
+	float _radians;
 };
 
