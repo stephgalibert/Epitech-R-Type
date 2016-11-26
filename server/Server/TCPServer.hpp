@@ -13,6 +13,8 @@ public:
 	virtual void close(void);
 
 private:
+	void do_accept(ISocket *socket);
+
 	IServerSocket *_ss;
 };
 

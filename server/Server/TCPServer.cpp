@@ -31,12 +31,15 @@ void TCPServer::open(void)
 {
 	ISocket *socket = _ss->accept();
 
-	if (socket != NULL) {
-
-	}
+	StaticTools::Log << "received connexion" << std::endl;
 }
 
 void TCPServer::close(void)
 {
 	
+}
+
+void TCPServer::do_accept(ISocket *socket)
+{
+
 }

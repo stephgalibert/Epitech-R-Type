@@ -83,11 +83,10 @@ void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip:
 {
 	if (!ec) {
 		StaticTools::Log << "Connected in TCP mod" << std::endl;
-		StaticTools::Log << "Handshaking ..." << std::endl;
 	} else {
+		StaticTools::Log << _remote << ":" << _port << "' is inaccessible (" << ec << ")" << std::endl;
 		_timer.expires_from_now(boost::posix_time::seconds(5));
 		_timer.async_wait(boost::bind(&TCPClient::connect, this));
-		StaticTools::Log << _remote << ":" << _port << "' is inaccessible (" << ec << ")" << std::endl;
 	}
 }
 

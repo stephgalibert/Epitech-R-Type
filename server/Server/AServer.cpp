@@ -9,12 +9,12 @@ AServer::~AServer(void)
 {
 }
 
-PartyManager const& AServer::getPartyManager(void) const
-{
-	return _pm;
-}
-
 RequestHandler const& AServer::getRequestHandler(void) const
 {
 	return _rh;
+}
+
+PartyManager &AServer::getPartyManager(void)
+{
+	return _pm;
 }

@@ -1,6 +1,7 @@
 #include "Application.hpp"
 
 Application::Application(void)
+	: _client("127.0.0.1", "4242")
 {
 	sf::Vector2i reso = StaticTools::GetResolution();
 
@@ -23,7 +24,10 @@ Application::~Application(void)
 void Application::init(void)
 {
 	try {
-		StaticTools::Log.open(".log", std::ios::out | std::ios::app);
+		StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
+		_client.connect();
+		_client.run();
+
 		_fsm = State::ST_Game;
 
 		ProjectResource::TheProjectResource.load();
@@ -57,6 +61,7 @@ void Application::loop(void)
 		{
 			_inputHandler.OnEvent(event);
 			if (_inputHandler.isExiting()) {
+				_client.disconnect();
 				_window.close();
 			}
 		}

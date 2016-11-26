@@ -19,6 +19,7 @@ public:
 
 	std::shared_ptr<Party> getCurrentParty(void) const;
 	void setID(int id);
+
 private:
 	PartyManager &_pm;
 	RequestHandler &_rh;

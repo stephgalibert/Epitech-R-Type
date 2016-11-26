@@ -30,6 +30,7 @@
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="StaticTools.cpp" />
     <ClCompile Include="TCPServer.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="UDPServer.cpp" />
     <ClCompile Include="UnixServerSocket.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -58,6 +59,7 @@
     <ClInclude Include="SocketType.hpp" />
     <ClInclude Include="StaticTools.hpp" />
     <ClInclude Include="TCPServer.hpp" />
+    <ClInclude Include="ThreadPool.hpp" />
     <ClInclude Include="UDPServer.hpp" />
     <ClInclude Include="UnixServerSocket.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

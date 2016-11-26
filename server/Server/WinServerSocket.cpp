@@ -20,7 +20,7 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 {
 	SOCKADDR_IN sin;
 	int ret = 0;
-	u_long socket_state = 1;
+	u_long socket_state = 0; // 1 pour non-bloquant
 
 	sin.sin_addr.s_addr = inet_addr(listenHost.c_str());
 	sin.sin_family = AF_INET;

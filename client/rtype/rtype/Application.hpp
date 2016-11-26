@@ -13,6 +13,7 @@
 #include "ProjectResource.hpp"
 #include "MainMenuController.hpp"
 #include "GameController.hpp"
+#include "TCPClient.hpp"
 
 #include "FPSCounter.hpp"
 
@@ -39,6 +40,7 @@ private:
 private:
 	void draw(void);
 
+	TCPClient _client;
 	Timer _timer;
 	InputHandler _inputHandler;
 	sf::RenderWindow _window;
@@ -46,6 +48,6 @@ private:
 	State _fsm;
 	std::unordered_map<State, AController *> _controllers;
 
-	FPSCounter _fps;
+	FPSCounter _fps; // tmp
 };
 
