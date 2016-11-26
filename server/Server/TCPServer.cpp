@@ -1,15 +1,18 @@
 #include "TCPServer.hpp"
 
+void TCPServer::AsyncAccept(IServerSocket *ss, std::function<void(ISocket *)> function)
+{
+	ThreadPool::Pool.QueueTask(new AcceptAsyncTask(ss, function));
+}
+
 TCPServer::TCPServer(PartyManager &pm)
-	: AServer(pm), _ss(NULL)
+	: AServer(pm)
 {
 }
 
 TCPServer::~TCPServer(void)
 {
-	if (_ss) {
-		delete (_ss);
-	}
+
 }
 
 void TCPServer::init(void)
@@ -17,7 +20,7 @@ void TCPServer::init(void)
 #ifdef _WIN32
 	_ss = new WinServerSocket(SocketType::TCP);
 #else
-	_ss = new UnixServerSocket(SocketType::UDP);
+	_ss = new UnixServerSocket(SocketType::TCP);
 #endif
 	try {
 		_ss->init("127.0.0.1", 4242);
@@ -29,9 +32,7 @@ void TCPServer::init(void)
 
 void TCPServer::open(void)
 {
-	ISocket *socket = _ss->accept();
-
-	StaticTools::Log << "received connexion" << std::endl;
+	accept();
 }
 
 void TCPServer::close(void)
@@ -39,7 +40,13 @@ void TCPServer::close(void)
 	
 }
 
+void TCPServer::accept(void)
+{
+	AsyncAccept(_ss, std::bind(&TCPServer::do_accept, this, std::placeholders::_1));
+}
+
 void TCPServer::do_accept(ISocket *socket)
 {
-
+	StaticTools::Log << "do_accept" << std::endl;
+	accept();
 }

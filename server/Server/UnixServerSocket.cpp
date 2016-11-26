@@ -14,7 +14,7 @@ UnixServerSocket::~UnixServerSocket(void)
 		closesocket(_socket);
 }
 
-bool UnixServerSocket::init(std::string const & listenHost, short listenPort)
+void UnixServerSocket::init(std::string const & listenHost, short listenPort)
 {
 	SOCKADDR_IN sin;
 	int ret = 0;

@@ -13,14 +13,20 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\AsyncTask">
+      <UniqueIdentifier>{75284376-5ccc-4c2e-bd80-16843f68695f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Socket">
+      <UniqueIdentifier>{bfe5bfc2-1cdb-4dfe-8379-0e6ffed6163c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Socket">
+      <UniqueIdentifier>{55244859-0544-450f-9e35-1eceb950fb14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\AsyncTask">
+      <UniqueIdentifier>{cfa83f92-5607-4329-9649-cf37c19d1558}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WinSocket.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="WinServerSocket.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -57,14 +63,23 @@
     <ClCompile Include="StaticTools.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="UnixServerSocket.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="UnixSocket.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="UnixServerSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="UnixSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="WinServerSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="WinSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="AcceptAsyncTask.cpp">
+      <Filter>Fichiers sources\AsyncTask</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,12 +87,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="IRequest.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="IServerSocket.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ISocket.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Protocol.hpp">
@@ -104,12 +113,6 @@
     <ClInclude Include="RequestHandler.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="WinServerSocket.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="WinSocket.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="SocketType.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -122,14 +125,32 @@
     <ClInclude Include="StaticTools.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="UnixServerSocket.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="UnixSocket.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadPool.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="UnixServerSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="UnixSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="WinServerSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="WinSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="IServerSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="ISocket.hpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="ITask.hpp">
+      <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="AcceptAsyncTask.hpp">
+      <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

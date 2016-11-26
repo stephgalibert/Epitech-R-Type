@@ -1,49 +1,18 @@
 #include "ThreadPool.hpp"
 
-/*void test() {
-	std::cout << "LOOOL" << std::endl;
-}
-
-int main() {
-	ThreadPool Tp(8);
-
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	Tp.QueueTask(&test);
-	_sleep(500000);
-	return 0;
-}*/
-
 ThreadPool ThreadPool::Pool(16);
 
-void ThreadPool::QueueTask(Task t)
+void ThreadPool::QueueTask(ITask *task)
 {
+	std::cout << "before lock" << std::endl;
 	_mtx.lock();
-	_vtask.push_back(t);
+	std::cout << "after lock" << std::endl;
+	_vtask.push_back(task);
+	std::cout << "before unlock" << std::endl;
 	_mtx.unlock();
+	std::cout << "after unlock" << std::endl;
 	_condvar.notify_one();
+	
 }
 
 ThreadPool::ThreadPool(int nb_thread)
@@ -65,15 +34,15 @@ ThreadPool::~ThreadPool(void)
 	}
 }
 
-Task ThreadPool::getTask(void)
+ITask *ThreadPool::getTask(void)
 {
-	Task t = NULL;
+	ITask *task = NULL;
 
 	if (!_vtask.empty()) {
-		t = _vtask[0];
+		task = _vtask[0];
 		_vtask.erase(_vtask.begin());
 	}
-	return (t);
+	return (task);
 }
 
 void ThreadPool::start_func(int i)
@@ -81,12 +50,15 @@ void ThreadPool::start_func(int i)
 	while (_running)
 	{
 		std::unique_lock<std::mutex> lock(_mtx);
-		while (_running && _vtask.empty())
+		while (_running && _vtask.empty()) {
 			_condvar.wait(lock);
-		Task t = getTask();
+		}
+		ITask *task = getTask();
 		std::cout << "Thread " << i << " : ";
-		if (t != NULL)
-			t();
+		if (task != NULL) {
+			task->doInBackground();
+			delete (task);
+		}
 	}
 	std::cout << "End" << std::endl;
 }

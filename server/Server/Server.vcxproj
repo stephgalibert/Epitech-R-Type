@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AcceptAsyncTask.cpp" />
     <ClCompile Include="AConnection.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AServer.cpp" />
@@ -44,6 +45,7 @@
     <ClCompile Include="WinSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AcceptAsyncTask.hpp" />
     <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
@@ -51,6 +53,7 @@
     <ClInclude Include="IRequest.hpp" />
     <ClInclude Include="IServerSocket.hpp" />
     <ClInclude Include="ISocket.hpp" />
+    <ClInclude Include="ITask.hpp" />
     <ClInclude Include="Party.hpp" />
     <ClInclude Include="PartyManager.hpp" />
     <ClInclude Include="Protocol.hpp" />

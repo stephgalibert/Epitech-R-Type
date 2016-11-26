@@ -6,7 +6,9 @@
 #include <mutex>
 #include <vector>
 
-typedef void (*Task)();
+#include "ITask.hpp"
+
+//typedef void (*Task)();
 
 class ThreadPool 
 {
@@ -16,16 +18,16 @@ public:
 	ThreadPool(int nb_thread);
 	~ThreadPool(void);
 
-	void QueueTask(Task t);
+	void QueueTask(ITask *task);
 
 private:
 	void start_func(int i);
-	Task getTask(void);
+	ITask *getTask(void);
 
 	std::condition_variable _condvar;
 	std::vector<std::thread> _vth;
 	std::mutex _mtx;
-	std::vector<Task> _vtask;
+	std::vector<ITask *> _vtask;
 	bool _running;
 };
 
