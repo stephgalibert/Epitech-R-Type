@@ -207,6 +207,9 @@
     <ClCompile Include="AExplosion.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -385,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="AExplosion.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

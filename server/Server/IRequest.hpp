@@ -2,8 +2,9 @@
 
 class AConnection;
 
-class IRequest {
+class IRequest
+{
 public:
-	virtual ~IRequest() {}
+	virtual ~IRequest(void) {}
 	virtual void execute(AConnection *server, char *data, char **reply) = 0;
 };

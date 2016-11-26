@@ -1,18 +1,20 @@
-#include "WinSocket.h"
+#include "WinSocket.hpp"
 
-WinSocket::WinSocket(SocketType type) {
+WinSocket::WinSocket(SocketType type)
+{
 	_socket = 0;
 	_type = type;
 	WSAStartup(MAKEWORD(2, 0), &_wsdata);
 }
 
-WinSocket::~WinSocket() {
+WinSocket::~WinSocket(void) {
 	if (_socket)
 		closesocket(_socket);
 	WSACleanup();
 }
 
-bool WinSocket::connectToServer(std::string const & host, short port) {
+bool WinSocket::connectToServer(std::string const & host, short port)
+{
 	SOCKADDR_IN sin;
 	int ret = 0;
 	_socket = socket(AF_INET, _type, 0);
@@ -22,19 +24,22 @@ bool WinSocket::connectToServer(std::string const & host, short port) {
 	sin.sin_addr.s_addr = inet_addr(host.c_str());
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
-	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin))) {
+	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin)))
+	{
 		closesocket(_socket);
 		return false;
 	}
 	return true;
 }
 
-bool WinSocket::connectFromAcceptedFd(int fd) {
+bool WinSocket::connectFromAcceptedFd(int fd)
+{
 	_socket = fd;
 	return true;
 }
 
-int WinSocket::recv(std::string & buffer, int blocksize) {
+int WinSocket::recv(std::string & buffer, int blocksize)
+{
 	char *buf = new char[blocksize] {0};
 	int ret = 0;
 

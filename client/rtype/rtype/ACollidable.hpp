@@ -12,6 +12,7 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
+	virtual void collision(ACollidable *other) = 0;
 	bool isCollidingWith(ACollidable *other);
 	sf::FloatRect getBoundingBox(void) const;
 };

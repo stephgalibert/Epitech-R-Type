@@ -27,6 +27,7 @@ void World::update(float delta)
 		}
 		else {
 			(*it)->update(delta);
+			
 			++it;
 		}
 	}

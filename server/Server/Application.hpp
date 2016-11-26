@@ -10,16 +10,21 @@
 
 #pragma once
 
-#include "PartyManager.h"
 #include <vector>
-#include "AServer.h"
 
-class Application {
- public:
-  Application(PartyManager & pm);
-  void init();
-  void run();
- private:
-  PartyManager & _pm;
-  std::vector<AServer> _servers;
+#include "AServer.hpp"
+//#include "PartyManager.h"
+
+class Application
+{
+public:
+	Application(void);
+	~Application(void);
+
+	void init(void);
+	void run(void);
+
+private:
+	//PartyManager _pm;
+	std::vector<AServer *> _servers;
 };

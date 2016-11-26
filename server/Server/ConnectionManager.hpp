@@ -1,17 +1,21 @@
 #pragma once
-#include <vector>
+
+#include <set>
 #include <memory>
 
 class AConnection;
 
-class ConnectionManager {
+class ConnectionManager
+{
 public:
-	ConnectionManager();
-	~ConnectionManager();
+	ConnectionManager(void);
+	~ConnectionManager(void);
+
 	void add(std::shared_ptr<AConnection> connexion);
 	void leave(std::shared_ptr<AConnection> connexion);
 	void broadcast(std::shared_ptr<AConnection> connexion);
+
 private:
-	std::vector<std::shared_ptr<AConnection>> _connections;
+	std::set<std::shared_ptr<AConnection> > _connections;
 };
 

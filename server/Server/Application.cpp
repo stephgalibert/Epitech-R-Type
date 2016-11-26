@@ -10,11 +10,21 @@
 
 #include "Application.hpp"
 
-Application::Application(PartyManager & pm) :_pm(pm) {
+Application::Application(void)
+{
+
 }
 
-void Application::init() {
+Application::~Application(void)
+{
 }
 
-void Application::run() {
+void Application::init(void)
+{
+
+}
+
+void Application::run(void)
+{
+
 }

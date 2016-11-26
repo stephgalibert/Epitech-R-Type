@@ -1,16 +1,20 @@
-#include "AServer.h"
+#include "AServer.hpp"
 
+AServer::AServer(PartyManager &pm)
+	: _pm(pm)
+{
+}
 
+AServer::~AServer(void)
+{
+}
 
-const PartyManager & AServer::getPartyManager(void) const {
+PartyManager const& AServer::getPartyManager(void) const
+{
 	return _pm;
 }
 
-const RequestHandler & AServer::getRequestHandler(void) const {
+RequestHandler const& AServer::getRequestHandler(void) const
+{
 	return _rh;
 }
-
-AServer::AServer(PartyManager &pm) : _pm(pm) {}
-
-
-AServer::~AServer() {}

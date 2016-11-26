@@ -28,26 +28,24 @@
     <ClCompile Include="PartyManager.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
-    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WinServerSocket.cpp" />
     <ClCompile Include="WinSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AConnection.h" />
+    <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
-    <ClInclude Include="AServer.h" />
-    <ClInclude Include="ConnectionManager.h" />
+    <ClInclude Include="AServer.hpp" />
+    <ClInclude Include="ConnectionManager.hpp" />
     <ClInclude Include="IRequest.hpp" />
     <ClInclude Include="IServerSocket.hpp" />
     <ClInclude Include="ISocket.hpp" />
-    <ClInclude Include="Party.h" />
-    <ClInclude Include="PartyManager.h" />
+    <ClInclude Include="Party.hpp" />
+    <ClInclude Include="PartyManager.hpp" />
     <ClInclude Include="Protocol.hpp" />
-    <ClInclude Include="RequestBuilder.h" />
-    <ClInclude Include="RequestHandler.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="WinServerSocket.h" />
-    <ClInclude Include="WinSocket.h" />
+    <ClInclude Include="RequestBuilder.hpp" />
+    <ClInclude Include="RequestHandler.hpp" />
+    <ClInclude Include="WinServerSocket.hpp" />
+    <ClInclude Include="WinSocket.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8307FF3E-F20A-48EF-887F-9FC713A56F2F}</ProjectGuid>

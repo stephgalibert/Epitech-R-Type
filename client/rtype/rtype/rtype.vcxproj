@@ -185,6 +185,7 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Generator.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="LevelResource.cpp" />
     <ClCompile Include="LoadArea.cpp" />
     <ClCompile Include="main.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="IRequest.hpp" />
     <ClInclude Include="IResourceManager.hpp" />
     <ClInclude Include="ISound.hpp" />
+    <ClInclude Include="Laser.hpp" />
     <ClInclude Include="LevelResource.hpp" />
     <ClInclude Include="LoadArea.hpp" />
     <ClInclude Include="MainMenuController.hpp" />

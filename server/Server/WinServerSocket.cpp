@@ -1,20 +1,23 @@
-#include "WinServerSocket.h"
-#include "WinSocket.h"
+#include "WinServerSocket.hpp"
 
-WinServerSocket::WinServerSocket(SocketType type) {
+
+WinServerSocket::WinServerSocket(SocketType type)
+{
 	_socket = 0;
 	_type = type;
 	WSAStartup(MAKEWORD(2, 0), &_wsdata);
 }
 
 
-WinServerSocket::~WinServerSocket() {
+WinServerSocket::~WinServerSocket(void)
+{
 	if (_socket < 1)
 		closesocket(_socket);
 	WSACleanup();
 }
 
-bool WinServerSocket::init(std::string const & listenHost, short listenPort) {
+bool WinServerSocket::init(std::string const & listenHost, short listenPort)
+{
 	SOCKADDR_IN sin;
 	int ret = 0;
 	u_long socket_state = 1;
@@ -36,9 +39,11 @@ bool WinServerSocket::init(std::string const & listenHost, short listenPort) {
 		closesocket(_socket);
 		_socket = 0;
 	}
+	return (true);
 }
 
-ISocket * WinServerSocket::accept() {
+ISocket * WinServerSocket::accept(void)
+{
 	ISocket *socket = new WinSocket(static_cast<WinSocket::SocketType>(_type));
 	SOCKADDR_IN csin;
 	SOCKET csock;
