@@ -28,6 +28,17 @@
     <ClCompile Include="PartyManager.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
+    <ClCompile Include="StaticTools.cpp" />
+    <ClCompile Include="TCPServer.cpp" />
+    <ClCompile Include="UDPServer.cpp" />
+    <ClCompile Include="UnixServerSocket.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="UnixSocket.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="WinServerSocket.cpp" />
     <ClCompile Include="WinSocket.cpp" />
   </ItemGroup>
@@ -44,6 +55,18 @@
     <ClInclude Include="Protocol.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
+    <ClInclude Include="SocketType.hpp" />
+    <ClInclude Include="StaticTools.hpp" />
+    <ClInclude Include="TCPServer.hpp" />
+    <ClInclude Include="UDPServer.hpp" />
+    <ClInclude Include="UnixServerSocket.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="UnixSocket.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="WinServerSocket.hpp" />
     <ClInclude Include="WinSocket.hpp" />
   </ItemGroup>

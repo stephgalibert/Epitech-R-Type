@@ -12,8 +12,9 @@
 
 #include <vector>
 
-#include "AServer.hpp"
-//#include "PartyManager.h"
+#include "TCPServer.hpp"
+#include "PartyManager.hpp"
+#include "StaticTools.hpp"
 
 class Application
 {
@@ -25,6 +26,6 @@ public:
 	void run(void);
 
 private:
-	//PartyManager _pm;
+	PartyManager _pm;
 	std::vector<AServer *> _servers;
 };

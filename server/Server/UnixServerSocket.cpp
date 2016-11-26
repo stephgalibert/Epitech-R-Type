@@ -1,18 +1,21 @@
-#include "UnixServerSocket.h"
-#include "UnixSocket.h"
+#include "UnixServerSocket.hpp"
+#include "UnixSocket.hpp"
 
-UnixServerSocket::UnixServerSocket(SocketType type) {
+UnixServerSocket::UnixServerSocket(SocketType type)
+{
 	_type = type;
 	_socket = 0;
 }
 
 
-UnixServerSocket::~UnixServerSocket() {
+UnixServerSocket::~UnixServerSocket(void)
+{
 	if (_socket < 1)
 		closesocket(_socket);
 }
 
-bool UnixServerSocket::init(std::string const & listenHost, short listenPort) {
+bool UnixServerSocket::init(std::string const & listenHost, short listenPort)
+{
 	SOCKADDR_IN sin;
 	int ret = 0;
 
@@ -34,7 +37,8 @@ bool UnixServerSocket::init(std::string const & listenHost, short listenPort) {
 	}
 }
 
-ISocket * UnixServerSocket::accept() {
+ISocket * UnixServerSocket::accept(void)
+{
 	ISocket *socket = new UnixSocket(_type);
 	SOCKADDR_IN csin;
 	SOCKET csock;

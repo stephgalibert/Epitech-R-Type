@@ -50,7 +50,8 @@ int WinSocket::recv(std::string & buffer, int blocksize)
 	return ret;
 }
 
-std::string WinSocket::recv() {
+std::string WinSocket::recv(void)
+{
 	std::string ret;
 	std::string buf;
 
@@ -61,6 +62,7 @@ std::string WinSocket::recv() {
 	return ret;
 }
 
-int WinSocket::send(std::string const & data) {
+int WinSocket::send(std::string const & data)
+{
 	return ::send(_socket, data.c_str(), data.length() + 1, 0);
 }

@@ -6,6 +6,7 @@ class IServerSocket
 {
 public:
 	virtual ~IServerSocket(void) {}
-	virtual bool init(std::string const & listenHost, short listenPort) = 0;
+
+	virtual void init(std::string const & listenHost, short listenPort) = 0;
 	virtual ISocket* accept(void) = 0;
 };

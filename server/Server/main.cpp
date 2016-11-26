@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "StaticTools.hpp"
 #include "Application.hpp"
 
 int main(int ac, char **av)
@@ -10,7 +11,7 @@ int main(int ac, char **av)
 		app.init();
 	}
 	catch (std::exception const& e) {
-		std::cerr << e.what() << std::endl;
+		StaticTools::Log << e.what() << std::endl;
 	}
 
 	app.run();

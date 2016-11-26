@@ -1,13 +1,17 @@
 #pragma once
+
 #include <map>
 #include <functional>
+
 #include "Protocol.hpp"
 #include "IRequest.hpp"
 
-class RequestBuilder {
+class RequestBuilder
+{
 public:
-	RequestBuilder();
-	~RequestBuilder();
+	RequestBuilder(void);
+	~RequestBuilder(void);
+
 	IRequest *create_SpawnRequest(void);
 	IRequest *create_MoveRequest(void);
 	IRequest *create_CollisionRequest(void);
@@ -15,7 +19,8 @@ public:
 	IRequest *create_PingRequest(void);
 	IRequest *create_FireRequest(void);
 	IRequest *create_GameStatusRequest(void);
+
 private:
-	std::map<CommandType, std::function<void()>> _requests;
+	std::map<CommandType, std::function<IRequest *(void)> > _requests;
 };
 

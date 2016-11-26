@@ -16,7 +16,7 @@ WinServerSocket::~WinServerSocket(void)
 	WSACleanup();
 }
 
-bool WinServerSocket::init(std::string const & listenHost, short listenPort)
+void WinServerSocket::init(std::string const & listenHost, short listenPort)
 {
 	SOCKADDR_IN sin;
 	int ret = 0;
@@ -27,8 +27,9 @@ bool WinServerSocket::init(std::string const & listenHost, short listenPort)
 	sin.sin_port = htons(listenPort);
 	_socket = socket(AF_INET, _type, 0);
 	ioctlsocket(_socket, FIONBIO, &socket_state);
-	if (_socket <= 0)
-		return false;
+	if (_socket <= 0) {
+		throw (std::runtime_error("bad socket"));
+	}
 	ret = bind(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin));
 	if (ret < 0) {
 		closesocket(_socket);
@@ -39,12 +40,11 @@ bool WinServerSocket::init(std::string const & listenHost, short listenPort)
 		closesocket(_socket);
 		_socket = 0;
 	}
-	return (true);
 }
 
-ISocket * WinServerSocket::accept(void)
+ISocket *WinServerSocket::accept(void)
 {
-	ISocket *socket = new WinSocket(static_cast<WinSocket::SocketType>(_type));
+	ISocket *socket = new WinSocket(static_cast<SocketType>(_type));
 	SOCKADDR_IN csin;
 	SOCKET csock;
 	int sinsize;

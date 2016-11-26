@@ -1,22 +1,22 @@
 #pragma once
-#include "ISocket.hpp"
-#include <sys/types.h>
-#include <sys/socket.h>
 
-class UnixSocket :
-	public ISocket {
+#include <sys/types.h>
+
+#include "ISocket.hpp"
+#include "SocketType.hpp"
+
+class UnixSocket : public ISocket
+{
 public:
-	enum SocketType {
-		TCP = SOCK_STREAM,
-		UDP = SOCK_DGRAM
-	};
 	UnixSocket(SocketType type);
-	~UnixSocket();
+	virtual ~UnixSocket(void);
+
 	virtual bool connectToServer(std::string const & host, short port);
 	virtual bool connectFromAcceptedFd(int fd);
 	virtual int recv(std::string& buffer, int blocksize);
-	virtual std::string recv();
+	virtual std::string recv(void);
 	virtual int send(std::string const & data);
+
 private:
 	int _socket;
 	SocketType _type;

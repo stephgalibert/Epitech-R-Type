@@ -1,16 +1,19 @@
-#include "UnixSocket.h"
+#include "UnixSocket.hpp"
 
-UnixSocket::UnixSocket(SocketType type) {
+UnixSocket::UnixSocket(SocketType type)
+{
 	_type = type;
 	_socket = 0;
 }
 
-UnixSocket::~UnixSocket() {
+UnixSocket::~UnixSocket(void)
+{
 	if (_socket)
 		closesocket(_socket);
 }
 
-bool UnixSocket::connectToServer(std::string const & host, short port) {
+bool UnixSocket::connectToServer(std::string const & host, short port)
+{
 	SOCKADDR_IN sin;
 	int ret = 0;
 	_socket = socket(AF_INET, _type, 0);
@@ -27,12 +30,14 @@ bool UnixSocket::connectToServer(std::string const & host, short port) {
 	return true;
 }
 
-bool UnixSocket::connectFromAcceptedFd(int fd) {
+bool UnixSocket::connectFromAcceptedFd(int fd)
+{
 	_socket = fd;
 	return true;
 }
 
-int UnixSocket::recv(std::string & buffer, int blocksize) {
+int UnixSocket::recv(std::string & buffer, int blocksize)
+{
 	char *buf = new char[blocksize] {0};
 	int ret = 0;
 
@@ -43,7 +48,8 @@ int UnixSocket::recv(std::string & buffer, int blocksize) {
 	return ret;
 }
 
-std::string UnixSocket::recv() {
+std::string UnixSocket::recv(void)
+{
 	std::string ret;
 	std::string buf;
 
@@ -54,6 +60,7 @@ std::string UnixSocket::recv() {
 	return ret;
 }
 
-int UnixSocket::send(std::string const & data) {
+int UnixSocket::send(std::string const & data)
+{
 	return ::send(_socket, data.c_str(), data.length() + 1, 0);
 }
