@@ -13,7 +13,7 @@ public:
 	WinServerSocket(SocketType type);
 	virtual ~WinServerSocket(void);
 
-	virtual void init(std::string const & listenHost, short listenPort);
+	virtual void init(std::string const &listenHost, short listenPort);
 	virtual std::shared_ptr<ISocket> accept();
 
 private:

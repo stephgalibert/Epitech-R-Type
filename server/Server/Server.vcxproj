@@ -23,6 +23,7 @@
     <ClCompile Include="AConnection.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AServer.cpp" />
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Party.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
+    <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="ConnectionManager.hpp" />
     <ClInclude Include="IRequest.hpp" />
     <ClInclude Include="IServerSocket.hpp" />

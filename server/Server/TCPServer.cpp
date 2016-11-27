@@ -34,12 +34,11 @@ void TCPServer::init(void)
 void TCPServer::open(void)
 {
 	accept();
-	while (true);
+	while (true); // manage input ?
 }
 
 void TCPServer::close(void)
 {
-	
 }
 
 void TCPServer::accept(void)
@@ -51,8 +50,8 @@ void TCPServer::do_accept(std::shared_ptr<ISocket> socket)
 {
 	if (socket != NULL) {
 		std::shared_ptr<AConnection> connection =
-			std::make_shared<AConnection>(getConnectionManager(), getRequestHandler(),
-											getPartyManager());
+			std::make_shared<AConnection>(socket, getConnectionManager(),
+											getRequestHandler(), getPartyManager());
 		connection->start();
 		getConnectionManager().add(connection);
 	}

@@ -10,6 +10,7 @@ class TCPServer : public AServer
 public:
 	static void AsyncAccept(std::shared_ptr<IServerSocket> ss,
 		                    std::function<void(std::shared_ptr<ISocket>)> function);
+
 public:
 	TCPServer(ConnectionManager &cm, PartyManager &pm);
 	virtual ~TCPServer(void);

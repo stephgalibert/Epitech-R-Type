@@ -1,13 +1,11 @@
 #include "WinServerSocket.hpp"
 
-
 WinServerSocket::WinServerSocket(SocketType type)
 {
 	_socket = 0;
 	_type = type;
 	WSAStartup(MAKEWORD(2, 0), &_wsdata);
 }
-
 
 WinServerSocket::~WinServerSocket(void)
 {
@@ -34,18 +32,19 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 	if (ret < 0) {
 		closesocket(_socket);
 		_socket = 0;
+		throw (std::runtime_error("error on bind"));
 	}
 	ret = listen(_socket, 0);
 	if (ret < 0) {
 		closesocket(_socket);
 		_socket = 0;
+		throw (std::runtime_error("error on listen"));
 	}
 }
 
 std::shared_ptr<ISocket> WinServerSocket::accept(void)
 {
 	std::shared_ptr<ISocket> socket = std::make_shared<WinSocket>(_type);
-	//ISocket *socket = new WinSocket(static_cast<SocketType>(_type));
 	SOCKADDR_IN csin;
 	SOCKET csock;
 	int sinsize;

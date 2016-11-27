@@ -84,6 +84,9 @@
     <ClCompile Include="ReadAsyncTask.cpp">
       <Filter>Fichiers sources\AsyncTask</Filter>
     </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -116,9 +119,6 @@
     <ClInclude Include="RequestHandler.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SocketType.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="UDPServer.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -146,9 +146,6 @@
     <ClInclude Include="IServerSocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
-    <ClInclude Include="ISocket.hpp">
-      <Filter>Fichiers sources\Socket</Filter>
-    </ClInclude>
     <ClInclude Include="ITask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
     </ClInclude>
@@ -157,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="ReadAsyncTask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketType.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="ISocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

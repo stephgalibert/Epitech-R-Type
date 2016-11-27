@@ -4,6 +4,7 @@
 
 #include "ISocket.hpp"
 #include "SocketType.hpp"
+#include "Buffer.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -15,11 +16,12 @@ public:
 	WinSocket(SocketType type);
 	virtual ~WinSocket(void);
 
-	virtual bool connectToServer(std::string const & host, short port);
+	virtual bool connectToServer(std::string const& host, short port);
 	virtual bool connectFromAcceptedFd(int fd);
-	virtual int recv(std::string& buffer, int blocksize);
-	virtual std::string recv(void);
-	virtual int send(std::string const & data);
+	virtual int recv(char *buffer, size_t blocksize);
+	//virtual std::string recv(void);
+	virtual void recv(Buffer &buffer, size_t transferAtLeast);
+	virtual int send(char *data, size_t size);
 
 private:
 	SOCKET _socket;

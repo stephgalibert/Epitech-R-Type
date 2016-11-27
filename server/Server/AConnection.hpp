@@ -1,19 +1,30 @@
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include <queue>
+
+#include "StaticTools.hpp"
+#include "ThreadPool.hpp"
+#include "ReadAsyncTask.hpp"
+#include "ConnectionManager.hpp"
 
 #include "ISocket.hpp"
 #include "RequestHandler.hpp"
 
-class ConnectionManager;
+//class ConnectionManager;
 class Party;
 class PartyManager;
 
 class AConnection : public std::enable_shared_from_this<AConnection>
 {
 public:
-	AConnection(ConnectionManager &cm, RequestHandler &rh, PartyManager &pm);
+	static void AsyncRead(std::shared_ptr<ISocket> socket, size_t transferAtLeast,
+							std::function<void(char *, size_t)> callback);
+
+public:
+	AConnection(std::shared_ptr<ISocket> socket, ConnectionManager &cm,
+					RequestHandler &rh, PartyManager &pm);
 	~AConnection(void);
 
 	void start(void);
@@ -27,7 +38,7 @@ public:
 
 private:
 	void read(void);
-	void do_read(void);
+	void do_read(char *data, size_t size);
 
 	void write(void);
 	void do_write(void);

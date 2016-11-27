@@ -7,13 +7,15 @@ WinSocket::WinSocket(SocketType type)
 	WSAStartup(MAKEWORD(2, 0), &_wsdata);
 }
 
-WinSocket::~WinSocket(void) {
-	if (_socket)
+WinSocket::~WinSocket(void)
+{
+	if (_socket) {
 		closesocket(_socket);
+	}
 	WSACleanup();
 }
 
-bool WinSocket::connectToServer(std::string const & host, short port)
+bool WinSocket::connectToServer(std::string const& host, short port)
 {
 	SOCKADDR_IN sin;
 	int ret = 0;
@@ -24,8 +26,7 @@ bool WinSocket::connectToServer(std::string const & host, short port)
 	sin.sin_addr.s_addr = inet_addr(host.c_str());
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
-	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin)))
-	{
+	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin))) {
 		closesocket(_socket);
 		return false;
 	}
@@ -38,31 +39,27 @@ bool WinSocket::connectFromAcceptedFd(int fd)
 	return true;
 }
 
-int WinSocket::recv(std::string & buffer, int blocksize)
+int WinSocket::recv(char *buffer, size_t blocksize)
 {
-	char *buf = new char[blocksize] {0};
-	int ret = 0;
-
-	ret = ::recv(_socket, buf, blocksize * sizeof(char), 0);
-	buffer = std::string(buf);
-
-	delete buf;
-	return ret;
+	return (::recv(_socket, buffer, blocksize * sizeof(char), 0));
 }
 
-std::string WinSocket::recv(void)
+void WinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 {
-	std::string ret;
-	std::string buf;
+	char buf[1024];
+	int read = 0;
+	size_t total = 0;
 
-	while (recv(buf, 4096) == 4096) {
-		ret += buf;
+	while ((read = recv(buf, 1024)) > 0) {
+		buffer.reallocate(buf, read);
+		total += read;
+		if (total > transferAtLeast) {
+			break;
+		}
 	}
-	ret += buf;
-	return ret;
 }
 
-int WinSocket::send(std::string const & data)
+int WinSocket::send(char *data, size_t size)
 {
-	return ::send(_socket, data.c_str(), data.length() + 1, 0);
+	return ::send(_socket, data, size, 0);
 }

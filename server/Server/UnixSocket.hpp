@@ -11,7 +11,7 @@ public:
 	UnixSocket(SocketType type);
 	virtual ~UnixSocket(void);
 
-	virtual bool connectToServer(std::string const & host, short port);
+	virtual bool connectToServer(std::string const& host, short port);
 	virtual bool connectFromAcceptedFd(int fd);
 	virtual int recv(std::string& buffer, int blocksize);
 	virtual std::string recv(void);
