@@ -1,7 +1,7 @@
 #include "AServer.hpp"
 
-AServer::AServer(PartyManager &pm)
-	: _pm(pm)
+AServer::AServer(ConnectionManager &cm, PartyManager &pm)
+	: _cm(cm), _pm(pm)
 {
 }
 
@@ -9,7 +9,7 @@ AServer::~AServer(void)
 {
 }
 
-RequestHandler const& AServer::getRequestHandler(void) const
+RequestHandler &AServer::getRequestHandler(void)
 {
 	return _rh;
 }
@@ -17,4 +17,9 @@ RequestHandler const& AServer::getRequestHandler(void) const
 PartyManager &AServer::getPartyManager(void)
 {
 	return _pm;
+}
+
+ConnectionManager &AServer::getConnectionManager(void)
+{
+	return (_cm);
 }

@@ -42,9 +42,10 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 	}
 }
 
-ISocket *WinServerSocket::accept(void)
+std::shared_ptr<ISocket> WinServerSocket::accept(void)
 {
-	ISocket *socket = new WinSocket(static_cast<SocketType>(_type));
+	std::shared_ptr<ISocket> socket = std::make_shared<WinSocket>(_type);
+	//ISocket *socket = new WinSocket(static_cast<SocketType>(_type));
 	SOCKADDR_IN csin;
 	SOCKET csock;
 	int sinsize;

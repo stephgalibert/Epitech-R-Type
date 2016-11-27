@@ -13,7 +13,7 @@ public:
 	virtual ~UnixServerSocket(void);
 
 	virtual void init(std::string const & listenHost, short listenPort);
-	virtual ISocket* accept(void);
+	virtual std::shared_ptr<ISocket> accept(void);
 
 private:
 	int _socket;

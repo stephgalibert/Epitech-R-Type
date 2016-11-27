@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ICommand.hpp"
+#include "StaticTools.hpp"
 
-// finish ctor
 class CMDFire : public ICommand
 {
 public:

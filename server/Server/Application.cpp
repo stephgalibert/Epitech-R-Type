@@ -28,7 +28,7 @@ void Application::init(void)
 	StaticTools::Log.open("server.log", std::ios::app | std::ios::out);
 
 	// create UDP and TCP server
-	TCPServer *tcp = new TCPServer(_pm);
+	TCPServer *tcp = new TCPServer(_cm, _pm);
 	try {
 		tcp->init();
 	}

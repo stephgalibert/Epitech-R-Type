@@ -11,13 +11,15 @@
 class AcceptAsyncTask : public ITask
 {
 public:
-	AcceptAsyncTask(IServerSocket *ss, std::function<void(ISocket *)> function);
+	AcceptAsyncTask(std::shared_ptr<IServerSocket> ss, std::function<void(std::shared_ptr<ISocket>)> function);
 	virtual ~AcceptAsyncTask(void);
 
 	virtual void doInBackground(void);
+	virtual void cancel(void);
 
 private:
-	IServerSocket *_ss;
-	std::function<void(ISocket *)> _callback;
+	std::shared_ptr<IServerSocket> _ss;
+	std::function<void(std::shared_ptr<ISocket>)> _callback;
+	bool _canceled;
 };
 

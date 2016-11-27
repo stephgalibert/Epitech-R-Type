@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Github\R-Type\client\rtype\rtype;C:\Github\R-Type\api;C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -123,7 +123,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Github\R-Type\client\rtype\rtype;C:\Github\R-Type\api;C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -154,6 +154,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\api\CMDCollision.cpp" />
+    <ClCompile Include="..\..\..\api\CMDConnect.cpp" />
+    <ClCompile Include="..\..\..\api\CMDCreateParty.cpp" />
+    <ClCompile Include="..\..\..\api\CMDDisconnected.cpp" />
+    <ClCompile Include="..\..\..\api\CMDError.cpp" />
+    <ClCompile Include="..\..\..\api\CMDFire.cpp" />
+    <ClCompile Include="..\..\..\api\CMDMove.cpp" />
+    <ClCompile Include="..\..\..\api\CMDPing.cpp" />
+    <ClCompile Include="..\..\..\api\CMDSpawn.cpp" />
+    <ClCompile Include="..\..\..\api\CommandFactory.cpp" />
     <ClCompile Include="AActor.cpp" />
     <ClCompile Include="AArea.cpp" />
     <ClCompile Include="ABlock.cpp" />
@@ -170,15 +180,6 @@
     <ClCompile Include="AProjectile.cpp" />
     <ClCompile Include="AStatic.cpp" />
     <ClCompile Include="Background.cpp" />
-    <ClCompile Include="CMDCollision.cpp" />
-    <ClCompile Include="CMDConnect.cpp" />
-    <ClCompile Include="CMDCreateParty.cpp" />
-    <ClCompile Include="CMDDisconnected.cpp" />
-    <ClCompile Include="CMDError.cpp" />
-    <ClCompile Include="CMDFire.cpp" />
-    <ClCompile Include="CMDMove.cpp" />
-    <ClCompile Include="CMDPing.cpp" />
-    <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
@@ -190,7 +191,6 @@
     <ClCompile Include="LoadArea.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuController.cpp" />
-    <ClCompile Include="CMDSpawn.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -209,6 +209,18 @@
     <ClCompile Include="XMLReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\api\CMDCollision.hpp" />
+    <ClInclude Include="..\..\..\api\CMDConnect.hpp" />
+    <ClInclude Include="..\..\..\api\CMDCreateParty.hpp" />
+    <ClInclude Include="..\..\..\api\CMDDisconnected.hpp" />
+    <ClInclude Include="..\..\..\api\CMDError.hpp" />
+    <ClInclude Include="..\..\..\api\CMDFire.hpp" />
+    <ClInclude Include="..\..\..\api\CMDMove.hpp" />
+    <ClInclude Include="..\..\..\api\CMDPing.hpp" />
+    <ClInclude Include="..\..\..\api\CMDSpawn.hpp" />
+    <ClInclude Include="..\..\..\api\CommandFactory.hpp" />
+    <ClInclude Include="..\..\..\api\ICommand.hpp" />
+    <ClInclude Include="..\..\..\api\Protocol.hpp" />
     <ClInclude Include="AActor.hpp" />
     <ClInclude Include="AArea.hpp" />
     <ClInclude Include="ABlock.hpp" />
@@ -225,15 +237,6 @@
     <ClInclude Include="AStatic.hpp" />
     <ClInclude Include="Background.hpp" />
     <ClInclude Include="CacheManager.hpp" />
-    <ClInclude Include="CMDCollision.hpp" />
-    <ClInclude Include="CMDConnect.hpp" />
-    <ClInclude Include="CMDCreateParty.hpp" />
-    <ClInclude Include="CMDDisconnected.hpp" />
-    <ClInclude Include="CMDError.hpp" />
-    <ClInclude Include="CMDFire.hpp" />
-    <ClInclude Include="CMDMove.hpp" />
-    <ClInclude Include="CMDPing.hpp" />
-    <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
@@ -241,7 +244,6 @@
     <ClInclude Include="Generator.hpp" />
     <ClInclude Include="IClient.hpp" />
     <ClInclude Include="ADrawable.hpp" />
-    <ClInclude Include="ICommand.hpp" />
     <ClInclude Include="InputHandler.hpp" />
     <ClInclude Include="IReader.hpp" />
     <ClInclude Include="IRequest.hpp" />
@@ -251,12 +253,10 @@
     <ClInclude Include="LevelResource.hpp" />
     <ClInclude Include="LoadArea.hpp" />
     <ClInclude Include="MainMenuController.hpp" />
-    <ClInclude Include="CMDSpawn.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
-    <ClInclude Include="Protocol.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />

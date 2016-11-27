@@ -1,8 +1,9 @@
 #include "AcceptAsyncTask.hpp"
 
-AcceptAsyncTask::AcceptAsyncTask(IServerSocket *ss, std::function<void(ISocket *)> function)
+AcceptAsyncTask::AcceptAsyncTask(std::shared_ptr<IServerSocket> ss, std::function<void(std::shared_ptr<ISocket>)> function)
 	: _ss(ss),
-	  _callback(function)
+	  _callback(function),
+	  _canceled(false)
 {
 }
 
@@ -10,12 +11,12 @@ AcceptAsyncTask::~AcceptAsyncTask(void)
 {
 }
 
-#include <iostream>
 void AcceptAsyncTask::doInBackground(void)
 {
-	ISocket *socket = _ss->accept();
+	_callback(_ss->accept());
+}
 
-	_callback(socket);
-
-	std::cout << "ok" << std::endl;
+void AcceptAsyncTask::cancel(void)
+{
+	_canceled = true;
 }

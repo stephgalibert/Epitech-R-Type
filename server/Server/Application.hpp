@@ -26,6 +26,7 @@ public:
 	void run(void);
 
 private:
+	ConnectionManager _cm;
 	PartyManager _pm;
 	std::vector<AServer *> _servers;
 };

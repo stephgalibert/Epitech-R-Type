@@ -3,12 +3,15 @@
 #include "AServer.hpp"
 #include "AcceptAsyncTask.hpp"
 
+#include "AConnection.hpp"
+
 class TCPServer : public AServer
 {
 public:
-	static void AsyncAccept(IServerSocket *ss, std::function<void(ISocket *)> function);
+	static void AsyncAccept(std::shared_ptr<IServerSocket> ss,
+		                    std::function<void(std::shared_ptr<ISocket>)> function);
 public:
-	TCPServer(PartyManager &pm);
+	TCPServer(ConnectionManager &cm, PartyManager &pm);
 	virtual ~TCPServer(void);
 
 	virtual void init(void);
@@ -17,8 +20,8 @@ public:
 
 private:
 	void accept(void);
-	void do_accept(ISocket *socket);
+	void do_accept(std::shared_ptr<ISocket> socket);
 
-	IServerSocket *_ss;
+	std::shared_ptr<IServerSocket> _ss;
 };
 

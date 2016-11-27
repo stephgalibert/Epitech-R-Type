@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
-class ISocket
+class ISocket : std::enable_shared_from_this<ISocket>
 {
 public:
 	virtual ~ISocket(void) {}

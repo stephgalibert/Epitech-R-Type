@@ -15,19 +15,20 @@
 class AServer
 {
 public:
-	AServer(PartyManager &pm);
+	AServer(ConnectionManager &cm, PartyManager &pm);
 	~AServer(void);
 
 	virtual void init(void) = 0;
 	virtual void open(void) = 0;
 	virtual void close(void) = 0;
 
-	RequestHandler const& getRequestHandler(void) const;
+	RequestHandler &getRequestHandler(void);
 	PartyManager &getPartyManager(void);
+	ConnectionManager &getConnectionManager(void);
 
 private:
 	PartyManager &_pm;
 	RequestHandler _rh;
-	ConnectionManager  _cm;
+	ConnectionManager &_cm;
 };
 

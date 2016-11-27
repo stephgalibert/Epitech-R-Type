@@ -7,9 +7,7 @@ CMDFire::CMDFire(MissileType type, uint8_t id, uint16_t x, uint16_t y,
 	_data->cmdType = getCommandType();
 	_data->type = type;
 	_data->id_launcher = id;
-
-	//_data->position = position;
-
+	_data->position = StaticTools::SerializePosition(x, y);
 	_data->velocity = velocity;
 	_data->angle = angle;
 	_data->effect = effect;

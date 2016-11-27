@@ -14,7 +14,7 @@ public:
 	virtual ~WinServerSocket(void);
 
 	virtual void init(std::string const & listenHost, short listenPort);
-	virtual ISocket* accept();
+	virtual std::shared_ptr<ISocket> accept();
 
 private:
 	SOCKET _socket;

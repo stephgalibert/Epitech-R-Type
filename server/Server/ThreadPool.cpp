@@ -4,13 +4,13 @@ ThreadPool ThreadPool::Pool(16);
 
 void ThreadPool::QueueTask(ITask *task)
 {
-	std::cout << "before lock" << std::endl;
+	//std::cout << "before lock" << std::endl; // dead lock here
 	_mtx.lock();
-	std::cout << "after lock" << std::endl;
+	//std::cout << "after lock" << std::endl;
 	_vtask.push_back(task);
-	std::cout << "before unlock" << std::endl;
+	//std::cout << "before unlock" << std::endl;
 	_mtx.unlock();
-	std::cout << "after unlock" << std::endl;
+	//std::cout << "after unlock" << std::endl;
 	_condvar.notify_one();
 	
 }
@@ -49,12 +49,15 @@ void ThreadPool::start_func(int i)
 {
 	while (_running)
 	{
-		std::unique_lock<std::mutex> lock(_mtx);
-		while (_running && _vtask.empty()) {
-			_condvar.wait(lock);
+		ITask *task = NULL;
+		{
+			std::unique_lock<std::mutex> lock(_mtx);
+			while (_running && _vtask.empty()) {
+				_condvar.wait(lock);
+			}
+			task = getTask();
 		}
-		ITask *task = getTask();
-		std::cout << "Thread " << i << " : ";
+		//std::cout << "Thread " << i << " : ";
 		if (task != NULL) {
 			task->doInBackground();
 			delete (task);

@@ -81,6 +81,9 @@
     <ClCompile Include="AcceptAsyncTask.cpp">
       <Filter>Fichiers sources\AsyncTask</Filter>
     </ClCompile>
+    <ClCompile Include="ReadAsyncTask.cpp">
+      <Filter>Fichiers sources\AsyncTask</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -150,6 +153,9 @@
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
     </ClInclude>
     <ClInclude Include="AcceptAsyncTask.hpp">
+      <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadAsyncTask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
     </ClInclude>
   </ItemGroup>

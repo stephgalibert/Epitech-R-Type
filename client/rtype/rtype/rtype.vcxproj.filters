@@ -37,9 +37,6 @@
     <Filter Include="Fichiers sources\resources">
       <UniqueIdentifier>{aa2bf634-c168-4fd6-b794-df00a0ddb517}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\protocol">
-      <UniqueIdentifier>{046575cd-8e98-4910-a928-6d29aba3ae94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\protocol">
       <UniqueIdentifier>{70a2c2e7-5baa-43ae-8673-610ef1ed2618}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="Fichiers sources\game">
       <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\protocol">
+      <UniqueIdentifier>{046575cd-8e98-4910-a928-6d29aba3ae94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,36 +150,6 @@
     <ClCompile Include="SoundBox.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
-    <ClCompile Include="CMDSpawn.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDConnect.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDCreateParty.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDDisconnected.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDError.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDMove.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDPing.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandFactory.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDCollision.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="CMDFire.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
     <ClCompile Include="GameController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -209,6 +179,36 @@
     </ClCompile>
     <ClCompile Include="Laser.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDCollision.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDCreateParty.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDDisconnected.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDError.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDFire.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDPing.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDSpawn.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CommandFactory.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDMove.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDConnect.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,42 +326,6 @@
     <ClInclude Include="SoundBox.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
-    <ClInclude Include="Protocol.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDSpawn.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDConnect.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDCreateParty.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDDisconnected.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDError.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDMove.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDPing.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDFire.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CMDCollision.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandFactory.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="ICommand.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
     <ClInclude Include="GameController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -391,6 +355,42 @@
     </ClInclude>
     <ClInclude Include="Laser.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDCollision.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDConnect.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDCreateParty.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDDisconnected.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDError.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDFire.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDMove.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDPing.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDSpawn.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CommandFactory.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\ICommand.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\Protocol.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
