@@ -2,13 +2,21 @@
 
 Buffer::Buffer(void)
 	: _data(NULL),
-	  _size(0)
+	  _size(0),
+	  _allocated(true)
 {
 }
 
+/*Buffer::Buffer(char const *data, size_t size)
+	: _data(data),
+	  _size(size),
+	  _allocated(false)
+{
+}*/
+
 Buffer::~Buffer(void)
 {
-	if (_data != NULL) {
+	if (_allocated && _data != NULL) {
 		delete (_data);
 	}
 }
@@ -23,7 +31,9 @@ void Buffer::reallocate(char *data, size_t size)
 	else {
 		memcpy(tmp, _data, _size);
 		memcpy(&tmp[_size], data, size);
-		delete (_data);
+		if (_allocated) {
+			delete (_data);
+		}
 	}
 	_size += size;
 	_data = tmp;

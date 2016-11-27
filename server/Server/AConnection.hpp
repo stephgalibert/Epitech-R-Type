@@ -3,16 +3,19 @@
 #include <iostream>
 #include <memory>
 #include <queue>
-
-#include "StaticTools.hpp"
-#include "ThreadPool.hpp"
-#include "ReadAsyncTask.hpp"
-#include "ConnectionManager.hpp"
+#include <functional>
 
 #include "ISocket.hpp"
 #include "RequestHandler.hpp"
+#include "ICommand.hpp"
 
-//class ConnectionManager;
+#include "ThreadPool.hpp"
+#include "ReadAsyncTask.hpp"
+#include "WriteAsyncTask.hpp"
+
+#include "StaticTools.hpp"
+#include "ConnectionManager.hpp"
+
 class Party;
 class PartyManager;
 
@@ -22,6 +25,9 @@ public:
 	static void AsyncRead(std::shared_ptr<ISocket> socket, size_t transferAtLeast,
 							std::function<void(char *, size_t)> callback);
 
+	static void AsyncWrite(std::shared_ptr<ISocket> socket, Buffer &buffer,
+							std::function<void(void)> callback);
+
 public:
 	AConnection(std::shared_ptr<ISocket> socket, ConnectionManager &cm,
 					RequestHandler &rh, PartyManager &pm);
@@ -29,6 +35,8 @@ public:
 
 	void start(void);
 	void close(void);
+
+	void write(ICommand *command);
 
 	PartyManager const& getPartyManager(void) const;
 	RequestHandler const& getRequestHandler(void) const;
@@ -48,7 +56,7 @@ private:
 	ConnectionManager &_cm;
 
 	std::shared_ptr<ISocket> _socket;
-	//std::queue<ICommand> _toWrites;
+	std::queue<ICommand *> _toWrites;
 	bool _running;
 
 	//std::shared_ptr<Party> _party;

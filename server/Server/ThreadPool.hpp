@@ -14,11 +14,12 @@ class ThreadPool
 {
 public:
 	static ThreadPool Pool;
+
 public:
 	ThreadPool(int nb_thread);
 	~ThreadPool(void);
 
-	void QueueTask(ITask *task);
+	void addTask(ITask *task);
 
 private:
 	void start_func(int i);

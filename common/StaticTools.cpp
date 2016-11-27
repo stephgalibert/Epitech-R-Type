@@ -2,9 +2,9 @@
 
 std::ofstream StaticTools::Log;
 
-sf::Vector2i StaticTools::GetResolution(void)
+CommandType StaticTools::GetPacketType(char *packet)
 {
-	return (sf::Vector2i(800, 480));
+	return (*(CommandType *)(packet));
 }
 
 std::string StaticTools::SerializeLoginServer(std::string const& host, std::string const& pwd)
@@ -21,9 +21,4 @@ void StaticTools::DeserializePosition(uint32_t position, uint16_t &x, uint16_t &
 {
 	x = position >> 16;
 	y = position & 0xffff;
-}
-
-CommandType StaticTools::GetPacketType(char *packet)
-{
-	return (*(CommandType *)(packet));
 }

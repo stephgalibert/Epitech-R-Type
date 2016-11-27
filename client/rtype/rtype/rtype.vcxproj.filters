@@ -123,9 +123,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
-    <ClCompile Include="StaticTools.cpp">
-      <Filter>Fichiers sources\tools</Filter>
-    </ClCompile>
     <ClCompile Include="RequestBuilder.cpp">
       <Filter>Fichiers sources\network</Filter>
     </ClCompile>
@@ -209,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\api\CMDConnect.cpp">
       <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\common\StaticTools.cpp">
+      <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +299,6 @@
     <ClInclude Include="RequestHandler.hpp">
       <Filter>Fichiers d%27en-tête\network</Filter>
     </ClInclude>
-    <ClInclude Include="StaticTools.hpp">
-      <Filter>Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
@@ -390,6 +387,12 @@
       <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\Protocol.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\common\StaticTools.hpp">
+      <Filter>Fichiers d%27en-tête\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CommandType.hpp">
       <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
   </ItemGroup>

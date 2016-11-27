@@ -50,12 +50,9 @@ void WinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 	int read = 0;
 	size_t total = 0;
 
-	while ((read = recv(buf, 1024)) > 0) {
+	while (total < transferAtLeast && (read = recv(buf, 1024)) > 0) {
 		buffer.reallocate(buf, read);
 		total += read;
-		if (total > transferAtLeast) {
-			break;
-		}
 	}
 }
 

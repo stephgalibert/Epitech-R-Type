@@ -1,9 +1,16 @@
 #include "AConnection.hpp"
 
+
 void AConnection::AsyncRead(std::shared_ptr<ISocket> socket, size_t transferAtLeast,
-								std::function<void(char *, size_t)> callback)
+							std::function<void(char *, size_t)> callback)
 {
-	ThreadPool::Pool.QueueTask(new ReadAsyncTask(socket, transferAtLeast, callback));
+	ThreadPool::Pool.addTask(new ReadAsyncTask(socket, transferAtLeast, callback));
+}
+
+void AConnection::AsyncWrite(std::shared_ptr<ISocket> socket, Buffer &buffer,
+							 std::function<void(void)> callback)
+{
+	ThreadPool::Pool.addTask(new WriteAsyncTask(socket, buffer, callback));
 }
 
 AConnection::AConnection(std::shared_ptr<ISocket> socket, ConnectionManager &cm,
@@ -35,6 +42,15 @@ void AConnection::close(void)
 	_running = false;
 }
 
+void AConnection::write(ICommand *command)
+{
+	bool writeInProgress = !_toWrites.empty();
+	_toWrites.push(command);
+	if (!writeInProgress) {
+		write();
+	}
+}
+
 PartyManager const& AConnection::getPartyManager(void) const
 {
 	return _pm;
@@ -58,17 +74,18 @@ void AConnection::setID(int id)
 
 void AConnection::read(void)
 {
-	AsyncRead(_socket, sizeof(CommandType), std::bind(&AConnection::do_read, shared_from_this(),
+	AsyncRead(_socket, sizeof(CommandType),
+		std::bind(&AConnection::do_read, shared_from_this(),
 				std::placeholders::_1, std::placeholders::_2));
 }
 
 void AConnection::do_read(char *data, size_t size)
 {
-	if (size > sizeof(CommandType)) {
-		CommandType type = StaticTools::GetPacketType(data);
-		std::cout << "received command type: " << (int)type << std::endl;
+	StaticTools::Log << "do_read " << size << " bytes" << std::endl;
 
-		StaticTools::Log << "do_read " << size << " bytes" << std::endl;
+	if (size > sizeof(CommandType)) {
+		//CommandType type = StaticTools::GetPacketType(data);
+		//std::cout << "received command type: " << (int)type << std::endl;
 
 		if (_running) {
 			read();
@@ -81,7 +98,10 @@ void AConnection::do_read(char *data, size_t size)
 
 void AConnection::write(void)
 {
+	/*ICommand *packet = _toWrites.front();
 
+	AsyncWrite(_socket, Buffer(packet->getData(), packet->getSize()),
+		std::bind(&AConnection::do_write, shared_from_this()));*/
 }
 
 void AConnection::do_write(void)

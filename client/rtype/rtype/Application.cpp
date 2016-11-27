@@ -3,7 +3,7 @@
 Application::Application(void)
 	: _client("127.0.0.1", "4242")
 {
-	sf::Vector2i reso = StaticTools::GetResolution();
+	sf::Vector2i reso(800, 480);
 
 	sf::ContextSettings context;
 	context.antialiasingLevel = 8;

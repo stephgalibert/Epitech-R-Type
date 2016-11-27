@@ -3,8 +3,8 @@
 #include <map>
 #include <functional>
 
-#include "Protocol.hpp"
 #include "IRequest.hpp"
+#include "CommandType.hpp"
 
 class RequestBuilder
 {

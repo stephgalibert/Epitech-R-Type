@@ -2,7 +2,7 @@
 
 ThreadPool ThreadPool::Pool(16);
 
-void ThreadPool::QueueTask(ITask *task)
+void ThreadPool::addTask(ITask *task)
 {
 	//std::cout << "before lock" << std::endl; // dead lock here
 	_mtx.lock();

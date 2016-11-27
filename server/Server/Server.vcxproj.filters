@@ -25,6 +25,12 @@
     <Filter Include="Fichiers sources\AsyncTask">
       <UniqueIdentifier>{cfa83f92-5607-4329-9649-cf37c19d1558}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Protocol">
+      <UniqueIdentifier>{d4816a10-9cab-43fd-a2fe-d841bd7946df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Protocol">
+      <UniqueIdentifier>{c2cf6916-5479-48af-affa-c9815f72b61a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,9 +66,6 @@
     <ClCompile Include="TCPServer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="StaticTools.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -87,15 +90,48 @@
     <ClCompile Include="Buffer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="WriteAsyncTask.cpp">
+      <Filter>Fichiers sources\AsyncTask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDCollision.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDConnect.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDCreateParty.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDDisconnected.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDError.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDFire.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDMove.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDPing.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDSpawn.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CommandFactory.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\StaticTools.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="IRequest.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Protocol.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="AConnection.hpp">
@@ -123,9 +159,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="TCPServer.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticTools.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ThreadPool.hpp">
@@ -163,6 +196,51 @@
     </ClInclude>
     <ClInclude Include="ISocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="WriteAsyncTask.hpp">
+      <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDCollision.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDConnect.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDCreateParty.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDDisconnected.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDError.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDFire.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDMove.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDPing.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDSpawn.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CommandFactory.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\ICommand.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\StaticTools.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\Protocol.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CommandType.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

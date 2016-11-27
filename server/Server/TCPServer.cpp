@@ -3,7 +3,7 @@
 void TCPServer::AsyncAccept(std::shared_ptr<IServerSocket> ss,
 							std::function<void(std::shared_ptr<ISocket>)> function)
 {
-	ThreadPool::Pool.QueueTask(new AcceptAsyncTask(ss, function));
+	ThreadPool::Pool.addTask(new AcceptAsyncTask(ss, function));
 }
 
 TCPServer::TCPServer(ConnectionManager &cm, PartyManager &pm)

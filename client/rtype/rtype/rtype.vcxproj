@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Github\R-Type\client\rtype\rtype;C:\Github\R-Type\api;C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Github\R-Type\common;C:\Github\R-Type\client\rtype\rtype;C:\Github\R-Type\api;C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -123,7 +123,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Github\R-Type\client\rtype\rtype;C:\Github\R-Type\api;C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Github\R-Type\common;C:\Github\R-Type\client\rtype\rtype;C:\Github\R-Type\api;C:\Libraries\Boost\boost_1_61_0;C:\Libraries\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\..\api\CMDPing.cpp" />
     <ClCompile Include="..\..\..\api\CMDSpawn.cpp" />
     <ClCompile Include="..\..\..\api\CommandFactory.cpp" />
+    <ClCompile Include="..\..\..\common\StaticTools.cpp" />
     <ClCompile Include="AActor.cpp" />
     <ClCompile Include="AArea.cpp" />
     <ClCompile Include="ABlock.cpp" />
@@ -200,7 +201,6 @@
     <ClCompile Include="AShip.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
-    <ClCompile Include="StaticTools.cpp" />
     <ClCompile Include="TCPClient.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UDPClient.cpp" />
@@ -219,8 +219,10 @@
     <ClInclude Include="..\..\..\api\CMDPing.hpp" />
     <ClInclude Include="..\..\..\api\CMDSpawn.hpp" />
     <ClInclude Include="..\..\..\api\CommandFactory.hpp" />
+    <ClInclude Include="..\..\..\api\CommandType.hpp" />
     <ClInclude Include="..\..\..\api\ICommand.hpp" />
     <ClInclude Include="..\..\..\api\Protocol.hpp" />
+    <ClInclude Include="..\..\..\common\StaticTools.hpp" />
     <ClInclude Include="AActor.hpp" />
     <ClInclude Include="AArea.hpp" />
     <ClInclude Include="ABlock.hpp" />
@@ -262,7 +264,6 @@
     <ClInclude Include="AShip.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="SplashScreen.hpp" />
-    <ClInclude Include="StaticTools.hpp" />
     <ClInclude Include="TCPClient.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="UDPClient.hpp" />
