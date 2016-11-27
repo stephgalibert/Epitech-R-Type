@@ -64,7 +64,7 @@ IClient &TCPClient::operator<<(ICommand *packet)
 
 void TCPClient::read(void)
 {
-	boost::asio::async_read(_socket, _read.prepare(1024), boost::asio::transfer_at_least(sizeof(CommandType)),
+	boost::asio::async_read(_socket, _read, boost::asio::transfer_at_least(1),
 		boost::bind(&TCPClient::do_read, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
@@ -85,6 +85,7 @@ void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip:
 	if (!ec) {
 		StaticTools::Log << "Connected in TCP mod" << std::endl;
 		write(new CMDCollision(1, 2)); // to delete
+		read();
 	} else {
 		StaticTools::Log << _remote << ":" << _port << "' is inaccessible (" << ec << ")" << std::endl;
 		_timer.expires_from_now(boost::posix_time::seconds(5));
@@ -97,9 +98,15 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 	if (!ec) {
 		char const* packet = boost::asio::buffer_cast<char const *>(_read.data()); // !
 		_read.consume(len);
-
+		
+		CommandType type = StaticTools::GetPacketType(packet);
+		if (type == CommandType::Ping) {
+			
+			Ping ping = *((Ping *)packet);
+			StaticTools::Log << "received packet type " << (int)ping.cmdType << ": " << ping.time << std::endl;
+		}
 		ICommand *reply = NULL;
-		_reqHandler.request(*this, packet, &reply);
+		//_reqHandler.request(*this, packet, &reply);
 
 		if (reply) {
 			write(reply);

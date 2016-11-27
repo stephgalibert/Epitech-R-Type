@@ -44,7 +44,7 @@ CommandType CMDSpawn::getCommandType(void) const
 	return (CommandType::Spawn);
 }
 
-char const* CMDSpawn::getData(void) const
+char *CMDSpawn::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

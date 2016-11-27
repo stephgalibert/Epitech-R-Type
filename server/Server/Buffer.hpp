@@ -6,7 +6,7 @@ class Buffer
 {
 public:
 	Buffer(void);
-	//Buffer(char const *data, size_t size);
+	Buffer(char *data, size_t size);
 	virtual ~Buffer(void);
 
 	void reallocate(char *data, size_t size);

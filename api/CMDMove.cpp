@@ -37,7 +37,7 @@ CommandType CMDMove::getCommandType(void) const
 	return (CommandType::Move);
 }
 
-char const* CMDMove::getData(void) const
+char *CMDMove::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

@@ -46,7 +46,7 @@ CommandType CMDFire::getCommandType(void) const
 	return (CommandType::Fire);
 }
 
-char const* CMDFire::getData(void) const
+char *CMDFire::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

@@ -7,12 +7,12 @@ Buffer::Buffer(void)
 {
 }
 
-/*Buffer::Buffer(char const *data, size_t size)
+Buffer::Buffer(char *data, size_t size)
 	: _data(data),
 	  _size(size),
 	  _allocated(false)
 {
-}*/
+}
 
 Buffer::~Buffer(void)
 {

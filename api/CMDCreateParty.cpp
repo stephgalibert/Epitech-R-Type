@@ -57,7 +57,7 @@ CommandType CMDCreateParty::getCommandType(void) const
 	return (CommandType::CreateParty);
 }
 
-char const* CMDCreateParty::getData(void) const
+char *CMDCreateParty::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

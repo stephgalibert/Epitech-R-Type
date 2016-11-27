@@ -7,10 +7,10 @@ void AConnection::AsyncRead(std::shared_ptr<ISocket> socket, size_t transferAtLe
 	ThreadPool::Pool.addTask(new ReadAsyncTask(socket, transferAtLeast, callback));
 }
 
-void AConnection::AsyncWrite(std::shared_ptr<ISocket> socket, Buffer &buffer,
+void AConnection::AsyncWrite(std::shared_ptr<ISocket> socket, char *buffer, size_t size,
 							 std::function<void(void)> callback)
 {
-	ThreadPool::Pool.addTask(new WriteAsyncTask(socket, buffer, callback));
+	ThreadPool::Pool.addTask(new WriteAsyncTask(socket, buffer, size, callback));
 }
 
 AConnection::AConnection(std::shared_ptr<ISocket> socket, ConnectionManager &cm,
@@ -84,8 +84,11 @@ void AConnection::do_read(char *data, size_t size)
 	StaticTools::Log << "do_read " << size << " bytes" << std::endl;
 
 	if (size > sizeof(CommandType)) {
-		//CommandType type = StaticTools::GetPacketType(data);
-		//std::cout << "received command type: " << (int)type << std::endl;
+		
+		CommandType type = StaticTools::GetPacketType(data);
+		std::cout << "received command type: " << (int)type << std::endl;
+
+		write(new CMDPing(100));
 
 		if (_running) {
 			read();
@@ -98,13 +101,13 @@ void AConnection::do_read(char *data, size_t size)
 
 void AConnection::write(void)
 {
-	/*ICommand *packet = _toWrites.front();
+	ICommand *packet = _toWrites.front();
 
-	AsyncWrite(_socket, Buffer(packet->getData(), packet->getSize()),
-		std::bind(&AConnection::do_write, shared_from_this()));*/
+	AsyncWrite(_socket, packet->getData(), packet->getSize(),
+		std::bind(&AConnection::do_write, shared_from_this()));
 }
 
 void AConnection::do_write(void)
 {
-
+	std::cout << "finished to write" << std::endl;
 }

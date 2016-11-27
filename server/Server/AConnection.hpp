@@ -8,6 +8,7 @@
 #include "ISocket.hpp"
 #include "RequestHandler.hpp"
 #include "ICommand.hpp"
+#include "CMDPing.hpp"
 
 #include "ThreadPool.hpp"
 #include "ReadAsyncTask.hpp"
@@ -25,7 +26,7 @@ public:
 	static void AsyncRead(std::shared_ptr<ISocket> socket, size_t transferAtLeast,
 							std::function<void(char *, size_t)> callback);
 
-	static void AsyncWrite(std::shared_ptr<ISocket> socket, Buffer &buffer,
+	static void AsyncWrite(std::shared_ptr<ISocket> socket, char *buffer, size_t size,
 							std::function<void(void)> callback);
 
 public:

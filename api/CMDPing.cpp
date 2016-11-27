@@ -35,7 +35,7 @@ CommandType CMDPing::getCommandType(void) const
 	return (CommandType::Ping);
 }
 
-char const* CMDPing::getData(void) const
+char *CMDPing::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

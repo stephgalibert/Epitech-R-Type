@@ -37,7 +37,7 @@ CommandType CMDCollision::getCommandType(void) const
 	return (CommandType::Collision);
 }
 
-char const* CMDCollision::getData(void) const
+char *CMDCollision::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

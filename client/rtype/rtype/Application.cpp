@@ -25,6 +25,7 @@ void Application::init(void)
 {
 	try {
 		StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
+
 		_client.connect();
 		_client.run();
 

@@ -56,7 +56,7 @@ CommandType CMDConnect::getCommandType(void) const
 	return (CommandType::Connect);
 }
 
-char const* CMDConnect::getData(void) const
+char *CMDConnect::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

@@ -2,7 +2,7 @@
 
 std::ofstream StaticTools::Log;
 
-CommandType StaticTools::GetPacketType(char *packet)
+CommandType StaticTools::GetPacketType(char const *packet)
 {
 	return (*(CommandType *)(packet));
 }

@@ -35,7 +35,7 @@ CommandType CMDDisconnected::getCommandType(void) const
 	return (CommandType::Disconnected);
 }
 
-char const* CMDDisconnected::getData(void) const
+char *CMDDisconnected::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

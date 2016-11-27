@@ -35,7 +35,7 @@ CommandType CMDError::getCommandType(void) const
 	return (CommandType::Error);
 }
 
-char const* CMDError::getData(void) const
+char *CMDError::getData(void) const
 {
-	return (reinterpret_cast<const char *>(_data));
+	return (reinterpret_cast<char *>(_data));
 }

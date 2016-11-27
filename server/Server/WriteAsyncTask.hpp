@@ -10,7 +10,7 @@
 class WriteAsyncTask : public ITask
 {
 public:
-	WriteAsyncTask(std::shared_ptr<ISocket> socket, Buffer &buffer,
+	WriteAsyncTask(std::shared_ptr<ISocket> socket, char *buffer, size_t size,
 				   std::function<void(void)> callback);
 	virtual ~WriteAsyncTask(void);
 
@@ -19,7 +19,8 @@ public:
 
 private:
 	std::shared_ptr<ISocket> _socket;
-	Buffer &_buffer;
+	char *_buffer;
+	size_t _size;
 	std::function<void(void)> _callback;
 	bool _canceled;
 };
