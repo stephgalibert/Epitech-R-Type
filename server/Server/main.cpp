@@ -16,5 +16,7 @@ int main(int ac, char **av)
 
 	app.run();
 
+	while (true); // manage input ?
+
 	return (0);
 }

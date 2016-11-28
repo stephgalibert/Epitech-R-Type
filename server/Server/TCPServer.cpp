@@ -34,7 +34,6 @@ void TCPServer::init(void)
 void TCPServer::open(void)
 {
 	accept();
-	while (true); // manage input ?
 }
 
 void TCPServer::close(void)

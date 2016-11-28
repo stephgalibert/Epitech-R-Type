@@ -4,15 +4,10 @@ ThreadPool ThreadPool::Pool(16);
 
 void ThreadPool::addTask(ITask *task)
 {
-	//std::cout << "before lock" << std::endl; // dead lock here
 	_mtx.lock();
-	//std::cout << "after lock" << std::endl;
 	_vtask.push_back(task);
-	//std::cout << "before unlock" << std::endl;
 	_mtx.unlock();
-	//std::cout << "after unlock" << std::endl;
-	_condvar.notify_one();
-	
+	_condvar.notify_one();	
 }
 
 ThreadPool::ThreadPool(int nb_thread)
