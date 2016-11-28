@@ -1,4 +1,9 @@
-NAME		=	../Debug/client
+NAME		=	../Debug/.client
+NAME_LAUNCHER	=	../Debug/client
+
+SFML_LIB_REL	=	../../../../../Libraries/SFML/lib
+SFML_LIB_GEN	=	~/Libraries/SFML/lib
+SFML_INCLUDE	=	../../../../../Libraries/SFML/include
 
 CXX		=	g++
 
@@ -10,12 +15,12 @@ CXXFLAGS	+=	-g -std=c++11
 CXXFLAGS	+=	-I./
 CXXFLAGS	+=	-I../../../common/
 CXXFLAGS	+=	-I../../../api/
-CXXFLAGS	+=	-I../../../../../Libraries/SFML/include/
+CXXFLAGS	+=	-I$(SFML_INCLUDE)
 
 LDFLAGS		+=	-lpthread
 LDFLAGS		+=	-lboost_system -lboost_filesystem -ldl
-LDFLAGS		+=	-L../../../../../Libraries/SFML/lib/
-LDFLAGS		+=	-lsfml-window -lsfml-graphics -lsfml-audio -lsfml-system -lsfml-network
+LDFLAGS		+=	-L$(SFML_LIB_REL)
+LDFLAGS		+=	-lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 
 SRCS		+=	main.cpp
 SRCS		+=	AActor.cpp
@@ -76,10 +81,14 @@ SRCS		+=	../../../api/CommandFactory.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 
 
-all:		$(NAME)
+all:		$(NAME) RUN
 
 $(NAME):	$(OBJS)
 		$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
+
+RUN:
+		@echo "export LD_LIBRARY_PATH="$(SFML_LIB_GEN) " && ./.client" > $(NAME_LAUNCHER)
+		@chmod 777 $(NAME_LAUNCHER)
 
 re:		fclean all
 
@@ -88,3 +97,4 @@ clean:
 
 fclean: 	clean
 		$(RM) $(NAME)
+		$(RM) $(NAME_LAUNCHER)
