@@ -31,39 +31,24 @@
     <Filter Include="Fichiers sources\Protocol">
       <UniqueIdentifier>{c2cf6916-5479-48af-affa-c9815f72b61a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Network">
+      <UniqueIdentifier>{3c44bb21-8b13-40c6-b230-b292383a458a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Network">
+      <UniqueIdentifier>{7f11b994-2561-4767-bdf3-4fcde9d627e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="AConnection.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="AServer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ConnectionManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Party.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="PartyManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestBuilder.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestHandler.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="UDPServer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="TCPServer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="ThreadPool.cpp">
@@ -76,9 +61,6 @@
       <Filter>Fichiers sources\Socket</Filter>
     </ClCompile>
     <ClCompile Include="WinServerSocket.cpp">
-      <Filter>Fichiers sources\Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="WinSocket.cpp">
       <Filter>Fichiers sources\Socket</Filter>
     </ClCompile>
     <ClCompile Include="AcceptAsyncTask.cpp">
@@ -126,39 +108,54 @@
     <ClCompile Include="..\..\common\StaticTools.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="TCPWinSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPWinSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPServer.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPServer.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPConnection.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestHandler.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestBuilder.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="AServer.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="AConnection.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectionManager.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPConnection.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="ReceiveFromAsyncTask.cpp">
+      <Filter>Fichiers sources\AsyncTask</Filter>
+    </ClCompile>
+    <ClCompile Include="SendToAsyncTask.cpp">
+      <Filter>Fichiers sources\AsyncTask</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="IRequest.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="AConnection.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="AServer.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ConnectionManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Party.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="PartyManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestBuilder.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestHandler.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="UDPServer.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="TCPServer.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ThreadPool.hpp">
@@ -171,9 +168,6 @@
       <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
     <ClInclude Include="WinServerSocket.hpp">
-      <Filter>Fichiers d%27en-tête\Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="WinSocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
     <ClInclude Include="IServerSocket.hpp">
@@ -190,9 +184,6 @@
     </ClInclude>
     <ClInclude Include="Buffer.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="SocketType.hpp">
-      <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
     <ClInclude Include="ISocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
@@ -241,6 +232,57 @@
     </ClInclude>
     <ClInclude Include="..\..\api\CommandType.hpp">
       <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPWinSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="ITCPSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="IUDPSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPWinSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPConnection.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPServer.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="AConnection.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="AServer.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionManager.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestBuilder.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPServer.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="IRequest.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPConnection.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Endpoint.hpp">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="ReceiveFromAsyncTask.hpp">
+      <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="SendToAsyncTask.hpp">
+      <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,7 +16,7 @@ public:
 	virtual ~UnixServerSocket(void);
 
 	virtual void init(std::string const &listenHost, short listenPort);
-	virtual std::shared_ptr<ISocket> accept(void);
+	virtual std::shared_ptr<ITCPSocket> accept(void);
 
 private:
 	int _socket;

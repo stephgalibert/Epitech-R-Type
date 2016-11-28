@@ -36,8 +36,17 @@ void Application::init(void)
 		delete (tcp);
 		throw (std::runtime_error(e.what()));
 	}
-
 	_servers.push_back(tcp);
+
+	UDPServer *udp = new UDPServer(_cm, _pm);
+	try {
+		udp->init();
+	}
+	catch (std::exception const& e) {
+		delete (udp);
+		throw (std::runtime_error(e.what()));
+	}
+	_servers.push_back(udp);
 }
 
 void Application::run(void)

@@ -16,7 +16,7 @@ int main(void)
 
 	app.run();
 
-	while (true); // manage input ?
+	while (true);
 
 	return (0);
 }

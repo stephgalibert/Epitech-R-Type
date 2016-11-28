@@ -7,10 +7,12 @@ class Buffer
 {
 public:
 	Buffer(void);
-	Buffer(char *data, size_t size);
 	virtual ~Buffer(void);
 
+	void prepare(size_t len);
 	void reallocate(char *data, size_t size);
+
+	void setSize(size_t value);
 
 	char *getData(void) const;
 	size_t getSize(void) const;
@@ -18,6 +20,5 @@ public:
 private:
 	char *_data;
 	size_t _size;
-	bool _allocated;
 };
 

@@ -6,12 +6,6 @@
 #include "ConnectionManager.hpp"
 #include "ThreadPool.hpp"
 
-#ifdef _WIN32
-# include "WinServerSocket.hpp"
-#else 
-# include "UnixServerSocket.hpp"
-#endif
-
 class AServer
 {
 public:
@@ -27,7 +21,7 @@ public:
 	ConnectionManager &getConnectionManager(void);
 
 private:
-        ConnectionManager &_cm;
+    ConnectionManager &_cm;
 	PartyManager &_pm;
 	RequestHandler _rh;
 };

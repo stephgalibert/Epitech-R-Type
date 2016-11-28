@@ -4,12 +4,20 @@
 #include "AcceptAsyncTask.hpp"
 
 #include "AConnection.hpp"
+#include "ITCPSocket.hpp"
+#include "TCPConnection.hpp"
+
+#ifdef _WIN32
+# include "WinServerSocket.hpp"
+#else 
+# include "UnixServerSocket.hpp"
+#endif
 
 class TCPServer : public AServer
 {
 public:
 	static void AsyncAccept(std::shared_ptr<IServerSocket> ss,
-		                    std::function<void(std::shared_ptr<ISocket>)> function);
+		                    std::function<void(std::shared_ptr<ITCPSocket>)> function);
 
 public:
 	TCPServer(ConnectionManager &cm, PartyManager &pm);
@@ -21,7 +29,7 @@ public:
 
 private:
 	void accept(void);
-	void do_accept(std::shared_ptr<ISocket> socket);
+	void do_accept(std::shared_ptr<ITCPSocket> socket);
 
 	std::shared_ptr<IServerSocket> _ss;
 };

@@ -2,23 +2,24 @@
 
 Buffer::Buffer(void)
 	: _data(NULL),
-	  _size(0),
-	  _allocated(true)
-{
-}
-
-Buffer::Buffer(char *data, size_t size)
-	: _data(data),
-	  _size(size),
-	  _allocated(false)
+	  _size(0)
 {
 }
 
 Buffer::~Buffer(void)
 {
-	if (_allocated && _data != NULL) {
+	if (_data != NULL) {
 		delete (_data);
 	}
+}
+
+void Buffer::prepare(size_t len)
+{
+	if (_data) {
+		delete (_data);
+	}
+	_data = new char[len] { 0 };
+	_size = len;
 }
 
 void Buffer::reallocate(char *data, size_t size)
@@ -31,12 +32,15 @@ void Buffer::reallocate(char *data, size_t size)
 	else {
 		memcpy(tmp, _data, _size);
 		memcpy(&tmp[_size], data, size);
-		if (_allocated) {
-			delete (_data);
-		}
+		delete (_data);
 	}
 	_size += size;
 	_data = tmp;
+}
+
+void Buffer::setSize(size_t value)
+{
+	_size = value;
 }
 
 char *Buffer::getData(void) const

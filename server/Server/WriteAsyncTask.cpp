@@ -1,6 +1,6 @@
 #include "WriteAsyncTask.hpp"
 
-WriteAsyncTask::WriteAsyncTask(std::shared_ptr<ISocket> socket, char *buffer, size_t size,
+WriteAsyncTask::WriteAsyncTask(std::shared_ptr<ITCPSocket> socket, char *buffer, size_t size,
 							   std::function<void(void)> callback)
 	: _socket(socket),
 	  _buffer(buffer),

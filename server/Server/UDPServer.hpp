@@ -5,7 +5,7 @@
 #include "AServer.hpp"
 
 #include "StaticTools.hpp"
-#include "AConnection.hpp"
+#include "UDPConnection.hpp"
 
 class UDPServer : public AServer
 {
@@ -18,6 +18,6 @@ public:
 	virtual void close(void);
 
 private:
-	std::shared_ptr<AConnection> _connection;
+	std::shared_ptr<UDPConnection> _connection;
 };
 

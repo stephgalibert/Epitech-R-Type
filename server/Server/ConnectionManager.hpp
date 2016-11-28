@@ -14,6 +14,7 @@ public:
 	void add(std::shared_ptr<AConnection> connexion);
 	void leave(std::shared_ptr<AConnection> connexion);
 	void broadcast(std::shared_ptr<AConnection> connexion);
+	void closeAll(void);
 
 private:
 	std::set<std::shared_ptr<AConnection> > _connections;

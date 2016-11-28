@@ -1,9 +1,8 @@
 #include "WinServerSocket.hpp"
 
-WinServerSocket::WinServerSocket(SocketType type)
+WinServerSocket::WinServerSocket(void)
 {
 	_socket = 0;
-	_type = type;
 	WSAStartup(MAKEWORD(2, 0), &_wsdata);
 }
 
@@ -18,12 +17,12 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 {
 	SOCKADDR_IN sin;
 	int ret = 0;
-	u_long socket_state = 0; // 1 pour non-bloquant
+	u_long socket_state = 0;
 
 	sin.sin_addr.s_addr = inet_addr(listenHost.c_str());
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(listenPort);
-	_socket = socket(AF_INET, _type, 0);
+	_socket = socket(AF_INET, SOCK_STREAM, 0);
 	ioctlsocket(_socket, FIONBIO, &socket_state);
 	if (_socket <= 0) {
 		throw (std::runtime_error("bad socket"));
@@ -42,9 +41,9 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 	}
 }
 
-std::shared_ptr<ISocket> WinServerSocket::accept(void)
+std::shared_ptr<ITCPSocket> WinServerSocket::accept(void)
 {
-	std::shared_ptr<ISocket> socket = std::make_shared<WinSocket>(_type);
+	std::shared_ptr<ITCPSocket> socket = std::make_shared<TCPWinSocket>();
 	SOCKADDR_IN csin;
 	SOCKET csock;
 	int sinsize;

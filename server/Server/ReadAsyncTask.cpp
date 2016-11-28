@@ -1,6 +1,6 @@
 #include "ReadAsyncTask.hpp"
 
-ReadAsyncTask::ReadAsyncTask(std::shared_ptr<ISocket> socket, size_t transferAtLeast,
+ReadAsyncTask::ReadAsyncTask(std::shared_ptr<ITCPSocket> socket, size_t transferAtLeast,
 	std::function<void(char *, size_t)> callback)
 	: _socket(socket),
 	  _transferAtLeast(transferAtLeast),

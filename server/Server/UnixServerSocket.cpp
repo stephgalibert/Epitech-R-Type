@@ -38,9 +38,9 @@ void UnixServerSocket::init(std::string const & listenHost, short listenPort)
 	}
 }
 
-std::shared_ptr<ISocket> UnixServerSocket::accept(void)
+std::shared_ptr<ITCPSocket> UnixServerSocket::accept(void)
 {
-	std::shared_ptr<ISocket> socket = std::make_shared<UnixSocket>(_type);
+	std::shared_ptr<ITCPSocket> socket = std::make_shared<UnixSocket>(_type);
 	//ISocket *socket = new UnixSocket(_type);
         sockaddr_in csin;
 	int csock;

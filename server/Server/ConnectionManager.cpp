@@ -23,3 +23,8 @@ void ConnectionManager::broadcast(std::shared_ptr<AConnection> connexion)
 {
   (void)connexion;
 }
+
+void ConnectionManager::closeAll(void)
+{
+	_connections.clear();
+}

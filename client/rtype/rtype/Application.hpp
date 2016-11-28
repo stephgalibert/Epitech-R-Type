@@ -13,6 +13,7 @@
 #include "ProjectResource.hpp"
 #include "MainMenuController.hpp"
 #include "GameController.hpp"
+#include "UDPClient.hpp"
 #include "TCPClient.hpp"
 
 #include "FPSCounter.hpp"
@@ -40,7 +41,7 @@ private:
 private:
 	void draw(void);
 
-	TCPClient _client;
+	UDPClient _client;
 	Timer _timer;
 	InputHandler _inputHandler;
 	sf::RenderWindow _window;

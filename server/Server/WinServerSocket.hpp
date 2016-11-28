@@ -4,21 +4,19 @@
 #pragma comment(lib, "ws2_32.lib")
 
 #include "IServerSocket.hpp"
-#include "SocketType.hpp"
-#include "WinSocket.hpp"
+#include "TCPWinSocket.hpp"
 
 class WinServerSocket : public IServerSocket
 {
 public:
-	WinServerSocket(SocketType type);
+	WinServerSocket(void);
 	virtual ~WinServerSocket(void);
 
 	virtual void init(std::string const &listenHost, short listenPort);
-	virtual std::shared_ptr<ISocket> accept();
+	virtual std::shared_ptr<ITCPSocket> accept();
 
 private:
 	SOCKET _socket;
 	WSADATA _wsdata;
-	SocketType _type;
 };
 

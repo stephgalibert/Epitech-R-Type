@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "TCPServer.hpp"
+#include "UDPServer.hpp"
 #include "PartyManager.hpp"
 #include "StaticTools.hpp"
 
