@@ -35,10 +35,10 @@ void Application::init(void)
 		_fps.init();
 		_inputHandler.init();
 
-		_controllers[State::ST_MainMenu] = new MainMenuController();
-		_controllers[State::ST_Game] = new GameController();
+		_controllers[(int)State::ST_MainMenu] = new MainMenuController();
+		_controllers[(int)State::ST_Game] = new GameController();
 		
-		_controllers.at(_fsm)->init();
+		_controllers.at((int)_fsm)->init();
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -67,10 +67,10 @@ void Application::loop(void)
 			}
 		}
 
-		_controllers.at(_fsm)->input(_inputHandler);
+		_controllers.at((int)_fsm)->input(_inputHandler);
 
 		_fps.update(delta);
-		_controllers.at(_fsm)->update(delta);
+		_controllers.at((int)_fsm)->update(delta);
 
 		draw();
 	}
@@ -80,7 +80,7 @@ void Application::draw(void)
 {
 	_window.clear();
 
-	_controllers.at(_fsm)->draw(_window);
+	_controllers.at((int)_fsm)->draw(_window);
 	_fps.draw(_window); // !
 
 	_window.display();

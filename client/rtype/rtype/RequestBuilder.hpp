@@ -6,7 +6,7 @@
 #include <functional>
 #include <unordered_map>
 
-#include <boost/core/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 
 #include "Protocol.hpp"
 #include "IRequest.hpp"
@@ -23,5 +23,5 @@ public:
 private:
 	//std::unique_ptr<IRequest> kill(void) const;
 
-	std::unordered_map<CommandType, Cmds> _cmds;
+	std::unordered_map<int, Cmds> _cmds;
 };

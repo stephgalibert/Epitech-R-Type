@@ -38,7 +38,7 @@ private:
 	void joystickDisconnected(sf::Event const& e);
 	void textEntered(sf::Event const& e);
 	void exit(sf::Event const& e);
-	std::unordered_map<sf::Event::EventType, std::function<void(sf::Event const&)> > _events;
+	std::unordered_map<int, std::function<void(sf::Event const&)> > _events;
 
 	bool _mouse[sf::Mouse::ButtonCount];
 	bool _keys[sf::Keyboard::KeyCount];

@@ -5,11 +5,11 @@ SplashScreen::SplashScreen(void)
 	  _delta(0),
 	  _finished(false)
 {
-	_states[State::ST_None] = std::bind(&SplashScreen::st_none, this, std::placeholders::_1);
-	_states[State::ST_Increase] = std::bind(&SplashScreen::st_increase, this, std::placeholders::_1);
-	_states[State::ST_Fix] = std::bind(&SplashScreen::st_fix, this, std::placeholders::_1);
-	_states[State::ST_Decrease] = std::bind(&SplashScreen::st_decrease, this, std::placeholders::_1);
-	_states[State::ST_Finished] = std::bind(&SplashScreen::st_finished, this, std::placeholders::_1);
+  _states[(int)State::ST_None] = std::bind(&SplashScreen::st_none, this, std::placeholders::_1);
+  _states[(int)State::ST_Increase] = std::bind(&SplashScreen::st_increase, this, std::placeholders::_1);
+  _states[(int)State::ST_Fix] = std::bind(&SplashScreen::st_fix, this, std::placeholders::_1);
+  _states[(int)State::ST_Decrease] = std::bind(&SplashScreen::st_decrease, this, std::placeholders::_1);
+  _states[(int)State::ST_Finished] = std::bind(&SplashScreen::st_finished, this, std::placeholders::_1);
 }
 
 SplashScreen::~SplashScreen(void)
@@ -33,7 +33,7 @@ void SplashScreen::init(void)
 void SplashScreen::update(float delta)
 {
 	_delta += delta;
-	_states.at(_fsm)(delta);
+	_states.at((int)_fsm)(delta);
 }
 
 void SplashScreen::draw(sf::RenderWindow &window)
@@ -54,6 +54,7 @@ void SplashScreen::st_none(float delta)
 
 void SplashScreen::st_increase(float delta)
 {
+  (void)delta;
 	if (_delta < 1.f) {
 		_rect.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)(255 - (_delta / 1.f * 255.f))));
 	}
@@ -65,6 +66,7 @@ void SplashScreen::st_increase(float delta)
 
 void SplashScreen::st_fix(float delta)
 {
+  (void)delta;
 	if (_delta > 3.f) {
 		_delta = 0.f;
 		_fsm = State::ST_Decrease;
@@ -73,6 +75,7 @@ void SplashScreen::st_fix(float delta)
 
 void SplashScreen::st_decrease(float delta)
 {
+  (void)delta;
 	if (_delta < 2.f) {
 		_rect.setFillColor(sf::Color(0, 0, 0, (sf::Uint8)(_delta / 2.f * 255.f)));
 	}

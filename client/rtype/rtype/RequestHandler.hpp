@@ -7,7 +7,7 @@
 #include <sstream>
 #include <vector>
 
-#include <boost/core/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/algorithm/string.hpp>
 
 #include "IClient.hpp"

@@ -46,7 +46,7 @@ private:
 	sf::RenderWindow _window;
 
 	State _fsm;
-	std::unordered_map<State, AController *> _controllers;
+	std::unordered_map<int, AController *> _controllers;
 
 	FPSCounter _fps; // tmp
 };

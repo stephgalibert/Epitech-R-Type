@@ -36,7 +36,7 @@ private:
 	void st_fix(float delta);
 	void st_decrease(float delta);
 	void st_finished(float delta);
-	std::unordered_map<State, std::function<void(float)> > _states;
+	std::unordered_map<int, std::function<void(float)> > _states;
 
 	sf::Texture _texture;
 	sf::Sprite _sprite;

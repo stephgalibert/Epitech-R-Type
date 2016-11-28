@@ -14,8 +14,8 @@ AMoveable::~AMoveable(void)
 void AMoveable::move(float delta)
 {
 	if (_degrees != -1) {
-		ADestroyable::move(std::cosf(_radians) * _velocity * delta,
-			std::sinf(_radians) * _velocity * delta);
+		ADestroyable::move(std::cos(_radians) * _velocity * delta,
+			std::sin(_radians) * _velocity * delta);
 	}
 }
 

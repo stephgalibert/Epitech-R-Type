@@ -2,16 +2,16 @@
 
 InputHandler::InputHandler(void)
 {
-	_events[sf::Event::EventType::KeyPressed] = std::bind(&InputHandler::keyPressed, this, std::placeholders::_1);
-	_events[sf::Event::EventType::KeyReleased] = std::bind(&InputHandler::keyReleased, this, std::placeholders::_1);
-	_events[sf::Event::EventType::MouseButtonPressed] = std::bind(&InputHandler::mouseButtonPressed, this, std::placeholders::_1);
-	_events[sf::Event::EventType::MouseButtonReleased] = std::bind(&InputHandler::mouseButtonReleased, this, std::placeholders::_1);
-	_events[sf::Event::EventType::JoystickButtonPressed] = std::bind(&InputHandler::joystickButtonPressed, this, std::placeholders::_1);
-	_events[sf::Event::EventType::JoystickButtonReleased] = std::bind(&InputHandler::joystickButtonReleased, this, std::placeholders::_1);
-	_events[sf::Event::EventType::JoystickConnected] = std::bind(&InputHandler::joystickConnected, this, std::placeholders::_1);
-	_events[sf::Event::EventType::JoystickDisconnected] = std::bind(&InputHandler::joystickDisconnected, this, std::placeholders::_1);
-	_events[sf::Event::EventType::TextEntered] = std::bind(&InputHandler::textEntered, this, std::placeholders::_1);
-	_events[sf::Event::EventType::Closed] = std::bind(&InputHandler::exit, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::KeyPressed] = std::bind(&InputHandler::keyPressed, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::KeyReleased] = std::bind(&InputHandler::keyReleased, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::MouseButtonPressed] = std::bind(&InputHandler::mouseButtonPressed, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::MouseButtonReleased] = std::bind(&InputHandler::mouseButtonReleased, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::JoystickButtonPressed] = std::bind(&InputHandler::joystickButtonPressed, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::JoystickButtonReleased] = std::bind(&InputHandler::joystickButtonReleased, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::JoystickConnected] = std::bind(&InputHandler::joystickConnected, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::JoystickDisconnected] = std::bind(&InputHandler::joystickDisconnected, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::TextEntered] = std::bind(&InputHandler::textEntered, this, std::placeholders::_1);
+  _events[(int)sf::Event::EventType::Closed] = std::bind(&InputHandler::exit, this, std::placeholders::_1);
 
 	for (size_t i = 0; i < sf::Mouse::ButtonCount; ++i) {
 		_mouse[i] = false;
@@ -40,8 +40,8 @@ void InputHandler::init(void)
 void InputHandler::OnEvent(sf::Event const& e)
 {
 	popTextEntered();
-	if (_events.find(e.type) != _events.cend())
-		_events.at(e.type)(e);
+	if (_events.find((int)e.type) != _events.cend())
+	  _events.at((int)e.type)(e);
 }
 
 bool InputHandler::isKeyDown(sf::Keyboard::Key key) const
@@ -118,11 +118,13 @@ void InputHandler::joystickButtonReleased(sf::Event const& e)
 
 void InputHandler::joystickConnected(sf::Event const& e)
 {
+  (void)e;
 	_joystickPresent = true;
 }
 
 void InputHandler::joystickDisconnected(sf::Event const& e)
 {
+  (void)e;
 	_joystickPresent = false;
 }
 

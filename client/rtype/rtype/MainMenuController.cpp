@@ -31,6 +31,7 @@ bool MainMenuController::input(InputHandler &input)
 
 void MainMenuController::update(float delta)
 {
+  (void)delta;
 	/*if (!_splash.isFinished()) {
 		_splash.update(delta);
 	}
@@ -41,6 +42,7 @@ void MainMenuController::update(float delta)
 
 void MainMenuController::draw(sf::RenderWindow &window)
 {
+  (void)window;
 	/*if (!_splash.isFinished()) {
 		_splash.draw(window);
 	}

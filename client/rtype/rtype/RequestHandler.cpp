@@ -10,6 +10,9 @@ RequestHandler::~RequestHandler(void)
 
 void RequestHandler::request(IClient &client, char const* received, ICommand **reply)
 {
+  (void)client;
+  (void)received;
+  (void)reply;
 	if (received) {
 
 		/*StaticTools::Log << "receive packet type '" << (int)received->type

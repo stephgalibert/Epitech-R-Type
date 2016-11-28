@@ -17,8 +17,8 @@ void LevelResource::load(void)
 		addTexture("background", "./rsrc/sprites/background.png");
 		addTexture("background2", "./rsrc/sprites/background2.png");
 		addTexture("explosions", "./rsrc/sprites/explosions.png");
-		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
-		addSound("explosions", "./rsrc/music/explosion.ogg");
+		//addMusic("stage_01", "./rsrc/music/stage_01.ogg");
+		//addSound("explosions", "./rsrc/music/explosion.ogg");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);
