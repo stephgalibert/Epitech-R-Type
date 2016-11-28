@@ -1,10 +1,13 @@
-#pragma once
 
+#include <sys/socket.h>
 #include <sys/types.h>
+#include <unistd.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <arpa/inet.h>
 
 #include "IServerSocket.hpp"
 #include "SocketType.hpp"
-
 
 class UnixServerSocket : public IServerSocket
 {

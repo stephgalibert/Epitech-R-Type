@@ -34,6 +34,6 @@ private:
 	ICommand *cmd_ping(void) const;
 	ICommand *cmd_spawn(void) const;
 
-	std::unordered_map<CommandType, std::function<ICommand *(void)> > _cmds;
+	std::unordered_map<int, std::function<ICommand *(void)> > _cmds;
 };
 

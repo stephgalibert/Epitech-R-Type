@@ -52,9 +52,9 @@ private:
 	void write(void);
 	void do_write(void);
 
+        ConnectionManager &_cm;
+        RequestHandler &_rh;
 	PartyManager &_pm;
-	RequestHandler &_rh;
-	ConnectionManager &_cm;
 
 	std::shared_ptr<ISocket> _socket;
 	std::queue<ICommand *> _toWrites;

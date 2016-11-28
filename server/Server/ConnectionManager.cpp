@@ -21,4 +21,5 @@ void ConnectionManager::leave(std::shared_ptr<AConnection> connexion)
 
 void ConnectionManager::broadcast(std::shared_ptr<AConnection> connexion)
 {
+  (void)connexion;
 }

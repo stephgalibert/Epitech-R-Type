@@ -42,6 +42,7 @@ ITask *ThreadPool::getTask(void)
 
 void ThreadPool::start_func(int i)
 {
+  (void)i;
 	while (_running)
 	{
 		ITask *task = NULL;

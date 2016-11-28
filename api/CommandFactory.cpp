@@ -10,8 +10,8 @@ CommandFactory::~CommandFactory(void)
 
 ICommand *CommandFactory::build(CommandType type) const
 {
-	if (_cmds.find(type) != _cmds.cend()) {
-		return (_cmds.at(type)());
+  if (_cmds.find((int)type) != _cmds.cend()) {
+    return (_cmds.at((int)type)());
 	}
 	return (NULL);
 }

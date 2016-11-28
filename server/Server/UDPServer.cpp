@@ -3,7 +3,7 @@
 UDPServer::UDPServer(ConnectionManager &cm, PartyManager &pm)
 	: AServer(cm, pm)
 {
-	_connection = std::make_shared<AConnection>(cm, getRequestHandler(), pm);
+  //_connection = std::make_shared<AConnection>(cm, getRequestHandler(), pm);
 }
 
 UDPServer::~UDPServer(void)
@@ -18,7 +18,7 @@ void UDPServer::init(void)
 
 void UDPServer::open(void)
 {
-	_connection->start();
+  //_connection->start();
 }
 
 void UDPServer::close(void)

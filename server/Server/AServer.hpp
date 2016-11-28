@@ -16,7 +16,7 @@ class AServer
 {
 public:
 	AServer(ConnectionManager &cm, PartyManager &pm);
-	~AServer(void);
+	virtual ~AServer(void);
 
 	virtual void init(void) = 0;
 	virtual void open(void) = 0;
@@ -27,8 +27,8 @@ public:
 	ConnectionManager &getConnectionManager(void);
 
 private:
+        ConnectionManager &_cm;
 	PartyManager &_pm;
 	RequestHandler _rh;
-	ConnectionManager &_cm;
 };
 

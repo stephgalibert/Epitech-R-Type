@@ -3,7 +3,7 @@
 #include "StaticTools.hpp"
 #include "Application.hpp"
 
-int main(int ac, char **av)
+int main(void)
 {
 	Application app;
 	

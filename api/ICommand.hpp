@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "Protocol.hpp"
 
 struct ICommand

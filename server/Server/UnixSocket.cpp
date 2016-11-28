@@ -9,13 +9,13 @@ UnixSocket::UnixSocket(SocketType type)
 UnixSocket::~UnixSocket(void)
 {
 	if (_socket)
-		closesocket(_socket);
+		close(_socket);
 }
 
 bool UnixSocket::connectToServer(std::string const & host, short port)
 {
-	SOCKADDR_IN sin;
-	int ret = 0;
+	sockaddr_in sin;
+	//int ret = 0;
 	_socket = socket(AF_INET, _type, 0);
 	if (_socket <= 0) {
 		return false;
@@ -23,8 +23,8 @@ bool UnixSocket::connectToServer(std::string const & host, short port)
 	sin.sin_addr.s_addr = inet_addr(host.c_str());
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
-	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin))) {
-		closesocket(_socket);
+	if (connect(_socket, reinterpret_cast<sockaddr *>(&sin), sizeof(sin))) {
+		close(_socket);
 		return false;
 	}
 	return true;
@@ -36,7 +36,7 @@ bool UnixSocket::connectFromAcceptedFd(int fd)
 	return true;
 }
 
-int UnixSocket::recv(std::string & buffer, int blocksize)
+/*int UnixSocket::recv(std::string & buffer, int blocksize)
 {
 	char *buf = new char[blocksize] {0};
 	int ret = 0;
@@ -63,4 +63,24 @@ std::string UnixSocket::recv(void)
 int UnixSocket::send(std::string const & data)
 {
 	return ::send(_socket, data.c_str(), data.length() + 1, 0);
+	}*/
+
+int UnixSocket::recv(char *buffer, size_t blocksize)
+{
+  (void)buffer;
+  (void)blocksize;
+  return (0);
+}
+
+void UnixSocket::recv(Buffer &buffer, size_t transferAtLeast)
+{
+  (void)buffer;
+  (void)transferAtLeast;
+}
+
+int UnixSocket::send(char *data, size_t size)
+{
+  (void)data;
+  (void)size;
+  return (0);
 }
