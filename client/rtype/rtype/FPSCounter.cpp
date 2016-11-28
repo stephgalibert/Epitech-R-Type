@@ -18,8 +18,7 @@ void FPSCounter::init()
 	}
 
 	_text.setCharacterSize(14);
-	//_text.setFillColor(sf::Color::Yellow);
-	//_text.setColor(sf::Color::Yellow);
+	_text.setFillColor(sf::Color::Yellow);
 	_text.setString("0 FPS");
 	_text.setPosition(sf::Vector2f(7, 7));
 }

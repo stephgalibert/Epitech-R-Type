@@ -29,6 +29,7 @@ void Explosion::init(void)
 		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
 	}
 	catch (std::exception const& e) {
+		StaticTools::Log << e.what() << std::endl;
 		throw (std::runtime_error(e.what()));
 	}
 }
