@@ -1,10 +1,16 @@
 #pragma once
 
+#include <iostream>
+#include <memory>
+
+#include "ICommand.hpp"
+
 class AConnection;
 
 class IRequest
 {
 public:
 	virtual ~IRequest(void) {}
-	virtual void execute(AConnection *server, char *data, char **reply) = 0;
+
+	virtual void execute(std::shared_ptr<AConnection> owner, ICommand *received, ICommand **reply) = 0;
 };

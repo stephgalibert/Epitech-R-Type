@@ -61,12 +61,6 @@ void UDPConnection::write(void)
 
 	AsyncSendTo(_socket, _endpoint, command->getData(), command->getSize(),
 		std::bind(&AConnection::do_write, shared_from_this()));
-	//Packet *packet = _toWrites.front();
-	//_socket.async_send_to(boost::asio::buffer(packet, sizeof(Packet) + packet->size),
-	//	_endpoint,
-	//	boost::bind(&UDPConnection::do_write, this,
-	//		boost::asio::placeholders::error,
-	//		boost::asio::placeholders::bytes_transferred));
 }
 
 void UDPConnection::read(void)

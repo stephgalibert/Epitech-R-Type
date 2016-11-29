@@ -52,15 +52,20 @@ void TCPConnection::read(void)
 			std::placeholders::_1, std::placeholders::_2));
 }
 
-void TCPConnection::do_read(char *data, size_t size)
+void TCPConnection::do_read(char *received, size_t size)
 {
 	StaticTools::Log << "do_read " << size << " bytes" << std::endl;
 
 	if (size > sizeof(CommandType)) {
-		CommandType type = StaticTools::GetPacketType(data);
-		std::cout << "received command type: " << (int)type << std::endl;
+		CommandType type = StaticTools::GetPacketType(received);
+		StaticTools::Log << "received command type: " << (int)type << std::endl;
 
-		write(new CMDPing(100));
+		ICommand *reply = NULL;
+		getRequestHandler().receive(shared_from_this(), received, &reply);
+
+		//if (reply) {
+		//	write(reply);
+		//}
 
 		if (isRunning()) {
 			read();

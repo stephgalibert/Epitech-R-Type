@@ -10,8 +10,8 @@ public:
 	PartyManager(void);
 	~PartyManager(void);
 
-	void add(std::string name, std::string pwd);
-	void del(std::string name);
+	void addParty(std::string name, std::string pwd);
+	void removeParty(std::string name, std::string pwd);
 	std::shared_ptr<Party> addUser(std::string name, std::string pwd, std::shared_ptr<AConnection> user);
 
 private:

@@ -14,9 +14,19 @@ void Party::init(std::string name, std::string pwd)
   (void)pwd;
 }
 
-void Party::connect(std::shared_ptr<AConnection> user)
+void Party::run(void)
 {
-  (void)user;
+
+}
+
+void Party::close(void)
+{
+
+}
+
+void Party::addConnection(std::shared_ptr<AConnection> connection)
+{
+  (void)connection;
 }
 
 void Party::move(char * data)
@@ -41,4 +51,14 @@ void Party::collision(char * data)
 
 void Party::loop(void)
 {
+}
+
+std::string const& Party::getName(void) const
+{
+	return (_name);
+}
+
+std::string const& Party::getPassword(void) const
+{
+	return (_password);
 }

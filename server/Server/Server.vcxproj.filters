@@ -37,6 +37,12 @@
     <Filter Include="Fichiers sources\Network">
       <UniqueIdentifier>{7f11b994-2561-4767-bdf3-4fcde9d627e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Request">
+      <UniqueIdentifier>{fc970027-1214-4513-9822-f950aa2c9177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Request">
+      <UniqueIdentifier>{5abe6407-d932-4aa1-a2ea-118170464a4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,12 +129,6 @@
     <ClCompile Include="TCPConnection.cpp">
       <Filter>Fichiers sources\Network</Filter>
     </ClCompile>
-    <ClCompile Include="RequestHandler.cpp">
-      <Filter>Fichiers sources\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestBuilder.cpp">
-      <Filter>Fichiers sources\Network</Filter>
-    </ClCompile>
     <ClCompile Include="AServer.cpp">
       <Filter>Fichiers sources\Network</Filter>
     </ClCompile>
@@ -146,6 +146,15 @@
     </ClCompile>
     <ClCompile Include="SendToAsyncTask.cpp">
       <Filter>Fichiers sources\AsyncTask</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestBuilder.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestHandler.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestConnect.cpp">
+      <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,16 +269,7 @@
     <ClInclude Include="ConnectionManager.hpp">
       <Filter>Fichiers d%27en-tête\Network</Filter>
     </ClInclude>
-    <ClInclude Include="RequestBuilder.hpp">
-      <Filter>Fichiers d%27en-tête\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestHandler.hpp">
-      <Filter>Fichiers d%27en-tête\Network</Filter>
-    </ClInclude>
     <ClInclude Include="UDPServer.hpp">
-      <Filter>Fichiers d%27en-tête\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="IRequest.hpp">
       <Filter>Fichiers d%27en-tête\Network</Filter>
     </ClInclude>
     <ClInclude Include="UDPConnection.hpp">
@@ -283,6 +283,18 @@
     </ClInclude>
     <ClInclude Include="SendToAsyncTask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestConnect.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestBuilder.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="IRequest.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

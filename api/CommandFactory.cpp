@@ -2,6 +2,7 @@
 
 CommandFactory::CommandFactory(void)
 {
+	_cmds[(int)CommandType::Connect] = std::bind(&CommandFactory::cmd_connect, this);
 }
 
 CommandFactory::~CommandFactory(void)

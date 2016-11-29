@@ -79,13 +79,13 @@ void TCPClient::write(void)
 			boost::asio::placeholders::bytes_transferred));
 }
 
-//#include "CMDCollision.hpp"
+#include "CMDConnect.hpp"
 void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip::tcp::resolver::iterator)
 {
 	if (!ec) {
 		StaticTools::Log << "Connected in TCP mod" << std::endl;
-		//write(new CMDCollision(1, 2)); // to delete
 		read();
+		write(new CMDConnect("name", "pwd"));
 	} else {
 		StaticTools::Log << _remote << ":" << _port << "' is inaccessible (" << ec << ")" << std::endl;
 		_timer.expires_from_now(boost::posix_time::seconds(5));

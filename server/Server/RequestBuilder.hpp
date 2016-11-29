@@ -1,10 +1,13 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <functional>
+#include <memory>
 
 #include "IRequest.hpp"
 #include "CommandType.hpp"
+
+#include "RequestConnect.hpp"
 
 class RequestBuilder
 {
@@ -12,15 +15,18 @@ public:
 	RequestBuilder(void);
 	~RequestBuilder(void);
 
-	IRequest *create_SpawnRequest(void);
-	IRequest *create_MoveRequest(void);
-	IRequest *create_CollisionRequest(void);
-	IRequest *create_ErrorRequest(void);
-	IRequest *create_PingRequest(void);
-	IRequest *create_FireRequest(void);
-	IRequest *create_GameStatusRequest(void);
+	std::unique_ptr<IRequest> build(CommandType type) const;
 
 private:
-	std::map<CommandType, std::function<IRequest *(void)> > _requests;
+	std::unique_ptr<IRequest> create_ConnectRequest(void);
+	std::unique_ptr<IRequest> create_SpawnRequest(void);
+	std::unique_ptr<IRequest> create_MoveRequest(void);
+	std::unique_ptr<IRequest> create_CollisionRequest(void);
+	std::unique_ptr<IRequest> create_ErrorRequest(void);
+	std::unique_ptr<IRequest> create_PingRequest(void);
+	std::unique_ptr<IRequest> create_FireRequest(void);
+	std::unique_ptr<IRequest> create_GameStatusRequest(void);
+
+	std::unordered_map<int, std::function<std::unique_ptr<IRequest>(void)> > _requests;
 };
 

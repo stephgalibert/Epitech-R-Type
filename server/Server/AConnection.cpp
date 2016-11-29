@@ -1,11 +1,9 @@
 #include "AConnection.hpp"
 
-
 AConnection::AConnection(ConnectionManager &cm, RequestHandler &rh, PartyManager &pm)
 	: _cm(cm),
 	  _rh(rh),
 	  _pm(pm),
-	  
 	  _running(false),
 	  _id(0),
 	  _ready(false)

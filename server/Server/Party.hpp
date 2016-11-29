@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "ConnectionManager.hpp"
+#include "AConnection.hpp"
 
 class Party : public std::enable_shared_from_this<Party>
 {
@@ -12,12 +13,19 @@ public:
 	~Party(void);
 
 	void init(std::string name, std::string pwd);
-	void connect(std::shared_ptr<AConnection> user);
+	void run(void);
+	void close(void);
+
+	void addConnection(std::shared_ptr<AConnection> connection);
+
 	void move(char *data);
 	void fire(char *data);
 	void disconnected(char *data);
 	void collision(char *data);
 	void loop();
+
+	std::string const& getName(void) const;
+	std::string const& getPassword(void) const;
 
 private:
 	std::string _name;

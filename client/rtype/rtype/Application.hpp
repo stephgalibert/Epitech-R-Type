@@ -41,7 +41,7 @@ private:
 private:
 	void draw(void);
 
-	UDPClient _client;
+	TCPClient _client;
 	Timer _timer;
 	InputHandler _inputHandler;
 	sf::RenderWindow _window;
