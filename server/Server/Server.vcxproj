@@ -30,6 +30,12 @@
     <ClCompile Include="..\..\api\CMDSpawn.cpp" />
     <ClCompile Include="..\..\api\CommandFactory.cpp" />
     <ClCompile Include="..\..\common\StaticTools.cpp" />
+    <ClCompile Include="..\..\plugins\ADirectoryParser.cpp" />
+    <ClCompile Include="..\..\plugins\UnixDirectoryParser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\plugins\WinDirectoryParser.cpp" />
     <ClCompile Include="AcceptAsyncTask.cpp" />
     <ClCompile Include="AConnection.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -82,8 +88,22 @@
     <ClInclude Include="..\..\api\CommandFactory.hpp" />
     <ClInclude Include="..\..\api\CommandType.hpp" />
     <ClInclude Include="..\..\api\ICommand.hpp" />
+    <ClInclude Include="..\..\api\IMonster.hpp" />
     <ClInclude Include="..\..\api\Protocol.hpp" />
     <ClInclude Include="..\..\common\StaticTools.hpp" />
+    <ClInclude Include="..\..\plugins\ADirectoryParser.hpp" />
+    <ClInclude Include="..\..\plugins\ADlLoader.hpp" />
+    <ClInclude Include="..\..\plugins\DLManager.hpp" />
+    <ClInclude Include="..\..\plugins\UnixDirectoryParser.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\UnixDlLoader.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\WinDirectoryParser.hpp" />
+    <ClInclude Include="..\..\plugins\WinDlLoader.hpp" />
     <ClInclude Include="AcceptAsyncTask.hpp" />
     <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
@@ -190,8 +210,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\common;.\Server;..\api;..\Server;..\..\api;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\plugins;..\plugins;..\common;.\Server;..\api;..\Server;..\..\api;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -207,7 +231,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\common;.\Server;..\api;..\Server;..\..\api;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\plugins;..\plugins;..\common;.\Server;..\api;..\Server;..\..\api;..\..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
