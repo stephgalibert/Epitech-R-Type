@@ -12,16 +12,18 @@ UDPClient::~UDPClient()
 {
 }
 
-#include "CMDPing.hpp"
+//#include "CMDConnect.hpp"
+//#include "CMDCreateParty.hpp"
 void UDPClient::connect(void)
 {
 	StaticTools::Log << "Connecting ..." << std::endl;
 	boost::asio::ip::udp::udp::resolver::query query(boost::asio::ip::udp::udp::v4(), _remote, _port);
 
 	_sender = *_resolver.resolve(query);
-	read();
-	write(new CMDPing(100)); // todelete
+	read();	
 	StaticTools::Log << "Connected in UDP mod" << std::endl;
+	//write(new CMDCreateParty("name", "pwd"));
+	//write(new CMDConnect("name", "pwd"));
 }
 
 void UDPClient::write(ICommand *packet)
@@ -49,7 +51,7 @@ void UDPClient::do_write(boost::system::error_code const& ec, size_t)
 
 void UDPClient::read(void)
 {
-	_socket.async_receive_from(_read.prepare(1024), _sender,
+	_socket.async_receive_from(_read.prepare(2048), _sender,
 		boost::bind(&UDPClient::do_read, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
@@ -62,12 +64,8 @@ void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 		_read.consume(len);
 
 		CommandType type = StaticTools::GetPacketType(packet);
-		if (type == CommandType::Ping) {
+		StaticTools::Log << "received packet type: " << (int)type << std::endl;
 
-			Ping ping = *((Ping *)packet);
-			StaticTools::Log << "received packet type " << (int)ping.cmdType << ": " << ping.time << std::endl;
-		}
-		
 		ICommand *reply = NULL;
 		_reqHandler.request(*this, packet, &reply);
 

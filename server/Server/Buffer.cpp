@@ -22,6 +22,25 @@ void Buffer::prepare(size_t len)
 	_size = len;
 }
 
+void Buffer::consume(size_t len)
+{
+	if (len > _size) {
+		return;
+	}
+	if (_size - len == 0) {
+		delete (_data);
+		_data = NULL;
+		_size = 0;
+		return;
+	}
+
+	_size = _size - len;
+	char *tmp = new char[_size]{ 0 };
+	memcpy(tmp, &_data[len], _size);
+	delete (_data);
+	_data = tmp;
+}
+
 void Buffer::reallocate(char *data, size_t size)
 {
 	char *tmp = new char[_size + size];

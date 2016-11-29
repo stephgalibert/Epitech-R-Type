@@ -21,8 +21,8 @@
 class UDPConnection : public AConnection
 {
 public:
-	static void AsyncReceiveFrom(std::shared_ptr<IUDPSocket> socket, Endpoint &endpoint,
-									std::function<void(char *, size_t)> callback);
+	static void AsyncReceiveFrom(std::shared_ptr<IUDPSocket> socket, Buffer &buffer, Endpoint &endpoint,
+									std::function<void(bool)> callback);
 
 	static void AsyncSendTo(std::shared_ptr<IUDPSocket> socket, Endpoint const& endpoint,
 									char *data, size_t size, std::function<void(void)> callback);
@@ -40,12 +40,12 @@ private:
 	void read(void);
 	void write(void);
 
-	virtual void do_read(char *data, size_t size);
+	virtual void do_read(bool error);
 	virtual void do_write(void);
 
 	std::shared_ptr<IUDPSocket> _socket;
 	Endpoint _endpoint;
-
 	std::queue<ICommand *> _toWrites;
+	Buffer _read;
 };
 

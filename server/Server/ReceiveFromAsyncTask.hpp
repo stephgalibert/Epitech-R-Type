@@ -10,8 +10,8 @@
 class ReceiveFromAsyncTask : public ITask
 {
 public:
-	ReceiveFromAsyncTask(std::shared_ptr<IUDPSocket> socket, Endpoint &endpoint,
-						std::function<void(char *, size_t)> callback);
+	ReceiveFromAsyncTask(std::shared_ptr<IUDPSocket> socket, Buffer &buffer,
+							Endpoint &endpoint, std::function<void(bool)> callback);
 	virtual ~ReceiveFromAsyncTask(void);
 
 	virtual void doInBackground(void);
@@ -19,8 +19,9 @@ public:
 
 private:
 	std::shared_ptr<IUDPSocket> _socket;
+	Buffer &_buffer;
 	Endpoint &_endpoint;
-	std::function<void(char *, size_t)> _callback;
+	std::function<void(bool)> _callback;
 	bool _canceled;
 };
 

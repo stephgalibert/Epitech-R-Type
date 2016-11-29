@@ -10,8 +10,8 @@ Party::~Party(void)
 
 void Party::init(std::string name, std::string pwd)
 {
-  (void)name;
-  (void)pwd;
+	_name = name;
+	_password = pwd;
 }
 
 void Party::run(void)

@@ -3,6 +3,7 @@
 RequestBuilder::RequestBuilder(void)
 {
 	_requests[(int)CommandType::Connect] = std::bind(&RequestBuilder::create_ConnectRequest, this);
+	_requests[(int)CommandType::CreateParty] = std::bind(&RequestBuilder::create_CreatePartyRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -22,9 +23,14 @@ std::unique_ptr<IRequest> RequestBuilder::create_ConnectRequest(void)
 	return (std::unique_ptr<IRequest>(new RequestConnect));
 }
 
+std::unique_ptr<IRequest> RequestBuilder::create_CreatePartyRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestCreateParty));
+}
+
 std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)
 {
-	return NULL;
+	return (NULL);
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_MoveRequest(void)

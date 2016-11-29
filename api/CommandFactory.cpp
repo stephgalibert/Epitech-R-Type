@@ -3,6 +3,7 @@
 CommandFactory::CommandFactory(void)
 {
 	_cmds[(int)CommandType::Connect] = std::bind(&CommandFactory::cmd_connect, this);
+	_cmds[(int)CommandType::CreateParty] = std::bind(&CommandFactory::cmd_createParty, this);
 }
 
 CommandFactory::~CommandFactory(void)

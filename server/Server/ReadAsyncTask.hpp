@@ -9,8 +9,8 @@
 class ReadAsyncTask : public ITask
 {
 public:
-	ReadAsyncTask(std::shared_ptr<ITCPSocket> socket, size_t transferAtLeast,
-		std::function<void(char *, size_t)> callback);
+	ReadAsyncTask(std::shared_ptr<ITCPSocket> socket, Buffer &buffer,
+		size_t transferAtLeast, std::function<void(bool)> callback);
 	virtual ~ReadAsyncTask(void);
 
 	virtual void doInBackground(void);
@@ -18,8 +18,9 @@ public:
 
 private:
 	std::shared_ptr<ITCPSocket> _socket;
+	Buffer &_buffer;
 	size_t _transferAtLeast;
-	std::function<void(char *, size_t)> _callback;
+	std::function<void(bool)> _callback;
 	bool _canceled;
 };
 

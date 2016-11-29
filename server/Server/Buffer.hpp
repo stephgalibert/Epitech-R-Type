@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <string.h>
 
@@ -10,6 +11,7 @@ public:
 	virtual ~Buffer(void);
 
 	void prepare(size_t len);
+	void consume(size_t len);
 	void reallocate(char *data, size_t size);
 
 	void setSize(size_t value);

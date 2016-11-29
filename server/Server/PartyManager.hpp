@@ -15,6 +15,8 @@ public:
 	std::shared_ptr<Party> addConnexion(std::shared_ptr<AConnection> user, std::string name, std::string pwd);
 
 private:
+	bool exist(std::string const& name) const;
+
 	std::list<std::shared_ptr<Party> > _parties;
 };
 

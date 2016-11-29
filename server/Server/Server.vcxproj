@@ -49,6 +49,7 @@
     <ClCompile Include="ReadAsyncTask.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestConnect.cpp" />
+    <ClCompile Include="RequestCreateParty.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="SendToAsyncTask.cpp" />
     <ClCompile Include="TCPConnection.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="ReadAsyncTask.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestConnect.hpp" />
+    <ClInclude Include="RequestCreateParty.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="SendToAsyncTask.hpp" />
     <ClInclude Include="TCPConnection.hpp" />

@@ -171,6 +171,9 @@
     <ClCompile Include="..\..\plugins\ADirectoryParser.cpp">
       <Filter>Fichiers sources\Plugins</Filter>
     </ClCompile>
+    <ClCompile Include="RequestCreateParty.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\..\plugins\WinDlLoader.hpp">
       <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestCreateParty.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ public:
 	virtual bool connectToServer(std::string const& host, short port);
 	virtual bool connectFromAcceptedFd(int fd);
 	virtual int recv(char *buffer, size_t blocksize);
-	virtual void recv(Buffer &buffer, size_t transferAtLeast);
+	virtual bool recv(Buffer &buffer, size_t transferAtLeast);
 	virtual int send(char *data, size_t size);
 
 private:

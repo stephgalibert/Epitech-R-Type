@@ -40,7 +40,7 @@ public:
 	bool isRunning(void) const;
 	bool isReady(void) const;
 
-	virtual void do_read(char *data, size_t size) = 0;
+	virtual void do_read(bool error) = 0;
 	virtual void do_write(void) = 0;
 
 private:

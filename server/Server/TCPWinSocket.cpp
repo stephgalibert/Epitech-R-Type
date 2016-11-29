@@ -43,7 +43,7 @@ int TCPWinSocket::recv(char *buffer, size_t blocksize)
 	return (::recv(_socket, buffer, blocksize * sizeof(char), 0));
 }
 
-void TCPWinSocket::recv(Buffer &buffer, size_t transferAtLeast)
+bool TCPWinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 {
 	char buf[1024];
 	int read = 0;
@@ -53,6 +53,8 @@ void TCPWinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 		buffer.reallocate(buf, read);
 		total += read;
 	}
+
+	return (read > 0);
 }
 
 int TCPWinSocket::send(char *data, size_t size)

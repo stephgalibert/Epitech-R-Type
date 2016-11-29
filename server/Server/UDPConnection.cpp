@@ -1,9 +1,9 @@
 ﻿#include "UDPConnection.hpp"
 
-void UDPConnection::AsyncReceiveFrom(std::shared_ptr<IUDPSocket> socket, Endpoint &endpoint,
-										std::function<void(char *, size_t)> callback)
+void UDPConnection::AsyncReceiveFrom(std::shared_ptr<IUDPSocket> socket, Buffer &buffer,
+										Endpoint &endpoint, std::function<void(bool)> callback)
 {
-	ThreadPool::Pool.addTask(new ReceiveFromAsyncTask(socket, endpoint, callback));
+	ThreadPool::Pool.addTask(new ReceiveFromAsyncTask(socket, buffer, endpoint, callback));
 }
 
 void UDPConnection::AsyncSendTo(std::shared_ptr<IUDPSocket> socket, Endpoint const& endpoint,
@@ -65,9 +65,9 @@ void UDPConnection::write(void)
 
 void UDPConnection::read(void)
 {
-	AsyncReceiveFrom(_socket, _endpoint,
+	AsyncReceiveFrom(_socket, _read, _endpoint,
 		std::bind(&AConnection::do_read, shared_from_this(),
-			std::placeholders::_1, std::placeholders::_2));
+					std::placeholders::_1));
 }
 
 void UDPConnection::do_write(void)
@@ -81,19 +81,41 @@ void UDPConnection::do_write(void)
 	}
 }
 
-void UDPConnection::do_read(char *data, size_t size)
+void UDPConnection::do_read(bool error)
 {
-	std::cout << "read " << size << " bytes" << std::endl;
-	if (size > 0) {
-		CommandType type = StaticTools::GetPacketType(data);
-		if (type == CommandType::Ping) {
+	CommandFactory cmdBuilder;
+	// std::cout << "from: " << inet_ntoa(_endpoint.in.sin_addr) << " " << ntohs(_endpoint.in.sin_port) << std::endl;
+	StaticTools::Log << "udp do_read " << _read.getSize() << " bytes" << std::endl;
 
-			Ping ping = *((Ping *)data);
-			StaticTools::Log << "received packet type " << (int)ping.cmdType << ": " << ping.time << std::endl;
+	if (error) {
+		
+		CommandType type = StaticTools::GetPacketType(_read.getData());
+		ICommand *command = cmdBuilder.build(type);
 
-			std::cout << "from: " << inet_ntoa(_endpoint.in.sin_addr) << " " << ntohs(_endpoint.in.sin_port) << std::endl;
+		if (!command) {
+			read();
+			return;
 		}
-		write(new CMDPing(101));
+		command->loadFromMemory(_read.getData());
+		_read.consume(command->getSize());
+		StaticTools::Log << "received command type: " << (int)type << std::endl;
+		ICommand *reply = NULL;
+		getRequestHandler().receive(shared_from_this(), command, &reply);
+		if (reply) {
+			StaticTools::Log << "writing reply" << std::endl;
+			write(reply);
+		}
+		if (isRunning()) {
+			if (_read.getSize() > 0) {
+				StaticTools::Log << "recursion" << std::endl;
+				do_read(error);
+			}
+			else {
+				read();
+			}
+		}
 	}
-	read();
+	else {
+		getConnectionManager().leave(shared_from_this());
+	}
 }

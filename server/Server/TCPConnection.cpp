@@ -1,9 +1,9 @@
 #include "TCPConnection.hpp"
 
-void TCPConnection::AsyncRead(std::shared_ptr<ITCPSocket> socket, size_t transferAtLeast,
-								std::function<void(char *, size_t)> callback)
+void TCPConnection::AsyncRead(std::shared_ptr<ITCPSocket> socket, Buffer &buffer,
+	size_t transferAtLeast, std::function<void(bool)> callback)
 {
-	ThreadPool::Pool.addTask(new ReadAsyncTask(socket, transferAtLeast, callback));
+	ThreadPool::Pool.addTask(new ReadAsyncTask(socket, buffer, transferAtLeast, callback));
 }
 
 void TCPConnection::AsyncWrite(std::shared_ptr<ITCPSocket> socket, char *buffer, size_t size,
@@ -47,29 +47,40 @@ void TCPConnection::write(ICommand *command)
 
 void TCPConnection::read(void)
 {
-	AsyncRead(_socket, sizeof(CommandType),
+	AsyncRead(_socket, _read, sizeof(CommandType),
 		std::bind(&AConnection::do_read, shared_from_this(),
-			std::placeholders::_1, std::placeholders::_2));
+				std::placeholders::_1));
 }
 
-void TCPConnection::do_read(char *received, size_t size)
+void TCPConnection::do_read(bool error)
 {
-	StaticTools::Log << "do_read " << size << " bytes" << std::endl;
+	CommandFactory cmdBuilder;
 
-	if (size > sizeof(CommandType)) {
-		CommandType type = StaticTools::GetPacketType(received);
+	StaticTools::Log << "tcp do_read " << _read.getSize() << " bytes" << std::endl;
+	if (error) {
+		CommandType type = StaticTools::GetPacketType(_read.getData());
+		ICommand *command = cmdBuilder.build(type);
+
+		if (!command) {
+			read();
+			return;
+		}
+		command->loadFromMemory(_read.getData());
+		_read.consume(command->getSize());
 		StaticTools::Log << "received command type: " << (int)type << std::endl;
-
 		ICommand *reply = NULL;
-		getRequestHandler().receive(shared_from_this(), received, &reply);
-
+		getRequestHandler().receive(shared_from_this(), command, &reply);
 		if (reply) {
 			StaticTools::Log << "writing reply" << std::endl;
 			write(reply);
 		}
-
 		if (isRunning()) {
-			read();
+			if (_read.getSize() > 0) {
+				do_read(error);
+			}
+			else {
+				read();
+			}
 		}
 	}
 	else {
