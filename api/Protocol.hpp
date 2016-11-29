@@ -18,7 +18,8 @@ enum class ObjectType : uint8_t
 
 enum class ShipType : uint8_t
 {
-	Standard = 0
+	Standard = 0,
+	ST_Boss = 1
 };
 
 enum class MissileType : uint8_t

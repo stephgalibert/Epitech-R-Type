@@ -49,6 +49,12 @@
     <Filter Include="Fichiers sources\Plugins">
       <UniqueIdentifier>{ad7228a3-f614-4049-b937-4b4c02218639}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Monsters">
+      <UniqueIdentifier>{4f88d17b-8ae9-40e7-bef7-58fc967565d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Monsters">
+      <UniqueIdentifier>{6a3d0463-d3de-4abc-b8a9-fa0c83a6d4ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -173,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="RequestCreateParty.cpp">
       <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\plugins\Godzilla.cpp">
+      <Filter>Fichiers sources\Monsters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +332,6 @@
     <ClInclude Include="..\..\plugins\DLManager.hpp">
       <Filter>Fichiers d%27en-tête\Plugins</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\api\IMonster.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\plugins\UnixDirectoryParser.hpp">
       <Filter>Fichiers d%27en-tête\Plugins</Filter>
     </ClInclude>
@@ -340,6 +346,12 @@
     </ClInclude>
     <ClInclude Include="RequestCreateParty.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\Godzilla.hpp">
+      <Filter>Fichiers d%27en-tête\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\IMonster.hpp">
+      <Filter>Fichiers d%27en-tête\Monsters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

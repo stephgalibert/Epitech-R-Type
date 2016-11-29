@@ -1,6 +1,7 @@
 #include "Godzilla.hpp"
 
-Godzilla::Godzilla() : _Type(ShipType::Boss)
+Godzilla::Godzilla()
+	: _Type(ShipType::ST_Boss)
 {
 }
 

@@ -17,6 +17,7 @@ public:
 	virtual std::pair<int, int> getCanonPosition(void);
 	virtual float getCanonDegrees(void);
 	virtual void setID(int value);
+
 private:
 	ShipType _Type;
 	std::pair<int, int> _SpawnPosition;
