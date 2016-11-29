@@ -1,7 +1,11 @@
 #pragma once
-
-#include "Protocol.hpp"
 #include <utility>
+
+enum class ShipType : uint8_t
+{
+	Standard = 0,
+	Boss = 1
+};
 
 class IMonster
 {
