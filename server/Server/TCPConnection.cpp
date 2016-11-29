@@ -63,9 +63,10 @@ void TCPConnection::do_read(char *received, size_t size)
 		ICommand *reply = NULL;
 		getRequestHandler().receive(shared_from_this(), received, &reply);
 
-		//if (reply) {
-		//	write(reply);
-		//}
+		if (reply) {
+			StaticTools::Log << "writing reply" << std::endl;
+			write(reply);
+		}
 
 		if (isRunning()) {
 			read();

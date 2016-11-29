@@ -100,10 +100,10 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 		_read.consume(len);
 		
 		CommandType type = StaticTools::GetPacketType(packet);
-		if (type == CommandType::Ping) {
+		if (type == CommandType::Error) {
 			
-			Ping ping = *((Ping *)packet);
-			StaticTools::Log << "received packet type " << (int)ping.cmdType << ": " << ping.time << std::endl;
+			Error ping = *((Error *)packet);
+			StaticTools::Log << "received packet type " << (int)ping.cmdType << ": " << (int)ping.code << std::endl;
 		}
 		ICommand *reply = NULL;
 		//_reqHandler.request(*this, packet, &reply);

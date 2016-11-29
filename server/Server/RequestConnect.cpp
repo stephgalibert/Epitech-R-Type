@@ -1,8 +1,9 @@
 #include "RequestConnect.hpp"
+#include "AConnection.hpp"
+#include "PartyManager.hpp"
 
-RequestConnect::RequestConnect()
+RequestConnect::RequestConnect(void)
 {
-	std::cout << "create connect" << std::endl;
 }
 
 RequestConnect::~RequestConnect(void)
@@ -16,5 +17,7 @@ void RequestConnect::execute(std::shared_ptr<AConnection> owner, ICommand *recei
 	std::string name = data.substr(0, data.find_first_of(';'));
 	std::string pwd = data.substr(name.size() + 1, data.size() - name.size() + 1);
 
-	std::cout << "connecting to " << name << ":" << pwd << std::endl;
+	if (owner->getPartyManager().addConnexion(owner, name, pwd) == NULL) {
+		*reply = new CMDError(RT_ERROR_NOT_FOUND);
+	}
 }

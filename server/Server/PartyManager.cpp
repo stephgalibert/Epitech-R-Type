@@ -39,7 +39,7 @@ void PartyManager::removeParty(std::string name, std::string pwd)
 	}
 }
 
-std::shared_ptr<Party> PartyManager::addUser(std::string name, std::string pwd, std::shared_ptr<AConnection> connection)
+std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> connection, std::string name, std::string pwd)
 {
 	std::list<std::shared_ptr<Party> >::iterator it = std::begin(_parties);
 

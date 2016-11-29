@@ -4,6 +4,10 @@
 
 #include "CommandType.hpp"
 
+#define RT_ERROR_NOT_FOUND 0x1
+#define RT_ERROR_BAD_PASSWORD 0x2
+#define RT_ERROR_ALREADY_EXIST 0x3
+
 enum class ObjectType : uint8_t
 {
 	Ship = 0,

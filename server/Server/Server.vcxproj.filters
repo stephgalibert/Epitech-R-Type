@@ -43,6 +43,12 @@
     <Filter Include="Fichiers sources\Request">
       <UniqueIdentifier>{5abe6407-d932-4aa1-a2ea-118170464a4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Plugins">
+      <UniqueIdentifier>{1e281c6b-f83c-4499-95e3-45ebea12ab93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Plugins">
+      <UniqueIdentifier>{ad7228a3-f614-4049-b937-4b4c02218639}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -155,6 +161,15 @@
     </ClCompile>
     <ClCompile Include="RequestConnect.cpp">
       <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\plugins\WinDirectoryParser.cpp">
+      <Filter>Fichiers sources\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\plugins\UnixDirectoryParser.cpp">
+      <Filter>Fichiers sources\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\plugins\ADirectoryParser.cpp">
+      <Filter>Fichiers sources\Plugins</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +310,30 @@
     </ClInclude>
     <ClInclude Include="IRequest.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\ADirectoryParser.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\ADlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\DLManager.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\IMonster.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\UnixDirectoryParser.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\UnixDlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\WinDirectoryParser.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\WinDlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
