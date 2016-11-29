@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include <thread>
 
 #include "ConnectionManager.hpp"
 #include "AConnection.hpp"
@@ -17,6 +18,7 @@ public:
 	void close(void);
 
 	void addConnection(std::shared_ptr<AConnection> connection);
+	void removeConnection(std::shared_ptr<AConnection> connection);
 
 	void move(char *data);
 	void fire(char *data);
@@ -31,6 +33,9 @@ private:
 	std::string _name;
 	std::string _password;
 	ConnectionManager _cm;
+
+	std::thread _party;
+	bool _running;
 	//Timer _timer;
 };
 

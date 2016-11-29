@@ -29,11 +29,10 @@ RequestHandler &AConnection::getRequestHandler(void)
 	return _rh;
 }
 
-//std::shared_ptr<Party> AConnection::getCurrentParty(void) const
-//{
-//	//return _party;
-//	return (NULL);
-//}
+void AConnection::setCurrentParty(std::shared_ptr<Party> party)
+{
+	_party = party;
+}
 
 void AConnection::setID(int id)
 {
@@ -48,6 +47,11 @@ void AConnection::setRunning(bool value)
 void AConnection::setReady(bool value)
 {
 	_ready = value;
+}
+
+std::shared_ptr<Party> AConnection::getCurrentParty(void) const
+{
+	return (_party);
 }
 
 int AConnection::getID(void) const

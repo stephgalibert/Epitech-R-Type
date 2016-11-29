@@ -30,12 +30,13 @@ public:
 	ConnectionManager &getConnectionManager(void);
 	PartyManager &getPartyManager(void);
 	RequestHandler &getRequestHandler(void);
-	//std::shared_ptr<Party> getCurrentParty(void) const;
 
+	void setCurrentParty(std::shared_ptr<Party> party);
 	void setID(int id);
 	void setRunning(bool value);
 	void setReady(bool value);
 
+	std::shared_ptr<Party> getCurrentParty(void) const;
 	int getID(void) const;
 	bool isRunning(void) const;
 	bool isReady(void) const;
@@ -48,9 +49,8 @@ private:
     RequestHandler &_rh;
 	PartyManager &_pm;
 
+	std::shared_ptr<Party> _party;
 	bool _running;
-
-	//std::shared_ptr<Party> _party;
 	int _id;
 	bool _ready;
 };

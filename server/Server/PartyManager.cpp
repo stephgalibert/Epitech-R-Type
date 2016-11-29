@@ -18,14 +18,13 @@ void PartyManager::addParty(std::string name, std::string pwd)
 		if (exist(name)) {
 			throw (std::runtime_error("The party " + name + " already exist"));
 		}
-
 		party->init(name, pwd);
+		party->run();
 	}
 	catch (std::exception const& e) {
 		throw (std::runtime_error(e.what()));
 	}
 	_parties.push_front(party);
-	party->run();
 }
 
 void PartyManager::removeParty(std::string name, std::string pwd)

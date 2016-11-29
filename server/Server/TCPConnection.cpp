@@ -1,4 +1,5 @@
 #include "TCPConnection.hpp"
+#include "PartyManager.hpp"
 
 void TCPConnection::AsyncRead(std::shared_ptr<ITCPSocket> socket, Buffer &buffer,
 	size_t transferAtLeast, std::function<void(bool)> callback)
@@ -85,6 +86,9 @@ void TCPConnection::do_read(bool error)
 	}
 	else {
 		getConnectionManager().leave(shared_from_this());
+		if (getCurrentParty()) {
+			getCurrentParty()->removeConnection(shared_from_this());
+		}
 	}
 }
 
