@@ -53,7 +53,6 @@ void ThreadPool::start_func(int i)
 			}
 			task = getTask();
 		}
-		//std::cout << "Thread " << i << " : ";
 		if (task != NULL) {
 			task->doInBackground();
 			delete (task);

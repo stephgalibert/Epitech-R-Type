@@ -37,6 +37,15 @@
     <Filter Include="Fichiers sources\Network">
       <UniqueIdentifier>{7f11b994-2561-4767-bdf3-4fcde9d627e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game">
+      <UniqueIdentifier>{7e4ad252-5b2e-446d-af43-e295dd78ed98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Plugins">
+      <UniqueIdentifier>{c6c65fc0-d47e-4b06-8a8d-19e8d0e65c2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Plugins">
+      <UniqueIdentifier>{0e55fcee-9e09-414e-baae-b0a39894a70f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -283,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="SendToAsyncTask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\IMonster.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\plugins\DLManager.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
