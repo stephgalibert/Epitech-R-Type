@@ -3,7 +3,8 @@
 #include "Protocol.hpp"
 #include <utility>
 
-class IMonster {
+class IMonster
+{
 public:
 	virtual void update(float delta) = 0;
 	virtual unsigned char getHP(void) = 0;

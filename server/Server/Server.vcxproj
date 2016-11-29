@@ -31,6 +31,7 @@
     <ClCompile Include="..\..\api\CommandFactory.cpp" />
     <ClCompile Include="..\..\common\StaticTools.cpp" />
     <ClCompile Include="..\..\plugins\ADirectoryParser.cpp" />
+    <ClCompile Include="..\..\plugins\Godzilla.cpp" />
     <ClCompile Include="..\..\plugins\UnixDirectoryParser.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -94,6 +95,7 @@
     <ClInclude Include="..\..\plugins\ADirectoryParser.hpp" />
     <ClInclude Include="..\..\plugins\ADlLoader.hpp" />
     <ClInclude Include="..\..\plugins\DLManager.hpp" />
+    <ClInclude Include="..\..\plugins\Godzilla.hpp" />
     <ClInclude Include="..\..\plugins\UnixDirectoryParser.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
