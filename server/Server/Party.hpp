@@ -21,10 +21,10 @@ public:
 	void addConnection(std::shared_ptr<AConnection> connection);
 	void removeConnection(std::shared_ptr<AConnection> connection);
 
-	void move(char *data);
-	void fire(char *data);
-	void disconnected(char *data);
-	void collision(char *data);
+	void move(ICommand *data);
+	void fire(ICommand *data);
+	void disconnected(ICommand *data);
+	void collision(ICommand *data);
 	void loop(void);
 
 	std::string const& getName(void) const;

@@ -41,22 +41,22 @@ void Party::removeConnection(std::shared_ptr<AConnection> connection)
 	_cm.leave(connection);
 }
 
-void Party::move(char * data)
+void Party::move(ICommand *data)
 {
   (void)data;
 }
 
-void Party::fire(char * data)
+void Party::fire(ICommand *data)
 {
   (void)data;
 }
 
-void Party::disconnected(char * data)
+void Party::disconnected(ICommand *data)
 {
   (void)data;
 }
 
-void Party::collision(char * data)
+void Party::collision(ICommand *data)
 {
   (void)data;
 }
