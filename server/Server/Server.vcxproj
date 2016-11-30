@@ -56,6 +56,7 @@
     <ClCompile Include="TCPConnection.cpp" />
     <ClCompile Include="TCPServer.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UDPConnection.cpp" />
     <ClCompile Include="UDPServer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -132,6 +133,7 @@
     <ClInclude Include="TCPConnection.hpp" />
     <ClInclude Include="TCPServer.hpp" />
     <ClInclude Include="ThreadPool.hpp" />
+    <ClInclude Include="Timer.hpp" />
     <ClInclude Include="UDPConnection.hpp" />
     <ClInclude Include="UDPServer.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
