@@ -183,6 +183,9 @@
     <ClCompile Include="..\..\plugins\Godzilla.cpp">
       <Filter>Fichiers sources\Monsters</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="..\..\api\IMonster.hpp">
       <Filter>Fichiers d%27en-tête\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
