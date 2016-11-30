@@ -75,10 +75,9 @@ void Party::loop(void)
 	std::cout << "end loop" << std::endl;
 }
 
-bool Party::isReady(void) {
-	if (_cm.getPlayerNumber() < 2)
-		return (false);
-	return (true);
+bool Party::isReady(void) const
+{
+	return (_cm.getPlayerNumber() > 1);
 }
 
 std::string const& Party::getName(void) const

@@ -27,6 +27,8 @@ public:
 	void collision(ICommand *data);
 	void loop(void);
 
+	bool isReady(void) const;
+
 	std::string const& getName(void) const;
 	std::string const& getPassword(void) const;
 
