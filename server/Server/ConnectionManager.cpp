@@ -25,11 +25,6 @@ void ConnectionManager::broadcast(std::shared_ptr<AConnection> connexion, char *
 	(void)connexion;
 }
 
-int ConnectionManager::getNbConnections(void)
-{
-	return (_connections.size());
-}
-
 void ConnectionManager::closeAll(void)
 {
 	_connections.clear();

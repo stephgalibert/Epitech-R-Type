@@ -13,7 +13,7 @@ Party::~Party(void)
 	}
 }
 
-void Party::init(std::string name, std::string pwd)
+void Party::init(std::string const& name, std::string const& pwd)
 {
 	_name = name;
 	_password = pwd;

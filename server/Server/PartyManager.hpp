@@ -13,9 +13,9 @@ public:
 
 	void update(void);
 
-	void addParty(std::string name, std::string pwd);
-	void removeParty(std::string name, std::string pwd);
-	std::shared_ptr<Party> addConnexion(std::shared_ptr<AConnection> user, std::string name, std::string pwd);
+	void addParty(std::string const& name, std::string const& pwd);
+	void removeParty(std::string const& name, std::string const& pwd);
+	std::shared_ptr<Party> addConnexion(std::shared_ptr<AConnection> user, std::string const& name, std::string const& pwd);
 
 private:
 	bool exist(std::string const& name) const;

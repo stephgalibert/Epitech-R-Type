@@ -22,7 +22,7 @@ void PartyManager::update(void)
 	//}
 }
 
-void PartyManager::addParty(std::string name, std::string pwd)
+void PartyManager::addParty(std::string const& name, std::string const& pwd)
 {
 	std::shared_ptr<Party> party = std::make_shared<Party>();
 
@@ -44,7 +44,7 @@ void PartyManager::addParty(std::string name, std::string pwd)
 	//_mutex.unlock();
 }
 
-void PartyManager::removeParty(std::string name, std::string pwd)
+void PartyManager::removeParty(std::string const& name, std::string const& pwd)
 {
 	std::list<std::shared_ptr<Party> >::iterator it = std::begin(_parties);
 
@@ -60,7 +60,7 @@ void PartyManager::removeParty(std::string name, std::string pwd)
 	}
 }
 
-std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> connection, std::string name, std::string pwd)
+std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> connection, std::string const& name, std::string const& pwd)
 {
 	std::list<std::shared_ptr<Party> >::iterator it = std::begin(_parties);
 

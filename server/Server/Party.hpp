@@ -13,7 +13,7 @@ public:
 	Party(void);
 	~Party(void);
 
-	void init(std::string name, std::string pwd);
+	void init(std::string const& name, std::string const& pwd);
 	void run(void);
 	void close(void);
 
