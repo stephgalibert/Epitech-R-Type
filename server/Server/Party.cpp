@@ -66,6 +66,29 @@ void Party::loop(void)
 	//std::cout << "begin loop" << std::endl;
 	//while (_running);
 	//std::cout << "end loop" << std::endl;
+
+	while (_running)
+	{
+		if (isReady())
+		{
+
+		}
+		else
+			broadcastToPlayers("Waiting for more players");
+	}
+}
+
+bool Party::isReady(void)
+{
+	if (_cm.getNbConnections() < 2) {
+		return (false);
+	}
+	return (true);
+}
+
+void Party::broadcastToPlayers(std::string const &data)
+{
+ //wip;
 }
 
 std::string const& Party::getName(void) const
