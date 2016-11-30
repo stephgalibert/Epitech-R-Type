@@ -19,10 +19,9 @@ void ConnectionManager::leave(std::shared_ptr<AConnection> connexion)
 	_connections.erase(connexion);
 }
 
-void ConnectionManager::broadcast(std::shared_ptr<AConnection> connexion, char *data)
+void ConnectionManager::broadcast(char *data)
 {
 	(void)data;
-	(void)connexion;
 }
 
 void ConnectionManager::closeAll(void)

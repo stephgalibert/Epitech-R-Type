@@ -13,7 +13,7 @@ public:
 
 	void add(std::shared_ptr<AConnection> connexion);
 	void leave(std::shared_ptr<AConnection> connexion);
-	void broadcast(std::shared_ptr<AConnection> connexion, char *data);
+	void broadcast(char *data);
 	void closeAll(void);
 
 	size_t getPlayerNumber(void) const;
