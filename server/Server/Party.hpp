@@ -26,7 +26,6 @@ public:
 	void collision(char *data);
 	void loop(void);
 	bool isReady(void);
-	void broadcastToPlayers(std::string const& data);
 
 	std::string const& getName(void) const;
 	std::string const& getPassword(void) const;

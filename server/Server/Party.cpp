@@ -66,8 +66,19 @@ void Party::loop(void)
 	std::cout << "begin loop" << std::endl;
 	while (_running) {
 		std::cout << "There is " << _cm.getPlayerNumber() << " player(s)." << std::endl;
+		if (isReady()) {
+
+		}
+		else
+			std::cout << "Waiting for more players"  << std::endl;
 	}
 	std::cout << "end loop" << std::endl;
+}
+
+bool Party::isReady(void) {
+	if (_cm.getPlayerNumber() < 2)
+		return (false);
+	return (true);
 }
 
 std::string const& Party::getName(void) const
