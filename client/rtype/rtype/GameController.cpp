@@ -1,7 +1,11 @@
 #include "GameController.hpp"
 
-GameController::GameController()
-	: _back("background", 0.03f),
+GameController::GameController(IClient &network, std::string const& partyName, std::string const& partyPwd)
+	: _network(network),
+	  _partyName(partyName),
+	  _partyPwd(partyPwd),
+	  _player(NULL),
+	  _back("background", 0.03f),
 	  _front("background2", 0.01f)
 {
 }
@@ -17,14 +21,19 @@ void GameController::init(void)
 	World::TheWorld.init();
 
 	LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
-	_player = World::TheWorld.spawnEntity<Player>();
+	//_player = World::TheWorld.spawnEntity<Player>();
 	_back.init();
 	_front.init();
+
+	//_network.write(new CMDConnect(_partyName, _partyPwd));
+	_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 }
 
 bool GameController::input(InputHandler &input)
 {
-	_player->input(input);
+	if (_player) {
+		_player->input(input);
+	}
 	return (false);
 
 }

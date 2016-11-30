@@ -15,7 +15,7 @@ public:
 
 	void add(std::shared_ptr<AConnection> connexion);
 	void leave(std::shared_ptr<AConnection> connexion);
-	void broadcast(ICommand *command);
+	void broadcast(std::shared_ptr<ICommand> command);
 	void closeAll(void);
 
 	size_t getPlayerNumber(void) const;

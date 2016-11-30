@@ -1,13 +1,15 @@
 #include "TCPClient.hpp"
+#include "AController.hpp"
 
 TCPClient::TCPClient(std::string const& remote, std::string const& port)
 	: _timer(_io_service),
 	  _resolver(_io_service),
 	  _socket(_io_service),
+	  _connected(false),
+	  _controller(NULL),
 	  _remote(remote),
 	  _port(port)
 {
-	_connected = false;
 }
 
 TCPClient::~TCPClient()
@@ -26,7 +28,7 @@ void TCPClient::connect(void)
 			boost::asio::placeholders::iterator));
 }
 
-void TCPClient::write(ICommand *packet)
+void TCPClient::write(std::shared_ptr<ICommand> packet)
 {
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(packet);
@@ -56,7 +58,17 @@ bool TCPClient::isConnected(void) const
 	return (_connected);
 }
 
-IClient &TCPClient::operator<<(ICommand *packet)
+void TCPClient::setCurrentController(AController *controller)
+{
+	_controller = controller;
+}
+
+AController *TCPClient::getCurrentController(void) const
+{
+	return (_controller);
+}
+
+IClient &TCPClient::operator<<(std::shared_ptr<ICommand> packet)
 {
 	write(packet);
 	return (*this);
@@ -72,22 +84,23 @@ void TCPClient::read(void)
 
 void TCPClient::write(void)
 {
-	ICommand *packet = _toWrites.front();
+	std::shared_ptr<ICommand> packet = _toWrites.front();
 	boost::asio::async_write(_socket, boost::asio::buffer(packet->getData(), packet->getSize()),
 	boost::bind(&TCPClient::do_write, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
 }
 
-#include "CMDConnect.hpp"
+//#include "CMDConnect.hpp"
 #include "CMDCreateParty.hpp"
 void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip::tcp::resolver::iterator)
 {
 	if (!ec) {
 		StaticTools::Log << "Connected in TCP mod" << std::endl;
 		read();
-		write(new CMDCreateParty("name", "pwd"));
-		write(new CMDConnect("name", "pwd"));
+		//write(new CMDCreateParty("name", "pwd"));
+		//write(new CMDConnect("name", "pwd"));
+		write(std::make_shared<CMDCreateParty>("name", "pwd"));
 	} else {
 		StaticTools::Log << _remote << ":" << _port << "' is inaccessible (" << ec << ")" << std::endl;
 		_timer.expires_from_now(boost::posix_time::seconds(5));
@@ -97,18 +110,23 @@ void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip:
 
 void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 {
+	//CommandFactory cmdBuilder;
+
 	if (!ec) {
 		char const* packet = boost::asio::buffer_cast<char const *>(_read.data()); // !
 		_read.consume(len);
 		
 		CommandType type = StaticTools::GetPacketType(packet);
-		if (type == CommandType::Error) {
-			
-			Error ping = *((Error *)packet);
-			StaticTools::Log << "received packet type " << (int)ping.cmdType << ": " << (int)ping.code << std::endl;
+		StaticTools::Log << "received packet type: " << (int)type << std::endl;
+		std::shared_ptr<ICommand> command = CommandFactory::build(type);
+
+		if (!command) {
+			read();
+			return;
 		}
-		ICommand *reply = NULL;
-		//_reqHandler.request(*this, packet, &reply);
+
+		std::shared_ptr<ICommand> reply = NULL;
+		_reqHandler.receive(*this, command, reply);
 
 		if (reply) {
 			write(reply);
@@ -127,8 +145,8 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 void TCPClient::do_write(boost::system::error_code const& ec, size_t)
 {
 	if (!ec) {
-		ICommand *packet = _toWrites.front();
-		free(packet);
+		//ICommand *packet = _toWrites.front();
+		//free(packet);
 
 		_toWrites.pop();
 		if (!_toWrites.empty()) {

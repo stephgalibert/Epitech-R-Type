@@ -36,7 +36,7 @@ void Application::init(void)
 		_inputHandler.init();
 
 		_controllers[(int)State::ST_MainMenu] = new MainMenuController();
-		_controllers[(int)State::ST_Game] = new GameController();
+		_controllers[(int)State::ST_Game] = new GameController(_client, "name", "pwd");
 		
 		_controllers.at((int)_fsm)->init();
 	}
@@ -48,6 +48,19 @@ void Application::init(void)
 	_timer.restart();
 }
 
+void Application::setState(State state)
+{
+	switch (state)
+	{
+	case State::ST_MainMenu:
+		st_main_menu();
+		break;
+	case State::ST_Game:
+		st_game();
+		break;
+	}
+	_client.setCurrentController(_controllers[(int)_fsm]);
+}
 // les états peuvent se changer d'eux même => à faire
 void Application::loop(void)
 {
@@ -74,6 +87,17 @@ void Application::loop(void)
 
 		draw();
 	}
+}
+
+
+void Application::st_main_menu(void)
+{
+	_fsm = State::ST_MainMenu;
+}
+
+void Application::st_game(void)
+{
+	_fsm = State::ST_Game;
 }
 
 void Application::draw(void)

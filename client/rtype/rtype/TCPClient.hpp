@@ -21,11 +21,13 @@ public:
 	virtual ~TCPClient(void);
 
 	virtual void connect(void);
-	virtual void write(ICommand *packet);
+	virtual void write(std::shared_ptr<ICommand> packet);
 	virtual void disconnect(void);
 	virtual void run(void);
 	virtual bool isConnected(void) const;
-	virtual IClient &operator<<(ICommand *packet);
+	virtual void setCurrentController(AController *controller);
+	virtual AController *getCurrentController(void) const;
+	virtual IClient &operator<<(std::shared_ptr<ICommand> packet);
 
 private:
 	void read(void);
@@ -43,11 +45,10 @@ private:
 	boost::asio::ip::tcp::socket _socket;
 
 	boost::asio::streambuf _read;
-	//std::queue<char *> _toWrites;
-	std::queue<ICommand *> _toWrites;
-
+	std::queue<std::shared_ptr<ICommand> > _toWrites;
 	bool _connected;
 	RequestHandler _reqHandler;
+	AController *_controller;
 
 	std::thread _runThread;
 

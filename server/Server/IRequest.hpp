@@ -12,5 +12,7 @@ class IRequest
 public:
 	virtual ~IRequest(void) {}
 
-	virtual void execute(std::shared_ptr<AConnection> owner, ICommand *received, ICommand **reply) = 0;
+	virtual void execute(std::shared_ptr<AConnection> owner,
+						 std::shared_ptr<ICommand> received,
+						 std::shared_ptr<ICommand> &reply) = 0;
 };

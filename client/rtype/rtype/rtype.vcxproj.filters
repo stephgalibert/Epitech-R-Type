@@ -49,6 +49,12 @@
     <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\protocol">
       <UniqueIdentifier>{046575cd-8e98-4910-a928-6d29aba3ae94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\request">
+      <UniqueIdentifier>{d1edc5ef-3d94-4d8c-bdfd-82bb589c6477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\request">
+      <UniqueIdentifier>{99f3ae9e-8bfc-4c8e-aa20-09feacb201e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,12 +128,6 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Fichiers sources\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestBuilder.cpp">
-      <Filter>Fichiers sources\network</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestHandler.cpp">
-      <Filter>Fichiers sources\network</Filter>
     </ClCompile>
     <ClCompile Include="MemoryFile.cpp">
       <Filter>Fichiers sources\tools</Filter>
@@ -210,6 +210,15 @@
     <ClCompile Include="Laser.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="RequestBuilder.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestHandler.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestSpawn.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -289,15 +298,6 @@
     </ClInclude>
     <ClInclude Include="IReader.hpp">
       <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="IRequest.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\network</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestBuilder.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\network</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestHandler.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\network</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
@@ -394,6 +394,18 @@
     </ClInclude>
     <ClInclude Include="Laser.hpp">
       <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestBuilder.hpp">
+      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestHandler.hpp">
+      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="IRequest.hpp">
+      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestSpawn.hpp">
+      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

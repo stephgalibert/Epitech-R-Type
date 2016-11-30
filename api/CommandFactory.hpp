@@ -18,22 +18,19 @@
 class CommandFactory
 {
 public:
-	CommandFactory();
-	~CommandFactory(void);
-
-	ICommand *build(CommandType type) const;
+	static std::shared_ptr<ICommand> build(CommandType type);
 
 private:
-	ICommand *cmd_collision(void) const;
-	ICommand *cmd_connect(void) const;
-	ICommand *cmd_createParty(void) const;
-	ICommand *cmd_disconnected(void) const;
-	ICommand *cmd_error(void) const;
-	ICommand *cmd_fire(void) const;
-	ICommand *cmd_move(void) const;
-	ICommand *cmd_ping(void) const;
-	ICommand *cmd_spawn(void) const;
+	static std::shared_ptr<ICommand> cmd_collision(void);
+	static std::shared_ptr<ICommand> cmd_connect(void);
+	static std::shared_ptr<ICommand> cmd_createParty(void);
+	static std::shared_ptr<ICommand> cmd_disconnected(void);
+	static std::shared_ptr<ICommand> cmd_error(void);
+	static std::shared_ptr<ICommand> cmd_fire(void);
+	static std::shared_ptr<ICommand> cmd_move(void);
+	static std::shared_ptr<ICommand> cmd_ping(void);
+	static std::shared_ptr<ICommand> cmd_spawn(void);
 
-	std::unordered_map<int, std::function<ICommand *(void)> > _cmds;
+	static std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > Commands;
 };
 

@@ -16,10 +16,12 @@ public:
 	RequestHandler(void);
 	~RequestHandler(void);
 
-	void receive(std::shared_ptr<AConnection> owner, ICommand *received, ICommand **reply);
+	void receive(std::shared_ptr<AConnection> owner,
+				 std::shared_ptr<ICommand> received,
+				 std::shared_ptr<ICommand> &reply);
 
 private:
 	RequestBuilder _reqbuilder;
-	CommandFactory _cmdBuilder;
+	//CommandFactory _cmdBuilder;
 };
 

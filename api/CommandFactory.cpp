@@ -1,64 +1,69 @@
 #include "CommandFactory.hpp"
 
-CommandFactory::CommandFactory(void)
-{
-	_cmds[(int)CommandType::Connect] = std::bind(&CommandFactory::cmd_connect, this);
-	_cmds[(int)CommandType::CreateParty] = std::bind(&CommandFactory::cmd_createParty, this);
-}
+std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > CommandFactory::Commands = {
+	{(int)CommandType::Connect, std::bind(&CommandFactory::cmd_connect)},
+	{(int)CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty)}
+};
 
-CommandFactory::~CommandFactory(void)
-{
-}
+//CommandFactory::CommandFactory(void)
+//{
+//	_cmds[(int)CommandType::Connect] = std::bind(&CommandFactory::cmd_connect, this);
+//	_cmds[(int)CommandType::CreateParty] = std::bind(&CommandFactory::cmd_createParty, this);
+//}
+//
+//CommandFactory::~CommandFactory(void)
+//{
+//}
 
-ICommand *CommandFactory::build(CommandType type) const
+std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
 {
-  if (_cmds.find((int)type) != _cmds.cend()) {
-    return (_cmds.at((int)type)());
+	if (Commands.find((int)type) != Commands.cend()) {
+		return (Commands.at((int)type)());
 	}
 	return (NULL);
 }
 
-ICommand *CommandFactory::cmd_collision(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_collision(void)
 {
-	return (new CMDCollision);
+	return std::make_shared<CMDCollision>(); //(new CMDCollision);
 }
 
-ICommand *CommandFactory::cmd_connect(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_connect(void)
 {
-	return (new CMDConnect);
+	return std::make_shared<CMDConnect>(); //(new CMDConnect);
 }
 
-ICommand *CommandFactory::cmd_createParty(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_createParty(void)
 {
-	return (new CMDCreateParty);
+	return std::make_shared<CMDCreateParty>(); //(new CMDCreateParty);
 }
 
-ICommand *CommandFactory::cmd_disconnected(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_disconnected(void)
 {
-	return (new CMDDisconnected);
+	return std::make_shared<CMDDisconnected>(); //(new CMDDisconnected);
 }
 
-ICommand *CommandFactory::cmd_error(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_error(void)
 {
-	return (new CMDError);
+	return std::make_shared<CMDError>(); //(new CMDError);
 }
 
-ICommand *CommandFactory::cmd_fire(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_fire(void)
 {
-	return (new CMDFire);
+	return std::make_shared<CMDFire>(); //(new CMDFire);
 }
 
-ICommand *CommandFactory::cmd_move(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_move(void)
 {
-	return (new CMDMove);
+	return std::make_shared<CMDMove>(); //(new CMDMove);
 }
 
-ICommand *CommandFactory::cmd_ping(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_ping(void)
 {
-	return (new CMDPing);
+	return std::make_shared<CMDPing>(); //(new CMDPing);
 }
 
-ICommand *CommandFactory::cmd_spawn(void) const
+std::shared_ptr<ICommand> CommandFactory::cmd_spawn(void)
 {
-	return (new CMDSpawn);
+	return std::make_shared<CMDSpawn>(); //(new CMDSpawn);
 }

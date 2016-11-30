@@ -199,6 +199,7 @@
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
+    <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="TCPClient.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
+    <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="SplashScreen.hpp" />
     <ClInclude Include="TCPClient.hpp" />

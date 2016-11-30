@@ -34,7 +34,7 @@ public:
 	virtual void start(void);
 	virtual void close(void);
 
-	virtual void write(ICommand *command);
+	virtual void write(std::shared_ptr<ICommand> command);
 
 private:
 	void read(void);
@@ -45,7 +45,7 @@ private:
 
 	std::shared_ptr<IUDPSocket> _socket;
 	Endpoint _endpoint;
-	std::queue<ICommand *> _toWrites;
+	std::queue<std::shared_ptr<ICommand> > _toWrites;
 	Buffer _read;
 };
 

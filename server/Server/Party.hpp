@@ -21,10 +21,10 @@ public:
 	void addConnection(std::shared_ptr<AConnection> connection);
 	void removeConnection(std::shared_ptr<AConnection> connection);
 
-	void move(ICommand *data);
-	void fire(ICommand *data);
-	void disconnected(ICommand *data);
-	void collision(ICommand *data);
+	void move(std::shared_ptr<ICommand> data);
+	void fire(std::shared_ptr<ICommand> data);
+	void disconnected(std::shared_ptr<ICommand> data);
+	void collision(std::shared_ptr<ICommand> data);
 	void loop(void);
 
 	bool isReady(void) const;

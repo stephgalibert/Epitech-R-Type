@@ -22,12 +22,13 @@ class UDPClient : public IClient
 	virtual ~UDPClient(void);
 
 	virtual void connect(void);
-	virtual void write(ICommand *packet);
+	virtual void write(std::shared_ptr<ICommand> packet);
 	virtual void disconnect(void);
 	virtual void run(void);
 	virtual bool isConnected(void) const;
-	virtual IClient &operator<<(ICommand *packet);
-	//virtual Packet *createPacket(PacketType type, std::string const& data);
+	virtual void setCurrentController(AController *controller);
+	virtual AController *getCurrentController(void) const;
+	virtual IClient &operator<<(std::shared_ptr<ICommand> packet);
 
  private:
 	 void do_write(boost::system::error_code const& ec, size_t);
@@ -42,9 +43,10 @@ class UDPClient : public IClient
 	 boost::asio::ip::udp::udp::socket _socket;
 	 boost::asio::ip::udp::endpoint _sender;
 
-	 std::queue<ICommand *> _toWrites;
+	 std::queue<std::shared_ptr<ICommand> > _toWrites;
 	 boost::asio::streambuf _read;
 	 RequestHandler _reqHandler;
+	 AController *_controller;
 
 	 std::thread _runThread;
 

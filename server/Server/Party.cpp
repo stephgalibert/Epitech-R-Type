@@ -34,6 +34,7 @@ void Party::close(void)
 void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
 	_cm.add(connection);
+	// broadcast
 }
 
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
@@ -41,22 +42,22 @@ void Party::removeConnection(std::shared_ptr<AConnection> connection)
 	_cm.leave(connection);
 }
 
-void Party::move(ICommand *data)
+void Party::move(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
-void Party::fire(ICommand *data)
+void Party::fire(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
-void Party::disconnected(ICommand *data)
+void Party::disconnected(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
-void Party::collision(ICommand *data)
+void Party::collision(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
@@ -66,11 +67,11 @@ void Party::loop(void)
 	std::cout << "begin loop" << std::endl;
 	while (_running) {
 		std::cout << "There is " << _cm.getPlayerNumber() << " player(s)." << std::endl;
-		if (isReady()) {
+		//if (isReady()) {
 
-		}
-		else
-			std::cout << "Waiting for more players"  << std::endl;
+		//}
+		//else
+		//	std::cout << "Waiting for more players"  << std::endl;
 	}
 	std::cout << "end loop" << std::endl;
 }

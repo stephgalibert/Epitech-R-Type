@@ -37,7 +37,7 @@ void TCPConnection::close(void)
 	setRunning(false);
 }
 
-void TCPConnection::write(ICommand *command)
+void TCPConnection::write(std::shared_ptr<ICommand> command)
 {
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(command);
@@ -55,12 +55,12 @@ void TCPConnection::read(void)
 
 void TCPConnection::do_read(bool error)
 {
-	CommandFactory cmdBuilder;
+	//CommandFactory cmdBuilder;
 
 	StaticTools::Log << "tcp do_read " << _read.getSize() << " bytes" << std::endl;
 	if (error) {
 		CommandType type = StaticTools::GetPacketType(_read.getData());
-		ICommand *command = cmdBuilder.build(type);
+		std::shared_ptr<ICommand> command = CommandFactory::build(type);
 
 		if (!command) {
 			read();
@@ -69,8 +69,8 @@ void TCPConnection::do_read(bool error)
 		command->loadFromMemory(_read.getData());
 		_read.consume(command->getSize());
 		StaticTools::Log << "received command type: " << (int)type << std::endl;
-		ICommand *reply = NULL;
-		getRequestHandler().receive(shared_from_this(), command, &reply);
+		std::shared_ptr<ICommand> reply = NULL;
+		getRequestHandler().receive(shared_from_this(), command, reply);
 		if (reply) {
 			StaticTools::Log << "writing reply" << std::endl;
 			write(reply);
@@ -94,7 +94,7 @@ void TCPConnection::do_read(bool error)
 
 void TCPConnection::write(void)
 {
-	ICommand *packet = _toWrites.front();
+	std::shared_ptr<ICommand> packet = _toWrites.front();
 
 	AsyncWrite(_socket, packet->getData(), packet->getSize(),
 		std::bind(&AConnection::do_write, shared_from_this()));
@@ -102,8 +102,8 @@ void TCPConnection::write(void)
 
 void TCPConnection::do_write(void)
 {
-	ICommand *command = _toWrites.front();
-	free(command);
+	//ICommand *command = _toWrites.front();
+	//free(command);
 	_toWrites.pop();
 
 	if (!_toWrites.empty()) {

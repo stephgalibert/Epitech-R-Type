@@ -45,7 +45,7 @@ void UDPConnection::close(void)
 	setRunning(false);
 }
 
-void UDPConnection::write(ICommand *command)
+void UDPConnection::write(std::shared_ptr<ICommand> command)
 {
 	bool write_in_progress = !_toWrites.empty();
 
@@ -57,7 +57,7 @@ void UDPConnection::write(ICommand *command)
 
 void UDPConnection::write(void)
 {
-	ICommand *command = _toWrites.front();
+	std::shared_ptr<ICommand> command = _toWrites.front();
 
 	AsyncSendTo(_socket, _endpoint, command->getData(), command->getSize(),
 		std::bind(&AConnection::do_write, shared_from_this()));
@@ -72,9 +72,8 @@ void UDPConnection::read(void)
 
 void UDPConnection::do_write(void)
 {
-	std::cout << "finished write" << std::endl;
-	ICommand *command = _toWrites.front();
-	free(command);
+	//std::shared_ptr<ICommand> command = _toWrites.front();
+	//free(command);
 	_toWrites.pop();
 	if (!_toWrites.empty()) {
 		write();
@@ -83,14 +82,14 @@ void UDPConnection::do_write(void)
 
 void UDPConnection::do_read(bool error)
 {
-	CommandFactory cmdBuilder;
+	//CommandFactory cmdBuilder;
 	// std::cout << "from: " << inet_ntoa(_endpoint.in.sin_addr) << " " << ntohs(_endpoint.in.sin_port) << std::endl;
 	StaticTools::Log << "udp do_read " << _read.getSize() << " bytes" << std::endl;
 
 	if (error) {
 		
 		CommandType type = StaticTools::GetPacketType(_read.getData());
-		ICommand *command = cmdBuilder.build(type);
+		std::shared_ptr<ICommand> command = CommandFactory::build(type);
 
 		if (!command) {
 			read();
@@ -99,8 +98,8 @@ void UDPConnection::do_read(bool error)
 		command->loadFromMemory(_read.getData());
 		_read.consume(command->getSize());
 		StaticTools::Log << "received command type: " << (int)type << std::endl;
-		ICommand *reply = NULL;
-		getRequestHandler().receive(shared_from_this(), command, &reply);
+		std::shared_ptr<ICommand> reply = NULL;
+		getRequestHandler().receive(shared_from_this(), command, reply);
 		if (reply) {
 			StaticTools::Log << "writing reply" << std::endl;
 			write(reply);

@@ -25,7 +25,7 @@ public:
 	virtual void start(void) = 0;
 	virtual void close(void) = 0;
 
-	virtual void write(ICommand *command) = 0;
+	virtual void write(std::shared_ptr<ICommand> command) = 0;
 
 	ConnectionManager &getConnectionManager(void);
 	PartyManager &getPartyManager(void);
