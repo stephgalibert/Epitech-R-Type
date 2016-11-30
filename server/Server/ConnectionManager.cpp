@@ -19,9 +19,11 @@ void ConnectionManager::leave(std::shared_ptr<AConnection> connexion)
 	_connections.erase(connexion);
 }
 
-void ConnectionManager::broadcast(char *data)
+void ConnectionManager::broadcast(ICommand *command)
 {
-	(void)data;
+	for (auto &it : _connections) {
+		it->write(command); // va segfault si command n'a pas été alloué sur la heap
+	}
 }
 
 void ConnectionManager::closeAll(void)

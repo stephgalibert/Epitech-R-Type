@@ -3,6 +3,8 @@
 #include <set>
 #include <memory>
 
+#include "ICommand.hpp"
+
 class AConnection;
 
 class ConnectionManager
@@ -13,7 +15,7 @@ public:
 
 	void add(std::shared_ptr<AConnection> connexion);
 	void leave(std::shared_ptr<AConnection> connexion);
-	void broadcast(char *data);
+	void broadcast(ICommand *command);
 	void closeAll(void);
 
 	size_t getPlayerNumber(void) const;

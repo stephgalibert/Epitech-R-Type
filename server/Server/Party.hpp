@@ -6,6 +6,7 @@
 
 #include "ConnectionManager.hpp"
 #include "AConnection.hpp"
+#include "Timer.hpp"
 
 class Party : public std::enable_shared_from_this<Party>
 {
@@ -25,8 +26,6 @@ public:
 	void disconnected(char *data);
 	void collision(char *data);
 	void loop(void);
-	bool isReady(void);
-	void broadcastToPlayers(std::string const& data);
 
 	std::string const& getName(void) const;
 	std::string const& getPassword(void) const;
@@ -38,6 +37,6 @@ private:
 
 	std::thread _party;
 	bool _running;
-	//Timer _timer;
+	Timer _timer;
 };
 
