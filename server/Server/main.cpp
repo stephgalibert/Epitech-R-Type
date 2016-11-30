@@ -16,7 +16,5 @@ int main(void)
 
 	app.run();
 
-	while (true);
-
 	return (0);
 }

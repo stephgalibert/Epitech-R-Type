@@ -8,6 +8,20 @@ PartyManager::~PartyManager(void)
 {
 }
 
+void PartyManager::update(void)
+{
+	//if (!_toRun.empty()) {
+	//	_mutex.lock();
+
+	//	std::shared_ptr<Party> party = _toRun.front();
+	//	_toRun.pop();
+	//	party->run();
+	//	_parties.push_front(party);
+
+	//	_mutex.unlock();
+	//}
+}
+
 void PartyManager::addParty(std::string name, std::string pwd)
 {
 	std::shared_ptr<Party> party = std::make_shared<Party>();
@@ -25,6 +39,9 @@ void PartyManager::addParty(std::string name, std::string pwd)
 		throw (std::runtime_error(e.what()));
 	}
 	_parties.push_front(party);
+	//_mutex.lock();
+	//_toRun.push(party);
+	//_mutex.unlock();
 }
 
 void PartyManager::removeParty(std::string name, std::string pwd)

@@ -70,6 +70,7 @@ struct Spawn
 	uint32_t position;
 	uint8_t type;
 	uint8_t effect;
+	bool _is_player;
 };
 
 struct Move

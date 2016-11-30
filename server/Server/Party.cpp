@@ -22,7 +22,7 @@ void Party::init(std::string name, std::string pwd)
 void Party::run(void)
 {
 	_running = true;
-	//_party = std::thread(&Party::run, shared_from_this());
+	_party = std::thread(&Party::loop, shared_from_this());
 }
 
 void Party::close(void)
@@ -63,9 +63,11 @@ void Party::collision(char * data)
 
 void Party::loop(void)
 {
-	//std::cout << "begin loop" << std::endl;
-	//while (_running);
-	//std::cout << "end loop" << std::endl;
+	std::cout << "begin loop" << std::endl;
+	while (_running) {
+		std::cout << "There is " << _cm.getPlayerNumber() << " player(s)." << std::endl;
+	}
+	std::cout << "end loop" << std::endl;
 }
 
 std::string const& Party::getName(void) const
