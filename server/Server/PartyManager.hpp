@@ -1,7 +1,8 @@
 #pragma once
 
-#include <list>
+#include <string>
 #include <mutex>
+#include <unordered_map>
 
 #include "Party.hpp"
 
@@ -18,11 +19,13 @@ public:
 	std::shared_ptr<Party> addConnexion(std::shared_ptr<AConnection> user, std::string const& name, std::string const& pwd);
 
 private:
-	bool exist(std::string const& name) const;
+	void checkPartyExist(std::string const& name) const;
 
-	std::list<std::shared_ptr<Party> > _parties;
+	//std::list<std::shared_ptr<Party> > _parties;
+	std::unordered_map<std::string, std::shared_ptr<Party> > _parties;
 
 	std::mutex _mutex;
-	std::queue<std::shared_ptr<Party> > _toRun;
+	std::unordered_map<std::string, std::shared_ptr<Party> > _toRun;
+	//std::queue<std::shared_ptr<Party> > _toRun;
 };
 

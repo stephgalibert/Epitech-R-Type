@@ -21,10 +21,11 @@ Application::~Application(void)
 	}
 }
 
-void Application::init(void)
+#include <Windows.h> // !
+void Application::init(std::string host, std::string pwd)
 {
 	try {
-		StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
+		StaticTools::Log.open("client" + std::to_string(GetCurrentProcessId()) + ".log", std::ios::out | std::ios::app);
 
 		_client.connect();
 		_client.run();
@@ -81,7 +82,6 @@ void Application::loop(void)
 		}
 
 		_controllers.at((int)_fsm)->input(_inputHandler);
-
 		_fps.update(delta);
 		_controllers.at((int)_fsm)->update(delta);
 

@@ -39,11 +39,19 @@ void TCPConnection::close(void)
 
 void TCPConnection::write(std::shared_ptr<ICommand> command)
 {
+	_mutex.lock();
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(command);
+
 	if (!writeInProgress) {
 		write();
 	}
+	_mutex.unlock();
+}
+
+void TCPConnection::sync_write(std::shared_ptr<ICommand> command)
+{
+	_socket->send(command->getData(), command->getSize());
 }
 
 void TCPConnection::read(void)
@@ -55,12 +63,11 @@ void TCPConnection::read(void)
 
 void TCPConnection::do_read(bool error)
 {
-	//CommandFactory cmdBuilder;
-
 	StaticTools::Log << "tcp do_read " << _read.getSize() << " bytes" << std::endl;
 	if (error) {
 		CommandType type = StaticTools::GetPacketType(_read.getData());
 		std::shared_ptr<ICommand> command = CommandFactory::build(type);
+		StaticTools::Log << "received command type: " << (int)type << std::endl;
 
 		if (!command) {
 			read();
@@ -68,13 +75,13 @@ void TCPConnection::do_read(bool error)
 		}
 		command->loadFromMemory(_read.getData());
 		_read.consume(command->getSize());
-		StaticTools::Log << "received command type: " << (int)type << std::endl;
 		std::shared_ptr<ICommand> reply = NULL;
 		getRequestHandler().receive(shared_from_this(), command, reply);
 		if (reply) {
-			StaticTools::Log << "writing reply" << std::endl;
+			StaticTools::Log << "writing reply " << (int)reply->getCommandType() << std::endl;
 			write(reply);
 		}
+
 		if (isRunning()) {
 			if (_read.getSize() > 0) {
 				do_read(error);
@@ -82,6 +89,9 @@ void TCPConnection::do_read(bool error)
 			else {
 				read();
 			}
+		}
+		else {
+			std::cout << "deleting connection" << std::endl;
 		}
 	}
 	else {
@@ -102,11 +112,11 @@ void TCPConnection::write(void)
 
 void TCPConnection::do_write(void)
 {
-	//ICommand *command = _toWrites.front();
-	//free(command);
+	_mutex.lock();
 	_toWrites.pop();
 
 	if (!_toWrites.empty()) {
 		write();
 	}
+	_mutex.unlock();
 }

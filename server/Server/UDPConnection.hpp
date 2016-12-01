@@ -35,6 +35,7 @@ public:
 	virtual void close(void);
 
 	virtual void write(std::shared_ptr<ICommand> command);
+	virtual void sync_write(std::shared_ptr<ICommand> command);
 
 private:
 	void read(void);

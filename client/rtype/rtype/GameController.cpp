@@ -20,12 +20,13 @@ void GameController::init(void)
 	LevelResource::TheLevelResource.load();
 	World::TheWorld.init();
 
-	LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
-	//_player = World::TheWorld.spawnEntity<Player>();
+	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
+	_player = World::TheWorld.spawnEntity<Player>();
 	_back.init();
 	_front.init();
 
-	//_network.write(new CMDConnect(_partyName, _partyPwd));
+	//while (!_network.isConnected());
+	//_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
 	_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 }
 

@@ -192,6 +192,7 @@
     <ClCompile Include="LoadArea.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuController.cpp" />
+    <ClCompile Include="Mate.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="LevelResource.hpp" />
     <ClInclude Include="LoadArea.hpp" />
     <ClInclude Include="MainMenuController.hpp" />
+    <ClInclude Include="Mate.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />

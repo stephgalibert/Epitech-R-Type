@@ -24,36 +24,36 @@
     <Filter Include="Fichiers sources\protocol">
       <UniqueIdentifier>{70a2c2e7-5baa-43ae-8673-610ef1ed2618}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\game">
-      <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\request">
+      <UniqueIdentifier>{99f3ae9e-8bfc-4c8e-aa20-09feacb201e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête">
+    <Filter Include="Fichiers d%27en-tête">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\network">
+    <Filter Include="Fichiers d%27en-tête\network">
       <UniqueIdentifier>{feeff595-033b-47fb-bf16-f8bff9feb36e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\tools">
+    <Filter Include="Fichiers d%27en-tête\tools">
       <UniqueIdentifier>{5a23629c-6854-41e6-a354-bb0af2cfa69b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\resources">
+    <Filter Include="Fichiers d%27en-tête\resources">
       <UniqueIdentifier>{6ffd3e14-3a16-431d-84e8-a30772f6b92b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\game">
+    <Filter Include="Fichiers d%27en-tête\game">
       <UniqueIdentifier>{fffd7ae6-d601-4b1e-a81d-c6a114e3d412}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\game\graphics">
-      <UniqueIdentifier>{145012cb-9c3e-49d0-ad4a-a6855a577e6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\protocol">
+    <Filter Include="Fichiers d%27en-tête\protocol">
       <UniqueIdentifier>{046575cd-8e98-4910-a928-6d29aba3ae94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers de ressources\Fichiers d%27en-tête\request">
+    <Filter Include="Fichiers d%27en-tête\request">
       <UniqueIdentifier>{d1edc5ef-3d94-4d8c-bdfd-82bb589c6477}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\request">
-      <UniqueIdentifier>{99f3ae9e-8bfc-4c8e-aa20-09feacb201e8}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\graphics">
+      <UniqueIdentifier>{145012cb-9c3e-49d0-ad4a-a6855a577e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\game">
+      <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -219,193 +219,199 @@
     <ClCompile Include="RequestSpawn.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="Mate.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="SplashScreen.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="AController.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Background.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ADrawable.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AEntity.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AActor.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="ACollidable.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="ADestroyable.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AMoveable.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AProjectile.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="ANPC.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AShip.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AStatic.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="ABlock.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="AArea.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="LoadArea.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="DisplayArea.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="UnloadArea.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="TCPClient.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\network</Filter>
+      <Filter>Fichiers d%27en-tête\network</Filter>
     </ClInclude>
     <ClInclude Include="UDPClient.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\network</Filter>
+      <Filter>Fichiers d%27en-tête\network</Filter>
     </ClInclude>
     <ClInclude Include="IClient.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\network</Filter>
+      <Filter>Fichiers d%27en-tête\network</Filter>
     </ClInclude>
     <ClInclude Include="XMLReader.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="CacheManager.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="Generator.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="IReader.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="MemoryFile.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="IResourceManager.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\resources</Filter>
+      <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="ProjectResource.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\resources</Filter>
+      <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="LevelResource.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\resources</Filter>
+      <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="ISound.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\resources</Filter>
+      <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="MusicBox.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\resources</Filter>
+      <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="SoundBox.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\resources</Filter>
+      <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="GameController.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuController.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="APC.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="World.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game</Filter>
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="FPSCounter.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game</Filter>
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="InputHandler.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game</Filter>
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="AExplosion.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDCollision.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDConnect.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDCreateParty.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDDisconnected.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDError.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDFire.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDMove.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDPing.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDSpawn.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CommandFactory.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\ICommand.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\Protocol.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\common\StaticTools.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\tools</Filter>
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\api\CommandType.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\protocol</Filter>
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="Laser.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\game\graphics</Filter>
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="RequestBuilder.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
     <ClInclude Include="RequestHandler.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
     <ClInclude Include="IRequest.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
     <ClInclude Include="RequestSpawn.hpp">
-      <Filter>Fichiers de ressources\Fichiers d%27en-tête\request</Filter>
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="Mate.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,6 +22,12 @@ void Buffer::prepare(size_t len)
 	_size = len;
 }
 
+void Buffer::addData(char *data, size_t len)
+{
+	memcpy(_data, data, len);
+	_size = len;
+}
+
 void Buffer::consume(size_t len)
 {
 	if (len > _size) {

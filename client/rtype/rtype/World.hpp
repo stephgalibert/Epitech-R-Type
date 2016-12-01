@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <list>
 #include <stdexcept>
+#include <mutex>
 
 #include "Timer.hpp"
 #include "AEntity.hpp"
@@ -35,10 +36,13 @@ public:
 			delete (entity);
 			throw (std::runtime_error(e.what()));
 		}
+		_mutex.lock();
 		_entities.push_back(entity);
+		_mutex.unlock();
 		return (entity);
 	}
 
 private:
 	std::list<AEntity *> _entities;
+	std::mutex _mutex;
 };

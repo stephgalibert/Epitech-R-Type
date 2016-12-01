@@ -55,6 +55,11 @@ void UDPConnection::write(std::shared_ptr<ICommand> command)
 	}
 }
 
+void UDPConnection::sync_write(std::shared_ptr<ICommand> command)
+{
+
+}
+
 void UDPConnection::write(void)
 {
 	std::shared_ptr<ICommand> command = _toWrites.front();

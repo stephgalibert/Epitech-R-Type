@@ -1,6 +1,6 @@
 #include "ThreadPool.hpp"
 
-ThreadPool ThreadPool::Pool(16);
+ThreadPool ThreadPool::Pool(32);
 
 void ThreadPool::addTask(ITask *task)
 {
@@ -53,6 +53,7 @@ void ThreadPool::start_func(int i)
 			}
 			task = getTask();
 		}
+		
 		if (task != NULL) {
 			task->doInBackground();
 			delete (task);

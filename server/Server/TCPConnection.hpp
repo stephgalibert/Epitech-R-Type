@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 #include "AConnection.hpp"
 
 #include "ITCPSocket.hpp"
@@ -26,6 +28,7 @@ public:
 	virtual void close(void);
 
 	virtual void write(std::shared_ptr<ICommand> command);
+	virtual void sync_write(std::shared_ptr<ICommand> command);
 
 private:
 	void read(void);
@@ -37,5 +40,7 @@ private:
 	std::shared_ptr<ITCPSocket> _socket;
 	std::queue<std::shared_ptr<ICommand> > _toWrites;
 	Buffer _read;
+
+	std::mutex _mutex;
 };
 

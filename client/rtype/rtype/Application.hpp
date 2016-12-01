@@ -32,7 +32,7 @@ public:
 	Application(void);
 	~Application(void);
 
-	void init(void);
+	void init(std::string host, std::string pwd);
 	void setState(State state);
 
 	void loop(void);

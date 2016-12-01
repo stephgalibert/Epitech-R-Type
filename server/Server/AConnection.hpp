@@ -26,6 +26,7 @@ public:
 	virtual void close(void) = 0;
 
 	virtual void write(std::shared_ptr<ICommand> command) = 0;
+	virtual void sync_write(std::shared_ptr<ICommand> command) = 0;
 
 	ConnectionManager &getConnectionManager(void);
 	PartyManager &getPartyManager(void);
@@ -35,11 +36,13 @@ public:
 	void setID(int id);
 	void setRunning(bool value);
 	void setReady(bool value);
+	void setPosition(std::pair<uint16_t, uint16_t> const& position);
 
 	std::shared_ptr<Party> getCurrentParty(void) const;
 	int getID(void) const;
 	bool isRunning(void) const;
 	bool isReady(void) const;
+	std::pair<uint16_t, uint16_t> const& getPosition(void) const;
 
 	virtual void do_read(bool error) = 0;
 	virtual void do_write(void) = 0;
@@ -52,6 +55,7 @@ private:
 	std::shared_ptr<Party> _party;
 	bool _running;
 	int _id;
+	std::pair<uint16_t, uint16_t> _position;
 	bool _ready;
 };
 

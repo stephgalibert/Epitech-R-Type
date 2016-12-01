@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <thread>
+#include <mutex>
 
 #include "ConnectionManager.hpp"
 #include "AConnection.hpp"
@@ -40,5 +41,6 @@ private:
 	std::thread _party;
 	bool _running;
 	Timer _timer;
+	std::mutex _mutex;
 };
 

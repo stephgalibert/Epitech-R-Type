@@ -1,7 +1,7 @@
 #pragma once
 
 #include <winsock2.h>
-
+#include <mutex>
 #include "ITCPSocket.hpp"
 #include "Buffer.hpp"
 
@@ -24,5 +24,6 @@ public:
 private:
 	SOCKET _socket;
 	WSADATA _wsdata;
+	std::mutex _mutex;
 };
 

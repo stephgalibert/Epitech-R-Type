@@ -76,7 +76,7 @@ IClient &TCPClient::operator<<(std::shared_ptr<ICommand> packet)
 
 void TCPClient::read(void)
 {
-	boost::asio::async_read(_socket, _read, boost::asio::transfer_at_least(1),
+	boost::asio::async_read(_socket, _read.prepare(1024), boost::asio::transfer_at_least(1),
 		boost::bind(&TCPClient::do_read, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
@@ -91,15 +91,13 @@ void TCPClient::write(void)
 			boost::asio::placeholders::bytes_transferred));
 }
 
-//#include "CMDConnect.hpp"
 #include "CMDCreateParty.hpp"
 void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip::tcp::resolver::iterator)
 {
 	if (!ec) {
 		StaticTools::Log << "Connected in TCP mod" << std::endl;
+		_connected = true;
 		read();
-		//write(new CMDCreateParty("name", "pwd"));
-		//write(new CMDConnect("name", "pwd"));
 		write(std::make_shared<CMDCreateParty>("name", "pwd"));
 	} else {
 		StaticTools::Log << _remote << ":" << _port << "' is inaccessible (" << ec << ")" << std::endl;
@@ -110,10 +108,9 @@ void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip:
 
 void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 {
-	//CommandFactory cmdBuilder;
-
+	StaticTools::Log << "read size: " << len << std::endl;
 	if (!ec) {
-		char const* packet = boost::asio::buffer_cast<char const *>(_read.data()); // !
+		char const* packet = boost::asio::buffer_cast<char const *>(_read.data());
 		_read.consume(len);
 		
 		CommandType type = StaticTools::GetPacketType(packet);
@@ -124,7 +121,7 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 			read();
 			return;
 		}
-
+		command->loadFromMemory(packet);
 		std::shared_ptr<ICommand> reply = NULL;
 		_reqHandler.receive(*this, command, reply);
 
@@ -145,9 +142,6 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 void TCPClient::do_write(boost::system::error_code const& ec, size_t)
 {
 	if (!ec) {
-		//ICommand *packet = _toWrites.front();
-		//free(packet);
-
 		_toWrites.pop();
 		if (!_toWrites.empty()) {
 			write();

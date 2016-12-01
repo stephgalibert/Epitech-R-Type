@@ -80,7 +80,7 @@ void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 			read();
 			return;
 		}
-
+		command->loadFromMemory(packet);
 		std::shared_ptr<ICommand> reply = NULL;
 		_reqHandler.receive(*this, command, reply);
 
