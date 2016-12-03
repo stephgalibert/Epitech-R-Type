@@ -26,8 +26,8 @@ class UDPClient : public IClient
 	virtual void disconnect(void);
 	virtual void run(void);
 	virtual bool isConnected(void) const;
-	virtual void setCurrentController(AController *controller);
-	virtual AController *getCurrentController(void) const;
+	virtual void setGameController(GameController *controller);
+	virtual GameController *getGameController(void) const;
 	virtual IClient &operator<<(std::shared_ptr<ICommand> packet);
 
  private:
@@ -46,7 +46,7 @@ class UDPClient : public IClient
 	 std::queue<std::shared_ptr<ICommand> > _toWrites;
 	 boost::asio::streambuf _read;
 	 RequestHandler _reqHandler;
-	 AController *_controller;
+	 GameController *_controller;
 
 	 std::thread _runThread;
 

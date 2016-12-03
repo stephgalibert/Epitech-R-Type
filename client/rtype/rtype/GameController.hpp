@@ -23,6 +23,8 @@ public:
 	virtual void update(float delta);
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
+	
+	void addPlayer(Player *player);
 
 private:
 	IClient &_network;

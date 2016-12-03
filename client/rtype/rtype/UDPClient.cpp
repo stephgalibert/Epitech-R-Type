@@ -1,5 +1,5 @@
 #include "UDPClient.hpp"
-#include "AController.hpp"
+#include "GameController.hpp"
 
 UDPClient::UDPClient(std::string const& ip, std::string const& port)
 	: _resolver(_io_service),
@@ -38,7 +38,7 @@ void UDPClient::write(std::shared_ptr<ICommand> packet)
 	}
 }
 
-AController *UDPClient::getCurrentController(void) const
+GameController *UDPClient::getGameController(void) const
 {
 	return (_controller);
 }
@@ -66,8 +66,6 @@ void UDPClient::read(void)
 
 void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 {
-	//CommandFactory cmdBuilder;
-
 	if (!ec) {
 		char const* packet = boost::asio::buffer_cast<char const *>(_read.data());
 		_read.consume(len);
@@ -132,7 +130,7 @@ bool UDPClient::isConnected(void) const
 	return (true);
 }
 
-void UDPClient::setCurrentController(AController *controller)
+void UDPClient::setGameController(GameController *controller)
 {
 	_controller = controller;
 }

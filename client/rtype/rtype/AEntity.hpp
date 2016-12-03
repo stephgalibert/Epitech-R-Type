@@ -18,6 +18,11 @@ public:
 	/* Retourne true si l'objet va être détruit, sinon false */
 	bool isWaitingForRecycle(void) const;
 
+	bool isInitialized(void) const;
+
+protected:
+	bool _init;
+
 private:
 	/* cf. isWaitingForRecycle() */
 	bool _waitingForRecycle;

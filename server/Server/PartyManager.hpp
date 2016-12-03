@@ -21,11 +21,8 @@ public:
 private:
 	void checkPartyExist(std::string const& name) const;
 
-	//std::list<std::shared_ptr<Party> > _parties;
 	std::unordered_map<std::string, std::shared_ptr<Party> > _parties;
-
-	std::mutex _mutex;
 	std::unordered_map<std::string, std::shared_ptr<Party> > _toRun;
-	//std::queue<std::shared_ptr<Party> > _toRun;
+	std::mutex _mutex;
 };
 

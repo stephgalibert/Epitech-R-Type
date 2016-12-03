@@ -1,7 +1,8 @@
 #include "AEntity.hpp"
 
 AEntity::AEntity()
-	  : _waitingForRecycle(false)
+	  : _waitingForRecycle(false),
+	    _init(false)
 {
 }
 
@@ -17,4 +18,9 @@ void AEntity::recycle(void)
 bool AEntity::isWaitingForRecycle(void) const
 {
 	return (_waitingForRecycle);
+}
+
+bool AEntity::isInitialized(void) const
+{
+	return (_init);
 }
