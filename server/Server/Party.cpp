@@ -87,7 +87,7 @@ void Party::loop(void)
 
 bool Party::isReady(void) const
 {
-	return (_cm.getPlayerNumber() > 3);
+	return (_cm.getPlayerNumber() > 1);
 }
 
 bool Party::isRunning(void) const

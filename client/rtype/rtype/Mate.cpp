@@ -40,6 +40,8 @@ void Mate::update(float delta)
 	ANPC::update(delta);
 
 	uint8_t direction = getDirection();
+	setTargetFrame(2);
+
 	if (direction != 0) {
 		if (direction & NORTH) {
 			setTargetFrame(4);
@@ -47,9 +49,6 @@ void Mate::update(float delta)
 		else if (direction & SOUTH) {
 			setTargetFrame(0);
 		}
-	}
-	else {
-		setTargetFrame(2);
 	}
 }
 

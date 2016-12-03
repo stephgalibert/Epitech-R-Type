@@ -14,9 +14,6 @@ AShip::~AShip(void)
 
 void AShip::update(float delta)
 {
-	if (getShape() == NULL)
-		return;
-
 	_delta += delta;
 	_deltaLastShoot += delta;
 	
