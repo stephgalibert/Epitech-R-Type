@@ -10,7 +10,9 @@ RequestCreateParty::~RequestCreateParty(void)
 {
 }
 
-void RequestCreateParty::execute(std::shared_ptr<AConnection> owner, ICommand *received, ICommand **reply)
+void RequestCreateParty::execute(std::shared_ptr<AConnection> owner,
+								 std::shared_ptr<ICommand> received,
+								 std::shared_ptr<ICommand> &reply)
 {
 	CreateParty *connect = reinterpret_cast<CreateParty *>(received->getData());
 	std::string data(connect->data, connect->size);
@@ -22,6 +24,7 @@ void RequestCreateParty::execute(std::shared_ptr<AConnection> owner, ICommand *r
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
-		*reply = new CMDError(RT_ERROR_ALREADY_EXIST);
+		//*reply = new CMDError(RT_ERROR_ALREADY_EXIST);
+		reply = std::make_shared<CMDError>(RT_ERROR_ALREADY_EXIST);
 	}
 }

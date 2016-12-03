@@ -20,16 +20,6 @@
 
 class Application
 {
-public:
-	Application(void);
-	~Application(void);
-
-	/* Initialise l'application */
-	void init(void);
-
-	/* Boucle principale */
-	void loop(void);
-
 private:
 	enum class State : short
 	{
@@ -38,7 +28,19 @@ private:
 		ST_Game = 2
 	};
 
+public:
+	Application(void);
+	~Application(void);
+
+	void init(std::string host, std::string pwd);
+	void setState(State state);
+
+	void loop(void);
+
 private:
+	void st_main_menu(void);
+	void st_game(void);
+
 	void draw(void);
 
 	TCPClient _client;

@@ -5,34 +5,18 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Fichiers de ressources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\graphics">
-      <UniqueIdentifier>{145012cb-9c3e-49d0-ad4a-a6855a577e6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\graphics">
       <UniqueIdentifier>{e747771d-5676-4d6b-95d3-c807432730e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\network">
-      <UniqueIdentifier>{feeff595-033b-47fb-bf16-f8bff9feb36e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\network">
       <UniqueIdentifier>{4bbecc0b-9197-49c0-97ab-a301d0fa9397}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\tools">
-      <UniqueIdentifier>{5a23629c-6854-41e6-a354-bb0af2cfa69b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\tools">
       <UniqueIdentifier>{e9273712-229f-4b08-9853-92cc29b79aa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\resources">
-      <UniqueIdentifier>{6ffd3e14-3a16-431d-84e8-a30772f6b92b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\resources">
       <UniqueIdentifier>{aa2bf634-c168-4fd6-b794-df00a0ddb517}</UniqueIdentifier>
@@ -40,14 +24,36 @@
     <Filter Include="Fichiers sources\protocol">
       <UniqueIdentifier>{70a2c2e7-5baa-43ae-8673-610ef1ed2618}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\request">
+      <UniqueIdentifier>{99f3ae9e-8bfc-4c8e-aa20-09feacb201e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\network">
+      <UniqueIdentifier>{feeff595-033b-47fb-bf16-f8bff9feb36e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\tools">
+      <UniqueIdentifier>{5a23629c-6854-41e6-a354-bb0af2cfa69b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\resources">
+      <UniqueIdentifier>{6ffd3e14-3a16-431d-84e8-a30772f6b92b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Fichiers d%27en-tête\game">
       <UniqueIdentifier>{fffd7ae6-d601-4b1e-a81d-c6a114e3d412}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\game">
-      <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\protocol">
       <UniqueIdentifier>{046575cd-8e98-4910-a928-6d29aba3ae94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\request">
+      <UniqueIdentifier>{d1edc5ef-3d94-4d8c-bdfd-82bb589c6477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\graphics">
+      <UniqueIdentifier>{145012cb-9c3e-49d0-ad4a-a6855a577e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\game">
+      <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,12 +125,6 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Fichiers sources\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestBuilder.cpp">
-      <Filter>Fichiers sources\network</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestHandler.cpp">
-      <Filter>Fichiers sources\network</Filter>
     </ClCompile>
     <ClCompile Include="MemoryFile.cpp">
       <Filter>Fichiers sources\tools</Filter>
@@ -207,6 +207,18 @@
     <ClCompile Include="Laser.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="RequestBuilder.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestHandler.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestSpawn.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="Mate.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
     <ClCompile Include="MainMenuResource.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -286,15 +298,6 @@
     </ClInclude>
     <ClInclude Include="IReader.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="IRequest.hpp">
-      <Filter>Fichiers d%27en-tête\network</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestBuilder.hpp">
-      <Filter>Fichiers d%27en-tête\network</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestHandler.hpp">
-      <Filter>Fichiers d%27en-tête\network</Filter>
     </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
@@ -390,6 +393,21 @@
       <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="Laser.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestBuilder.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestHandler.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="IRequest.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestSpawn.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="Mate.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuResource.hpp">

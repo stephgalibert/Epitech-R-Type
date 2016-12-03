@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <winsock2.h>
 #pragma comment(lib, "ws2_32.lib")
 
@@ -18,5 +20,7 @@ public:
 private:
 	SOCKET _socket;
 	WSADATA _wsdata;
+	std::string _host;
+	short _port;
 };
 

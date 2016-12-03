@@ -1,9 +1,11 @@
 #pragma once
 
+#include <memory>
 #include <string>
+
 #include "Protocol.hpp"
 
-struct ICommand
+struct ICommand : public std::enable_shared_from_this<ICommand>
 {
 	virtual ~ICommand(void) {}
 	virtual void loadFromMemory(char const *data) = 0;

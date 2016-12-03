@@ -10,18 +10,26 @@
 
 #include "Protocol.hpp"
 #include "IRequest.hpp"
+#include "RequestSpawn.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {
 public:
-	typedef std::function<std::unique_ptr<IRequest>(void)> Cmds;
-public:
 	RequestBuilder(void);
 	~RequestBuilder(void);
 
-	std::unique_ptr<IRequest> create(CommandType type) const;
-private:
-	//std::unique_ptr<IRequest> kill(void) const;
+	std::unique_ptr<IRequest> build(CommandType type) const;
 
-	std::unordered_map<int, Cmds> _cmds;
+private:
+	std::unique_ptr<IRequest> create_ConnectRequest(void);
+	std::unique_ptr<IRequest> create_CreatePartyRequest(void);
+	std::unique_ptr<IRequest> create_SpawnRequest(void);
+	std::unique_ptr<IRequest> create_MoveRequest(void);
+	std::unique_ptr<IRequest> create_CollisionRequest(void);
+	std::unique_ptr<IRequest> create_ErrorRequest(void);
+	std::unique_ptr<IRequest> create_PingRequest(void);
+	std::unique_ptr<IRequest> create_FireRequest(void);
+	std::unique_ptr<IRequest> create_GameStatusRequest(void);
+
+	std::unordered_map<int, std::function<std::unique_ptr<IRequest>(void)> > _requests;
 };

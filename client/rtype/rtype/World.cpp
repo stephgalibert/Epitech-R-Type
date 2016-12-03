@@ -23,11 +23,12 @@ void World::update(float delta)
 		if ((*it)->isWaitingForRecycle()) {
 			(*it)->destroy();
 			delete (*it);
+			_mutex.lock();
 			it = _entities.erase(it);
+			_mutex.unlock();
 		}
 		else {
 			(*it)->update(delta);
-			
 			++it;
 		}
 	}

@@ -9,10 +9,13 @@
 #include "Background.hpp"
 #include "Player.hpp"
 
+#include "IClient.hpp"
+#include "CMDConnect.hpp"
+
 class GameController : public AController
 {
 public:
-	GameController();
+	GameController(IClient &network, std::string const& partyName, std::string const& partyPwd);
 	virtual ~GameController(void);
 
 	virtual void init(void);
@@ -22,6 +25,9 @@ public:
 	virtual void recycle(void);
 
 private:
+	IClient &_network;
+	std::string _partyName;
+	std::string _partyPwd;
 	Player *_player;
 	Background _back;
 	Background _front;

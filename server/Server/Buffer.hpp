@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <string.h>
+#include <mutex>
 
 class Buffer
 {
@@ -11,6 +12,7 @@ public:
 	virtual ~Buffer(void);
 
 	void prepare(size_t len);
+	void addData(char *data, size_t len);
 	void consume(size_t len);
 	void reallocate(char *data, size_t size);
 
@@ -22,5 +24,6 @@ public:
 private:
 	char *_data;
 	size_t _size;
+	std::mutex _mutex;
 };
 

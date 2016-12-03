@@ -1,8 +1,10 @@
 #include "UDPClient.hpp"
+#include "AController.hpp"
 
 UDPClient::UDPClient(std::string const& ip, std::string const& port)
 	: _resolver(_io_service),
 	  _socket(_io_service, boost::asio::ip::udp::udp::endpoint(boost::asio::ip::udp::udp::v4(), std::atoi(port.c_str()))),
+	  _controller(NULL),
 	  _remote(ip),
 	  _port(port)
 {
@@ -26,7 +28,7 @@ void UDPClient::connect(void)
 	//write(new CMDConnect("name", "pwd"));
 }
 
-void UDPClient::write(ICommand *packet)
+void UDPClient::write(std::shared_ptr<ICommand> packet)
 {
 	bool writeInProgress = !_toWrites.empty();
 
@@ -36,11 +38,16 @@ void UDPClient::write(ICommand *packet)
 	}
 }
 
+AController *UDPClient::getCurrentController(void) const
+{
+	return (_controller);
+}
+
 void UDPClient::do_write(boost::system::error_code const& ec, size_t)
 {
 	if (!ec) {
-		ICommand *packet = _toWrites.front();
-		free(packet);
+		//std::shared_ptr<ICommand> packet = _toWrites.front();
+		//free(packet);
 
 		_toWrites.pop();
 		if (!_toWrites.empty()) {
@@ -59,15 +66,23 @@ void UDPClient::read(void)
 
 void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 {
+	//CommandFactory cmdBuilder;
+
 	if (!ec) {
 		char const* packet = boost::asio::buffer_cast<char const *>(_read.data());
 		_read.consume(len);
 
 		CommandType type = StaticTools::GetPacketType(packet);
 		StaticTools::Log << "received packet type: " << (int)type << std::endl;
+		std::shared_ptr<ICommand> command = CommandFactory::build(type);
 
-		ICommand *reply = NULL;
-		_reqHandler.request(*this, packet, &reply);
+		if (!command) {
+			read();
+			return;
+		}
+		command->loadFromMemory(packet);
+		std::shared_ptr<ICommand> reply = NULL;
+		_reqHandler.receive(*this, command, reply);
 
 		if (reply) {
 			write(reply);
@@ -79,7 +94,7 @@ void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 
 void UDPClient::write(void)
 {
-	ICommand *packet = _toWrites.front();
+	std::shared_ptr<ICommand> packet = _toWrites.front();
 	
 	_socket.async_send_to(boost::asio::buffer(packet->getData(), packet->getSize()), _sender,
 		boost::bind(&UDPClient::do_write, this,
@@ -117,7 +132,12 @@ bool UDPClient::isConnected(void) const
 	return (true);
 }
 
-IClient &UDPClient::operator<<(ICommand *packet)
+void UDPClient::setCurrentController(AController *controller)
+{
+	_controller = controller;
+}
+
+IClient &UDPClient::operator<<(std::shared_ptr<ICommand> packet)
 {
 	write(packet);
 	return (*this);

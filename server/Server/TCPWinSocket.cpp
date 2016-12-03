@@ -53,11 +53,16 @@ bool TCPWinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 		buffer.reallocate(buf, read);
 		total += read;
 	}
-
 	return (read > 0);
 }
 
 int TCPWinSocket::send(char *data, size_t size)
 {
-	return ::send(_socket, data, size, 0);
+	int read = 0;
+
+	_mutex.lock();
+	read = ::send(_socket, data, size, 0);
+	_mutex.unlock();
+
+	return (read);
 }

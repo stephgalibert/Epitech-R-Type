@@ -11,9 +11,11 @@
 #include <boost/algorithm/string.hpp>
 
 #include "IClient.hpp"
-//#include "RequestBuilder.h"
+#include "RequestBuilder.hpp"
 #include "Protocol.hpp"
 #include "StaticTools.hpp"
+
+#include "IRequest.hpp"
 
 class TCPClient;
 
@@ -23,8 +25,9 @@ public:
 	RequestHandler(void);
 	~RequestHandler(void);
 
-	void request(IClient &client, char const *received, ICommand **toSend);
+	void receive(IClient &client, std::shared_ptr<ICommand> received,
+				 std::shared_ptr<ICommand> &toSend);
 
  private:
-	//RequestBuilder _builder;
+	RequestBuilder _builder;
 };

@@ -54,4 +54,9 @@ void Application::run(void)
 	for (auto it : _servers) {
 		it->open();
 	}
+
+	
+	while (true) {
+		_pm.update();
+	}
 }

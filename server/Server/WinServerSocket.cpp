@@ -15,15 +15,18 @@ WinServerSocket::~WinServerSocket(void)
 
 void WinServerSocket::init(std::string const & listenHost, short listenPort)
 {
+	_host = listenHost;
+	_port = listenPort;
+
 	SOCKADDR_IN sin;
 	int ret = 0;
 	u_long socket_state = 0;
 
-	sin.sin_addr.s_addr = inet_addr(listenHost.c_str());
+	sin.sin_addr.s_addr = inet_addr(_host.c_str());
 	sin.sin_family = AF_INET;
-	sin.sin_port = htons(listenPort);
+	sin.sin_port = htons(_port);
 	_socket = socket(AF_INET, SOCK_STREAM, 0);
-	ioctlsocket(_socket, FIONBIO, &socket_state);
+	//ioctlsocket(_socket, FIONBIO, &socket_state);
 	if (_socket <= 0) {
 		throw (std::runtime_error("bad socket"));
 	}
@@ -33,7 +36,7 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 		_socket = 0;
 		throw (std::runtime_error("error on bind"));
 	}
-	ret = listen(_socket, 0);
+	ret = listen(_socket, SOMAXCONN);
 	if (ret < 0) {
 		closesocket(_socket);
 		_socket = 0;
@@ -49,6 +52,7 @@ std::shared_ptr<ITCPSocket> WinServerSocket::accept(void)
 	int sinsize;
 
 	sinsize = sizeof(csin);
+
 	if ((csock = ::accept(_socket, (SOCKADDR *)&csin, &sinsize))) {
 		socket->connectFromAcceptedFd(csock);
 		return (socket);

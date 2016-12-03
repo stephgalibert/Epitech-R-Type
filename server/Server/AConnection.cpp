@@ -8,6 +8,8 @@ AConnection::AConnection(ConnectionManager &cm, RequestHandler &rh, PartyManager
 	  _id(0),
 	  _ready(false)
 {
+	_position.first = 20;
+	_position.second = 20;
 }
 
 AConnection::~AConnection(void)
@@ -49,6 +51,12 @@ void AConnection::setReady(bool value)
 	_ready = value;
 }
 
+void AConnection::setPosition(std::pair<uint16_t, uint16_t> const& position)
+{
+	_position.first = position.first;
+	_position.second = position.second;
+}
+
 std::shared_ptr<Party> AConnection::getCurrentParty(void) const
 {
 	return (_party);
@@ -67,4 +75,9 @@ bool AConnection::isRunning(void) const
 bool AConnection::isReady(void) const
 {
 	return (_ready);
+}
+
+std::pair<uint16_t, uint16_t> const& AConnection::getPosition(void) const
+{
+	return (_position);
 }

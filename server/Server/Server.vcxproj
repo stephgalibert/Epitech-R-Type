@@ -56,6 +56,7 @@
     <ClCompile Include="TCPConnection.cpp" />
     <ClCompile Include="TCPServer.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UDPConnection.cpp" />
     <ClCompile Include="UDPServer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -111,6 +112,7 @@
     <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
+    <ClInclude Include="coutmutex.hpp" />
     <ClInclude Include="ReceiveFromAsyncTask.hpp" />
     <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="ConnectionManager.hpp" />
@@ -132,6 +134,7 @@
     <ClInclude Include="TCPConnection.hpp" />
     <ClInclude Include="TCPServer.hpp" />
     <ClInclude Include="ThreadPool.hpp" />
+    <ClInclude Include="Timer.hpp" />
     <ClInclude Include="UDPConnection.hpp" />
     <ClInclude Include="UDPServer.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

@@ -10,7 +10,9 @@ RequestConnect::~RequestConnect(void)
 {
 }
 
-void RequestConnect::execute(std::shared_ptr<AConnection> owner, ICommand *received, ICommand **reply)
+void RequestConnect::execute(std::shared_ptr<AConnection> owner,
+							 std::shared_ptr<ICommand> received,
+							 std::shared_ptr<ICommand> &reply)
 {
 	std::shared_ptr<Party> party = NULL;
 	Connect *connect = reinterpret_cast<Connect *>(received->getData());
@@ -21,7 +23,8 @@ void RequestConnect::execute(std::shared_ptr<AConnection> owner, ICommand *recei
 
 	party = owner->getPartyManager().addConnexion(owner, name, pwd);
 	if (party == NULL) {
-		*reply = new CMDError(RT_ERROR_NOT_FOUND);
+		//*reply = new CMDError(RT_ERROR_NOT_FOUND);
+		reply = std::make_shared<CMDError>(RT_ERROR_NOT_FOUND);
 	}
 	else {
 		owner->setCurrentParty(party);

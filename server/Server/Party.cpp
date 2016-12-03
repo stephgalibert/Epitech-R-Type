@@ -13,7 +13,7 @@ Party::~Party(void)
 	}
 }
 
-void Party::init(std::string name, std::string pwd)
+void Party::init(std::string const& name, std::string const& pwd)
 {
 	_name = name;
 	_password = pwd;
@@ -22,7 +22,7 @@ void Party::init(std::string name, std::string pwd)
 void Party::run(void)
 {
 	_running = true;
-	//_party = std::thread(&Party::run, shared_from_this());
+	_party = std::thread(&Party::loop, shared_from_this());
 }
 
 void Party::close(void)
@@ -33,39 +33,66 @@ void Party::close(void)
 
 void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
+	
+	ObjectType object = ObjectType::Ship;
+	uint8_t id = _cm.getPlayerNumber();
+	uint16_t x = 20;
+	uint16_t y = 20 * (_cm.getPlayerNumber() + 1);
+	uint8_t type = (uint8_t)ShipType::Standard;
+	uint8_t effect = 0;
+
+	connection->setPosition(std::make_pair(x, y));
+	connection->setID(id);
+
+	_mutex.lock();
+	_cm.broadcast(std::make_shared<CMDSpawn>(object, id, x, y, type, effect));
+	_cm.sendSpawnedShipTo(connection);
 	_cm.add(connection);
+	std::cout << "new connection" << std::endl;
+	_mutex.unlock();
 }
 
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
 {
+	uint8_t id = connection->getID();
+
+	_mutex.lock();
 	_cm.leave(connection);
+	_cm.broadcast(std::make_shared<CMDDisconnected>(id));
+	std::cout << "remove connection" << std::endl;
+	_mutex.unlock();
 }
 
-void Party::move(char * data)
+void Party::move(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
-void Party::fire(char * data)
+void Party::fire(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
-void Party::disconnected(char * data)
+void Party::disconnected(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
-void Party::collision(char * data)
+void Party::collision(std::shared_ptr<ICommand> data)
 {
   (void)data;
 }
 
 void Party::loop(void)
 {
-	//std::cout << "begin loop" << std::endl;
-	//while (_running);
-	//std::cout << "end loop" << std::endl;
+	while (_running) {
+
+	}
+}
+
+bool Party::isReady(void) const
+{
+	return (_cm.getPlayerNumber() > 1);
 }
 
 std::string const& Party::getName(void) const

@@ -18,7 +18,8 @@ ReadAsyncTask::~ReadAsyncTask(void)
 
 void ReadAsyncTask::doInBackground(void)
 {
-	_callback(_socket->recv(_buffer, _transferAtLeast));
+	bool read = _socket->recv(_buffer, _transferAtLeast);
+	_callback(read);
 }
 
 void ReadAsyncTask::cancel(void)
