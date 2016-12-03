@@ -30,7 +30,7 @@ void Application::init(std::string host, std::string pwd)
 		_client.connect();
 		_client.run();
 
-		_fsm = State::ST_Game;
+		_fsm = State::ST_MainMenu;
 
 		ProjectResource::TheProjectResource.load();
 		_fps.init();
