@@ -29,9 +29,13 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 		Player *player = World::TheWorld.spawnEntity<Player>();
 		player->setID(id);
 		player->setPosition(x, y);
+		player->setIClient(&client);
 		client.getGameController()->addPlayer(player);
 	}
 	else if (id < 5) {
+		std::cout << "mate information: " << std::endl
+			<< "\tid: " << id << std::endl
+			<< "x: " << x << " y: " << y << std::endl;
 		Mate *mate = World::TheWorld.spawnEntity<Mate>();
 		mate->setID(id);
 		mate->setPosition(x, y);

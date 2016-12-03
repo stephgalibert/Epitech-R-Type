@@ -1,16 +1,15 @@
 #include "Party.hpp"
 
 Party::Party(void)
-	: _running(false)
 {
 }
 
 Party::~Party(void)
 {
-	_running = false;
 	if (_party.joinable()) {
 		_party.join();
 	}
+	std::cout << "delete party " << _name << std::endl;
 }
 
 void Party::init(std::string const& name, std::string const& pwd)
@@ -21,18 +20,18 @@ void Party::init(std::string const& name, std::string const& pwd)
 
 void Party::run(void)
 {
-	_running = true;
 	_party = std::thread(&Party::loop, shared_from_this());
 }
 
 void Party::close(void)
 {
-	_running = false;
 	_cm.closeAll();
 }
 
 void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	ObjectType object = ObjectType::Ship;
 	uint8_t id = _cm.getPlayerNumber() + 1;
 	uint16_t x = 20;
@@ -44,36 +43,28 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	connection->setID(id);
 	// ...
 
-	_mutex.lock();
 	_cm.add(connection);
 	std::cout << "new connection" << std::endl;
-	_mutex.unlock();
 }
 
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
 	uint8_t id = connection->getID();
 
-	_mutex.lock();
 	_cm.leave(connection);
-	_cm.broadcast(std::make_shared<CMDDisconnected>(id));
+	_cm.broadcast(connection, std::make_shared<CMDDisconnected>(id));
 	std::cout << "remove connection" << std::endl;
-	_mutex.unlock();
 }
 
-void Party::move(std::shared_ptr<ICommand> data)
+void Party::move(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
 {
-  (void)data;
+	_cm.broadcast(connection, data);
 }
 
-void Party::fire(std::shared_ptr<ICommand> data)
+void Party::fire(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
 {
-  (void)data;
-}
-
-void Party::disconnected(std::shared_ptr<ICommand> data)
-{
-  (void)data;
+	_cm.broadcast(connection, data);
 }
 
 void Party::collision(std::shared_ptr<ICommand> data)
@@ -90,14 +81,18 @@ void Party::loop(void)
 	_cm.distributeShipID();
 	_cm.sendSpawnedShip();
 
-	while (_running) {
-
+	while (true) {
 	}
 }
 
 bool Party::isReady(void) const
 {
 	return (_cm.getPlayerNumber() > 3);
+}
+
+bool Party::isRunning(void) const
+{
+	return (_cm.getPlayerNumber() > 0);
 }
 
 std::string const& Party::getName(void) const

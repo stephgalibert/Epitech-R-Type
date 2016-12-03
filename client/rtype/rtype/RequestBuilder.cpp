@@ -4,6 +4,7 @@ RequestBuilder::RequestBuilder(void)
 {
 	_requests[(int)CommandType::Spawn] = std::bind(&RequestBuilder::create_SpawnRequest, this);
 	_requests[(int)CommandType::Disconnected] = std::bind(&RequestBuilder::create_DisconnectedRequest, this);
+	_requests[(int)CommandType::Move] = std::bind(&RequestBuilder::create_MoveRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -42,7 +43,7 @@ std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)
 
 std::unique_ptr<IRequest> RequestBuilder::create_MoveRequest(void)
 {
-	return NULL;
+	return (std::unique_ptr<IRequest>(new RequestMove));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_CollisionRequest(void)

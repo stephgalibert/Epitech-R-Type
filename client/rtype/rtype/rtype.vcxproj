@@ -202,6 +202,7 @@
     <ClCompile Include="RequestDisconnect.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
+    <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="TCPClient.cpp" />
@@ -268,6 +269,7 @@
     <ClInclude Include="RequestDisconnect.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
+    <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="TCPClient.hpp" />

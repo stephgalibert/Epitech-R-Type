@@ -19,29 +19,14 @@ void ConnectionManager::leave(std::shared_ptr<AConnection> connection)
 	_connections.erase(connection);
 }
 
-void ConnectionManager::broadcast(std::shared_ptr<ICommand> command)
+void ConnectionManager::broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> command)
 {
 	for (auto &it : _connections) {
-		std::cout << "broadcasting to " << (int)it->getID() << std::endl;
-		it->sync_write(command);
+		if (it->getID() != connection->getID()) {
+			it->sync_write(command);
+		}
 	}
 }
-
-//void ConnectionManager::sendSpawnedShipTo(std::shared_ptr<AConnection> connection)
-//{
-//	//for (auto &it : _connections) {
-//	//	ObjectType object = ObjectType::Ship;
-//	//	uint8_t id = it->getID();
-//	//	uint16_t x = it->getPosition().first;
-//	//	uint16_t y = it->getPosition().second;
-//	//	uint8_t type = (uint8_t)ShipType::Standard;
-//	//	uint8_t effect = 0;
-//	//	bool player = false;
-//
-//	//	std::cout << "send to " << (int)it->getID() << std::endl;
-//	//	connection->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect));
-//	//}
-//}
 
 void ConnectionManager::closeAll(void)
 {

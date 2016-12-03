@@ -9,6 +9,7 @@
 
 #include "RequestConnect.hpp"
 #include "RequestCreateParty.hpp"
+#include "RequestMove.hpp"
 
 class RequestBuilder
 {

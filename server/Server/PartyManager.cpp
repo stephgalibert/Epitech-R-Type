@@ -11,19 +11,19 @@ PartyManager::~PartyManager(void)
 void PartyManager::update(void)
 {
 	if (!_toRun.empty()) {
-		_mutex.lock();
+		std::lock_guard<std::mutex> lock(_mutex);
 
 		std::pair<std::string, std::shared_ptr<Party> > party = *_toRun.begin();
 		_toRun.erase(party.first);
 		_parties.insert(party);
 		party.second->run();
-
-		_mutex.unlock();
 	}
+
 }
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
 	std::shared_ptr<Party> party = std::make_shared<Party>();
 
 	StaticTools::Log << "Creating party '" + name + ":" + pwd + "'" << std::endl;
@@ -35,13 +35,13 @@ void PartyManager::addParty(std::string const& name, std::string const& pwd)
 		throw (std::runtime_error(e.what()));
 	}
 
-	_mutex.lock();
 	_toRun.insert(std::make_pair(party->getName(), party));
-	_mutex.unlock();
 }
 
 void PartyManager::removeParty(std::string const& name, std::string const& pwd)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	auto &party = _parties.find(name);
 	auto &toRun = _toRun.find(name);
 
@@ -58,21 +58,19 @@ void PartyManager::removeParty(std::string const& name, std::string const& pwd)
 std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> connection,
 													std::string const& name, std::string const& pwd)
 {
-	_mutex.lock();
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	auto &party = _parties.find(name);
 	if (party != _parties.cend() && (*party).second->getPassword() == pwd) {
 		(*party).second->addConnection(connection);
-		_mutex.unlock();
 		return ((*party).second);
 	}
 
 	auto &toRun = _toRun.find(name);
 	if (toRun != _toRun.cend() && (*toRun).second->getPassword() == pwd) {
 		(*toRun).second->addConnection(connection);
-		_mutex.unlock();
 		return ((*toRun).second);
 	}
-	_mutex.unlock();
 
 	return (NULL);
 }

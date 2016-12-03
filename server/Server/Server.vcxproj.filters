@@ -192,6 +192,9 @@
     <ClCompile Include="MonsterManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="RequestMove.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -365,14 +368,14 @@
     <ClInclude Include="Timer.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="coutmutex.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="ScheduledMonster.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="MonsterManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestMove.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

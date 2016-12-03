@@ -9,6 +9,10 @@ public:
 	virtual ~Mate(void);
 
 	virtual void init(void);
+	virtual void update(float delta);
 	virtual void destroy(void);
+
+private:
+	uint8_t _prevDirection;
 };
 

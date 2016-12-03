@@ -53,6 +53,7 @@
     <ClCompile Include="RequestConnect.cpp" />
     <ClCompile Include="RequestCreateParty.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
+    <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="ScheduledMonster.cpp" />
     <ClCompile Include="SendToAsyncTask.cpp" />
     <ClCompile Include="TCPConnection.cpp" />
@@ -114,7 +115,6 @@
     <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
-    <ClInclude Include="coutmutex.hpp" />
     <ClInclude Include="MonsterManager.hpp" />
     <ClInclude Include="ReceiveFromAsyncTask.hpp" />
     <ClInclude Include="Buffer.hpp" />
@@ -133,6 +133,7 @@
     <ClInclude Include="RequestConnect.hpp" />
     <ClInclude Include="RequestCreateParty.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
+    <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="ScheduledMonster.hpp" />
     <ClInclude Include="SendToAsyncTask.hpp" />
     <ClInclude Include="TCPConnection.hpp" />

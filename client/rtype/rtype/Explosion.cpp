@@ -10,6 +10,7 @@ Explosion::~Explosion(void)
 
 void Explosion::init(void)
 {
+	_init = true;
 	try {
 		setTextureSize(sf::Vector2i(2048, 1536));
 		setMatrixSize(sf::Vector2i(8, 6));

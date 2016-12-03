@@ -64,7 +64,6 @@ void Application::setState(State state)
 		st_game();
 		break;
 	}
-	//_client.setGameController(_controllers[(int)_fsm]);
 }
 // les états peuvent se changer d'eux même => à faire
 void Application::loop(void)

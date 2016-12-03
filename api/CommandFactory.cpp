@@ -4,7 +4,8 @@ std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > Command
 	{(int)CommandType::Connect, std::bind(&CommandFactory::cmd_connect)},
 	{(int)CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty)},
 	{(int)CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn)},
-	{(int)CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected)}
+	{(int)CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected)},
+	{(int)CommandType::Move, std::bind(&CommandFactory::cmd_move)}
 };
 
 std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
