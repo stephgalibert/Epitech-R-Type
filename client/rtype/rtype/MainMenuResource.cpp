@@ -30,7 +30,7 @@ void MainMenuResource::load(void) {
 		addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
 		addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
 	}
-	catch (std::runtime_error &e) {
+	catch (std::runtime_error const&) {
 		throw;
 	}
 }
