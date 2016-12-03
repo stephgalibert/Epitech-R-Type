@@ -55,3 +55,13 @@ void World::recycle(void)
 	}
 	_entities.clear();
 }
+
+AEntity *World::getEntityByID(uint8_t id) const
+{
+	for (auto it : _entities) {
+		if (it->getID() == id) {
+			return (it);
+		}
+	}
+	return (NULL);
+}

@@ -24,3 +24,13 @@ bool AEntity::isInitialized(void) const
 {
 	return (_init);
 }
+
+void AEntity::setID(uint8_t id)
+{
+	_id = id;
+}
+
+uint8_t AEntity::getID(void) const
+{
+	return (_id);
+}

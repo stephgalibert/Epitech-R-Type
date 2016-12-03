@@ -5,7 +5,6 @@ Mate::Mate(void)
 	setTargetFrame(2);
 	setCurrentFrame(2);
 	setVelocity(20.f);
-	setID(1);
 }
 
 Mate::~Mate(void)

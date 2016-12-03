@@ -3,6 +3,7 @@
 RequestBuilder::RequestBuilder(void)
 {
 	_requests[(int)CommandType::Spawn] = std::bind(&RequestBuilder::create_SpawnRequest, this);
+	_requests[(int)CommandType::Disconnected] = std::bind(&RequestBuilder::create_DisconnectedRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -21,6 +22,11 @@ std::unique_ptr<IRequest> RequestBuilder::create_ConnectRequest(void)
 {
 	//return (std::unique_ptr<IRequest>(new RequestConnect));
 	return (NULL);
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_DisconnectedRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestDisconnect));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_CreatePartyRequest(void)

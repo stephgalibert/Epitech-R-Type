@@ -21,8 +21,6 @@ void GameController::init(void)
 	World::TheWorld.init();
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
-	//_player = World::TheWorld.spawnEntity<Player>();
-	// _player->init();
 	_back.init();
 	_front.init();
 

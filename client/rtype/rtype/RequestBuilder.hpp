@@ -11,6 +11,7 @@
 #include "Protocol.hpp"
 #include "IRequest.hpp"
 #include "RequestSpawn.hpp"
+#include "RequestDisconnect.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {
@@ -22,6 +23,7 @@ public:
 
 private:
 	std::unique_ptr<IRequest> create_ConnectRequest(void);
+	std::unique_ptr<IRequest> create_DisconnectedRequest(void);
 	std::unique_ptr<IRequest> create_CreatePartyRequest(void);
 	std::unique_ptr<IRequest> create_SpawnRequest(void);
 	std::unique_ptr<IRequest> create_MoveRequest(void);

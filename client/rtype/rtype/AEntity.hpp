@@ -12,18 +12,17 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
-	/* A appeler quand on souhaite que l'objet soit détruit */
 	void recycle(void);
-
-	/* Retourne true si l'objet va être détruit, sinon false */
 	bool isWaitingForRecycle(void) const;
-
 	bool isInitialized(void) const;
+
+	void setID(uint8_t id);
+	uint8_t getID(void) const;
 
 protected:
 	bool _init;
 
 private:
-	/* cf. isWaitingForRecycle() */
 	bool _waitingForRecycle;
+	uint8_t _id;
 };

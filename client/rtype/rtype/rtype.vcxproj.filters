@@ -222,6 +222,9 @@
     <ClCompile Include="MainMenuResource.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="RequestDisconnect.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="MainMenuResource.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDisconnect.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

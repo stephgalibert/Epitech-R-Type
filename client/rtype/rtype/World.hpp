@@ -24,18 +24,12 @@ public:
 	void display(sf::RenderWindow &window);
 	void recycle(void);
 
+	AEntity *getEntityByID(uint8_t id) const;
+
 	template<typename T>
 	T *spawnEntity(void)
 	{
 		T *entity = new T;
-
-		/*try {
-			entity->init();
-		}
-		catch (std::exception const& e) {
-			delete (entity);
-			throw (std::runtime_error(e.what()));
-		}*/
 
 		_mutex.lock();
 		_entities.push_back(entity);

@@ -45,8 +45,6 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	// ...
 
 	_mutex.lock();
-	//_cm.broadcast(std::make_shared<CMDSpawn>(object, id, x, y, type, effect));
-	//_cm.sendSpawnedShipTo(connection);
 	_cm.add(connection);
 	std::cout << "new connection" << std::endl;
 	_mutex.unlock();
@@ -86,8 +84,12 @@ void Party::collision(std::shared_ptr<ICommand> data)
 void Party::loop(void)
 {
 	while (!isReady());
+
 	std::cout << "ready" << std::endl;
+
 	_cm.distributeShipID();
+	_cm.sendSpawnedShip();
+
 	while (_running) {
 
 	}
@@ -95,7 +97,7 @@ void Party::loop(void)
 
 bool Party::isReady(void) const
 {
-	return (_cm.getPlayerNumber() > 1);
+	return (_cm.getPlayerNumber() > 3);
 }
 
 std::string const& Party::getName(void) const

@@ -199,6 +199,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
+    <ClCompile Include="RequestDisconnect.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
+    <ClInclude Include="RequestDisconnect.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
