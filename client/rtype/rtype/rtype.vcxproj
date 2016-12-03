@@ -193,6 +193,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuController.cpp" />
     <ClCompile Include="Mate.cpp" />
+    <ClCompile Include="MainMenuResource.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -202,7 +203,6 @@
     <ClCompile Include="AShip.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="SoundBox.cpp" />
-    <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="TCPClient.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UDPClient.cpp" />
@@ -258,6 +258,7 @@
     <ClInclude Include="LoadArea.hpp" />
     <ClInclude Include="MainMenuController.hpp" />
     <ClInclude Include="Mate.hpp" />
+    <ClInclude Include="MainMenuResource.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />
@@ -267,7 +268,6 @@
     <ClInclude Include="AShip.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="SoundBox.hpp" />
-    <ClInclude Include="SplashScreen.hpp" />
     <ClInclude Include="TCPClient.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="UDPClient.hpp" />

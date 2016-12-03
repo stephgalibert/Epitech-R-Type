@@ -52,7 +52,6 @@ std::shared_ptr<ITCPSocket> WinServerSocket::accept(void)
 	int sinsize;
 
 	sinsize = sizeof(csin);
-
 	if ((csock = ::accept(_socket, (SOCKADDR *)&csin, &sinsize))) {
 		socket->connectFromAcceptedFd(csock);
 		return (socket);

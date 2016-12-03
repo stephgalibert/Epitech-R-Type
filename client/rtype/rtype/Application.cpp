@@ -30,14 +30,17 @@ void Application::init(std::string host, std::string pwd)
 		_client.connect();
 		_client.run();
 
-		_fsm = State::ST_Game;
+		_fsm = State::ST_MainMenu;
 
 		ProjectResource::TheProjectResource.load();
 		_fps.init();
 		_inputHandler.init();
 
+		GameController *game = new GameController(_client, "name", "pwd");
+		_client.setGameController(game);
+
 		_controllers[(int)State::ST_MainMenu] = new MainMenuController();
-		_controllers[(int)State::ST_Game] = new GameController(_client, "name", "pwd");
+		_controllers[(int)State::ST_Game] = game;
 		
 		_controllers.at((int)_fsm)->init();
 	}
@@ -60,7 +63,7 @@ void Application::setState(State state)
 		st_game();
 		break;
 	}
-	_client.setCurrentController(_controllers[(int)_fsm]);
+	//_client.setGameController(_controllers[(int)_fsm]);
 }
 // les états peuvent se changer d'eux même => à faire
 void Application::loop(void)

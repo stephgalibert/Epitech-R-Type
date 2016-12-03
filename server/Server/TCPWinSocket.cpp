@@ -60,9 +60,8 @@ int TCPWinSocket::send(char *data, size_t size)
 {
 	int read = 0;
 
-	_mutex.lock();
 	read = ::send(_socket, data, size, 0);
-	_mutex.unlock();
+	//std::cout << "send " << read << " bytes" << std::endl;
 
 	return (read);
 }

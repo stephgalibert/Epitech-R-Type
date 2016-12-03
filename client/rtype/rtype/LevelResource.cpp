@@ -12,6 +12,8 @@ LevelResource::~LevelResource(void)
 
 void LevelResource::load(void)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	try {
 		addTexture("players", "./rsrc/sprites/players.png");
 		addTexture("background", "./rsrc/sprites/background.png");
@@ -27,6 +29,8 @@ void LevelResource::load(void)
 
 sf::Texture *LevelResource::getTextureByKey(std::string const& key)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	if (_textures.find(key) != _textures.cend()) {
 		return (_textures[key]);
 	}
@@ -35,6 +39,8 @@ sf::Texture *LevelResource::getTextureByKey(std::string const& key)
 
 sf::Music &LevelResource::getMusicByKey(std::string const& key)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	try {
 		return (_musics.getMusic(key));
 	}
@@ -45,6 +51,8 @@ sf::Music &LevelResource::getMusicByKey(std::string const& key)
 
 sf::Sound *LevelResource::getSoundByKey(std::string const& key)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	try {
 		return (_sounds.getSound(key));
 	}

@@ -2,6 +2,7 @@
 
 #include <set>
 #include <memory>
+#include <mutex>
 
 #include "ICommand.hpp"
 
@@ -19,9 +20,11 @@ public:
 	void sendSpawnedShipTo(std::shared_ptr<AConnection> connection);
 	void closeAll(void);
 
+	void distributeShipID(void);
 	uint8_t getPlayerNumber(void) const;
 
 private:
 	std::set<std::shared_ptr<AConnection> > _connections;
+	std::mutex _mutex;
 };
 

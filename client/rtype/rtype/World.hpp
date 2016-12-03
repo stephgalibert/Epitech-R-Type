@@ -29,16 +29,18 @@ public:
 	{
 		T *entity = new T;
 
-		try {
+		/*try {
 			entity->init();
 		}
 		catch (std::exception const& e) {
 			delete (entity);
 			throw (std::runtime_error(e.what()));
-		}
+		}*/
+
 		_mutex.lock();
 		_entities.push_back(entity);
 		_mutex.unlock();
+
 		return (entity);
 	}
 

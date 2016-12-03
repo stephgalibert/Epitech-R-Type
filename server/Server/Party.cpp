@@ -33,9 +33,8 @@ void Party::close(void)
 
 void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
-	
 	ObjectType object = ObjectType::Ship;
-	uint8_t id = _cm.getPlayerNumber();
+	uint8_t id = _cm.getPlayerNumber() + 1;
 	uint16_t x = 20;
 	uint16_t y = 20 * (_cm.getPlayerNumber() + 1);
 	uint8_t type = (uint8_t)ShipType::Standard;
@@ -43,10 +42,11 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 
 	connection->setPosition(std::make_pair(x, y));
 	connection->setID(id);
+	// ...
 
 	_mutex.lock();
-	_cm.broadcast(std::make_shared<CMDSpawn>(object, id, x, y, type, effect));
-	_cm.sendSpawnedShipTo(connection);
+	//_cm.broadcast(std::make_shared<CMDSpawn>(object, id, x, y, type, effect));
+	//_cm.sendSpawnedShipTo(connection);
 	_cm.add(connection);
 	std::cout << "new connection" << std::endl;
 	_mutex.unlock();
@@ -85,6 +85,9 @@ void Party::collision(std::shared_ptr<ICommand> data)
 
 void Party::loop(void)
 {
+	while (!isReady());
+	std::cout << "ready" << std::endl;
+	_cm.distributeShipID();
 	while (_running) {
 
 	}

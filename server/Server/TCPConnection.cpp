@@ -39,14 +39,12 @@ void TCPConnection::close(void)
 
 void TCPConnection::write(std::shared_ptr<ICommand> command)
 {
-	_mutex.lock();
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(command);
 
 	if (!writeInProgress) {
 		write();
 	}
-	_mutex.unlock();
 }
 
 void TCPConnection::sync_write(std::shared_ptr<ICommand> command)
@@ -112,11 +110,9 @@ void TCPConnection::write(void)
 
 void TCPConnection::do_write(void)
 {
-	_mutex.lock();
 	_toWrites.pop();
 
 	if (!_toWrites.empty()) {
 		write();
 	}
-	_mutex.unlock();
 }

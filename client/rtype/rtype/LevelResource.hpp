@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <mutex>
 
 #include <SFML/Graphics.hpp>
 
@@ -30,5 +31,6 @@ private:
 	std::unordered_map<std::string, sf::Texture *> _textures;
 	MusicBox _musics;
 	SoundBox _sounds;
+	std::mutex _mutex;
 };
 

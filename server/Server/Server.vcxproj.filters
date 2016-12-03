@@ -5,19 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Fichiers de ressources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\AsyncTask">
-      <UniqueIdentifier>{75284376-5ccc-4c2e-bd80-16843f68695f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Socket">
-      <UniqueIdentifier>{bfe5bfc2-1cdb-4dfe-8379-0e6ffed6163c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Socket">
       <UniqueIdentifier>{55244859-0544-450f-9e35-1eceb950fb14}</UniqueIdentifier>
@@ -25,35 +15,45 @@
     <Filter Include="Fichiers sources\AsyncTask">
       <UniqueIdentifier>{cfa83f92-5607-4329-9649-cf37c19d1558}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Protocol">
-      <UniqueIdentifier>{d4816a10-9cab-43fd-a2fe-d841bd7946df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Protocol">
       <UniqueIdentifier>{c2cf6916-5479-48af-affa-c9815f72b61a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Network">
-      <UniqueIdentifier>{3c44bb21-8b13-40c6-b230-b292383a458a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Network">
       <UniqueIdentifier>{7f11b994-2561-4767-bdf3-4fcde9d627e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Request">
-      <UniqueIdentifier>{fc970027-1214-4513-9822-f950aa2c9177}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Request">
       <UniqueIdentifier>{5abe6407-d932-4aa1-a2ea-118170464a4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Plugins">
-      <UniqueIdentifier>{1e281c6b-f83c-4499-95e3-45ebea12ab93}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Plugins">
       <UniqueIdentifier>{ad7228a3-f614-4049-b937-4b4c02218639}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Monsters">
-      <UniqueIdentifier>{4f88d17b-8ae9-40e7-bef7-58fc967565d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Monsters">
       <UniqueIdentifier>{6a3d0463-d3de-4abc-b8a9-fa0c83a6d4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\AsyncTask">
+      <UniqueIdentifier>{75284376-5ccc-4c2e-bd80-16843f68695f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Socket">
+      <UniqueIdentifier>{bfe5bfc2-1cdb-4dfe-8379-0e6ffed6163c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Protocol">
+      <UniqueIdentifier>{d4816a10-9cab-43fd-a2fe-d841bd7946df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Network">
+      <UniqueIdentifier>{3c44bb21-8b13-40c6-b230-b292383a458a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Request">
+      <UniqueIdentifier>{fc970027-1214-4513-9822-f950aa2c9177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Plugins">
+      <UniqueIdentifier>{1e281c6b-f83c-4499-95e3-45ebea12ab93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Monsters">
+      <UniqueIdentifier>{4f88d17b-8ae9-40e7-bef7-58fc967565d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

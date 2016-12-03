@@ -21,12 +21,13 @@ void GameController::init(void)
 	World::TheWorld.init();
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
-	_player = World::TheWorld.spawnEntity<Player>();
+	//_player = World::TheWorld.spawnEntity<Player>();
+	// _player->init();
 	_back.init();
 	_front.init();
 
-	//while (!_network.isConnected());
-	//_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
+	while (!_network.isConnected());
+	_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
 	_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 }
 
@@ -55,4 +56,9 @@ void GameController::draw(sf::RenderWindow &window)
 void GameController::recycle(void)
 {
 	World::TheWorld.recycle();
+}
+
+void GameController::addPlayer(Player *player)
+{
+	_player = player;
 }

@@ -5,7 +5,6 @@ Player::Player()
 	setTargetFrame(2);
 	setCurrentFrame(2);
 	setVelocity(150.f);
-	setID(1); // !
 }
 
 Player::~Player(void)
@@ -14,6 +13,7 @@ Player::~Player(void)
 
 void Player::init(void)
 {
+	_init = true;
 	setOrigin(17, 8);
 	sf::RectangleShape *shape = new sf::RectangleShape;
 	shape->setSize(sf::Vector2f(34, 16));
