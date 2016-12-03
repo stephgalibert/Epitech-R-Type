@@ -31,7 +31,6 @@ void MainMenuController::init(void)
 			sprite.setScale(2.f, 2.f);
 			sprite.setPosition(SPLASH_INIT_POS, TITLE_BASE_Y_POS);
 		}
-		std::cout << "Pos: " << _titleSprites.begin()->getPosition().x << std::endl;
 		ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
 		_fsm = State::ST_Splash1;
 	}
@@ -51,7 +50,6 @@ bool MainMenuController::input(InputHandler &input)
 
 void MainMenuController::update(float delta)
 {
-	std::cout << "Update (_fsm = " << (int)_fsm << ") (delta = " << delta << ")" << std::endl;
 	switch (_fsm) {
 	case State::ST_Splash1:
 		updateSplashFirstPhase(delta);
