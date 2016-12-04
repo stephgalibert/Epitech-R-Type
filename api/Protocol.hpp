@@ -77,7 +77,8 @@ struct Move
 {
 	CommandType cmdType;
 	uint8_t id_tomove;
-	uint32_t position;
+	uint8_t direction;
+	uint8_t velocity;
 };
 
 struct Fire
@@ -89,6 +90,12 @@ struct Fire
 	uint8_t velocity;
 	uint8_t angle;
 	uint8_t effect;
+};
+
+struct Destroyed
+{
+	CommandType cmdType;
+	uint8_t id;
 };
 
 struct Collision

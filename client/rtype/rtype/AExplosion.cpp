@@ -5,6 +5,7 @@ AExplosion::AExplosion()
 	  _currentFrame(0),
 	  _maxFrame(0)
 {
+	setCollisionType(COLLISION_NONE);
 }
 
 AExplosion::~AExplosion(void)

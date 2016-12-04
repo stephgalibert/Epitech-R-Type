@@ -1,6 +1,9 @@
 #include "Player.hpp"
+#include "IClient.hpp"
 
 Player::Player()
+	: _delta(0.f),
+	_client(NULL)
 {
 	setTargetFrame(2);
 	setCurrentFrame(2);
@@ -17,7 +20,6 @@ void Player::init(void)
 	setOrigin(17, 8);
 	sf::RectangleShape *shape = new sf::RectangleShape;
 	shape->setSize(sf::Vector2f(34, 16));
-	setPosition(20, 80);
 
 	try {
 		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("players");
@@ -34,13 +36,22 @@ void Player::init(void)
 	}
 }
 
+void Player::update(float delta)
+{
+	APC::update(delta);
+}
+
 void Player::destroy(void)
 {
 }
 
+void Player::setIClient(IClient *client)
+{
+	_client = client;
+}
+
 void Player::input(InputHandler &input)
 {
-	setAngle(-1);
 	setTargetFrame(2);
 
 	if (input.isJoystickPresent()) {
@@ -53,21 +64,28 @@ void Player::input(InputHandler &input)
 
 void Player::keyboard(InputHandler &input)
 {
+	uint8_t direction = 0;
+
 	if (input.isKeyDown(sf::Keyboard::Key::Up)) {
-		setAngle(-90.f);
+		direction |= NORTH;
 		setTargetFrame(4);
 	}
 	else if (input.isKeyDown(sf::Keyboard::Key::Down)) {
-		setAngle(90.f);
+		direction |= SOUTH;
 		setTargetFrame(0);
 	}
 
 	if (input.isKeyDown(sf::Keyboard::Key::Right)) {
-		setAngle(getAngle() / 2.f);
+		direction |= EAST;
 	}
 	else if (input.isKeyDown(sf::Keyboard::Key::Left)) {
-		setAngle(-180.f - getAngle() / 2.f);
+		direction |= WEAST;
 	}
+
+	if (getDirection() != direction) {
+		_client->write(std::make_shared<CMDMove>(getID(), direction, (uint8_t)getVelocity()));
+	}
+	setDirection(direction);
 
 	if (input.isKeyDown(sf::Keyboard::Space)) {
 		shoot();
@@ -76,21 +94,23 @@ void Player::keyboard(InputHandler &input)
 
 void Player::joystick(InputHandler &input)
 {
+	uint8_t direction = 0;
+
 	if (input.getJoystickAxis(0, sf::Joystick::Y) < -InputHandler::JOYSTICK_DEAD_ZONE) {
-		setAngle(-90.f);
+		direction |= NORTH;
 		setTargetFrame(4);
 	}
 	else if (input.getJoystickAxis(0, sf::Joystick::Y) > InputHandler::JOYSTICK_DEAD_ZONE)
 	{
-		setAngle(90.f);
+		direction |= SOUTH;
 		setTargetFrame(0);
 	}
 
 	if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
-		setAngle(-180.f - getAngle() / 2.f);
+		direction |= EAST;
 	}
 	else if (input.getJoystickAxis(0, sf::Joystick::X) > InputHandler::JOYSTICK_DEAD_ZONE) {
-		setAngle(getAngle() / 2.f);
+		direction |= WEAST;
 	}
 
 	if (input.isJoystickButtonDown(0)) {

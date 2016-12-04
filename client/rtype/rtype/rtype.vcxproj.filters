@@ -231,6 +231,18 @@
     <ClCompile Include="MenuButton.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
+    <ClCompile Include="RequestDisconnect.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestMove.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestCollision.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDDestroyed.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -418,6 +430,18 @@
     </ClInclude>
     <ClInclude Include="MainMenuResource.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDisconnect.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDDestroyed.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestCollision.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestMove.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuController.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>

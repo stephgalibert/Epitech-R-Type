@@ -22,12 +22,17 @@ MainMenuResource::~MainMenuResource() {
 }
 
 void MainMenuResource::load(void) {
-	addTexture(LOGO_R, MENU_RESOURCE_PATH + LOGO_R);
-	addTexture(LOGO_DOT, MENU_RESOURCE_PATH + LOGO_DOT);
-	addTexture(LOGO_T, MENU_RESOURCE_PATH + LOGO_T);
-	addTexture(LOGO_Y, MENU_RESOURCE_PATH + LOGO_Y);
-	addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
-	addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
+	try {
+		addTexture(LOGO_R, MENU_RESOURCE_PATH + LOGO_R);
+		addTexture(LOGO_DOT, MENU_RESOURCE_PATH + LOGO_DOT);
+		addTexture(LOGO_T, MENU_RESOURCE_PATH + LOGO_T);
+		addTexture(LOGO_Y, MENU_RESOURCE_PATH + LOGO_Y);
+		addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
+		addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
+	}
+	catch (std::runtime_error const&) {
+		throw;
+	}
 }
 
 sf::Texture *MainMenuResource::getTextureByKey(std::string const &key) {

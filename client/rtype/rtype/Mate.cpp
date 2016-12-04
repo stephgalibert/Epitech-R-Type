@@ -4,8 +4,7 @@ Mate::Mate(void)
 {
 	setTargetFrame(2);
 	setCurrentFrame(2);
-	setVelocity(20.f);
-	setID(1);
+	setVelocity(0.f);
 }
 
 Mate::~Mate(void)
@@ -33,6 +32,23 @@ void Mate::init(void)
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
 		recycle();
+	}
+}
+
+void Mate::update(float delta)
+{
+	ANPC::update(delta);
+
+	uint8_t direction = getDirection();
+	setTargetFrame(2);
+
+	if (direction != 0) {
+		if (direction & NORTH) {
+			setTargetFrame(4);
+		}
+		else if (direction & SOUTH) {
+			setTargetFrame(0);
+		}
 	}
 }
 

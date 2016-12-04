@@ -186,6 +186,24 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="ScheduledMonster.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestMove.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestCollision.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestDestroyed.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDDestroyed.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -358,6 +376,24 @@
     </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ScheduledMonster.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestMove.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestCollision.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDestroyed.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDDestroyed.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,6 +11,10 @@
 #include "Timer.hpp"
 #include "AEntity.hpp"
 
+#include "IClient.hpp"
+
+class Player;
+
 class World
 {
 public:
@@ -19,32 +23,38 @@ public:
 	World(void);
 	~World(void);
 
-	void init(void);
+	void init(IClient *client, Player **player);
 	void update(float delta);
 	void display(sf::RenderWindow &window);
 	void recycle(void);
 
+	AEntity *getEntityByID(uint8_t id) const;
+
 	template<typename T>
 	T *spawnEntity(void)
 	{
+		//std::lock_guard<std::mutex> lock(_mutex);
 		T *entity = new T;
 
-		/*try {
-			entity->init();
-		}
-		catch (std::exception const& e) {
-			delete (entity);
-			throw (std::runtime_error(e.what()));
-		}*/
-
-		_mutex.lock();
 		_entities.push_back(entity);
-		_mutex.unlock();
+		return (entity);
+	}
 
+	template<typename T>
+	T* prepareEntity(void)
+	{
+		//std::lock_guard<std::mutex> lock(_mutex);
+		T *entity = new T;
+
+		_entities.push_back(entity);
 		return (entity);
 	}
 
 private:
 	std::list<AEntity *> _entities;
+	std::vector<AEntity *> _toPush;
 	std::mutex _mutex;
+	IClient *_client;
+	Player **_player;
+	float _delta;
 };

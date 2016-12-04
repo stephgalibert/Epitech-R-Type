@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\..\api\CMDCollision.cpp" />
     <ClCompile Include="..\..\..\api\CMDConnect.cpp" />
     <ClCompile Include="..\..\..\api\CMDCreateParty.cpp" />
+    <ClCompile Include="..\..\..\api\CMDDestroyed.cpp" />
     <ClCompile Include="..\..\..\api\CMDDisconnected.cpp" />
     <ClCompile Include="..\..\..\api\CMDError.cpp" />
     <ClCompile Include="..\..\..\api\CMDFire.cpp" />
@@ -200,8 +201,11 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
+    <ClCompile Include="RequestCollision.cpp" />
+    <ClCompile Include="RequestDisconnect.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
+    <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="TCPClient.cpp" />
@@ -215,6 +219,7 @@
     <ClInclude Include="..\..\..\api\CMDCollision.hpp" />
     <ClInclude Include="..\..\..\api\CMDConnect.hpp" />
     <ClInclude Include="..\..\..\api\CMDCreateParty.hpp" />
+    <ClInclude Include="..\..\..\api\CMDDestroyed.hpp" />
     <ClInclude Include="..\..\..\api\CMDDisconnected.hpp" />
     <ClInclude Include="..\..\..\api\CMDError.hpp" />
     <ClInclude Include="..\..\..\api\CMDFire.hpp" />
@@ -266,8 +271,11 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
+    <ClInclude Include="RequestCollision.hpp" />
+    <ClInclude Include="RequestDisconnect.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
+    <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="TCPClient.hpp" />

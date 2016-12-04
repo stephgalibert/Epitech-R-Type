@@ -14,6 +14,7 @@
 #include "CMDMove.hpp"
 #include "CMDPing.hpp"
 #include "CMDSpawn.hpp"
+#include "CMDDestroyed.hpp"
 
 class CommandFactory
 {
@@ -22,6 +23,7 @@ public:
 
 private:
 	static std::shared_ptr<ICommand> cmd_collision(void);
+	static std::shared_ptr<ICommand> cmd_destroyed(void);
 	static std::shared_ptr<ICommand> cmd_connect(void);
 	static std::shared_ptr<ICommand> cmd_createParty(void);
 	static std::shared_ptr<ICommand> cmd_disconnected(void);

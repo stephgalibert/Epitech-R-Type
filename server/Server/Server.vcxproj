@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\api\CMDCollision.cpp" />
     <ClCompile Include="..\..\api\CMDConnect.cpp" />
     <ClCompile Include="..\..\api\CMDCreateParty.cpp" />
+    <ClCompile Include="..\..\api\CMDDestroyed.cpp" />
     <ClCompile Include="..\..\api\CMDDisconnected.cpp" />
     <ClCompile Include="..\..\api\CMDError.cpp" />
     <ClCompile Include="..\..\api\CMDFire.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="AConnection.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AServer.cpp" />
+    <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="ReceiveFromAsyncTask.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
@@ -49,9 +51,13 @@
     <ClCompile Include="PartyManager.cpp" />
     <ClCompile Include="ReadAsyncTask.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
+    <ClCompile Include="RequestCollision.cpp" />
     <ClCompile Include="RequestConnect.cpp" />
     <ClCompile Include="RequestCreateParty.cpp" />
+    <ClCompile Include="RequestDestroyed.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
+    <ClCompile Include="RequestMove.cpp" />
+    <ClCompile Include="ScheduledMonster.cpp" />
     <ClCompile Include="SendToAsyncTask.cpp" />
     <ClCompile Include="TCPConnection.cpp" />
     <ClCompile Include="TCPServer.cpp" />
@@ -82,6 +88,7 @@
     <ClInclude Include="..\..\api\CMDCollision.hpp" />
     <ClInclude Include="..\..\api\CMDConnect.hpp" />
     <ClInclude Include="..\..\api\CMDCreateParty.hpp" />
+    <ClInclude Include="..\..\api\CMDDestroyed.hpp" />
     <ClInclude Include="..\..\api\CMDDisconnected.hpp" />
     <ClInclude Include="..\..\api\CMDError.hpp" />
     <ClInclude Include="..\..\api\CMDFire.hpp" />
@@ -112,6 +119,7 @@
     <ClInclude Include="AConnection.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
+    <ClInclude Include="MonsterManager.hpp" />
     <ClInclude Include="ReceiveFromAsyncTask.hpp" />
     <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="ConnectionManager.hpp" />
@@ -126,9 +134,13 @@
     <ClInclude Include="PartyManager.hpp" />
     <ClInclude Include="ReadAsyncTask.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
+    <ClInclude Include="RequestCollision.hpp" />
     <ClInclude Include="RequestConnect.hpp" />
     <ClInclude Include="RequestCreateParty.hpp" />
+    <ClInclude Include="RequestDestroyed.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
+    <ClInclude Include="RequestMove.hpp" />
+    <ClInclude Include="ScheduledMonster.hpp" />
     <ClInclude Include="SendToAsyncTask.hpp" />
     <ClInclude Include="TCPConnection.hpp" />
     <ClInclude Include="TCPServer.hpp" />

@@ -4,6 +4,8 @@ RequestBuilder::RequestBuilder(void)
 {
 	_requests[(int)CommandType::Connect] = std::bind(&RequestBuilder::create_ConnectRequest, this);
 	_requests[(int)CommandType::CreateParty] = std::bind(&RequestBuilder::create_CreatePartyRequest, this);
+	_requests[(int)CommandType::Move] = std::bind(&RequestBuilder::create_MoveRequest, this);
+	_requests[(int)CommandType::Destroyed] = std::bind(&RequestBuilder::create_DestroyedRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -35,12 +37,12 @@ std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)
 
 std::unique_ptr<IRequest> RequestBuilder::create_MoveRequest(void)
 {
-	return NULL;
+	return (std::unique_ptr<IRequest>(new RequestMove));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_CollisionRequest(void)
 {
-	return NULL;
+	return (std::unique_ptr<IRequest>(new RequestCollision));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_ErrorRequest(void)
@@ -61,4 +63,9 @@ std::unique_ptr<IRequest> RequestBuilder::create_FireRequest(void)
 std::unique_ptr<IRequest> RequestBuilder::create_GameStatusRequest(void)
 {
 	return NULL;
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_DestroyedRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestDestroyed));
 }

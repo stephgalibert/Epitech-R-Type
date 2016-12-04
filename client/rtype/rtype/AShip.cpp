@@ -6,6 +6,7 @@ AShip::AShip(void)
 	  _targetFrame(0),
       _currentFrame(0)
 {
+	setCollisionType(COLLISION_FATAL);
 }
 
 AShip::~AShip(void)
@@ -14,9 +15,6 @@ AShip::~AShip(void)
 
 void AShip::update(float delta)
 {
-	if (getShape() == NULL)
-		return;
-
 	_delta += delta;
 	_deltaLastShoot += delta;
 	

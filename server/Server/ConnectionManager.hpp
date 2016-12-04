@@ -16,11 +16,11 @@ public:
 
 	void add(std::shared_ptr<AConnection> connection);
 	void leave(std::shared_ptr<AConnection> connection);
-	void broadcast(std::shared_ptr<ICommand> command);
-	void sendSpawnedShipTo(std::shared_ptr<AConnection> connection);
+	void broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> command);
 	void closeAll(void);
 
 	void distributeShipID(void);
+	void sendSpawnedShip(void);
 	uint8_t getPlayerNumber(void) const;
 
 private:

@@ -3,7 +3,11 @@
 std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > CommandFactory::Commands = {
 	{(int)CommandType::Connect, std::bind(&CommandFactory::cmd_connect)},
 	{(int)CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty)},
-	{(int)CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn)}
+	{(int)CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn)},
+	{(int)CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected)},
+	{(int)CommandType::Move, std::bind(&CommandFactory::cmd_move)},
+	{(int)CommandType::Collision, std::bind(&CommandFactory::cmd_collision)},
+	{(int)CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed)}
 };
 
 std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
@@ -17,6 +21,11 @@ std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
 std::shared_ptr<ICommand> CommandFactory::cmd_collision(void)
 {
 	return std::make_shared<CMDCollision>();
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_destroyed(void)
+{
+	return std::make_shared<CMDDestroyed>();
 }
 
 std::shared_ptr<ICommand> CommandFactory::cmd_connect(void)

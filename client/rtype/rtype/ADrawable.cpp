@@ -2,7 +2,9 @@
 
 ADrawable::ADrawable()
 	: _shape(NULL),
-	  _texture(NULL)
+	  _texture(NULL),
+	  _waitingForRecycle(false),
+	  _init(false)
 {
 }
 
@@ -11,6 +13,21 @@ ADrawable::~ADrawable(void)
 	if (_shape) {
 		delete (_shape);
 	}
+}
+
+void ADrawable::recycle(void)
+{
+	_waitingForRecycle = true;
+}
+
+bool ADrawable::isWaitingForRecycle(void) const
+{
+	return (_waitingForRecycle);
+}
+
+bool ADrawable::isInitialized(void) const
+{
+	return (_init);
 }
 
 void ADrawable::setShape(sf::Shape *shape)
