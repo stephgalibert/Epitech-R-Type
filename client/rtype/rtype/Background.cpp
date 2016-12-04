@@ -5,7 +5,10 @@ Background::Background(std::string const& textureName, float delayRefreshing)
 	  _delayRefreshing(delayRefreshing),
 	  _delta(0)
 {
-	_resolution = sf::Vector2i(800, 480); // !
+	//_resolution = sf::Vector2i(800, 480); // !
+	std::pair<short, short> tmp = StaticTools::GetResolution();
+	_resolution.x = tmp.first;
+	_resolution.y = tmp.second;
 }
 
 Background::~Background(void)
@@ -14,7 +17,6 @@ Background::~Background(void)
 
 void Background::init(void)
 {
-	//_fader = new Fader(Fader::FadeIn);
 	try {
 		_shape.setPosition(sf::Vector2f(0, 0));
 		_shape.setSize(sf::Vector2f((float)_resolution.x, (float)_resolution.y));

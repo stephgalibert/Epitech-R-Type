@@ -15,7 +15,8 @@ void LevelResource::load(void)
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	try {
-		addTexture("players", "./rsrc/sprites/players.png");
+		//addTexture("players", "./rsrc/sprites/players.png");
+		addTexture("players", "./rsrc/sprites/players.bmp");
 		addTexture("background", "./rsrc/sprites/background.png");
 		addTexture("background2", "./rsrc/sprites/background2.png");
 		addTexture("explosions", "./rsrc/sprites/explosions.png");

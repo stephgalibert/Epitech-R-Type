@@ -15,17 +15,9 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void) = 0;
 
-	void setTargetFrame(uint8_t targetFrame);
-	void setCurrentFrame(uint8_t currentFrame);
-
 	void shoot(void);
 
 private:
-	void updateFrame(void);
-
 	float _delta;
-	float _deltaLastShoot;
-	uint8_t _targetFrame;
-	uint8_t _currentFrame;
 };
 

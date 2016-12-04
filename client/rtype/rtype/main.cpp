@@ -16,8 +16,16 @@
 //	}
 //}
 
+#ifdef WIN32
+# include <Windows.h>
+#endif
+
 int main(int ac, char **av)
 {
+//#ifdef WIN32
+//	FreeConsole();
+//#endif
+
 	std::string host;
 	std::string pwd;
 

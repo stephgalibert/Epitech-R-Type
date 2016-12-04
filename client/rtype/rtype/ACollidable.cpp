@@ -19,13 +19,11 @@ void ACollidable::collision(IClient *client, ACollidable *other)
 		recycle();
 		other->recycle();
 
-		//std::cout << "explosion" << std::endl;
-
-		Explosion *explosion = World::TheWorld.prepareEntity<Explosion>();
+		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
 
-		/*explosion = World::TheWorld.spawnEntity<Explosion>();
-		explosion->setPosition(other->getPosition());*/
+		explosion = World::TheWorld.spawnEntity<Explosion>();
+		explosion->setPosition(other->getPosition());
 	}
 }
 

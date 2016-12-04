@@ -38,6 +38,10 @@ public:
 	void loop(void);
 
 private:
+	void initNetwork(void);
+	void initIcon(void);
+	void initControllers(void);
+
 	void st_main_menu(void);
 	void st_game(void);
 

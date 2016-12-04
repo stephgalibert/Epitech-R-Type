@@ -2,6 +2,7 @@
 
 const std::string ProjectResource::MAIN_FONT = "main_font";
 const std::string ProjectResource::MAIN_THEME = "main_theme";
+
 ProjectResource ProjectResource::TheProjectResource;
 
 ProjectResource::ProjectResource(void)

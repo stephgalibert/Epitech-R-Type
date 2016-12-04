@@ -45,11 +45,11 @@ void World::update(float delta)
 		else {
 			(*it)->update(delta);
 			
-			for (auto it_sub : _entities) {
+			/*for (auto it_sub : _entities) {
 				if (it_sub->getID() != (*it)->getID() && it_sub->isCollidingWith(*it)) {
 					it_sub->collision(_client, (*it));
 				}
-			}
+			}*/
 
 			++it;
 		}

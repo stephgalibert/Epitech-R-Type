@@ -3,12 +3,13 @@
 Application::Application(void)
 	: _client("127.0.0.1", "4242")
 {
-	sf::Vector2i reso(800, 480);
+	//sf::Vector2i reso(800, 480);
+	std::pair<short, short> reso = StaticTools::GetResolution();
 
 	sf::ContextSettings context;
-	context.antialiasingLevel = 8;
+	context.antialiasingLevel = 4;
 
-	_window.create(sf::VideoMode(reso.x, reso.y), "R-Type", sf::Style::Close, context);
+	_window.create(sf::VideoMode(reso.first, reso.second), "R-Type", sf::Style::Default, context);
 	_window.setPosition(sf::Vector2i(0, 0));
 	_window.setVerticalSyncEnabled(true);
 }
@@ -27,25 +28,15 @@ void Application::init(std::string host, std::string pwd)
   (void)host;
   (void)pwd;
 	try {
-	  StaticTools::Log.open("client.log" /*+ std::to_string(GetCurrentProcessId()) + ".log"*/, std::ios::out | std::ios::app);
-
-		_client.connect();
-		_client.run();
-
-		//_fsm = State::ST_MainMenu;
-		_fsm = State::ST_Game;
-
+		StaticTools::Log.open("client.log" /*+ std::to_string(GetCurrentProcessId()) + ".log"*/, std::ios::out | std::ios::app);
 		ProjectResource::TheProjectResource.load();
+
+		initIcon();
+		initNetwork();
+		initControllers();
+		
 		_fps.init();
 		_inputHandler.init();
-
-		GameController *game = new GameController(_client, "name", "pwd");
-		_client.setGameController(game);
-
-		_controllers[(int)State::ST_MainMenu] = new MainMenuController();
-		_controllers[(int)State::ST_Game] = game;
-		
-		_controllers.at((int)_fsm)->init();
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -69,6 +60,7 @@ void Application::setState(State state)
 	  break;
 	}
 }
+
 // les états peuvent se changer d'eux même => à faire
 void Application::loop(void)
 {
@@ -96,6 +88,35 @@ void Application::loop(void)
 	}
 }
 
+void Application::initIcon(void)
+{
+	sf::Image image;
+
+	if (!image.loadFromFile("./rsrc/sprites/icon.png")) {
+		throw (std::runtime_error("can not load icon"));
+	}
+	_window.setIcon(128, 128, image.getPixelsPtr());
+}
+
+void Application::initNetwork(void)
+{
+	_client.connect();
+	_client.run();
+}
+
+void Application::initControllers(void)
+{
+	//_fsm = State::ST_MainMenu;
+	_fsm = State::ST_Game;
+
+	GameController *game = new GameController(_client, "name", "pwd");
+	_client.setGameController(game);
+
+	_controllers[(int)State::ST_MainMenu] = new MainMenuController();
+	_controllers[(int)State::ST_Game] = game;
+
+	_controllers.at((int)_fsm)->init();
+}
 
 void Application::st_main_menu(void)
 {

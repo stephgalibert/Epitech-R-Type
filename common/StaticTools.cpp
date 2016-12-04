@@ -2,6 +2,12 @@
 
 std::ofstream StaticTools::Log;
 
+std::pair<short, short> StaticTools::GetResolution(void)
+{
+	return (std::make_pair<short, short>(800, 480));
+	//return (std::make_pair<short, short>(1664, 936));
+}
+
 CommandType StaticTools::GetPacketType(char const *packet)
 {
 	return (*(CommandType *)(packet));
