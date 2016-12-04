@@ -68,6 +68,7 @@ SRCS		+=	RequestSpawn.cpp
 SRCS		+=	RequestDisconnect.cpp
 SRCS		+=	RequestMove.cpp
 SRCS		+=	Mate.cpp
+SRCS		+=	MenuButton.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 
