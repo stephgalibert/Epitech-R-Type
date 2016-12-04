@@ -195,6 +195,7 @@
     <ClCompile Include="Mate.cpp" />
     <ClCompile Include="MainMenuResource.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
+    <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="Mate.hpp" />
     <ClInclude Include="MainMenuResource.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
+    <ClInclude Include="MenuButton.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ProjectResource.hpp" />

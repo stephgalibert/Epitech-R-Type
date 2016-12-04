@@ -22,17 +22,12 @@ MainMenuResource::~MainMenuResource() {
 }
 
 void MainMenuResource::load(void) {
-	try {
-		addTexture(LOGO_R, MENU_RESOURCE_PATH + LOGO_R);
-		addTexture(LOGO_DOT, MENU_RESOURCE_PATH + LOGO_DOT);
-		addTexture(LOGO_T, MENU_RESOURCE_PATH + LOGO_T);
-		addTexture(LOGO_Y, MENU_RESOURCE_PATH + LOGO_Y);
-		addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
-		addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
-	}
-	catch (std::runtime_error &e) {
-		throw;
-	}
+	addTexture(LOGO_R, MENU_RESOURCE_PATH + LOGO_R);
+	addTexture(LOGO_DOT, MENU_RESOURCE_PATH + LOGO_DOT);
+	addTexture(LOGO_T, MENU_RESOURCE_PATH + LOGO_T);
+	addTexture(LOGO_Y, MENU_RESOURCE_PATH + LOGO_Y);
+	addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
+	addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
 }
 
 sf::Texture *MainMenuResource::getTextureByKey(std::string const &key) {
@@ -44,7 +39,6 @@ sf::Texture *MainMenuResource::getTextureByKey(std::string const &key) {
 
 void MainMenuResource::addTexture(std::string const &key, std::string const &file) {
 	sf::Texture *texture = new sf::Texture();
-	std::cout << "Adding " << file << " as " << key << std::endl;
 	if (!texture->loadFromFile(file)) {
 		throw (std::runtime_error("Texture " + file + " not found"));
 	}

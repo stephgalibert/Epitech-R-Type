@@ -55,6 +55,12 @@
     <Filter Include="Fichiers sources\game">
       <UniqueIdentifier>{ae5ddbed-8cb6-4644-b957-55c1b74c2da0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\menu">
+      <UniqueIdentifier>{284b3e0b-bfb4-495c-bed3-63bc2e1351d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\menu">
+      <UniqueIdentifier>{d65c8426-17e6-411e-86e5-2c58306af44e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -147,9 +153,6 @@
     <ClCompile Include="GameController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuController.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="APC.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
@@ -220,7 +223,13 @@
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuResource.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuController.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuButton.cpp">
+      <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,9 +335,6 @@
     <ClInclude Include="GameController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuController.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="APC.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
@@ -412,6 +418,12 @@
     </ClInclude>
     <ClInclude Include="MainMenuResource.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuController.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuButton.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
