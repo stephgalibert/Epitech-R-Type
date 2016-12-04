@@ -28,7 +28,7 @@ void UDPConnection::start(void)
 #ifdef _WIN32
 	_socket = std::make_shared<UDPWinSocket>();
 #else
-	_socket = std::make_shared<UDPUnixSocket>();
+	//_socket = std::make_shared<UDPUnixSocket>();
 #endif
 	try {
 		_socket->init("127.0.0.1");
@@ -57,7 +57,7 @@ void UDPConnection::write(std::shared_ptr<ICommand> command)
 
 void UDPConnection::sync_write(std::shared_ptr<ICommand> command)
 {
-
+  (void)command;
 }
 
 void UDPConnection::write(void)

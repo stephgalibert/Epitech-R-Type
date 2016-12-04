@@ -5,7 +5,7 @@
 // Login   <jordan@epitech.net>
 //
 // Started on  Mon Nov 21 16:30:56 2016 jordan
-// Last update Mon Nov 21 16:43:05 2016 jordan
+// Last update Sun Dec  4 13:51:25 2016 stephane galibert
 //
 
 #include "Application.hpp"
@@ -38,7 +38,7 @@ void Application::init(void)
 	}
 	_servers.push_back(tcp);
 
-	UDPServer *udp = new UDPServer(_cm, _pm);
+	/*UDPServer *udp = new UDPServer(_cm, _pm);
 	try {
 		udp->init();
 	}
@@ -46,7 +46,7 @@ void Application::init(void)
 		delete (udp);
 		throw (std::runtime_error(e.what()));
 	}
-	_servers.push_back(udp);
+	_servers.push_back(udp);*/
 }
 
 void Application::run(void)

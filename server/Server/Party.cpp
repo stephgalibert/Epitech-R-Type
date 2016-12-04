@@ -32,12 +32,12 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
-	ObjectType object = ObjectType::Ship;
+	//ObjectType object = ObjectType::Ship;
 	uint8_t id = _cm.getPlayerNumber() + 1;
 	uint16_t x = 20;
 	uint16_t y = 20 * (_cm.getPlayerNumber() + 1);
-	uint8_t type = (uint8_t)ShipType::Standard;
-	uint8_t effect = 0;
+	/*uint8_t type = (uint8_t)ShipType::Standard;
+	  uint8_t effect = 0;*/
 
 	connection->setPosition(std::make_pair(x, y));
 	connection->setID(id);

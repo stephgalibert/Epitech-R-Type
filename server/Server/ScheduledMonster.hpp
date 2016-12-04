@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 
+#include <stdexcept>
+
 class ScheduledMonster
 {
 public:
