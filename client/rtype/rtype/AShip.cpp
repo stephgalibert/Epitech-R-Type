@@ -6,6 +6,7 @@ AShip::AShip(void)
 	  _targetFrame(0),
       _currentFrame(0)
 {
+	setCollisionType(COLLISION_FATAL);
 }
 
 AShip::~AShip(void)

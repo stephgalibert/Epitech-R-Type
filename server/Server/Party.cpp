@@ -67,6 +67,11 @@ void Party::fire(std::shared_ptr<AConnection> connection, std::shared_ptr<IComma
 	_cm.broadcast(connection, data);
 }
 
+void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
+{
+	_cm.broadcast(connection, data);
+}
+
 void Party::collision(std::shared_ptr<ICommand> data)
 {
   (void)data;
@@ -81,8 +86,7 @@ void Party::loop(void)
 	_cm.distributeShipID();
 	_cm.sendSpawnedShip();
 
-	while (true) {
-	}
+	while (isRunning());
 }
 
 bool Party::isReady(void) const

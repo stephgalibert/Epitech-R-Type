@@ -16,6 +16,10 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
+	void recycle(void);
+	bool isWaitingForRecycle(void) const;
+	bool isInitialized(void) const;
+
 protected:
 	void setShape(sf::Shape *shape);
 	void setTexture(sf::Texture *texture);
@@ -23,10 +27,12 @@ protected:
 	sf::Shape *getShape(void) const;
 	sf::Texture *getTexture(void) const;
 
+	bool _init;
+
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	sf::Shape *_shape;
 	sf::Texture *_texture;
-
+	bool _waitingForRecycle;
 };

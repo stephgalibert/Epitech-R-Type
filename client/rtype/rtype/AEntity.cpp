@@ -1,9 +1,7 @@
 #include "AEntity.hpp"
 
 AEntity::AEntity()
-	  : _waitingForRecycle(false),
-	    _init(false),
-		_velocity(0),
+	  : _velocity(0),
 		_degrees(0),
 		_radians(0),
 	   _direction(0)
@@ -12,21 +10,6 @@ AEntity::AEntity()
 
 AEntity::~AEntity(void)
 {
-}
-
-void AEntity::recycle(void)
-{
-	_waitingForRecycle = true;
-}
-
-bool AEntity::isWaitingForRecycle(void) const
-{
-	return (_waitingForRecycle);
-}
-
-bool AEntity::isInitialized(void) const
-{
-	return (_init);
 }
 
 void AEntity::setID(uint8_t id)

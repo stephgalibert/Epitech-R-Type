@@ -24,6 +24,7 @@ public:
 
 	void move(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
 	void fire(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
+	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
 	void collision(std::shared_ptr<ICommand> data);
 	void loop(void);
 

@@ -3,8 +3,6 @@
 #include <memory>
 
 #include "RequestBuilder.hpp"
-//#include "AConnection.hpp"
-
 #include "ICommand.hpp"
 #include "CommandFactory.hpp"
 

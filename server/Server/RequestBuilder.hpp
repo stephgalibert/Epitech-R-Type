@@ -10,6 +10,8 @@
 #include "RequestConnect.hpp"
 #include "RequestCreateParty.hpp"
 #include "RequestMove.hpp"
+#include "RequestCollision.hpp"
+#include "RequestDestroyed.hpp"
 
 class RequestBuilder
 {
@@ -25,6 +27,7 @@ private:
 	std::unique_ptr<IRequest> create_SpawnRequest(void);
 	std::unique_ptr<IRequest> create_MoveRequest(void);
 	std::unique_ptr<IRequest> create_CollisionRequest(void);
+	std::unique_ptr<IRequest> create_DestroyedRequest(void);
 	std::unique_ptr<IRequest> create_ErrorRequest(void);
 	std::unique_ptr<IRequest> create_PingRequest(void);
 	std::unique_ptr<IRequest> create_FireRequest(void);

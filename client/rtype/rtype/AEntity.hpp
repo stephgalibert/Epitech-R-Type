@@ -1,13 +1,13 @@
 #pragma once
 
-#include "ADrawable.hpp"
+#include "ACollidable.hpp"
 
 #define EAST 1
 #define WEAST 2
 #define NORTH 4
 #define SOUTH 8
 
-class AEntity : public ADrawable
+class AEntity : public ACollidable
 {
 public:
 	AEntity(void);
@@ -17,14 +17,10 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
-	void recycle(void);
-	bool isWaitingForRecycle(void) const;
-	bool isInitialized(void) const;
+	void move(float delta);
 
 	void setDirection(uint8_t direction);
 	uint8_t getDirection(void) const;
-
-	void move(float delta);
 
 	void setVelocity(float velocity);
 	float getVelocity(void) const;
@@ -35,11 +31,8 @@ public:
 	void setID(uint8_t id);
 	uint8_t getID(void) const;
 
-protected:
-	bool _init;
-
 private:
-	bool _waitingForRecycle;
+	
 	uint8_t _id;
 	float _velocity;
 	float _degrees;

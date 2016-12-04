@@ -92,6 +92,12 @@ struct Fire
 	uint8_t effect;
 };
 
+struct Destroyed
+{
+	CommandType cmdType;
+	uint8_t id;
+};
+
 struct Collision
 {
 	CommandType cmdType;

@@ -18,7 +18,7 @@ GameController::~GameController(void)
 void GameController::init(void)
 {
 	LevelResource::TheLevelResource.load();
-	World::TheWorld.init();
+	World::TheWorld.init(&_network, &_player);
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
 	_back.init();
