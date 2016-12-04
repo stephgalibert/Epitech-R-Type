@@ -15,7 +15,7 @@ void ScheduledMonster::loadLevel(size_t level)
 {
 	std::string file = "level_";
 	
-	file += level;
+	file += static_cast<char>(level);
 	file += ".lvl";
 	try {
 		std::ifstream ifs(file, std::ifstream::in);
@@ -32,7 +32,7 @@ void ScheduledMonster::loadLevel(size_t level)
 			
 			_schedule.push_back(std::make_pair(time, name));
 		}
-	} catch (std::runtime_error& e) {
+	} catch (std::runtime_error const&) {
 		throw;
 	}
 
