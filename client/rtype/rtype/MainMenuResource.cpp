@@ -44,7 +44,6 @@ sf::Texture *MainMenuResource::getTextureByKey(std::string const &key) {
 
 void MainMenuResource::addTexture(std::string const &key, std::string const &file) {
 	sf::Texture *texture = new sf::Texture();
-	std::cout << "Adding " << file << " as " << key << std::endl;
 	if (!texture->loadFromFile(file)) {
 		throw (std::runtime_error("Texture " + file + " not found"));
 	}
