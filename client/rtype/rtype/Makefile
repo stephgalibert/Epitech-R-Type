@@ -54,19 +54,24 @@ SRCS		+=	MemoryFile.cpp
 SRCS		+=	MusicBox.cpp
 SRCS		+=	Player.cpp
 SRCS		+=	ProjectResource.cpp
+SRCS		+=	MainMenuResource.cpp
 SRCS		+=	RequestBuilder.cpp
 SRCS		+=	RequestHandler.cpp
 SRCS		+=	SoundBox.cpp
-SRCS		+=	SplashScreen.cpp
 SRCS		+=	TCPClient.cpp
 SRCS		+=	Timer.cpp
 SRCS		+=	UDPClient.cpp
 SRCS		+=	UnloadArea.cpp
 SRCS		+=	World.cpp
 SRCS		+=	XMLReader.cpp
+SRCS		+=	RequestSpawn.cpp
+SRCS		+=	RequestDisconnect.cpp
+SRCS		+=	RequestMove.cpp
+SRCS		+=	Mate.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 
+SRCS		+=	../../../api/CMDDestroyed.cpp
 SRCS		+=	../../../api/CMDCollision.cpp
 SRCS		+=	../../../api/CMDConnect.cpp
 SRCS		+=	../../../api/CMDCreateParty.cpp

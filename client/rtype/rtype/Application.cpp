@@ -21,11 +21,13 @@ Application::~Application(void)
 	}
 }
 
-#include <Windows.h> // !
+//#include <Windows.h> // !
 void Application::init(std::string host, std::string pwd)
 {
+  (void)host;
+  (void)pwd;
 	try {
-		StaticTools::Log.open("client" + std::to_string(GetCurrentProcessId()) + ".log", std::ios::out | std::ios::app);
+	  StaticTools::Log.open("client.log" /*+ std::to_string(GetCurrentProcessId()) + ".log"*/, std::ios::out | std::ios::app);
 
 		_client.connect();
 		_client.run();
@@ -63,6 +65,8 @@ void Application::setState(State state)
 	case State::ST_Game:
 		st_game();
 		break;
+	default:
+	  break;
 	}
 }
 // les états peuvent se changer d'eux même => à faire

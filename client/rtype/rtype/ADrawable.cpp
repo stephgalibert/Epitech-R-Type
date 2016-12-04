@@ -1,10 +1,10 @@
 #include "ADrawable.hpp"
 
 ADrawable::ADrawable()
-	: _shape(NULL),
+  : _init(false),
+    _shape(NULL),
 	  _texture(NULL),
-	  _waitingForRecycle(false),
-	  _init(false)
+	  _waitingForRecycle(false)
 {
 }
 

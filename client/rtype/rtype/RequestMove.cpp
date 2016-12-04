@@ -11,6 +11,8 @@ RequestMove::~RequestMove(void)
 void RequestMove::execute(IClient &client, std::shared_ptr<ICommand> data,
 	std::shared_ptr<ICommand> &toSend)
 {
+  (void)client;
+  (void)toSend;
 	Move *move = (Move *)data->getData();
 
 	uint8_t id = move->id_tomove;

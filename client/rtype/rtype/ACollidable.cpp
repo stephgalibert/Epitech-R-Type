@@ -12,6 +12,7 @@ ACollidable::~ACollidable()
 
 void ACollidable::collision(IClient *client, ACollidable *other)
 {
+  (void)client;
 	if (getCollisionType() != COLLISION_NONE
 		&& other->getCollisionType() == COLLISION_FATAL) {
 
@@ -20,7 +21,7 @@ void ACollidable::collision(IClient *client, ACollidable *other)
 
 		//std::cout << "explosion" << std::endl;
 
-		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
+		Explosion *explosion = World::TheWorld.prepareEntity<Explosion>();
 		explosion->setPosition(getPosition());
 
 		/*explosion = World::TheWorld.spawnEntity<Explosion>();

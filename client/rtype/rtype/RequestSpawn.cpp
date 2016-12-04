@@ -12,14 +12,15 @@ RequestSpawn::~RequestSpawn(void)
 void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 						   std::shared_ptr<ICommand> &toSend)
 {
+  (void)toSend;
 	Spawn *spawn = (Spawn *)data->getData();
 
-	ObjectType object = spawn->object;
+	//ObjectType object = spawn->object;
 	uint8_t id = spawn->id_tospawn;
 	uint16_t x = 0;
 	uint16_t y = 0;
-	uint8_t type = spawn->type;
-	uint8_t effect = spawn->effect;
+	/*uint8_t type = spawn->type;
+	  uint8_t effect = spawn->effect;*/
 	bool player = spawn->is_player;
 
 	StaticTools::DeserializePosition(spawn->position, x, y);
