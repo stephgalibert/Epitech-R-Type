@@ -42,8 +42,8 @@ void PartyManager::removeParty(std::string const& name, std::string const& pwd)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
-	auto &party = _parties.find(name);
-	auto &toRun = _toRun.find(name);
+	auto party = _parties.find(name);
+	auto toRun = _toRun.find(name);
 
 	if (party != _parties.cend() && (*party).second->getPassword() == pwd) {
 		(*party).second->close();
@@ -60,13 +60,13 @@ std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> c
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
-	auto &party = _parties.find(name);
+	auto party = _parties.find(name);
 	if (party != _parties.cend() && (*party).second->getPassword() == pwd) {
 		(*party).second->addConnection(connection);
 		return ((*party).second);
 	}
 
-	auto &toRun = _toRun.find(name);
+	auto toRun = _toRun.find(name);
 	if (toRun != _toRun.cend() && (*toRun).second->getPassword() == pwd) {
 		(*toRun).second->addConnection(connection);
 		return ((*toRun).second);

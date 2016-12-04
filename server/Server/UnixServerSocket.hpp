@@ -7,19 +7,19 @@
 #include <arpa/inet.h>
 
 #include "IServerSocket.hpp"
-#include "SocketType.hpp"
 
 class UnixServerSocket : public IServerSocket
 {
 public:
-	UnixServerSocket(SocketType type);
-	virtual ~UnixServerSocket(void);
-
-	virtual void init(std::string const &listenHost, short listenPort);
-	virtual std::shared_ptr<ITCPSocket> accept(void);
-
+  UnixServerSocket(void);
+  virtual ~UnixServerSocket(void);
+  
+  virtual void init(std::string const &listenHost, short listenPort);
+  virtual std::shared_ptr<ITCPSocket> accept(void);
+  
 private:
-	int _socket;
-	SocketType _type;
+  int _socket;
+  std::string _host;
+  short _port;
 };
 
