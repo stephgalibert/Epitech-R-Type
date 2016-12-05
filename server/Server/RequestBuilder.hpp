@@ -12,6 +12,7 @@
 #include "RequestMove.hpp"
 #include "RequestCollision.hpp"
 #include "RequestDestroyed.hpp"
+#include "RequestFire.hpp"
 
 class RequestBuilder
 {

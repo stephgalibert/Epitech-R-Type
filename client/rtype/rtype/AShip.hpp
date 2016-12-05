@@ -3,7 +3,6 @@
 #include "AMoveable.hpp"
 
 #include "World.hpp"
-#include "Explosion.hpp"
 
 class AShip : public AMoveable
 {
@@ -16,10 +15,5 @@ public:
 	virtual void destroy(void) = 0;
 
 	virtual void collision(IClient *client, ACollidable *other) = 0;
-
-	void shoot(void);
-
-private:
-	float _delta;
 };
 

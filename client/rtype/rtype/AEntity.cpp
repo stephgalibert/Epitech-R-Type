@@ -54,6 +54,16 @@ void AEntity::move(float delta)
 	}
 }
 
+void AEntity::setReadyForInit(bool value)
+{
+	_readyForInit = value;
+}
+
+bool AEntity::isReadyForInit(void) const
+{
+	return (_readyForInit);
+}
+
 void AEntity::setVelocity(float velocity)
 {
 	_velocity = velocity;

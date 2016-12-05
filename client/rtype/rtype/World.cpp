@@ -38,20 +38,28 @@ void World::update(float delta)
 			}
 			it = _entities.erase(it);
 		}
-		else if (!(*it)->isInitialized()) {
-			(*it)->setInit(true);
-			(*it)->init();
-			++it;
+		else if ((*it)->isReadyForInit()) {
+			if (!(*it)->isInitialized()) {
+				(*it)->setInit(true);
+				(*it)->init();
+				++it;
+			}
+			else if ((*it)->getPosition().x < 0 || (*it)->getPosition().x > StaticTools::GetResolution().first) {
+				(*it)->recycle();
+			}
+			else {
+				(*it)->update(delta);
+
+				for (auto it_sub : _entities) {
+					if (it_sub->getID() != (*it)->getID() && it_sub->isCollidingWith(*it)) {
+						it_sub->collision(_client, (*it));
+					}
+				}
+
+				++it;
+			}
 		}
 		else {
-			(*it)->update(delta);
-			
-			for (auto it_sub : _entities) {
-				if (it_sub->getID() != (*it)->getID() && it_sub->isCollidingWith(*it)) {
-					it_sub->collision(_client, (*it));
-				}
-			}
-
 			++it;
 		}
 	}

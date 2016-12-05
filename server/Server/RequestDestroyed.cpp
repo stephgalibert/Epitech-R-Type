@@ -17,7 +17,7 @@ void RequestDestroyed::execute(std::shared_ptr<AConnection> owner,
 	std::shared_ptr<Party> party = owner->getCurrentParty();
 	
 	std::cout << "executing destroyed request" << std::endl;
-	if (party) {
-		party->fire(owner, received);
-	}
+	//if (party) {
+	//	party->fire(owner, received);
+	//}
 }

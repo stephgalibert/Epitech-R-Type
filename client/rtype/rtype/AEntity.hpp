@@ -21,6 +21,9 @@ public:
 
 	void move(float delta);
 
+	void setReadyForInit(bool value);
+	bool isReadyForInit(void) const;
+
 	void setDirection(uint8_t direction);
 	uint8_t getDirection(void) const;
 
@@ -34,7 +37,7 @@ public:
 	uint8_t getID(void) const;
 
 private:
-	
+	bool _readyForInit;
 	uint8_t _id;
 	float _velocity;
 	float _degrees;

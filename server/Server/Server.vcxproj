@@ -55,6 +55,7 @@
     <ClCompile Include="RequestConnect.cpp" />
     <ClCompile Include="RequestCreateParty.cpp" />
     <ClCompile Include="RequestDestroyed.cpp" />
+    <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="ScheduledMonster.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="RequestConnect.hpp" />
     <ClInclude Include="RequestCreateParty.hpp" />
     <ClInclude Include="RequestDestroyed.hpp" />
+    <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="ScheduledMonster.hpp" />

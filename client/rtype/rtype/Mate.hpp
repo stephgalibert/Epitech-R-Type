@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ANPC.hpp"
+#include "LevelResource.hpp"
+#include "Explosion.hpp"
 
 class Mate : public ANPC
 {

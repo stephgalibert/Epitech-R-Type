@@ -13,6 +13,7 @@
 #include "RequestSpawn.hpp"
 #include "RequestDisconnect.hpp"
 #include "RequestMove.hpp"
+#include "RequestFire.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {

@@ -4,6 +4,8 @@
 
 #include "APC.hpp"
 #include "LevelResource.hpp"
+#include "Laser.hpp"
+#include "Explosion.hpp"
 
 class IClient;
 
@@ -26,6 +28,7 @@ public:
 	virtual void collision(IClient *client, ACollidable *other);
 
 	virtual void input(InputHandler &input);
+	void shoot(void);
 
 	void setIClient(IClient *client);
 
@@ -37,12 +40,14 @@ private:
 	void joystick(InputHandler &input);
 
 	float _delta;
+	float _deltaLastShoot;
 	IClient *_client;
 	bool _decrease;
 	uint8_t _targetFrame;
 	uint8_t _currentFrame;
 
 	std::unordered_map<uint8_t, sf::IntRect> _frames;
+	//std::unordered_map<uint8_t, sf::IntRect> _smoke;
 	uint8_t _currentDirection;
 };
 

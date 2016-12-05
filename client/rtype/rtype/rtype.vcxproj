@@ -203,6 +203,7 @@
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
     <ClCompile Include="RequestDisconnect.cpp" />
+    <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
     <ClCompile Include="RequestMove.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />
     <ClInclude Include="RequestDisconnect.hpp" />
+    <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
     <ClInclude Include="RequestMove.hpp" />

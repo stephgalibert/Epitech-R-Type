@@ -7,7 +7,8 @@ std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > Command
 	{(int)CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected)},
 	{(int)CommandType::Move, std::bind(&CommandFactory::cmd_move)},
 	{(int)CommandType::Collision, std::bind(&CommandFactory::cmd_collision)},
-	{(int)CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed)}
+	{(int)CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed)},
+	{(int)CommandType::Fire, std::bind(&CommandFactory::cmd_fire)}
 };
 
 std::shared_ptr<ICommand> CommandFactory::build(CommandType type)

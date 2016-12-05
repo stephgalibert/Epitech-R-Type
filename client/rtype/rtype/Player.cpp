@@ -3,12 +3,13 @@
 
 Player::Player()
 	: _delta(0.f),
+	_deltaLastShoot(0),
 	_client(NULL),
 	_decrease(false)
 {
 	_targetFrame = 0;
-	_currentFrame = 0;
 	_currentFrame = FRAME_MID;
+	//_currentSmoke = 2;
 	setVelocity(150.f);
 }
 
@@ -31,18 +32,18 @@ void Player::init(void)
 		setShape(shape);
 		setTexture(texture);
 
-		sf::IntRect const& r = _frames.at(FRAME_MID);
-		getShape()->setTextureRect(sf::IntRect(r.width, r.top, r.width, r.height));
+		sf::IntRect const& rect = _frames.at(FRAME_MID);
+		getShape()->setTextureRect(rect);
 	}
 	catch (std::exception const& e) {
-		delete (shape);
-		StaticTools::Log << e.what() << std::endl;
+		throw (std::runtime_error(e.what()));
 	}
 }
 
 void Player::update(float delta)
 {
 	_delta += delta;
+	_deltaLastShoot += delta;
 
 	updateFrame();
 	APC::update(delta);
@@ -66,6 +67,7 @@ void Player::collision(IClient *client, ACollidable *other)
 
 		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
+		explosion->setReadyForInit(true);
 
 		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
 
@@ -85,12 +87,33 @@ void Player::input(InputHandler &input)
 	}
 
 	_targetFrame = 0;
-
 	if (input.isJoystickPresent()) {
 		joystick(input);
 	}
 	else {
 		keyboard(input);
+	}
+}
+
+void Player::shoot(void)
+{
+	if (_deltaLastShoot > 0.25f) {
+		LevelResource::TheLevelResource.getSoundByKey("shot")->play();
+		sf::Vector2f const& pos = getPosition();
+
+		Laser *shot = World::TheWorld.spawnEntity<Laser>();
+		shot->setPosition(pos.x + 50, pos.y);
+		shot->setAngle(0);
+		shot->setColor(getID());
+		shot->setOwnerID(getID());
+		shot->setReadyForInit(true);
+		//_currentSmoke = 0;
+		_deltaLastShoot = 0.f;
+
+		if (_client) {
+			_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, getID(),
+				(int)pos.x + 50, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0));
+		}
 	}
 }
 
@@ -111,20 +134,23 @@ void Player::initFrame(void)
 		_frames[FRAME_EXP] = sf::IntRect(0, 264, 64, 38);
 		break;
 	case 3:
-		_frames[FRAME_TOP] = sf::IntRect(0, 453, 64, 37);
-		_frames[FRAME_MID] = sf::IntRect(0, 490, 64, 37);
-		_frames[FRAME_BOT] = sf::IntRect(0, 527, 64, 38);
-		_frames[FRAME_EXP] = sf::IntRect(0, 565, 64, 38);
-		break;
-	case 4:
 		_frames[FRAME_TOP] = sf::IntRect(0, 2, 64, 37);
 		_frames[FRAME_MID] = sf::IntRect(0, 39, 64, 37);
 		_frames[FRAME_BOT] = sf::IntRect(0, 76, 64, 38);
 		_frames[FRAME_EXP] = sf::IntRect(0, 114, 64, 38);
 		break;
+	case 4:
+		_frames[FRAME_TOP] = sf::IntRect(0, 453, 64, 37);
+		_frames[FRAME_MID] = sf::IntRect(0, 490, 64, 37);
+		_frames[FRAME_BOT] = sf::IntRect(0, 527, 64, 38);
+		_frames[FRAME_EXP] = sf::IntRect(0, 565, 64, 38);
+		break;
 	default:
 		break;
 	}
+
+	//_smoke[0] = sf::IntRect(233, 86, 12, 12);
+	//_smoke[1] = sf::IntRect(215, 84, 16, 14);
 }
 
 void Player::updateFrame(void)
@@ -167,8 +193,6 @@ void Player::updateFrame(void)
 		_delta = 0.f;
 	}
 }
-
-
 
 void Player::keyboard(InputHandler &input)
 {

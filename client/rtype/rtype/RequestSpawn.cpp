@@ -32,6 +32,7 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 		player->setPosition(x, y);
 		player->setIClient(&client);
 		client.getGameController()->addPlayer(player);
+		player->setReadyForInit(true);
 	}
 	else if (id < 5) {
 		StaticTools::Log << "mate information: " << std::endl
@@ -40,5 +41,6 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 		Mate *mate = World::TheWorld.spawnEntity<Mate>();
 		mate->setID(id);
 		mate->setPosition(x, y);
+		mate->setReadyForInit(true);
 	}
 }

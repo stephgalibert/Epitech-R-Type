@@ -15,13 +15,18 @@ void LevelResource::load(void)
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	try {
-		//addTexture("players", "./rsrc/sprites/players.png");
+		addTexture("shots1", "./rsrc/sprites/shots1.png");
+		addTexture("shots2", "./rsrc/sprites/shots2.png");
+		addTexture("shots3", "./rsrc/sprites/shots3.png");
+		addTexture("shots4", "./rsrc/sprites/shots4.png");
 		addTexture("players", "./rsrc/sprites/players.bmp");
 		addTexture("background", "./rsrc/sprites/background.png");
 		addTexture("background2", "./rsrc/sprites/background2.png");
 		addTexture("explosions", "./rsrc/sprites/explosions.png");
+
 		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
 		addSound("explosions", "./rsrc/music/explosion.ogg");
+		addSound("shot", "./rsrc/music/shot.wav");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);

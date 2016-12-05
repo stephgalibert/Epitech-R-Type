@@ -28,8 +28,8 @@ void Mate::init(void)
 		setShape(shape);
 		setTexture(texture);
 
-		sf::IntRect const& r = _frames.at(FRAME_MID);
-		getShape()->setTextureRect(sf::IntRect(r.width, r.top, r.width, r.height));
+		sf::IntRect const& rect = _frames.at(FRAME_MID);
+		getShape()->setTextureRect(rect);
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -85,6 +85,7 @@ void Mate::collision(IClient *client, ACollidable *other)
 
 		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
+		explosion->setReadyForInit(true);
 
 		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
 		_currentDirection = FRAME_EXP;
@@ -115,16 +116,16 @@ void Mate::initFrame(void)
 		_frames[FRAME_EXP] = sf::IntRect(0, 264, 64, 38);
 		break;
 	case 3:
-		_frames[FRAME_TOP] = sf::IntRect(0, 453, 64, 37);
-		_frames[FRAME_MID] = sf::IntRect(0, 490, 64, 37);
-		_frames[FRAME_BOT] = sf::IntRect(0, 527, 64, 38);
-		_frames[FRAME_EXP] = sf::IntRect(0, 565, 64, 38);
-		break;
-	case 4:
 		_frames[FRAME_TOP] = sf::IntRect(0, 2, 64, 37);
 		_frames[FRAME_MID] = sf::IntRect(0, 39, 64, 37);
 		_frames[FRAME_BOT] = sf::IntRect(0, 76, 64, 38);
 		_frames[FRAME_EXP] = sf::IntRect(0, 114, 64, 38);
+		break;
+	case 4:
+		_frames[FRAME_TOP] = sf::IntRect(0, 453, 64, 37);
+		_frames[FRAME_MID] = sf::IntRect(0, 490, 64, 37);
+		_frames[FRAME_BOT] = sf::IntRect(0, 527, 64, 38);
+		_frames[FRAME_EXP] = sf::IntRect(0, 565, 64, 38);
 		break;
 	default:
 		break;

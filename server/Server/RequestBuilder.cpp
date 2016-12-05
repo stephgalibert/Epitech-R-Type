@@ -6,6 +6,7 @@ RequestBuilder::RequestBuilder(void)
 	_requests[(int)CommandType::CreateParty] = std::bind(&RequestBuilder::create_CreatePartyRequest, this);
 	_requests[(int)CommandType::Move] = std::bind(&RequestBuilder::create_MoveRequest, this);
 	_requests[(int)CommandType::Destroyed] = std::bind(&RequestBuilder::create_DestroyedRequest, this);
+	_requests[(int)CommandType::Fire] = std::bind(&RequestBuilder::create_FireRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -57,7 +58,7 @@ std::unique_ptr<IRequest> RequestBuilder::create_PingRequest(void)
 
 std::unique_ptr<IRequest> RequestBuilder::create_FireRequest(void)
 {
-	return NULL;
+	return (std::unique_ptr<IRequest>(new RequestFire));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_GameStatusRequest(void)

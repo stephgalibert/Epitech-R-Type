@@ -204,6 +204,9 @@
     <ClCompile Include="..\..\api\CMDDestroyed.cpp">
       <Filter>Fichiers sources\Protocol</Filter>
     </ClCompile>
+    <ClCompile Include="RequestFire.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="..\..\api\CMDDestroyed.hpp">
       <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestFire.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
