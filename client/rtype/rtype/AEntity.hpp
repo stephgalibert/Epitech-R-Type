@@ -17,6 +17,8 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
+	virtual void collision(IClient *client, ACollidable *other) = 0;
+
 	void move(float delta);
 
 	void setDirection(uint8_t direction);

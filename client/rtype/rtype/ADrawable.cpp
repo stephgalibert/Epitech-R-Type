@@ -1,10 +1,10 @@
 #include "ADrawable.hpp"
 
 ADrawable::ADrawable()
-  : _init(false),
-    _shape(NULL),
-	  _texture(NULL),
-	  _waitingForRecycle(false)
+  : _shape(NULL),
+	_texture(NULL),
+	_waitingForRecycle(false),
+	_init(false)
 {
 }
 
@@ -23,6 +23,11 @@ void ADrawable::recycle(void)
 bool ADrawable::isWaitingForRecycle(void) const
 {
 	return (_waitingForRecycle);
+}
+
+void ADrawable::setInit(bool value)
+{
+	_init = value;
 }
 
 bool ADrawable::isInitialized(void) const

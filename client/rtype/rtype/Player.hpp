@@ -13,6 +13,7 @@ private:
 	static const uint8_t FRAME_TOP = 0;
 	static const uint8_t FRAME_MID = 1;
 	static const uint8_t FRAME_BOT = 2;
+	static const uint8_t FRAME_EXP = 3;
 
 public:
 	Player();
@@ -21,6 +22,9 @@ public:
 	virtual void init(void);
 	virtual void update(float delta);
 	virtual void destroy(void);
+
+	virtual void collision(IClient *client, ACollidable *other);
+
 	virtual void input(InputHandler &input);
 
 	void setIClient(IClient *client);

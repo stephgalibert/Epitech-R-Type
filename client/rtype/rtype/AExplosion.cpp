@@ -29,6 +29,12 @@ void AExplosion::update(float delta)
 	}
 }
 
+void AExplosion::collision(IClient *client, ACollidable *other)
+{
+	(void)client;
+	(void)other;
+}
+
 void AExplosion::setTextureSize(sf::Vector2i const& size)
 {
 	_textureSize = size;

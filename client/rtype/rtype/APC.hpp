@@ -14,5 +14,7 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void) = 0;
 
+	virtual void collision(IClient *client, ACollidable *other) = 0;
+
 	virtual void input(InputHandler &input) = 0;
 };

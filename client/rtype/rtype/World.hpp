@@ -33,17 +33,6 @@ public:
 	template<typename T>
 	T *spawnEntity(void)
 	{
-		//std::lock_guard<std::mutex> lock(_mutex);
-		T *entity = new T;
-
-		_entities.push_back(entity);
-		return (entity);
-	}
-
-	template<typename T>
-	T* prepareEntity(void)
-	{
-		//std::lock_guard<std::mutex> lock(_mutex);
 		T *entity = new T;
 
 		_entities.push_back(entity);

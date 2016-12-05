@@ -12,6 +12,8 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void) = 0;
 
+	virtual void collision(IClient *client, ACollidable *other);
+
 	void setTextureSize(sf::Vector2i const& size);
 	void setMatrixSize(sf::Vector2i const& size);
 	void computeCellSize(void);

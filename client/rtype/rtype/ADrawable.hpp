@@ -18,6 +18,8 @@ public:
 
 	void recycle(void);
 	bool isWaitingForRecycle(void) const;
+
+	void setInit(bool value);
 	bool isInitialized(void) const;
 
 protected:
@@ -27,12 +29,11 @@ protected:
 	sf::Shape *getShape(void) const;
 	sf::Texture *getTexture(void) const;
 
-	bool _init;
-
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	sf::Shape *_shape;
 	sf::Texture *_texture;
 	bool _waitingForRecycle;
+	bool _init;
 };

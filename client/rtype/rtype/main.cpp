@@ -1,21 +1,5 @@
 #include "Application.hpp"
 
-//#include <bitset>
-
-//void test(void)
-//{
-//	uint8_t direction = 0;
-//
-//	direction |= E;
-//	//direction |= N;
-//
-//	std::cout << "direction: " << std::bitset<8>(direction) << std::endl;
-//
-//	if (direction & E && direction & N) {
-//		std::cout << "true" << std::endl;
-//	}
-//}
-
 #ifdef WIN32
 # include <Windows.h>
 #endif

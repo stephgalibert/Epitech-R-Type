@@ -39,33 +39,22 @@ void World::update(float delta)
 			it = _entities.erase(it);
 		}
 		else if (!(*it)->isInitialized()) {
+			(*it)->setInit(true);
 			(*it)->init();
 			++it;
 		}
 		else {
 			(*it)->update(delta);
 			
-			/*for (auto it_sub : _entities) {
+			for (auto it_sub : _entities) {
 				if (it_sub->getID() != (*it)->getID() && it_sub->isCollidingWith(*it)) {
 					it_sub->collision(_client, (*it));
 				}
-			}*/
+			}
 
 			++it;
 		}
 	}
-
-	//for (auto it : _toPush) {
-	//	_entities.push_back(it);
-	//}
-	//_toPush.clear();
-
-	//_delta += delta;
-	//if (_delta > 0.5 && _entities.size() > 1) {
-	//	Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
-	//	explosion->setPosition((*_entities.begin())->getPosition());
-	//	_delta = 0;
-	//}
 }
 
 void World::display(sf::RenderWindow &window)

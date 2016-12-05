@@ -18,7 +18,6 @@ Player::~Player(void)
 
 void Player::init(void)
 {
-	_init = true;
 	sf::RectangleShape *shape = new sf::RectangleShape;
 	shape->setSize(sf::Vector2f(65, 38));
 	setOrigin(32.5f, 19);
@@ -58,8 +57,33 @@ void Player::setIClient(IClient *client)
 	_client = client;
 }
 
+void Player::collision(IClient *client, ACollidable *other)
+{
+  (void)client;
+	if (getCollisionType() != COLLISION_NONE
+		&& other->getCollisionType() == COLLISION_FATAL
+		&& _currentDirection != FRAME_EXP) {
+
+		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
+		explosion->setPosition(getPosition());
+
+		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
+
+		_currentDirection = FRAME_EXP;
+		_currentFrame = 0;
+		_targetFrame = 5;
+
+		setAngle(-1);
+		setVelocity(0);
+	}
+}
+
 void Player::input(InputHandler &input)
 {
+	if (_currentDirection == FRAME_EXP) {
+		return;
+	}
+
 	_targetFrame = 0;
 
 	if (input.isJoystickPresent()) {
@@ -78,21 +102,25 @@ void Player::initFrame(void)
 		_frames[FRAME_TOP] = sf::IntRect(0, 302, 64, 38);
 		_frames[FRAME_MID] = sf::IntRect(0, 340, 64, 37);
 		_frames[FRAME_BOT] = sf::IntRect(0, 377, 64, 38);
+		_frames[FRAME_EXP] = sf::IntRect(0, 415, 64, 38);
 		break;
 	case 2:
 		_frames[FRAME_TOP] = sf::IntRect(0, 152, 64, 37);
 		_frames[FRAME_MID] = sf::IntRect(0, 189, 64, 37);
 		_frames[FRAME_BOT] = sf::IntRect(0, 226, 64, 38);
+		_frames[FRAME_EXP] = sf::IntRect(0, 264, 64, 38);
 		break;
 	case 3:
 		_frames[FRAME_TOP] = sf::IntRect(0, 453, 64, 37);
 		_frames[FRAME_MID] = sf::IntRect(0, 490, 64, 37);
 		_frames[FRAME_BOT] = sf::IntRect(0, 527, 64, 38);
+		_frames[FRAME_EXP] = sf::IntRect(0, 565, 64, 38);
 		break;
 	case 4:
 		_frames[FRAME_TOP] = sf::IntRect(0, 2, 64, 37);
 		_frames[FRAME_MID] = sf::IntRect(0, 39, 64, 37);
 		_frames[FRAME_BOT] = sf::IntRect(0, 76, 64, 38);
+		_frames[FRAME_EXP] = sf::IntRect(0, 114, 64, 38);
 		break;
 	default:
 		break;
@@ -102,6 +130,11 @@ void Player::initFrame(void)
 void Player::updateFrame(void)
 {
 	if (_delta > 0.08f) {
+
+		if (_currentDirection == FRAME_EXP && _currentFrame == 5) {
+			recycle();
+		}
+
 		if (_currentFrame != _targetFrame) {
 			if (_currentFrame < _targetFrame) {
 				++_currentFrame;
@@ -110,7 +143,7 @@ void Player::updateFrame(void)
 				--_currentFrame;
 			}
 		}
-		if (_currentFrame == 3) {
+		if (_currentDirection != FRAME_EXP && _currentFrame == 3) {
 			if (_decrease) {
 				--_currentFrame;
 				_decrease = false;
@@ -119,7 +152,7 @@ void Player::updateFrame(void)
 				_decrease = true;
 			}
 		}
-		else if (_currentFrame == 0) {
+		else if (_currentDirection != FRAME_EXP &&  _currentFrame == 0) {
 			if (_decrease) {
 				++_currentFrame;
 				_decrease = false;
@@ -144,11 +177,9 @@ void Player::keyboard(InputHandler &input)
 
 	if (input.isKeyDown(sf::Keyboard::Key::Up)) {
 		direction |= NORTH;
-		_currentDirection = FRAME_TOP;
 	}
 	else if (input.isKeyDown(sf::Keyboard::Key::Down)) {
 		direction |= SOUTH;
-		_currentDirection = FRAME_BOT;
 	}
 
 	if (input.isKeyDown(sf::Keyboard::Key::Right)) {
@@ -167,7 +198,13 @@ void Player::keyboard(InputHandler &input)
 	if (direction & NORTH && direction & EAST) {
 		_currentDirection = FRAME_TOP;
 	}
-	if (direction & SOUTH && direction & EAST) {
+	else if (direction & SOUTH && direction & EAST) {
+		_currentDirection = FRAME_BOT;
+	}
+	else if (direction == NORTH) {
+		_currentDirection = FRAME_TOP;
+	}
+	else if (direction == SOUTH) {
 		_currentDirection = FRAME_BOT;
 	}
 

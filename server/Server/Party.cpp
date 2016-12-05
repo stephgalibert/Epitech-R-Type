@@ -34,8 +34,8 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 
 	//ObjectType object = ObjectType::Ship;
 	uint8_t id = _cm.getPlayerNumber() + 1;
-	uint16_t x = 20;
-	uint16_t y = 20 * (_cm.getPlayerNumber() + 1);
+	uint16_t x = 100;
+	uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
 	/*uint8_t type = (uint8_t)ShipType::Standard;
 	  uint8_t effect = 0;*/
 

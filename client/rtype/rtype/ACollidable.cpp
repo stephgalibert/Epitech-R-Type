@@ -10,23 +10,6 @@ ACollidable::~ACollidable()
 {
 }
 
-void ACollidable::collision(IClient *client, ACollidable *other)
-{
-  (void)client;
-	if (getCollisionType() != COLLISION_NONE
-		&& other->getCollisionType() == COLLISION_FATAL) {
-
-		recycle();
-		other->recycle();
-
-		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
-		explosion->setPosition(getPosition());
-
-		explosion = World::TheWorld.spawnEntity<Explosion>();
-		explosion->setPosition(other->getPosition());
-	}
-}
-
 bool ACollidable::isCollidingWith(ACollidable *other)
 {
 	return (other->getBoundingBox().intersects(getBoundingBox()));
