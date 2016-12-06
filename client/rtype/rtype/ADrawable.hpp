@@ -9,6 +9,9 @@
 class ADrawable : public sf::Drawable, public sf::Transformable
 {
 public:
+	static const int VISIBILITY_GONE = 1;
+
+public:
 	ADrawable();
 	virtual ~ADrawable(void);
 
@@ -21,6 +24,8 @@ public:
 
 	void setInit(bool value);
 	bool isInitialized(void) const;
+
+	void setVisiblity(int visibility);
 
 protected:
 	void setShape(sf::Shape *shape);

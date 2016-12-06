@@ -14,6 +14,8 @@ public:
 
 	virtual void collision(IClient *client, ACollidable *other);
 
+	virtual void move(float delta);
+
 	void setTextureSize(sf::Vector2i const& size);
 	void setMatrixSize(sf::Vector2i const& size);
 	void computeCellSize(void);

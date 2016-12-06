@@ -19,7 +19,7 @@ public:
 
 	virtual void collision(IClient *client, ACollidable *other) = 0;
 
-	void move(float delta);
+	virtual void move(float delta) = 0;
 
 	void setReadyForInit(bool value);
 	bool isReadyForInit(void) const;
@@ -32,9 +32,13 @@ public:
 
 	void setAngle(float angle);
 	float getAngle(void) const;
+	float getRadians(void) const;
 
 	void setID(uint8_t id);
 	uint8_t getID(void) const;
+
+	bool isDead(void) const;
+	void setDead(bool value);
 
 private:
 	bool _readyForInit;
@@ -43,4 +47,5 @@ private:
 	float _degrees;
 	float _radians;
 	uint8_t _direction;
+	bool _dead;
 };

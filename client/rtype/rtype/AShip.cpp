@@ -13,3 +13,8 @@ void AShip::update(float delta)
 {
 	move(delta);
 }
+
+void AShip::move(float delta)
+{
+	AMoveable::move(delta);
+}

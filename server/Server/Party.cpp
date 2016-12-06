@@ -1,6 +1,7 @@
 #include "Party.hpp"
 
 Party::Party(void)
+	: _launched(false)
 {
 }
 
@@ -57,29 +58,15 @@ void Party::removeConnection(std::shared_ptr<AConnection> connection)
 	std::cout << "remove connection" << std::endl;
 }
 
-void Party::move(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
+void Party::broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
 {
 	_cm.broadcast(connection, data);
-}
-
-void Party::fire(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
-{
-	_cm.broadcast(connection, data);
-}
-
-void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
-{
-	_cm.broadcast(connection, data);
-}
-
-void Party::collision(std::shared_ptr<ICommand> data)
-{
-  (void)data;
 }
 
 void Party::loop(void)
 {
 	while (!isReady());
+	_launched = true;
 
 	std::cout << "ready" << std::endl;
 
@@ -92,6 +79,11 @@ void Party::loop(void)
 bool Party::isReady(void) const
 {
 	return (_cm.getPlayerNumber() > 3);
+}
+
+bool Party::isFinished(void) const
+{
+	return (_launched && !isRunning());
 }
 
 bool Party::isRunning(void) const

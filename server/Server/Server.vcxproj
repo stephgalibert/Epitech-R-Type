@@ -28,6 +28,7 @@
     <ClCompile Include="..\..\api\CMDFire.cpp" />
     <ClCompile Include="..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\api\CMDPing.cpp" />
+    <ClCompile Include="..\..\api\CMDScore.cpp" />
     <ClCompile Include="..\..\api\CMDSpawn.cpp" />
     <ClCompile Include="..\..\api\CommandFactory.cpp" />
     <ClCompile Include="..\..\common\StaticTools.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="..\..\api\CMDFire.hpp" />
     <ClInclude Include="..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\api\CMDPing.hpp" />
+    <ClInclude Include="..\..\api\CMDScore.hpp" />
     <ClInclude Include="..\..\api\CMDSpawn.hpp" />
     <ClInclude Include="..\..\api\CommandFactory.hpp" />
     <ClInclude Include="..\..\api\CommandType.hpp" />

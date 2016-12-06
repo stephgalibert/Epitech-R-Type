@@ -5,8 +5,10 @@ AConnection::AConnection(ConnectionManager &cm, RequestHandler &rh, PartyManager
 	  _rh(rh),
 	  _pm(pm),
 	  _running(false),
+	  _ready(false),
 	  _id(0),
-	  _ready(false)
+	  _life(3),
+	  _score(0)
 {
 	_position.first = 20;
 	_position.second = 20;
@@ -36,9 +38,19 @@ void AConnection::setCurrentParty(std::shared_ptr<Party> party)
 	_party = party;
 }
 
-void AConnection::setID(int id)
+void AConnection::setID(uint8_t id)
 {
 	_id = id;
+}
+
+void AConnection::setLife(uint8_t life)
+{
+	_life = life;
+}
+
+void AConnection::setScore(uint16_t score)
+{
+	_score = score;
 }
 
 void AConnection::setRunning(bool value)
@@ -62,9 +74,19 @@ std::shared_ptr<Party> AConnection::getCurrentParty(void) const
 	return (_party);
 }
 
-int AConnection::getID(void) const
+uint8_t AConnection::getID(void) const
 {
 	return (_id);
+}
+
+uint8_t AConnection::getLife(void) const
+{
+	return (_life);
+}
+
+uint16_t AConnection::getScore(void) const
+{
+	return (_score);
 }
 
 bool AConnection::isRunning(void) const

@@ -22,13 +22,11 @@ public:
 	void addConnection(std::shared_ptr<AConnection> connection);
 	void removeConnection(std::shared_ptr<AConnection> connection);
 
-	void move(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
-	void fire(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
-	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
-	void collision(std::shared_ptr<ICommand> data);
+	void broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
 	void loop(void);
 
 	bool isReady(void) const;
+	bool isFinished(void) const;
 	bool isRunning(void) const;
 
 	std::string const& getName(void) const;
@@ -39,8 +37,9 @@ private:
 	std::string _password;
 	ConnectionManager _cm;
 
-	std::thread _party;
 	Timer _timer;
+	std::thread _party;
 	std::mutex _mutex;
+	bool _launched;
 };
 

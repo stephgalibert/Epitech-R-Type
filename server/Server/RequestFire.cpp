@@ -19,6 +19,6 @@ void RequestFire::execute(std::shared_ptr<AConnection> owner,
 
 	std::cout << "executing fire request" << std::endl;
 	if (party) {
-		party->fire(owner, received);
+		party->broadcast(owner, received);
 	}
 }

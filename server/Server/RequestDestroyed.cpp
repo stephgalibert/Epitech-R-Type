@@ -18,6 +18,6 @@ void RequestDestroyed::execute(std::shared_ptr<AConnection> owner,
 	
 	std::cout << "executing destroyed request" << std::endl;
 	//if (party) {
-	//	party->fire(owner, received);
+	//	party->broadcast(owner, received);
 	//}
 }

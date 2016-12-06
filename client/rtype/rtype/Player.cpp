@@ -11,6 +11,7 @@ Player::Player()
 	_currentFrame = FRAME_MID;
 	//_currentSmoke = 2;
 	setVelocity(150.f);
+	_resolution = StaticTools::GetResolution();
 }
 
 Player::~Player(void)
@@ -42,6 +43,10 @@ void Player::init(void)
 
 void Player::update(float delta)
 {
+	if (isDead()) {
+		return;
+	}
+
 	_delta += delta;
 	_deltaLastShoot += delta;
 
@@ -69,20 +74,21 @@ void Player::collision(IClient *client, ACollidable *other)
 		explosion->setPosition(getPosition());
 		explosion->setReadyForInit(true);
 
-		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
-
 		_currentDirection = FRAME_EXP;
 		_currentFrame = 0;
 		_targetFrame = 5;
 
 		setAngle(-1);
 		setVelocity(0);
+
+		other->collision(client, this);
+		setCollisionType(COLLISION_NONE);
 	}
 }
 
 void Player::input(InputHandler &input)
 {
-	if (_currentDirection == FRAME_EXP) {
+	if (isDead() || _currentDirection == FRAME_EXP) {
 		return;
 	}
 
@@ -92,6 +98,25 @@ void Player::input(InputHandler &input)
 	}
 	else {
 		keyboard(input);
+	}
+}
+
+void Player::move(float delta)
+{
+	if (getAngle() != -1) {
+		sf::Vector2f const& pos = getPosition();
+
+		float x = std::cos(getRadians()) * getVelocity() * delta;
+		float y = std::sin(getRadians()) * getVelocity() * delta;
+
+		if (pos.x + x < 0 || pos.x + x > _resolution.first) {
+			x = 0;
+		}
+		if (pos.y + y < 0 || pos.y + y > _resolution.second) {
+			y = 0;
+		}
+
+		ADrawable::move(x, y);
 	}
 }
 
@@ -157,8 +182,12 @@ void Player::updateFrame(void)
 {
 	if (_delta > 0.08f) {
 
-		if (_currentDirection == FRAME_EXP && _currentFrame == 5) {
-			recycle();
+		if (_currentDirection == FRAME_EXP) {
+			if (_currentFrame == 5) {
+				setDead(true);
+				setVisiblity(VISIBILITY_GONE);
+				return;
+			}
 		}
 
 		if (_currentFrame != _targetFrame) {
@@ -215,9 +244,11 @@ void Player::keyboard(InputHandler &input)
 	}
 
 	if (getDirection() != direction) {
-		_client->write(std::make_shared<CMDMove>(getID(), direction, (uint8_t)getVelocity()));
+		sf::Vector2f const& pos = getPosition();
+		_client->write(std::make_shared<CMDMove>(getID(), (uint16_t)pos.x, (uint16_t)pos.y,
+			(uint16_t)getVelocity(), direction));
+		setDirection(direction);
 	}
-	setDirection(direction);
 
 	if (direction & NORTH && direction & EAST) {
 		_currentDirection = FRAME_TOP;

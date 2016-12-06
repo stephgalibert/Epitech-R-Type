@@ -21,6 +21,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, ACollidable *other);
+	virtual void move(float delta);
 
 	void updateFrame(void);
 
@@ -35,5 +36,6 @@ private:
 
 	std::unordered_map<uint8_t, sf::IntRect> _frames;
 	uint8_t _currentDirection;
+	std::pair<short, short> _resolution;
 };
 

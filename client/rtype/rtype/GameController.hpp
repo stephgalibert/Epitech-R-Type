@@ -8,6 +8,7 @@
 
 #include "Background.hpp"
 #include "Player.hpp"
+#include "Mate.hpp"
 
 #include "IClient.hpp"
 #include "CMDConnect.hpp"
@@ -25,12 +26,14 @@ public:
 	virtual void recycle(void);
 	
 	void addPlayer(Player *player);
+	//void addMate(Mate *mate);
 
 private:
 	IClient &_network;
 	std::string _partyName;
 	std::string _partyPwd;
 	Player *_player;
+	// mates
 	Background _back;
 	Background _front;
 };

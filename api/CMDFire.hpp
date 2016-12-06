@@ -6,9 +6,9 @@
 class CMDFire : public ICommand
 {
 public:
+	CMDFire(void);
 	CMDFire(MissileType type, uint8_t id, uint16_t x, uint16_t y,
 		     uint8_t velocity, uint8_t angle, uint8_t effect);
-	CMDFire(void);
 	virtual ~CMDFire(void);
 
 	virtual void loadFromMemory(char const *data);

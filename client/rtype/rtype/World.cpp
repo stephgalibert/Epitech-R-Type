@@ -29,13 +29,13 @@ void World::update(float delta)
 	while (it != std::end(_entities)) {
 		if ((*it)->isWaitingForRecycle()) {
 			(*it)->destroy();
-			if (*_player != NULL && (*_player == (*it))) {
+			/*if (*_player != NULL && (*_player == (*it))) {
 				delete (*_player);
 				*_player = NULL;
 			}
-			else {
+			else {*/
 				delete (*it);
-			}
+			//}
 			it = _entities.erase(it);
 		}
 		else if ((*it)->isReadyForInit()) {

@@ -17,4 +17,6 @@ public:
 	virtual void collision(IClient *client, ACollidable *other) = 0;
 
 	virtual void input(InputHandler &input) = 0;
+
+	virtual void move(float delta);
 };

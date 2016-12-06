@@ -1,11 +1,11 @@
 #include "CMDMove.hpp"
 
-CMDMove::CMDMove(uint8_t id, uint8_t direction, uint8_t velocity)/*uint16_t x, uint16_t y)*/
+CMDMove::CMDMove(uint8_t id, uint16_t x, uint16_t y, uint16_t velocity, uint8_t direction)
 {
 	_data = new Move;
 	_data->cmdType = getCommandType();
 	_data->id_tomove = id;
-	//_data->position = StaticTools::SerializePosition(x, y);
+	_data->position = StaticTools::SerializePosition(x, y);
 	_data->direction = direction;
 	_data->velocity = velocity;
 }
@@ -28,7 +28,7 @@ void CMDMove::loadFromMemory(char const *data)
 	_data->id_tomove = move.id_tomove;
 	_data->direction = move.direction;
 	_data->velocity = move.velocity;
-	//_data->position = move.position;
+	_data->position = move.position;
 }
 
 size_t CMDMove::getSize(void) const

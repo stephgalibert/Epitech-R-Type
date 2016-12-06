@@ -12,7 +12,6 @@ Laser::Laser(void)
 
 Laser::~Laser(void)
 {
-	std::cout << "destroying laser" << std::endl;
 }
 
 void Laser::init(void)

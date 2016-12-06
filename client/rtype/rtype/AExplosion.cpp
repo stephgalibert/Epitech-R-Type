@@ -29,6 +29,11 @@ void AExplosion::update(float delta)
 	}
 }
 
+void AExplosion::move(float delta)
+{
+	(void)delta;
+}
+
 void AExplosion::collision(IClient *client, ACollidable *other)
 {
 	(void)client;

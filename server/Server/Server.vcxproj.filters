@@ -207,6 +207,9 @@
     <ClCompile Include="RequestFire.cpp">
       <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\api\CMDScore.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -400,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="RequestFire.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDScore.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

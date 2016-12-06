@@ -6,6 +6,7 @@ Mate::Mate(void)
 	_currentFrame = 0;
 	setVelocity(0.f);
 	_currentDirection = FRAME_MID;
+	_resolution = StaticTools::GetResolution();
 }
 
 Mate::~Mate(void)
@@ -33,12 +34,15 @@ void Mate::init(void)
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
-		recycle();
+		setDead(true);
 	}
 }
 
 void Mate::update(float delta)
 {
+	if (isDead()) {
+		return;
+	}
 	_delta += delta;
 
 	if (_currentDirection != FRAME_EXP) {
@@ -87,16 +91,35 @@ void Mate::collision(IClient *client, ACollidable *other)
 		explosion->setPosition(getPosition());
 		explosion->setReadyForInit(true);
 
-		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
 		_currentDirection = FRAME_EXP;
 		_currentFrame = 0;
 		_targetFrame = 5;
 
 		setAngle(-1);
 		setVelocity(0);
-	}
-	
 
+		other->collision(client, this);
+		setCollisionType(COLLISION_NONE);
+	}
+}
+
+void Mate::move(float delta)
+{
+	if (getAngle() != -1) {
+		sf::Vector2f const& pos = getPosition();
+
+		float x = std::cos(getRadians()) * getVelocity() * delta;
+		float y = std::sin(getRadians()) * getVelocity() * delta;
+
+		if (pos.x + x < 0 || pos.x + x > _resolution.first) {
+			x = 0;
+		}
+		if (pos.y + y < 0 || pos.y + y > _resolution.second) {
+			y = 0;
+		}
+
+		ADrawable::move(x, y);
+	}
 }
 
 void Mate::initFrame(void)
@@ -136,8 +159,12 @@ void Mate::updateFrame(void)
 {
 	if (_delta > 0.08f) {
 
-		if (_currentDirection == FRAME_EXP && _currentFrame == 5) {
-			recycle();
+		if (_currentDirection == FRAME_EXP) {
+			if (_currentFrame == 5) {
+				setDead(true);
+				setVisiblity(VISIBILITY_GONE);
+				return;
+			}
 		}
 
 		if (_currentFrame != _targetFrame) {
@@ -148,6 +175,7 @@ void Mate::updateFrame(void)
 				--_currentFrame;
 			}
 		}
+
 		if (_currentDirection != FRAME_EXP && _currentFrame == 3) {
 			if (_decrease) {
 				--_currentFrame;

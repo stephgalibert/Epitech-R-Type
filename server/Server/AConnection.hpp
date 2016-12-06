@@ -33,13 +33,17 @@ public:
 	RequestHandler &getRequestHandler(void);
 
 	void setCurrentParty(std::shared_ptr<Party> party);
-	void setID(int id);
+	void setID(uint8_t id);
+	void setLife(uint8_t life);
+	void setScore(uint16_t score);
 	void setRunning(bool value);
 	void setReady(bool value);
 	void setPosition(std::pair<uint16_t, uint16_t> const& position);
 
 	std::shared_ptr<Party> getCurrentParty(void) const;
-	int getID(void) const;
+	uint8_t getID(void) const;
+	uint8_t getLife(void) const;
+	uint16_t getScore(void) const;
 	bool isRunning(void) const;
 	bool isReady(void) const;
 	std::pair<uint16_t, uint16_t> const& getPosition(void) const;
@@ -54,8 +58,11 @@ private:
 
 	std::shared_ptr<Party> _party;
 	bool _running;
-	int _id;
 	std::pair<uint16_t, uint16_t> _position;
 	bool _ready;
+
+	uint8_t _id;
+	uint8_t _life;
+	uint16_t _score;
 };
 

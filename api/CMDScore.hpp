@@ -2,14 +2,12 @@
 
 #include "ICommand.hpp"
 
-#include "StaticTools.hpp"
-
-class CMDMove : public ICommand
+class CMDScore : public ICommand
 {
 public:
-	CMDMove(uint8_t id, uint16_t x, uint16_t y, uint16_t velocity, uint8_t direction);
-	CMDMove(void);
-	virtual ~CMDMove(void);
+	CMDScore(void);
+	CMDScore(uint8_t id, uint16_t score);
+	virtual ~CMDScore(void);
 
 	virtual void loadFromMemory(char const *data);
 	virtual size_t getSize(void) const;
@@ -17,6 +15,6 @@ public:
 	virtual char *getData(void) const;
 
 private:
-	Move *_data;
+	Score *_data;
 };
 

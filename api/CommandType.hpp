@@ -9,6 +9,8 @@ enum class CommandType : uint8_t
 	Disconnected = 2,
 	Connect = 5,
 	CreateParty = 6,
+	Score = 7,
+	Life = 8,
 	Spawn = 10,
 	Move = 11,
 	Destroyed = 12,

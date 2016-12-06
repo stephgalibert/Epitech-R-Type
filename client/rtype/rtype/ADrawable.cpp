@@ -35,6 +35,23 @@ bool ADrawable::isInitialized(void) const
 	return (_init);
 }
 
+void ADrawable::setVisiblity(int visibility)
+{
+	if (!_shape) {
+		return;
+	}
+
+	sf::Color const& c = _shape->getFillColor();
+	switch (visibility)
+	{
+	case VISIBILITY_GONE:
+		_shape->setFillColor(sf::Color(c.r, c.g, c.b, 0));
+		break;
+	default:
+		break;
+	}
+}
+
 void ADrawable::setShape(sf::Shape *shape)
 {
 	_shape = shape;

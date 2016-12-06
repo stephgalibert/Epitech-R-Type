@@ -8,7 +8,8 @@ std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > Command
 	{(int)CommandType::Move, std::bind(&CommandFactory::cmd_move)},
 	{(int)CommandType::Collision, std::bind(&CommandFactory::cmd_collision)},
 	{(int)CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed)},
-	{(int)CommandType::Fire, std::bind(&CommandFactory::cmd_fire)}
+	{(int)CommandType::Fire, std::bind(&CommandFactory::cmd_fire)},
+	{(int)CommandType::Score, std::bind(&CommandFactory::cmd_score)}
 };
 
 std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
@@ -42,6 +43,11 @@ std::shared_ptr<ICommand> CommandFactory::cmd_createParty(void)
 std::shared_ptr<ICommand> CommandFactory::cmd_disconnected(void)
 {
 	return std::make_shared<CMDDisconnected>();
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_score(void)
+{
+	return (std::make_shared<CMDScore>());
 }
 
 std::shared_ptr<ICommand> CommandFactory::cmd_error(void)

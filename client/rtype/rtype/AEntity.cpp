@@ -4,8 +4,10 @@ AEntity::AEntity()
 	  : _velocity(0),
 		_degrees(0),
 		_radians(0),
-	   _direction(0)
+	   _direction(0),
+	   _dead(false)
 {
+	setAngle(-1);
 }
 
 AEntity::~AEntity(void)
@@ -46,14 +48,6 @@ uint8_t AEntity::getDirection(void) const
 	return (_direction);
 }
 
-void AEntity::move(float delta)
-{
-	if (_degrees != -1) {
-		ADrawable::move(std::cos(_radians) * _velocity * delta,
-			std::sin(_radians) * _velocity * delta);
-	}
-}
-
 void AEntity::setReadyForInit(bool value)
 {
 	_readyForInit = value;
@@ -83,4 +77,19 @@ void AEntity::setAngle(float angle)
 float AEntity::getAngle(void) const
 {
 	return (_degrees);
+}
+
+float AEntity::getRadians(void) const
+{
+	return (_radians);
+}
+
+bool AEntity::isDead(void) const
+{
+	return (_dead);
+}
+
+void AEntity::setDead(bool value)
+{
+	_dead = value;
 }

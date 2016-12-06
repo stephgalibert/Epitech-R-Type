@@ -15,6 +15,7 @@
 #include "CMDPing.hpp"
 #include "CMDSpawn.hpp"
 #include "CMDDestroyed.hpp"
+#include "CMDScore.hpp"
 
 class CommandFactory
 {
@@ -27,6 +28,7 @@ private:
 	static std::shared_ptr<ICommand> cmd_connect(void);
 	static std::shared_ptr<ICommand> cmd_createParty(void);
 	static std::shared_ptr<ICommand> cmd_disconnected(void);
+	static std::shared_ptr<ICommand> cmd_score(void);
 	static std::shared_ptr<ICommand> cmd_error(void);
 	static std::shared_ptr<ICommand> cmd_fire(void);
 	static std::shared_ptr<ICommand> cmd_move(void);

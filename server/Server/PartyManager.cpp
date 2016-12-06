@@ -19,6 +19,20 @@ void PartyManager::update(void)
 		party.second->run();
 	}
 
+	if (!_parties.empty()) {
+		std::unordered_map<std::string, std::shared_ptr<Party> >::iterator it = _parties.begin();
+		while (it != _parties.cend()) {
+			if ((*it).second->isFinished()) {
+				std::lock_guard<std::mutex> lock(_mutex);
+				(*it).second->close();
+				it = _parties.erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+	}
+
 }
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
