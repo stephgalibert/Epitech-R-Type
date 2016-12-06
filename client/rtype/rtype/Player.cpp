@@ -5,13 +5,15 @@ Player::Player()
 	: _delta(0.f),
 	_deltaLastShoot(0),
 	_client(NULL),
-	_decrease(false)
+	_decrease(false),
+	_powder(NULL)
 {
 	_targetFrame = 0;
 	_currentFrame = FRAME_MID;
-	//_currentSmoke = 2;
 	setVelocity(150.f);
 	_resolution = StaticTools::GetResolution();
+	_loadedShot = false;
+	_deltaLoadedShot = 0;
 }
 
 Player::~Player(void)
@@ -49,6 +51,14 @@ void Player::update(float delta)
 
 	_delta += delta;
 	_deltaLastShoot += delta;
+	if (_loadedShot) {
+		_deltaLoadedShot += delta;
+	}
+
+	if (_powder && _powder->isAnimationFinished()) {
+		_powder->recycle();
+		_powder = NULL;
+	}
 
 	updateFrame();
 	APC::update(delta);
@@ -68,7 +78,8 @@ void Player::collision(IClient *client, ACollidable *other)
   (void)client;
 	if (getCollisionType() != COLLISION_NONE
 		&& other->getCollisionType() == COLLISION_FATAL
-		&& _currentDirection != FRAME_EXP) {
+		&& _currentDirection != FRAME_EXP
+		&& !hasCollisioned()) {
 
 		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
@@ -81,6 +92,7 @@ void Player::collision(IClient *client, ACollidable *other)
 		setAngle(-1);
 		setVelocity(0);
 
+		setCollisioned(true);
 		other->collision(client, this);
 		setCollisionType(COLLISION_NONE);
 	}
@@ -117,27 +129,41 @@ void Player::move(float delta)
 		}
 
 		ADrawable::move(x, y);
+		if (_powder) {
+			_powder->setPosition(pos.x + 35, pos.y + 2);
+		}
 	}
 }
 
-void Player::shoot(void)
+void Player::shoot(Fire const& param)
 {
 	if (_deltaLastShoot > 0.25f) {
 		LevelResource::TheLevelResource.getSoundByKey("shot")->play();
 		sf::Vector2f const& pos = getPosition();
+		sf::Vector2f size;
 
 		Laser *shot = World::TheWorld.spawnEntity<Laser>();
-		shot->setPosition(pos.x + 50, pos.y);
+		shot->setLoadedTiming(_deltaLoadedShot);
 		shot->setAngle(0);
 		shot->setColor(getID());
 		shot->setOwnerID(getID());
+
+		size = shot->getSpriteSize();
+		shot->setPosition(pos.x + 45 + size.x / 2.f, pos.y);
+
 		shot->setReadyForInit(true);
-		//_currentSmoke = 0;
 		_deltaLastShoot = 0.f;
 
 		if (_client) {
-			_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, getID(),
-				(int)pos.x + 50, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0));
+			_client->write(std::make_shared<CMDFire>(param.type, getID(),
+				(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0, shot->getLevel()));
+		}
+
+		if (!_powder) {
+			_powder = World::TheWorld.spawnEntity<Powdered>();
+			_powder->setPosition(pos.x + 35.f, pos.y + 2.f);
+			_powder->setColor(getID());
+			_powder->setReadyForInit(true);
 		}
 	}
 }
@@ -173,9 +199,6 @@ void Player::initFrame(void)
 	default:
 		break;
 	}
-
-	//_smoke[0] = sf::IntRect(233, 86, 12, 12);
-	//_smoke[1] = sf::IntRect(215, 84, 16, 14);
 }
 
 void Player::updateFrame(void)
@@ -263,34 +286,62 @@ void Player::keyboard(InputHandler &input)
 		_currentDirection = FRAME_BOT;
 	}
 
-	if (input.isKeyDown(sf::Keyboard::Space)) {
-		shoot();
+	if (!_loadedShot && input.isKeyDown(sf::Keyboard::Space)) {
+		_deltaLoadedShot = 0;
+		_loadedShot = true;
+	}
+	else if (_loadedShot && !input.isKeyDown(sf::Keyboard::Space)) {
+		Fire fire;
+		fire.type = MissileType::MT_FriendFire_Lv1;
+		shoot(fire);
+		_loadedShot = false;
 	}
 }
 
 void Player::joystick(InputHandler &input)
 {
-	// to update
-	//uint8_t direction = 0;
+	_currentDirection = FRAME_MID;
+	uint8_t direction = 0;
 
-	//if (input.getJoystickAxis(0, sf::Joystick::Y) < -InputHandler::JOYSTICK_DEAD_ZONE) {
-	//	direction |= NORTH;
-	//	_targetFrame = 4; // !
-	//}
-	//else if (input.getJoystickAxis(0, sf::Joystick::Y) > InputHandler::JOYSTICK_DEAD_ZONE)
-	//{
-	//	direction |= SOUTH;
-	//	_targetFrame = 0; // !
-	//}
+	if (input.getJoystickAxis(0, sf::Joystick::Y) < -InputHandler::JOYSTICK_DEAD_ZONE) {
+		direction |= NORTH;
+	}
+	else if (input.getJoystickAxis(0, sf::Joystick::Y) > InputHandler::JOYSTICK_DEAD_ZONE)
+	{
+		direction |= SOUTH;
+	}
 
-	//if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
-	//	direction |= EAST;
-	//}
-	//else if (input.getJoystickAxis(0, sf::Joystick::X) > InputHandler::JOYSTICK_DEAD_ZONE) {
-	//	direction |= WEAST;
-	//}
+	if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
+		direction |= EAST;
+		_targetFrame = 3;
+	}
+	else if (input.getJoystickAxis(0, sf::Joystick::X) > InputHandler::JOYSTICK_DEAD_ZONE) {
+		direction |= WEAST;
+	}
 
-	//if (input.isJoystickButtonDown(0)) {
-	//	shoot();
-	//}
+	if (getDirection() != direction) {
+		sf::Vector2f const& pos = getPosition();
+		_client->write(std::make_shared<CMDMove>(getID(), (uint16_t)pos.x, (uint16_t)pos.y,
+			(uint16_t)getVelocity(), direction));
+		setDirection(direction);
+	}
+
+	if (direction & NORTH && direction & EAST) {
+		_currentDirection = FRAME_TOP;
+	}
+	else if (direction & SOUTH && direction & EAST) {
+		_currentDirection = FRAME_BOT;
+	}
+	else if (direction == NORTH) {
+		_currentDirection = FRAME_TOP;
+	}
+	else if (direction == SOUTH) {
+		_currentDirection = FRAME_BOT;
+	}
+
+	if (input.isJoystickButtonDown(0)) {
+		Fire fire;
+		fire.type = MissileType::MT_FriendFire_Lv1;
+		shoot(fire);
+	}
 }

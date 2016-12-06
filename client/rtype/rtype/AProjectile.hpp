@@ -15,8 +15,13 @@ public:
 	virtual void collision(IClient *client, ACollidable *other) = 0;
 
 	void setOwnerID(uint8_t ownerID);
+	uint8_t getOwnerID(void) const;
+
+	void setLevel(uint8_t level);
+	uint8_t getLevel(void) const;
 
 private:
 	uint8_t _ownerID;
+	uint8_t _currentLevel;
 };
 

@@ -37,9 +37,6 @@ public:
 	void setID(uint8_t id);
 	uint8_t getID(void) const;
 
-	bool isDead(void) const;
-	void setDead(bool value);
-
 private:
 	bool _readyForInit;
 	uint8_t _id;
@@ -47,5 +44,4 @@ private:
 	float _degrees;
 	float _radians;
 	uint8_t _direction;
-	bool _dead;
 };

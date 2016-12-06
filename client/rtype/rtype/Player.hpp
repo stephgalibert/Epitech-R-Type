@@ -6,6 +6,7 @@
 #include "LevelResource.hpp"
 #include "Laser.hpp"
 #include "Explosion.hpp"
+#include "Powdered.hpp"
 
 class IClient;
 
@@ -29,9 +30,11 @@ public:
 	virtual void input(InputHandler &input);
 	virtual void move(float delta);
 
-	void shoot(void);
+	virtual void shoot(Fire const& param);
 
 	void setIClient(IClient *client);
+
+	/* ici les getters pour le hud */
 
 private:
 	void initFrame(void);
@@ -48,8 +51,11 @@ private:
 	uint8_t _currentFrame;
 
 	std::unordered_map<uint8_t, sf::IntRect> _frames;
-	//std::unordered_map<uint8_t, sf::IntRect> _smoke;
 	uint8_t _currentDirection;
 	std::pair<short, short> _resolution;
+
+	Powdered *_powder;
+	bool _loadedShot;
+	float _deltaLoadedShot;
 };
 

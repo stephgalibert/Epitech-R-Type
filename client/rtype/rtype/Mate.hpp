@@ -3,6 +3,8 @@
 #include "ANPC.hpp"
 #include "LevelResource.hpp"
 #include "Explosion.hpp"
+#include "Powdered.hpp"
+#include "Laser.hpp"
 
 class Mate : public ANPC
 {
@@ -23,10 +25,11 @@ public:
 	virtual void collision(IClient *client, ACollidable *other);
 	virtual void move(float delta);
 
-	void updateFrame(void);
+	virtual void shoot(Fire const& param);
 
 private:
 	void initFrame(void);
+	void updateFrame(void);
 
 	uint8_t _prevDirection;
 	float _delta;
@@ -37,5 +40,7 @@ private:
 	std::unordered_map<uint8_t, sf::IntRect> _frames;
 	uint8_t _currentDirection;
 	std::pair<short, short> _resolution;
+
+	Powdered *_powder;
 };
 

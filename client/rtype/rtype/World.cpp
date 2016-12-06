@@ -44,7 +44,8 @@ void World::update(float delta)
 				(*it)->init();
 				++it;
 			}
-			else if ((*it)->getPosition().x < 0 || (*it)->getPosition().x > StaticTools::GetResolution().first) {
+			else if ((*it)->getPosition().x /*+ ((*it)->getBoundingBox().width / 2)*/ < 0
+				|| (*it)->getPosition().x /*- ((*it)->getBoundingBox().height / 2)*/ > StaticTools::GetResolution().first) {
 				(*it)->recycle();
 			}
 			else {

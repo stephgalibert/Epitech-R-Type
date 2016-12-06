@@ -27,7 +27,11 @@ public:
 	uint8_t getCollisionType(void) const;
 	void setCollisionType(uint8_t type);
 
+	bool hasCollisioned(void) const;
+	void setCollisioned(bool value);
+
 private:
 	uint8_t _type;
+	bool _collisioned;
 };
 

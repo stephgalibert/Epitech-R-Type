@@ -1,7 +1,7 @@
 #include "CMDFire.hpp"
 
 CMDFire::CMDFire(MissileType type, uint8_t id, uint16_t x, uint16_t y,
-	uint8_t velocity, uint8_t angle, uint8_t effect)
+	uint8_t velocity, uint8_t angle, uint8_t effect, uint8_t level)
 {
 	_data = new Fire;
 	_data->cmdType = getCommandType();
@@ -11,6 +11,7 @@ CMDFire::CMDFire(MissileType type, uint8_t id, uint16_t x, uint16_t y,
 	_data->velocity = velocity;
 	_data->angle = angle;
 	_data->effect = effect;
+	_data->level = level;
 }
 
 CMDFire::CMDFire(void)
@@ -34,6 +35,7 @@ void CMDFire::loadFromMemory(char const *data)
 	_data->velocity = fire.velocity;
 	_data->angle = fire.angle;
 	_data->effect = fire.effect;
+	_data->level = fire.level;
 }
 
 size_t CMDFire::getSize(void) const

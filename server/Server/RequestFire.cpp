@@ -17,7 +17,6 @@ void RequestFire::execute(std::shared_ptr<AConnection> owner,
 	(void)reply;
 	std::shared_ptr<Party> party = owner->getCurrentParty();
 
-	std::cout << "executing fire request" << std::endl;
 	if (party) {
 		party->broadcast(owner, received);
 	}

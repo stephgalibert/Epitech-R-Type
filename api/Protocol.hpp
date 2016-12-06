@@ -92,6 +92,7 @@ struct Fire
 	uint8_t velocity;
 	uint8_t angle;
 	uint8_t effect;
+	uint8_t level;
 };
 
 struct Destroyed

@@ -1,39 +1,35 @@
 #pragma once
 
-#include <unordered_map>
+#include <vector>
 
-#include "AProjectile.hpp"
+#include "AEntity.hpp"
 #include "LevelResource.hpp"
-#include "Explosion.hpp"
-#include "World.hpp"
 
-class Laser : public AProjectile
+class Powdered : public AEntity
 {
 public:
-	Laser(void);
-	virtual ~Laser(void);
+	Powdered(void);
+	virtual ~Powdered(void);
 
 	virtual void init(void);
 	virtual void update(float delta);
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, ACollidable *other);
+	virtual void move(float delta);
 
 	void setColor(uint8_t color);
-	void setLoadedTiming(float delta);
-
-	sf::Vector2f getSpriteSize(void) const;
+	bool isAnimationFinished(void) const;
 
 private:
 	void initFrame(void);
 	void updateFrame(void);
 
 	sf::RectangleShape *_shape;
-
 	float _delta;
-	//uint8_t _currentlevel;
 	uint8_t _currentFrame;
 	uint8_t _color;
-	std::unordered_map<uint8_t, sf::IntRect[2]> _frames;
+	std::vector<sf::IntRect> _frames;
+	bool _finished;
 };
 

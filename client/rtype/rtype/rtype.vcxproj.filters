@@ -249,6 +249,9 @@
     <ClCompile Include="..\..\..\api\CMDScore.cpp">
       <Filter>Fichiers sources\protocol</Filter>
     </ClCompile>
+    <ClCompile Include="Powdered.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -460,6 +463,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\api\CMDScore.hpp">
       <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Powdered.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

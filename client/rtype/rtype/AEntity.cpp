@@ -4,8 +4,7 @@ AEntity::AEntity()
 	  : _velocity(0),
 		_degrees(0),
 		_radians(0),
-	   _direction(0),
-	   _dead(false)
+	   _direction(0)
 {
 	setAngle(-1);
 }
@@ -82,14 +81,4 @@ float AEntity::getAngle(void) const
 float AEntity::getRadians(void) const
 {
 	return (_radians);
-}
-
-bool AEntity::isDead(void) const
-{
-	return (_dead);
-}
-
-void AEntity::setDead(bool value)
-{
-	_dead = value;
 }

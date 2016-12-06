@@ -14,5 +14,11 @@ public:
 
 	virtual void collision(IClient *client, ACollidable *other) = 0;
 	virtual void move(float delta) = 0;
+
+	bool isDead(void) const;
+	void setDead(bool value);
+
+private:
+	bool _dead;
 };
 

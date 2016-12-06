@@ -200,6 +200,7 @@
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Powdered.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="MenuButton.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Powdered.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />

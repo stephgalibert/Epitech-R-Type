@@ -2,11 +2,12 @@
 #include "Explosion.hpp"
 #include "World.hpp"
 
-ACollidable::ACollidable()
+ACollidable::ACollidable(void)
+	: _collisioned(false)
 {
 }
 
-ACollidable::~ACollidable()
+ACollidable::~ACollidable(void)
 {
 }
 
@@ -36,4 +37,14 @@ uint8_t ACollidable::getCollisionType(void) const
 void ACollidable::setCollisionType(uint8_t type)
 {
 	_type = type;
+}
+
+bool ACollidable::hasCollisioned(void) const
+{
+	return (_collisioned);
+}
+
+void ACollidable::setCollisioned(bool value)
+{
+	_collisioned = value;
 }

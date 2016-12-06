@@ -26,6 +26,7 @@ void Explosion::init(void)
 		setShape(shape);
 		setTexture(texture);
 
+		std::cout << "play explosion" << std::endl;
 		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
 	}
 	catch (std::exception const& e) {

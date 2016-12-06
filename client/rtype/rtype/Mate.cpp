@@ -7,6 +7,7 @@ Mate::Mate(void)
 	setVelocity(0.f);
 	_currentDirection = FRAME_MID;
 	_resolution = StaticTools::GetResolution();
+	_powder = NULL;
 }
 
 Mate::~Mate(void)
@@ -44,6 +45,11 @@ void Mate::update(float delta)
 		return;
 	}
 	_delta += delta;
+
+	if (_powder && _powder->isAnimationFinished()) {
+		_powder->recycle();
+		_powder = NULL;
+	}
 
 	if (_currentDirection != FRAME_EXP) {
 		uint8_t direction = getDirection();
@@ -85,7 +91,8 @@ void Mate::collision(IClient *client, ACollidable *other)
 	(void)client;
 	if (getCollisionType() != COLLISION_NONE
 		&& other->getCollisionType() == COLLISION_FATAL
-		&& _currentDirection != FRAME_EXP) {
+		&& _currentDirection != FRAME_EXP
+		&& !hasCollisioned()) {
 
 		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
@@ -98,6 +105,7 @@ void Mate::collision(IClient *client, ACollidable *other)
 		setAngle(-1);
 		setVelocity(0);
 
+		setCollisioned(true);
 		other->collision(client, this);
 		setCollisionType(COLLISION_NONE);
 	}
@@ -119,6 +127,38 @@ void Mate::move(float delta)
 		}
 
 		ADrawable::move(x, y);
+		if (_powder) {
+			_powder->setPosition(pos.x + 35, pos.y + 2);
+		}
+	}
+}
+
+void Mate::shoot(Fire const& param)
+{
+	MissileType type = param.type;
+	uint8_t id = param.id_launcher;
+	uint16_t x = 0;
+	uint16_t y = 0;
+	uint8_t velocity = param.velocity;
+	uint8_t angle = param.angle;
+	uint8_t effect = param.effect;
+
+	StaticTools::DeserializePosition(param.position, x, y);
+
+	Laser *laser = World::TheWorld.spawnEntity<Laser>();
+	laser->setLevel(param.level);
+	laser->setPosition(x, y);
+	laser->setOwnerID(id);
+	laser->setAngle(angle);
+	laser->setVelocity(velocity);
+	laser->setColor(id);
+	laser->setReadyForInit(true);
+
+	if (!_powder) {
+		_powder = World::TheWorld.spawnEntity<Powdered>();
+		_powder->setPosition(x - 15.f, y + 2.f);
+		_powder->setColor(getID());
+		_powder->setReadyForInit(true);
 	}
 }
 
