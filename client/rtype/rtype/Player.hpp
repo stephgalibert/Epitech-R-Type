@@ -7,6 +7,7 @@
 #include "Laser.hpp"
 #include "Explosion.hpp"
 #include "Powdered.hpp"
+#include "LoadedPowdered.hpp"
 
 class IClient;
 
@@ -55,6 +56,7 @@ private:
 	std::pair<short, short> _resolution;
 
 	Powdered *_powder;
+	LoadedPowdered *_loadedPowder;
 	bool _loadedShot;
 	float _deltaLoadedShot;
 };

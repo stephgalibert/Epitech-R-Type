@@ -17,44 +17,46 @@
 #include "TCPClient.hpp"
 
 #include "FPSCounter.hpp"
+#include "ApplicationState.hpp"
 
 class Application
 {
-private:
-	enum class State : short
-	{
-		ST_None = 0,
-		ST_MainMenu = 1,
-		ST_Game = 2
-	};
-
 public:
 	Application(void);
 	~Application(void);
 
 	void init(std::string host, std::string pwd);
-	void setState(State state);
-
 	void loop(void);
 
 private:
 	void initNetwork(void);
 	void initIcon(void);
-	void initControllers(void);
 
-	void st_main_menu(void);
-	void st_game(void);
+	void inputMenu(InputHandler &input);
+	void inputGame(InputHandler &input);
 
-	void draw(void);
+	void updateMenu(float delta);
+	void updateGame(float delta);
 
+	void drawMenu(sf::RenderWindow &window);
+	void drawGame(sf::RenderWindow &window);
+
+	bool isRunning(void) const;
+
+private:
 	TCPClient _client;
 	Timer _timer;
 	InputHandler _inputHandler;
 	sf::RenderWindow _window;
 
-	State _fsm;
-	std::unordered_map<int, AController *> _controllers;
+	ApplicationState _state;
+	FPSCounter _fps;
+	MainMenuController _menu;
+	GameController *_game;
+	bool _quit;
 
-	FPSCounter _fps; // tmp
+	std::unordered_map<ApplicationState, std::function<void(InputHandler &)> > _inputs;
+	std::unordered_map<ApplicationState, std::function<void(float)> > _updates;
+	std::unordered_map<ApplicationState, std::function<void(sf::RenderWindow &)> > _draws;
 };
 

@@ -13,6 +13,7 @@ Laser::Laser(void)
 
 Laser::~Laser(void)
 {
+	std::cout << "destroying laser" << std::endl;
 }
 
 void Laser::init(void)
@@ -45,6 +46,7 @@ void Laser::update(float delta)
 
 void Laser::destroy(void)
 {
+	recycle();
 }
 
 void Laser::collision(IClient *client, ACollidable *other)
@@ -71,7 +73,7 @@ void Laser::setColor(uint8_t color)
 
 void Laser::setLoadedTiming(float delta)
 {
-	setLevel(static_cast<uint8_t>(delta / 0.5f));
+	setLevel(static_cast<uint8_t>(delta / 0.3f));
 	if (getLevel() > 5) {
 		setLevel(5);
 	}

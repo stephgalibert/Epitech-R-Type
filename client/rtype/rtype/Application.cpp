@@ -1,25 +1,32 @@
 #include "Application.hpp"
 
 Application::Application(void)
-	: _client("127.0.0.1", "4242")
+	: _client(&_game, "127.0.0.1", "4242")
 {
-	//sf::Vector2i reso(800, 480);
-	std::pair<short, short> reso = StaticTools::GetResolution();
+		//_game(_client, "room1", "pwd1")
+	std::pair<short, short> resolution = StaticTools::GetResolution();
 
 	sf::ContextSettings context;
 	context.antialiasingLevel = 4;
 
-	_window.create(sf::VideoMode(reso.first, reso.second), "R-Type", sf::Style::Default, context);
+	_window.create(sf::VideoMode(resolution.first, resolution.second), "R-Type", sf::Style::Default, context);
 	_window.setPosition(sf::Vector2i(0, 0));
 	_window.setVerticalSyncEnabled(true);
+
+	_state = ApplicationState::AS_MainMenu;
+	_inputs[ApplicationState::AS_MainMenu] = std::bind(&Application::inputMenu, this, std::placeholders::_1);
+	_inputs[ApplicationState::AS_Game] = std::bind(&Application::inputGame, this, std::placeholders::_1);
+	_updates[ApplicationState::AS_MainMenu] = std::bind(&Application::updateMenu, this, std::placeholders::_1);
+	_updates[ApplicationState::AS_Game] = std::bind(&Application::updateGame, this, std::placeholders::_1);
+	_draws[ApplicationState::AS_MainMenu] = std::bind(&Application::drawMenu, this, std::placeholders::_1);
+	_draws[ApplicationState::AS_Game] = std::bind(&Application::drawGame, this, std::placeholders::_1);
+
+	_game = NULL;
+	_quit = false;
 }
 
 Application::~Application(void)
 {
-	for (auto it : _controllers) {
-		it.second->recycle();
-		delete (it.second);
-	}
 }
 
 //#include <Windows.h> // !
@@ -33,10 +40,11 @@ void Application::init(std::string host, std::string pwd)
 
 		initIcon();
 		initNetwork();
-		initControllers();
 		
 		_fps.init();
 		_inputHandler.init();
+
+		_menu.init();
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -46,20 +54,6 @@ void Application::init(std::string host, std::string pwd)
 	_timer.restart();
 }
 
-void Application::setState(State state)
-{
-	switch (state)
-	{
-	case State::ST_MainMenu:
-		st_main_menu();
-		break;
-	case State::ST_Game:
-		st_game();
-		break;
-	default:
-	  break;
-	}
-}
 
 // les états peuvent se changer d'eux même => à faire
 void Application::loop(void)
@@ -74,17 +68,15 @@ void Application::loop(void)
 		while (_window.pollEvent(event))
 		{
 			_inputHandler.OnEvent(event);
-			if (_inputHandler.isExiting()) {
+			if (!isRunning()) {
 				_client.disconnect();
 				_window.close();
 			}
 		}
 
-		_controllers.at((int)_fsm)->input(_inputHandler);
-		_fps.update(delta);
-		_controllers.at((int)_fsm)->update(delta);
-
-		draw();
+		_inputs.at(_state)(_inputHandler);
+		_updates.at(_state)(delta);
+		_draws.at(_state)(_window);
 	}
 }
 
@@ -104,36 +96,58 @@ void Application::initNetwork(void)
 	_client.run();
 }
 
-void Application::initControllers(void)
+void Application::inputMenu(InputHandler &input)
 {
-	//_fsm = State::ST_MainMenu;
-	_fsm = State::ST_Game;
-
-	GameController *game = new GameController(_client, "name", "pwd");
-	_client.setGameController(game);
-
-	_controllers[(int)State::ST_MainMenu] = new MainMenuController();
-	_controllers[(int)State::ST_Game] = game;
-
-	_controllers.at((int)_fsm)->init();
+	_menu.input(input);
 }
 
-void Application::st_main_menu(void)
+void Application::inputGame(InputHandler &input)
 {
-	_fsm = State::ST_MainMenu;
+	_game->input(input);
 }
 
-void Application::st_game(void)
+void Application::updateMenu(float delta)
 {
-	_fsm = State::ST_Game;
+	_fps.update(delta);
+	_menu.update(delta);
+	switch (_menu.pullAction())
+	{
+	case MainMenuController::SelectedAction::PLAY:
+		_state = ApplicationState::AS_Game;
+		_game = new GameController(_client);
+		_game->init();
+		_game->connectToParty("name", "pwd");
+		break;
+	case MainMenuController::SelectedAction::QUIT:
+		_quit = true;
+		break;
+	default:
+		break;
+	}
+}
+void Application::updateGame(float delta)
+{
+	_fps.update(delta);
+	_game->update(delta);
 }
 
-void Application::draw(void)
+void Application::drawMenu(sf::RenderWindow &window)
 {
 	_window.clear();
-
-	_controllers.at((int)_fsm)->draw(_window);
-	_fps.draw(_window); // !
-
+	_menu.draw(window);
+	_fps.draw(_window);
 	_window.display();
+}
+
+void Application::drawGame(sf::RenderWindow &window)
+{
+	_window.clear();
+	_game->draw(window);
+	_fps.draw(_window);
+	_window.display();
+}
+
+bool Application::isRunning(void) const
+{
+	return (!_inputHandler.isExiting() && !_quit && _window.isOpen());
 }

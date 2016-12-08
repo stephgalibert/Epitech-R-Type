@@ -13,6 +13,7 @@
 #include "RequestCollision.hpp"
 #include "RequestDestroyed.hpp"
 #include "RequestFire.hpp"
+#include "RequestLoadedPowder.hpp"
 
 class RequestBuilder
 {
@@ -23,6 +24,7 @@ public:
 	std::unique_ptr<IRequest> build(CommandType type) const;
 
 private:
+	std::unique_ptr<IRequest> create_LoadedPowderRequest(void);
 	std::unique_ptr<IRequest> create_ConnectRequest(void);
 	std::unique_ptr<IRequest> create_CreatePartyRequest(void);
 	std::unique_ptr<IRequest> create_SpawnRequest(void);

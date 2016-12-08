@@ -15,5 +15,6 @@ enum class CommandType : uint8_t
 	Move = 11,
 	Destroyed = 12,
 	Fire = 13,
-	Collision = 14
+	Collision = 14,
+	LoadedPowder = 15
 };

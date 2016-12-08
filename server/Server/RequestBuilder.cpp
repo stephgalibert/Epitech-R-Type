@@ -7,6 +7,7 @@ RequestBuilder::RequestBuilder(void)
 	_requests[(int)CommandType::Move] = std::bind(&RequestBuilder::create_MoveRequest, this);
 	_requests[(int)CommandType::Destroyed] = std::bind(&RequestBuilder::create_DestroyedRequest, this);
 	_requests[(int)CommandType::Fire] = std::bind(&RequestBuilder::create_FireRequest, this);
+	_requests[(int)CommandType::LoadedPowder] = std::bind(&RequestBuilder::create_LoadedPowderRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -19,6 +20,11 @@ std::unique_ptr<IRequest> RequestBuilder::build(CommandType type) const
 		return (std::move(_requests.at((int)type)()));
 	}
 	return (NULL);
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_LoadedPowderRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestLoadedPowder));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_ConnectRequest(void)

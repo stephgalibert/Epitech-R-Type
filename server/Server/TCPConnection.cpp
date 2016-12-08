@@ -61,11 +61,9 @@ void TCPConnection::read(void)
 
 void TCPConnection::do_read(bool error)
 {
-	StaticTools::Log << "tcp do_read " << _read.getSize() << " bytes" << std::endl;
 	if (error) {
 		CommandType type = StaticTools::GetPacketType(_read.getData());
 		std::shared_ptr<ICommand> command = CommandFactory::build(type);
-		StaticTools::Log << "received command type: " << (int)type << std::endl;
 
 		if (!command) {
 			read();
@@ -76,7 +74,6 @@ void TCPConnection::do_read(bool error)
 		std::shared_ptr<ICommand> reply = NULL;
 		getRequestHandler().receive(shared_from_this(), command, reply);
 		if (reply) {
-			StaticTools::Log << "writing reply " << (int)reply->getCommandType() << std::endl;
 			write(reply);
 		}
 
@@ -87,9 +84,6 @@ void TCPConnection::do_read(bool error)
 			else {
 				read();
 			}
-		}
-		else {
-			std::cout << "deleting connection" << std::endl;
 		}
 	}
 	else {

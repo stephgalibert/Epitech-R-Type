@@ -5,6 +5,7 @@
 #include "Explosion.hpp"
 #include "Powdered.hpp"
 #include "Laser.hpp"
+#include "LoadedPowdered.hpp"
 
 class Mate : public ANPC
 {
@@ -26,6 +27,7 @@ public:
 	virtual void move(float delta);
 
 	virtual void shoot(Fire const& param);
+	virtual void setPowder(PowderType powderType);
 
 private:
 	void initFrame(void);
@@ -42,5 +44,8 @@ private:
 	std::pair<short, short> _resolution;
 
 	Powdered *_powder;
+	LoadedPowdered *_loadedPowder;
+	//float _deltaLoadedShot;
+	bool _loadedShot;
 };
 

@@ -8,12 +8,16 @@ Mate::Mate(void)
 	_currentDirection = FRAME_MID;
 	_resolution = StaticTools::GetResolution();
 	_powder = NULL;
+	_loadedPowder = NULL;
+	_loadedShot = false;
 }
 
 Mate::~Mate(void)
 {
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+	}
 }
-
 
 void Mate::init(void)
 {
@@ -42,6 +46,10 @@ void Mate::init(void)
 void Mate::update(float delta)
 {
 	if (isDead()) {
+		if (_powder) {
+			_powder->recycle();
+			_powder = NULL;
+		}
 		return;
 	}
 	_delta += delta;
@@ -94,7 +102,7 @@ void Mate::collision(IClient *client, ACollidable *other)
 		&& _currentDirection != FRAME_EXP
 		&& !hasCollisioned()) {
 
-		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
+		Explosion *explosion = World::spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
 		explosion->setReadyForInit(true);
 
@@ -104,6 +112,11 @@ void Mate::collision(IClient *client, ACollidable *other)
 
 		setAngle(-1);
 		setVelocity(0);
+
+		if (_loadedPowder) {
+			_loadedPowder->recycle();
+			_loadedPowder = NULL;
+		}
 
 		setCollisioned(true);
 		other->collision(client, this);
@@ -130,11 +143,19 @@ void Mate::move(float delta)
 		if (_powder) {
 			_powder->setPosition(pos.x + 35, pos.y + 2);
 		}
+		if (_loadedPowder) {
+			_loadedPowder->setPosition(pos.x + 48, pos.y + 3);
+		}
 	}
 }
 
 void Mate::shoot(Fire const& param)
 {
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
+	}
+
 	MissileType type = param.type;
 	uint8_t id = param.id_launcher;
 	uint16_t x = 0;
@@ -145,7 +166,7 @@ void Mate::shoot(Fire const& param)
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	Laser *laser = World::TheWorld.spawnEntity<Laser>();
+	Laser *laser = World::spawnEntity<Laser>();
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
 	laser->setOwnerID(id);
@@ -155,10 +176,30 @@ void Mate::shoot(Fire const& param)
 	laser->setReadyForInit(true);
 
 	if (!_powder) {
-		_powder = World::TheWorld.spawnEntity<Powdered>();
-		_powder->setPosition(x - 15.f, y + 2.f);
+		_powder = World::spawnEntity<Powdered>();
+		_powder->setPosition(getPosition().x + 35, y + 2.f);
 		_powder->setColor(getID());
 		_powder->setReadyForInit(true);
+	}
+}
+
+void Mate::setPowder(PowderType powderType)
+{
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
+	}
+
+	switch (powderType)
+	{
+	case PowderType::LoadedPowder:
+		_loadedPowder = World::spawnEntity<LoadedPowdered>();
+		_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
+		_loadedPowder->setColor(getID());
+		_loadedPowder->setReadyForInit(true);
+		break;
+	default:
+		break;
 	}
 }
 

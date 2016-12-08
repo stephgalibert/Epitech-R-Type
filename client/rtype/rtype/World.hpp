@@ -18,32 +18,27 @@ class Player;
 class World
 {
 public:
-	static World TheWorld;
-public:
-	World(void);
-	~World(void);
+	static void init(IClient *client);
+	static void update(float delta);
+	static void display(sf::RenderWindow &window);
+	static void recycle(void);
 
-	void init(IClient *client, Player **player);
-	void update(float delta);
-	void display(sf::RenderWindow &window);
-	void recycle(void);
-
-	AEntity *getEntityByID(uint8_t id) const;
+	static AEntity *getEntityByID(uint8_t id);
 
 	template<typename T>
-	T *spawnEntity(void)
+	static T *spawnEntity(void)
 	{
 		T *entity = new T;
 
-		_entities.push_back(entity);
+		Entities.push_back(entity);
 		return (entity);
 	}
 
 private:
-	std::list<AEntity *> _entities;
-	std::vector<AEntity *> _toPush;
-	std::mutex _mutex;
-	IClient *_client;
-	Player **_player;
-	float _delta;
+	static std::list<AEntity *> Entities;
+	static std::vector<AEntity *> ToPush;
+	static std::mutex Mutex;
+	static IClient *Client;
+	static Player **thePlayer;
+	static float Delta;
 };

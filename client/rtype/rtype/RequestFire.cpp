@@ -18,7 +18,7 @@ void RequestFire::execute(IClient &client, std::shared_ptr<ICommand> data,
 
 	uint8_t id = fire->id_launcher;
 
-	AEntity *entity = World::TheWorld.getEntityByID(id);
+	AEntity *entity = World::getEntityByID(id);
 	ANPC *anpc = dynamic_cast<ANPC *>(entity);
 	if (anpc) {
 		anpc->shoot(*fire);

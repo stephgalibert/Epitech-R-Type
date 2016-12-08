@@ -13,10 +13,12 @@
 #include "IClient.hpp"
 #include "CMDConnect.hpp"
 
+#include "LoadingController.hpp"
+
 class GameController : public AController
 {
 public:
-	GameController(IClient &network, std::string const& partyName, std::string const& partyPwd);
+	GameController(IClient &network);
 	virtual ~GameController(void);
 
 	virtual void init(void);
@@ -24,11 +26,18 @@ public:
 	virtual void update(float delta);
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
-	
-	void addPlayer(Player *player);
+
+	void connectToParty(std::string const& partyName, std::string const& pwd);
+
+	void setReady(bool value);
+	void setPlayer(Player *player);
 	//void addMate(Mate *mate);
 
+	bool isReady(void) const;
+
 private:
+	LoadingController _loading;
+
 	IClient &_network;
 	std::string _partyName;
 	std::string _partyPwd;
@@ -36,5 +45,6 @@ private:
 	// mates
 	Background _back;
 	Background _front;
+	bool _ready;
 };
 

@@ -17,7 +17,7 @@
 class TCPClient : public IClient
 {
 public:
-	TCPClient(std::string const& remote, std::string const& port);
+	TCPClient(GameController **game, std::string const& remote, std::string const& port);
 	virtual ~TCPClient(void);
 
 	virtual void connect(void);
@@ -25,7 +25,7 @@ public:
 	virtual void disconnect(void);
 	virtual void run(void);
 	virtual bool isConnected(void) const;
-	virtual void setGameController(GameController *controller);
+	//virtual void setGameController(GameController *controller);
 	virtual GameController *getGameController(void) const;
 	virtual IClient &operator<<(std::shared_ptr<ICommand> packet);
 
@@ -48,7 +48,7 @@ private:
 	std::queue<std::shared_ptr<ICommand> > _toWrites;
 	bool _connected;
 	RequestHandler _reqHandler;
-	GameController *_controller;
+	GameController **_controller;
 
 	std::thread _runThread;
 

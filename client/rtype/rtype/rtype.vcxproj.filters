@@ -150,9 +150,6 @@
     <ClCompile Include="SoundBox.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
-    <ClCompile Include="GameController.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="APC.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
@@ -252,6 +249,21 @@
     <ClCompile Include="Powdered.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="LoadedPowdered.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDPowder.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestPowder.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -349,9 +361,6 @@
     </ClInclude>
     <ClInclude Include="SoundBox.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
-    </ClInclude>
-    <ClInclude Include="GameController.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="APC.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
@@ -466,6 +475,24 @@
     </ClInclude>
     <ClInclude Include="Powdered.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadedPowdered.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDPowder.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestPowder.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationState.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

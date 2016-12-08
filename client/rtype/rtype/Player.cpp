@@ -6,7 +6,8 @@ Player::Player()
 	_deltaLastShoot(0),
 	_client(NULL),
 	_decrease(false),
-	_powder(NULL)
+	_powder(NULL),
+	_loadedPowder(NULL)
 {
 	_targetFrame = 0;
 	_currentFrame = FRAME_MID;
@@ -18,6 +19,12 @@ Player::Player()
 
 Player::~Player(void)
 {
+	if (_powder) {
+		_powder->recycle();
+	}
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+	}
 }
 
 void Player::init(void)
@@ -81,7 +88,7 @@ void Player::collision(IClient *client, ACollidable *other)
 		&& _currentDirection != FRAME_EXP
 		&& !hasCollisioned()) {
 
-		Explosion *explosion = World::TheWorld.spawnEntity<Explosion>();
+		Explosion *explosion = World::spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
 		explosion->setReadyForInit(true);
 
@@ -91,6 +98,11 @@ void Player::collision(IClient *client, ACollidable *other)
 
 		setAngle(-1);
 		setVelocity(0);
+
+		if (_loadedPowder) {
+			_loadedPowder->recycle();
+			_loadedPowder = NULL;
+		}
 
 		setCollisioned(true);
 		other->collision(client, this);
@@ -132,6 +144,9 @@ void Player::move(float delta)
 		if (_powder) {
 			_powder->setPosition(pos.x + 35, pos.y + 2);
 		}
+		if (_loadedPowder) {
+			_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
+		}
 	}
 }
 
@@ -142,7 +157,7 @@ void Player::shoot(Fire const& param)
 		sf::Vector2f const& pos = getPosition();
 		sf::Vector2f size;
 
-		Laser *shot = World::TheWorld.spawnEntity<Laser>();
+		Laser *shot = World::spawnEntity<Laser>();
 		shot->setLoadedTiming(_deltaLoadedShot);
 		shot->setAngle(0);
 		shot->setColor(getID());
@@ -160,7 +175,7 @@ void Player::shoot(Fire const& param)
 		}
 
 		if (!_powder) {
-			_powder = World::TheWorld.spawnEntity<Powdered>();
+			_powder = World::spawnEntity<Powdered>();
 			_powder->setPosition(pos.x + 35.f, pos.y + 2.f);
 			_powder->setColor(getID());
 			_powder->setReadyForInit(true);
@@ -286,15 +301,31 @@ void Player::keyboard(InputHandler &input)
 		_currentDirection = FRAME_BOT;
 	}
 
+	if (_deltaLoadedShot > 0.2f && !_loadedPowder) {
+		_loadedPowder = World::spawnEntity<LoadedPowdered>();
+		_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
+		_loadedPowder->setColor(getID());
+		_loadedPowder->setReadyForInit(true);
+		if (_client) {
+			_client->write(std::make_shared<CMDPowder>(getID(), PowderType::LoadedPowder));
+		}
+	}
+
 	if (!_loadedShot && input.isKeyDown(sf::Keyboard::Space)) {
 		_deltaLoadedShot = 0;
 		_loadedShot = true;
 	}
 	else if (_loadedShot && !input.isKeyDown(sf::Keyboard::Space)) {
+		if (_loadedPowder) {
+			_loadedPowder->recycle();
+			_loadedPowder = NULL;
+		}
+
 		Fire fire;
 		fire.type = MissileType::MT_FriendFire_Lv1;
 		shoot(fire);
 		_loadedShot = false;
+		_deltaLoadedShot = 0;
 	}
 }
 

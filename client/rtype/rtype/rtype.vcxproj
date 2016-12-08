@@ -161,6 +161,7 @@
     <ClCompile Include="..\..\..\api\CMDDisconnected.cpp" />
     <ClCompile Include="..\..\..\api\CMDError.cpp" />
     <ClCompile Include="..\..\..\api\CMDFire.cpp" />
+    <ClCompile Include="..\..\..\api\CMDPowder.cpp" />
     <ClCompile Include="..\..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\..\api\CMDPing.cpp" />
     <ClCompile Include="..\..\..\api\CMDScore.cpp" />
@@ -192,6 +193,8 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="LevelResource.cpp" />
     <ClCompile Include="LoadArea.cpp" />
+    <ClCompile Include="LoadedPowdered.cpp" />
+    <ClCompile Include="LoadingController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuController.cpp" />
     <ClCompile Include="Mate.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
+    <ClCompile Include="RequestPowder.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="SoundBox.cpp" />
@@ -226,6 +230,7 @@
     <ClInclude Include="..\..\..\api\CMDDisconnected.hpp" />
     <ClInclude Include="..\..\..\api\CMDError.hpp" />
     <ClInclude Include="..\..\..\api\CMDFire.hpp" />
+    <ClInclude Include="..\..\..\api\CMDPowder.hpp" />
     <ClInclude Include="..\..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\..\api\CMDPing.hpp" />
     <ClInclude Include="..\..\..\api\CMDScore.hpp" />
@@ -247,6 +252,7 @@
     <ClInclude Include="ANPC.hpp" />
     <ClInclude Include="APC.hpp" />
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="ApplicationState.hpp" />
     <ClInclude Include="AProjectile.hpp" />
     <ClInclude Include="AStatic.hpp" />
     <ClInclude Include="Background.hpp" />
@@ -266,6 +272,8 @@
     <ClInclude Include="Laser.hpp" />
     <ClInclude Include="LevelResource.hpp" />
     <ClInclude Include="LoadArea.hpp" />
+    <ClInclude Include="LoadedPowdered.hpp" />
+    <ClInclude Include="LoadingController.hpp" />
     <ClInclude Include="MainMenuController.hpp" />
     <ClInclude Include="Mate.hpp" />
     <ClInclude Include="MainMenuResource.hpp" />
@@ -281,6 +289,7 @@
     <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
+    <ClInclude Include="RequestPowder.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="SoundBox.hpp" />

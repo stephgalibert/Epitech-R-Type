@@ -1,9 +1,7 @@
 #include "GameController.hpp"
 
-GameController::GameController(IClient &network, std::string const& partyName, std::string const& partyPwd)
+GameController::GameController(IClient &network)
 	: _network(network),
-	  _partyName(partyName),
-	  _partyPwd(partyPwd),
 	  _player(NULL),
 	  _back("background", 0.03f),
 	  _front("background2", 0.01f)
@@ -18,15 +16,15 @@ GameController::~GameController(void)
 void GameController::init(void)
 {
 	LevelResource::TheLevelResource.load();
-	World::TheWorld.init(&_network, &_player);
+	World::init(&_network);
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
+
+	_loading.init();
+	_loading.setBaseText("Waiting player");
+
 	_back.init();
 	_front.init();
-
-	while (!_network.isConnected());
-	_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
-	_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 }
 
 bool GameController::input(InputHandler &input)
@@ -41,22 +39,54 @@ void GameController::update(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	World::TheWorld.update(delta);
+
+	if (!isReady()) {
+		_loading.update(delta);
+	} else {
+		World::update(delta);
+	}
 }
 
 void GameController::draw(sf::RenderWindow &window)
 {
 	_back.draw(window);
 	_front.draw(window);
-	World::TheWorld.display(window);
+
+	if (!isReady()) {
+		_loading.draw(window);
+	}
+	else {
+		World::display(window);
+	}
 }
 
 void GameController::recycle(void)
 {
-	World::TheWorld.recycle();
+	World::recycle();
 }
 
-void GameController::addPlayer(Player *player)
+void GameController::connectToParty(std::string const& partyName, std::string const& pwd)
+{
+	_partyName = partyName;
+	_partyPwd = pwd;
+
+	if (_network.isConnected()) {
+		_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
+		_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
+	}
+}
+
+void GameController::setReady(bool value)
+{
+	_ready = value;
+}
+
+void GameController::setPlayer(Player *player)
 {
 	_player = player;
+}
+
+bool GameController::isReady(void) const
+{
+	return (_ready);
 }

@@ -16,7 +16,7 @@ void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 	uint8_t id2 = collision->id_second;
 
 	StaticTools::Log << "executing collision request : id " << (int)id1 << " _ " << (int)id2 << std::endl;
-	AEntity *entity = World::TheWorld.getEntityByID(id1);
+	AEntity *entity = World::getEntityByID(id1);
 	if (entity) {
 		entity->recycle();
 	}

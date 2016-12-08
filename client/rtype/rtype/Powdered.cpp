@@ -12,7 +12,6 @@ Powdered::Powdered(void)
 
 Powdered::~Powdered(void)
 {
-	std::cout << "destroying power" << std::endl;
 }
 
 

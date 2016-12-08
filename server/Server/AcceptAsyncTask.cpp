@@ -14,6 +14,8 @@ AcceptAsyncTask::~AcceptAsyncTask(void)
 
 void AcceptAsyncTask::doInBackground(void)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	_callback(_ss->accept());
 }
 

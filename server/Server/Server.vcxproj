@@ -28,6 +28,7 @@
     <ClCompile Include="..\..\api\CMDFire.cpp" />
     <ClCompile Include="..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\api\CMDPing.cpp" />
+    <ClCompile Include="..\..\api\CMDPowder.cpp" />
     <ClCompile Include="..\..\api\CMDScore.cpp" />
     <ClCompile Include="..\..\api\CMDSpawn.cpp" />
     <ClCompile Include="..\..\api\CommandFactory.cpp" />
@@ -58,6 +59,7 @@
     <ClCompile Include="RequestDestroyed.cpp" />
     <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
+    <ClCompile Include="RequestLoadedPowder.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="ScheduledMonster.cpp" />
     <ClCompile Include="SendToAsyncTask.cpp" />
@@ -96,6 +98,7 @@
     <ClInclude Include="..\..\api\CMDFire.hpp" />
     <ClInclude Include="..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\api\CMDPing.hpp" />
+    <ClInclude Include="..\..\api\CMDPowder.hpp" />
     <ClInclude Include="..\..\api\CMDScore.hpp" />
     <ClInclude Include="..\..\api\CMDSpawn.hpp" />
     <ClInclude Include="..\..\api\CommandFactory.hpp" />
@@ -143,6 +146,7 @@
     <ClInclude Include="RequestDestroyed.hpp" />
     <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
+    <ClInclude Include="RequestLoadedPowder.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="ScheduledMonster.hpp" />
     <ClInclude Include="SendToAsyncTask.hpp" />

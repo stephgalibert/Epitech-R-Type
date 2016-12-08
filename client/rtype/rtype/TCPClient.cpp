@@ -1,12 +1,12 @@
 #include "TCPClient.hpp"
 #include "GameController.hpp"
 
-TCPClient::TCPClient(std::string const& remote, std::string const& port)
+TCPClient::TCPClient(GameController **game, std::string const& remote, std::string const& port)
 	: _timer(_io_service),
 	  _resolver(_io_service),
 	  _socket(_io_service),
 	  _connected(false),
-	  _controller(NULL),
+	  _controller(game),
 	  _remote(remote),
 	  _port(port)
 {
@@ -58,14 +58,17 @@ bool TCPClient::isConnected(void) const
 	return (_connected);
 }
 
-void TCPClient::setGameController(GameController *controller)
-{
-	_controller = controller;
-}
+//void TCPClient::setGameController(GameController *controller)
+//{
+//	_controller = controller;
+//}
 
 GameController *TCPClient::getGameController(void) const
 {
-	return (_controller);
+	if (_controller) {
+		return (*_controller);
+	}
+	return (NULL);
 }
 
 IClient &TCPClient::operator<<(std::shared_ptr<ICommand> packet)

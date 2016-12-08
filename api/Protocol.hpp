@@ -45,6 +45,12 @@ enum class GameStatus : uint8_t
 	Win = 2
 };
 
+enum class PowderType : uint8_t
+{
+	Standard = 0,
+	LoadedPowder = 1
+};
+
 struct Ping
 {
 	CommandType cmdType;
@@ -132,6 +138,13 @@ struct Life
 	CommandType cmdType;
 	uint8_t id;
 	uint8_t life;
+};
+
+struct LoadedPowder
+{
+	CommandType cmdType;
+	uint8_t id;
+	PowderType type;
 };
 
 #ifdef _MSC_VER

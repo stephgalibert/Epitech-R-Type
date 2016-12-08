@@ -15,6 +15,7 @@ const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
 MainMenuController::MainMenuController()
 	: _fsm(State::ST_Splash1), _action(SelectedAction::NONE), _keyboardEventDelta(0.f)
 {
+	_pushAction = SelectedAction::NONE;
 	MainMenuResource::menuResourceManager.load();
 	buildKeyActionsMap();
 }
@@ -98,10 +99,12 @@ bool MainMenuController::keyReturn(void) {
 	switch (_action) {
 	case SelectedAction::PLAY: {
 		std::cout << "Play" << std::endl;
+		_pushAction = SelectedAction::PLAY;
 		break;
 	}
 	case SelectedAction::QUIT: {
 		std::cout << "Quit" << std::endl;
+		_pushAction = SelectedAction::QUIT;
 		break;
 	}
 	case SelectedAction::NONE:
@@ -215,4 +218,11 @@ void MainMenuController::forceState(const State state) {
 			sprite.setPosition(static_cast<float>(SPLASH_INIT_POS), static_cast<float>(TITLE_BASE_Y_POS));
 		}
 	}
+}
+
+short MainMenuController::pullAction(void)
+{
+	short tmp = _pushAction;
+	_pushAction = SelectedAction::NONE;
+	return (tmp);
 }

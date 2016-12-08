@@ -33,7 +33,7 @@ public:
 		ST_Menu = 4
 	};
 
-private:
+public:
 	enum SelectedAction : short {
 		PLAY = 0,
 		QUIT = 1,
@@ -47,6 +47,7 @@ public:
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
 	void forceState(const State state);
+	short pullAction(void);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));
@@ -67,6 +68,7 @@ private:
 	short _action;
 	float _keyboardEventDelta;
 	std::unordered_map<uint32_t, std::function<bool(void)>> _keyActions;
+	short _pushAction;
 
 private:
 	std::vector<sf::Sprite> _titleSprites;

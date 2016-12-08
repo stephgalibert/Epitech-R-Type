@@ -22,5 +22,6 @@ private:
 	std::shared_ptr<IServerSocket> _ss;
 	std::function<void(std::shared_ptr<ITCPSocket>)> _callback;
 	bool _canceled;
+	std::mutex _mutex;
 };
 

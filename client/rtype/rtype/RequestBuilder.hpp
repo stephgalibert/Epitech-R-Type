@@ -14,6 +14,7 @@
 #include "RequestDisconnect.hpp"
 #include "RequestMove.hpp"
 #include "RequestFire.hpp"
+#include "RequestPowder.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {
@@ -24,6 +25,7 @@ public:
 	std::unique_ptr<IRequest> build(CommandType type) const;
 
 private:
+	std::unique_ptr<IRequest> create_LoadedPowderRequest(void);
 	std::unique_ptr<IRequest> create_ConnectRequest(void);
 	std::unique_ptr<IRequest> create_DisconnectedRequest(void);
 	std::unique_ptr<IRequest> create_CreatePartyRequest(void);

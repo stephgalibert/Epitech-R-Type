@@ -210,6 +210,12 @@
     <ClCompile Include="..\..\api\CMDScore.cpp">
       <Filter>Fichiers sources\Protocol</Filter>
     </ClCompile>
+    <ClCompile Include="RequestLoadedPowder.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDPowder.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -405,6 +411,12 @@
       <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
     <ClInclude Include="..\..\api\CMDScore.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestLoadedPowder.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDPowder.hpp">
       <Filter>Fichiers d%27en-tête\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
