@@ -11,10 +11,13 @@ class MainMenuController : public AController
 	static const uint32_t BUTTON_Y_SPACING;
 	static const uint32_t BUTTON_Y_ORIGIN;
 	static const uint32_t BUTTON_X_ALIGN;
+	static const float TITLE_LETTER_SCALE;
+	static const uint32_t TITLE_LETTER_HEIGHT;
+	static const uint32_t TITLE_FINAL_BOTTOM_OFFSET;
 	static const uint32_t TITLE_BASE_Y_POS;
 	static const uint32_t TITLE_FINAL_Y_POS;
 	static const uint32_t TITLE_CHAR_SPACING;
-	static const uint32_t SPLASH_PX_PER_SEC;
+	static const float SPLASH_PX_PER_SEC;
 	static const uint32_t SPLASH_INIT_POS;
 	static const uint32_t SPLASH_TITLE_TARGET_POS;
 	static const float KEYBOARD_EVENT_DELTA_MIN;
@@ -47,6 +50,8 @@ public:
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
 	void forceState(const State state);
+	void mute(void) const;
+	void unmute(void) const;
 	short pullAction(void);
 
 private:
@@ -74,4 +79,3 @@ private:
 	std::vector<sf::Sprite> _titleSprites;
 	std::vector<MenuButton> _buttons;
 };
-
