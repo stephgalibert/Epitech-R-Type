@@ -12,12 +12,25 @@ void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 								std::shared_ptr<ICommand> &toSend)
 {
 	Collision *collision = (Collision *)data->getData();
+	CollisionType type = collision->type;
 	uint8_t id1 = collision->id_first;
 	uint8_t id2 = collision->id_second;
 
-	StaticTools::Log << "executing collision request : id " << (int)id1 << " _ " << (int)id2 << std::endl;
 	AEntity *entity = World::getEntityByID(id1);
-	if (entity) {
-		entity->recycle();
+	AEntity *entity2 = World::getEntityByID(id2);
+	if (entity && entity2) {
+		switch (type)
+		{
+		case CollisionType::None:
+			break;
+		case CollisionType::Destruction:
+			entity->destroy();
+			entity2->destroy();
+			break;
+		case CollisionType::PowerUP:
+			break;
+		default:
+			break;
+		}
 	}
 }

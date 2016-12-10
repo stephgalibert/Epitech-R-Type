@@ -8,6 +8,7 @@
 class IClient;
 class Explosion;
 class World;
+class AEntity;
 
 class ACollidable : public ADrawable
 {
@@ -19,7 +20,7 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
-	virtual void collision(IClient *client, ACollidable *other) = 0;
+	virtual void collision(IClient *client, AEntity *other) = 0;
 
 	bool isCollidingWith(ACollidable *other);
 	sf::FloatRect getBoundingBox(void) const;

@@ -54,6 +54,10 @@ void Mate::update(float delta)
 	}
 	_delta += delta;
 
+	//if (isExploding()) {
+	//	doExplode();
+	//}
+
 	if (_powder && _powder->isAnimationFinished()) {
 		_powder->recycle();
 		_powder = NULL;
@@ -92,34 +96,35 @@ void Mate::update(float delta)
 
 void Mate::destroy(void)
 {
+	Explosion *explosion = World::spawnEntity<Explosion>();
+	explosion->setPosition(getPosition());
+	explosion->setReadyForInit(true);
+
+	_currentDirection = FRAME_EXP;
+	_currentFrame = 0;
+	_targetFrame = 5;
+
+	setAngle(-1);
+	setVelocity(0);
+
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
+	}
 }
 
-void Mate::collision(IClient *client, ACollidable *other)
+void Mate::collision(IClient *client, AEntity *other)
 {
 	(void)client;
 	if (getCollisionType() != COLLISION_NONE
 		&& other->getCollisionType() == COLLISION_FATAL
-		&& _currentDirection != FRAME_EXP
 		&& !hasCollisioned()) {
-
-		Explosion *explosion = World::spawnEntity<Explosion>();
-		explosion->setPosition(getPosition());
-		explosion->setReadyForInit(true);
-
-		_currentDirection = FRAME_EXP;
-		_currentFrame = 0;
-		_targetFrame = 5;
-
-		setAngle(-1);
-		setVelocity(0);
-
-		if (_loadedPowder) {
-			_loadedPowder->recycle();
-			_loadedPowder = NULL;
-		}
-
+		
 		setCollisioned(true);
-		other->collision(client, this);
+
+		//if (!other->hasCollisioned()) {
+		//	other->collision(client, this);
+		//}
 		setCollisionType(COLLISION_NONE);
 	}
 }
@@ -156,8 +161,13 @@ void Mate::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
+	std::cout << "spawning shot with id " << (int)param.id << std::endl;
+
+	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
+
 	MissileType type = param.type;
-	uint8_t id = param.id_launcher;
+	uint8_t id = param.id;
+	uint8_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
@@ -167,13 +177,16 @@ void Mate::shoot(Fire const& param)
 	StaticTools::DeserializePosition(param.position, x, y);
 
 	Laser *laser = World::spawnEntity<Laser>();
+	//Laser *laser = new Laser;
+	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
-	laser->setOwnerID(id);
+	laser->setOwnerID(id_launcher);
 	laser->setAngle(angle);
 	laser->setVelocity(velocity);
-	laser->setColor(id);
+	laser->setColor(id_launcher);
 	laser->setReadyForInit(true);
+	//World::pushEntity(laser);
 
 	if (!_powder) {
 		_powder = World::spawnEntity<Powdered>();

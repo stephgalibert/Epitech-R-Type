@@ -1,15 +1,12 @@
 #pragma once
 
-#include "AEntity.hpp"
-#include "World.hpp"
-
 #include "IRequest.hpp"
 
-class RequestCollision : public IRequest
+class RequestDestroyed : public IRequest
 {
 public:
-	RequestCollision(void);
-	virtual ~RequestCollision(void);
+	RequestDestroyed(void);
+	virtual ~RequestDestroyed(void);
 
 	virtual void execute(IClient &client, std::shared_ptr<ICommand> data,
 						 std::shared_ptr<ICommand> &toSend);

@@ -5,6 +5,7 @@
 #include <thread>
 #include <queue>
 #include <fstream>
+#include <mutex>
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
@@ -54,5 +55,6 @@ private:
 
 	std::string _remote;
 	std::string _port;
+	std::mutex _mutex;
 };
 

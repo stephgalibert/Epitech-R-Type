@@ -8,6 +8,7 @@ RequestBuilder::RequestBuilder(void)
 	_requests[(int)CommandType::Destroyed] = std::bind(&RequestBuilder::create_DestroyedRequest, this);
 	_requests[(int)CommandType::Fire] = std::bind(&RequestBuilder::create_FireRequest, this);
 	_requests[(int)CommandType::LoadedPowder] = std::bind(&RequestBuilder::create_LoadedPowderRequest, this);
+	_requests[(int)CommandType::Collision] = std::bind(&RequestBuilder::create_CollisionRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)

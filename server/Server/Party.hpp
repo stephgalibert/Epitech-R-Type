@@ -4,6 +4,7 @@
 #include <memory>
 #include <thread>
 #include <mutex>
+#include <set>
 
 #include "ConnectionManager.hpp"
 #include "AConnection.hpp"
@@ -23,6 +24,8 @@ public:
 	void removeConnection(std::shared_ptr<AConnection> connection);
 
 	void broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
+	void broadcast(std::shared_ptr<ICommand> data);
+	void fire(std::shared_ptr<ICommand> cmd);
 	void loop(void);
 
 	bool isReady(void) const;
@@ -41,5 +44,7 @@ private:
 	std::thread _party;
 	std::mutex _mutex;
 	bool _launched;
+	std::set<uint8_t> _ids;
+	uint8_t _nextID;
 };
 

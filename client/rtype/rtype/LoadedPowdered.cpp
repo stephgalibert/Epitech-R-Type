@@ -42,7 +42,7 @@ void LoadedPowdered::destroy(void)
 {
 }
 
-void LoadedPowdered::collision(IClient *client, ACollidable *other)
+void LoadedPowdered::collision(IClient *client, AEntity *other)
 {
 	(void)client;
 	(void)other;

@@ -264,6 +264,9 @@
     <ClCompile Include="LoadingController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="RequestDestroyed.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -493,6 +496,9 @@
     </ClInclude>
     <ClInclude Include="LoadingController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDestroyed.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 Party::Party(void)
 	: _launched(false)
 {
+	_nextID = 1;
 }
 
 Party::~Party(void)
@@ -26,6 +27,8 @@ void Party::run(void)
 
 void Party::close(void)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	_cm.closeAll();
 }
 
@@ -34,9 +37,10 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	//ObjectType object = ObjectType::Ship;
-	uint8_t id = _cm.getPlayerNumber() + 1;
+	uint8_t id = _nextID;
 	uint16_t x = 100;
 	uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
+	
 	/*uint8_t type = (uint8_t)ShipType::Standard;
 	  uint8_t effect = 0;*/
 
@@ -46,6 +50,8 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 
 	_cm.add(connection);
 	std::cout << "new connection" << std::endl;
+
+	++_nextID;
 }
 
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
@@ -60,7 +66,25 @@ void Party::removeConnection(std::shared_ptr<AConnection> connection)
 
 void Party::broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	_cm.broadcast(connection, data);
+}
+
+void Party::broadcast(std::shared_ptr<ICommand> data)
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	_cm.broadcast(data);
+}
+
+void Party::fire(std::shared_ptr<ICommand> cmd)
+{
+	Fire *fire = reinterpret_cast<Fire *>(cmd->getData());
+	fire->id = _nextID;
+	_cm.broadcast(cmd);
+	++_nextID;
+	std::cout << "next id: " << (int)_nextID << std::endl;
 }
 
 void Party::loop(void)

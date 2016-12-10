@@ -207,6 +207,7 @@
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
+    <ClCompile Include="RequestDestroyed.cpp" />
     <ClCompile Include="RequestDisconnect.cpp" />
     <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />
+    <ClInclude Include="RequestDestroyed.hpp" />
     <ClInclude Include="RequestDisconnect.hpp" />
     <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestHandler.hpp" />

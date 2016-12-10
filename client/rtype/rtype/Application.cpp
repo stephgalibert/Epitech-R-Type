@@ -110,20 +110,20 @@ void Application::updateMenu(float delta)
 {
 	_fps.update(delta);
 	_menu.update(delta);
-	switch (_menu.pullAction())
-	{
-	case MainMenuController::SelectedAction::PLAY:
-		_state = ApplicationState::AS_Game;
-		_game = new GameController(_client);
-		_game->init();
-		_game->connectToParty("name", "pwd");
-		break;
-	case MainMenuController::SelectedAction::QUIT:
-		_quit = true;
-		break;
-	default:
-		break;
-	}
+	//switch (_menu.pullAction())
+	//{
+	//case MainMenuController::SelectedAction::PLAY:
+	_state = ApplicationState::AS_Game;
+	_game = new GameController(_client);
+	_game->init();
+	_game->connectToParty("name", "pwd");
+	//	break;
+	//case MainMenuController::SelectedAction::QUIT:
+	//	_quit = true;
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 void Application::updateGame(float delta)
 {

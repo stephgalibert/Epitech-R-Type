@@ -49,7 +49,7 @@ void Powdered::destroy(void)
 {
 }
 
-void Powdered::collision(IClient *client, ACollidable *other)
+void Powdered::collision(IClient *client, AEntity *other)
 {
 	(void)client;
 	(void)other;

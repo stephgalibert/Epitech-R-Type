@@ -17,12 +17,13 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void);
 
-	virtual void collision(IClient *client, ACollidable *other);
+	virtual void collision(IClient *client, AEntity *other);
 
 	void setColor(uint8_t color);
 	void setLoadedTiming(float delta);
 
-	sf::Vector2f getSpriteSize(void) const;
+	//static uint8_t GetLaserLevel(float delta);
+	sf::Vector2f getSpriteSize(/*uint8_t level*/) const;
 
 private:
 	void initFrame(void);
@@ -34,6 +35,6 @@ private:
 	//uint8_t _currentlevel;
 	uint8_t _currentFrame;
 	uint8_t _color;
-	std::unordered_map<uint8_t, sf::IntRect[2]> _frames;
+	std::unordered_map<uint8_t, sf::IntRect[2]> Frames;
 };
 

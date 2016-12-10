@@ -28,10 +28,18 @@ public:
 	template<typename T>
 	static T *spawnEntity(void)
 	{
+		std::lock_guard<std::mutex> lock(Mutex);
+
 		T *entity = new T;
 
 		Entities.push_back(entity);
 		return (entity);
+	}
+
+	static void pushEntity(AEntity *entity)
+	{
+		std::lock_guard<std::mutex> lock(Mutex);
+		Entities.push_back(entity);
 	}
 
 private:

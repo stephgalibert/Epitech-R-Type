@@ -30,8 +30,10 @@ void TCPClient::connect(void)
 
 void TCPClient::write(std::shared_ptr<ICommand> packet)
 {
+	_mutex.lock();
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(packet);
+	_mutex.unlock();
 	if (!writeInProgress) {
 		write();
 	}
@@ -87,7 +89,10 @@ void TCPClient::read(void)
 
 void TCPClient::write(void)
 {
+	_mutex.lock();
 	std::shared_ptr<ICommand> packet = _toWrites.front();
+	StaticTools::Log << "writing " << (int)packet->getCommandType() << std::endl;
+	_mutex.unlock();
 	boost::asio::async_write(_socket, boost::asio::buffer(packet->getData(), packet->getSize()),
 	boost::bind(&TCPClient::do_write, this,
 			boost::asio::placeholders::error,
@@ -149,7 +154,9 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 void TCPClient::do_write(boost::system::error_code const& ec, size_t)
 {
 	if (!ec) {
+		_mutex.lock();
 		_toWrites.pop();
+		_mutex.unlock();
 		if (!_toWrites.empty()) {
 			write();
 		}

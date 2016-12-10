@@ -27,7 +27,7 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void);
 
-	virtual void collision(IClient *client, ACollidable *other);
+	virtual void collision(IClient *client, AEntity *other);
 	virtual void input(InputHandler &input);
 	virtual void move(float delta);
 
@@ -43,6 +43,8 @@ private:
 
 	void keyboard(InputHandler &input);
 	void joystick(InputHandler &input);
+
+	void prepareShot(void);
 
 	float _delta;
 	float _deltaLastShoot;

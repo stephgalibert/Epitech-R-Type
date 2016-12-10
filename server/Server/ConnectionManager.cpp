@@ -28,6 +28,14 @@ void ConnectionManager::broadcast(std::shared_ptr<AConnection> connection, std::
 	}
 }
 
+void ConnectionManager::broadcast(std::shared_ptr<ICommand> command)
+{
+	for (auto &it : _connections) {
+		std::cout << "sending to " << (int)it->getID() << std::endl;
+		it->sync_write(command);
+	}
+}
+
 void ConnectionManager::closeAll(void)
 {
 	_connections.clear();

@@ -21,7 +21,7 @@ void GameController::init(void)
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
 
 	_loading.init();
-	_loading.setBaseText("Waiting player");
+	_loading.setBaseText("Waiting players");
 
 	_back.init();
 	_front.init();

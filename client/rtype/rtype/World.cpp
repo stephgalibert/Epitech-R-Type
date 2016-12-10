@@ -35,7 +35,8 @@ void World::update(float delta)
 				(*it)->update(delta);
 
 				for (auto it_sub : Entities) {
-					if (it_sub->getID() != (*it)->getID() && it_sub->isCollidingWith(*it)) {
+					if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
+						&& it_sub->isCollidingWith(*it)) {
 						it_sub->collision(Client, (*it));
 					}
 				}
@@ -71,10 +72,16 @@ void World::recycle(void)
 
 AEntity *World::getEntityByID(uint8_t id)
 {
+	std::lock_guard<std::mutex> lock(Mutex);
+
+	//std::cout << "begin" << std::endl;
 	for (auto it : Entities) {
+		//std::cout << "id: " << (int)it->getID() << std::endl;
 		if (it->getID() == id) {
+			//std::cout << "end" << std::endl;
 			return (it);
 		}
 	}
+	//std::cout << "end" << std::endl;
 	return (NULL);
 }

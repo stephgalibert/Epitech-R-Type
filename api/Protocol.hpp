@@ -51,6 +51,13 @@ enum class PowderType : uint8_t
 	LoadedPowder = 1
 };
 
+enum class CollisionType : uint8_t
+{
+	None = 0,
+	Destruction = 1,
+	PowerUP = 2
+};
+
 struct Ping
 {
 	CommandType cmdType;
@@ -93,6 +100,7 @@ struct Fire
 {
 	CommandType cmdType;
 	MissileType type;
+	uint8_t id;
 	uint8_t id_launcher;
 	uint32_t position;
 	uint8_t velocity;
@@ -110,6 +118,7 @@ struct Destroyed
 struct Collision
 {
 	CommandType cmdType;
+	CollisionType type;
 	uint8_t id_first;
 	uint8_t id_second;
 };

@@ -40,7 +40,7 @@ void MainMenuController::init()
 		_buttons.push_back(MenuButton("Play", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_action = SelectedAction::PLAY;
-		ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
+		//ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
 		_fsm = State::ST_Splash1;
 	}
 	catch (std::exception const& e) {

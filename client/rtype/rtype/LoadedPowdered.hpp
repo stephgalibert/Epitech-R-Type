@@ -13,7 +13,7 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void);
 
-	virtual void collision(IClient *client, ACollidable *other);
+	virtual void collision(IClient *client, AEntity *other);
 	virtual void move(float delta);
 
 	void setColor(uint8_t color);

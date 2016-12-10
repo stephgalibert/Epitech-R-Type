@@ -7,6 +7,7 @@ AEntity::AEntity()
 	   _direction(0)
 {
 	setAngle(-1);
+	setID(0);
 }
 
 AEntity::~AEntity(void)
