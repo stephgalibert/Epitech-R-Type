@@ -1,7 +1,5 @@
 #include "Laser.hpp"
 
-//std::unordered_map<uint8_t, sf::IntRect[2]> Laser::Frames;
-
 Laser::Laser(void)
 	: _shape(NULL),
 	_delta(0),
@@ -11,6 +9,7 @@ Laser::Laser(void)
 	setCollisionType(COLLISION_FATAL);
 	setVelocity(230.f);
 	initFrame();
+	_toRecycle = false;
 }
 
 Laser::~Laser(void)
@@ -42,6 +41,10 @@ void Laser::update(float delta)
 {
 	_delta += delta;
 
+	if (_toRecycle) {
+		recycle();
+	}
+
 	updateFrame();
 	AProjectile::update(delta);
 }
@@ -58,18 +61,30 @@ void Laser::collision(IClient *client, AEntity *other)
 		setCollisioned(true);
 
 		if (!other->hasCollisioned()) {
-			std::cout << "laser id: " << (int)getID() << std::endl;
-			//other->collision(client, this);
 			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 		}
+	}
+}
 
-		//if (getLevel() > 0) {
-		//	setLevel(getLevel() - 1);
-		//	setCollisioned(false);
-		//}
-		//else {
-		//	recycle();
-		//}
+void Laser::applyCollision(CollisionType type)
+{
+	switch (type)
+	{
+	case CollisionType::None:
+		break;
+	case CollisionType::Destruction:
+			if (getLevel() > 0) {
+				setLevel(getLevel() - 1);
+				setCollisioned(false);
+			}
+			else {
+				_toRecycle = true;
+			}
+		break;
+	case CollisionType::PowerUP:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -86,12 +101,7 @@ void Laser::setLoadedTiming(float delta)
 	}
 }
 
-//uint8_t Laser::GetLaserLevel(float delta)
-//{
-//	return (static_cast<uint8_t>(delta / 0.3f));
-//}
-
-sf::Vector2f Laser::getSpriteSize(/*uint8_t level*/) const
+sf::Vector2f Laser::getSpriteSize(void) const
 {
 	sf::Vector2f size;
 

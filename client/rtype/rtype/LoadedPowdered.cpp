@@ -48,6 +48,11 @@ void LoadedPowdered::collision(IClient *client, AEntity *other)
 	(void)other;
 }
 
+void LoadedPowdered::applyCollision(CollisionType type)
+{
+	(void)type;
+}
+
 void LoadedPowdered::move(float delta)
 {
 	(void)delta;

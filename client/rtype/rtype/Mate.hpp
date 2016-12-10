@@ -24,6 +24,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
+	virtual void applyCollision(CollisionType type);
 	virtual void move(float delta);
 
 	virtual void shoot(Fire const& param);
@@ -32,6 +33,8 @@ public:
 private:
 	void initFrame(void);
 	void updateFrame(void);
+
+	void collisionDestruction(void);
 
 	uint8_t _prevDirection;
 	float _delta;

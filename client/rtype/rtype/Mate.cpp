@@ -54,10 +54,6 @@ void Mate::update(float delta)
 	}
 	_delta += delta;
 
-	//if (isExploding()) {
-	//	doExplode();
-	//}
-
 	if (_powder && _powder->isAnimationFinished()) {
 		_powder->recycle();
 		_powder = NULL;
@@ -96,21 +92,7 @@ void Mate::update(float delta)
 
 void Mate::destroy(void)
 {
-	Explosion *explosion = World::spawnEntity<Explosion>();
-	explosion->setPosition(getPosition());
-	explosion->setReadyForInit(true);
 
-	_currentDirection = FRAME_EXP;
-	_currentFrame = 0;
-	_targetFrame = 5;
-
-	setAngle(-1);
-	setVelocity(0);
-
-	if (_loadedPowder) {
-		_loadedPowder->recycle();
-		_loadedPowder = NULL;
-	}
 }
 
 void Mate::collision(IClient *client, AEntity *other)
@@ -126,6 +108,22 @@ void Mate::collision(IClient *client, AEntity *other)
 		//	other->collision(client, this);
 		//}
 		setCollisionType(COLLISION_NONE);
+	}
+}
+
+void Mate::applyCollision(CollisionType type)
+{
+	switch (type)
+	{
+	case CollisionType::None:
+		break;
+	case CollisionType::Destruction:
+		collisionDestruction();
+		break;
+	case CollisionType::PowerUP:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -292,5 +290,24 @@ void Mate::updateFrame(void)
 		sf::IntRect const& r = _frames.at(_currentDirection);
 		getShape()->setTextureRect(sf::IntRect(_currentFrame * r.width, r.top, r.width, r.height));
 		_delta = 0.f;
+	}
+}
+
+void Mate::collisionDestruction(void)
+{
+	Explosion *explosion = World::spawnEntity<Explosion>();
+	explosion->setPosition(getPosition());
+	explosion->setReadyForInit(true);
+
+	_currentDirection = FRAME_EXP;
+	_currentFrame = 0;
+	_targetFrame = 5;
+
+	setAngle(-1);
+	setVelocity(0);
+
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
 	}
 }

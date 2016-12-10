@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ADrawable.hpp"
+#include "ICommand.hpp"
 
 #define COLLISION_FATAL 1
 #define COLLISION_NONE 5
@@ -13,14 +14,15 @@ class AEntity;
 class ACollidable : public ADrawable
 {
 public:
-	ACollidable();
-	virtual ~ACollidable();
+	ACollidable(void);
+	virtual ~ACollidable(void);
 
 	virtual void init(void) = 0;
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
 	virtual void collision(IClient *client, AEntity *other) = 0;
+	virtual void applyCollision(CollisionType type) = 0;
 
 	bool isCollidingWith(ACollidable *other);
 	sf::FloatRect getBoundingBox(void) const;

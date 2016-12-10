@@ -36,12 +36,6 @@ public:
 		return (entity);
 	}
 
-	static void pushEntity(AEntity *entity)
-	{
-		std::lock_guard<std::mutex> lock(Mutex);
-		Entities.push_back(entity);
-	}
-
 private:
 	static std::list<AEntity *> Entities;
 	static std::vector<AEntity *> ToPush;

@@ -13,6 +13,7 @@ public:
 	virtual void destroy(void) = 0;
 
 	virtual void collision(IClient *client, AEntity *other) = 0;
+	virtual void applyCollision(CollisionType type) = 0;
 
 	void setOwnerID(uint8_t ownerID);
 	uint8_t getOwnerID(void) const;

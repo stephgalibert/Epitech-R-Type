@@ -74,21 +74,6 @@ void Player::update(float delta)
 
 void Player::destroy(void)
 {
-	Explosion *explosion = World::spawnEntity<Explosion>();
-	explosion->setPosition(getPosition());
-	explosion->setReadyForInit(true);
-
-	_currentDirection = FRAME_EXP;
-	_currentFrame = 0;
-	_targetFrame = 5;
-
-	setAngle(-1);
-	setVelocity(0);
-
-	if (_loadedPowder) {
-		_loadedPowder->recycle();
-		_loadedPowder = NULL;
-	}
 }
 
 void Player::setIClient(IClient *client)
@@ -111,6 +96,23 @@ void Player::collision(IClient *client, AEntity *other)
 		//}
 
 		setCollisionType(COLLISION_NONE);
+	}
+}
+
+void Player::applyCollision(CollisionType type)
+{
+	switch (type)
+	{
+	case CollisionType::None:
+		break;
+	case CollisionType::Destruction:
+		// requet for re - spawn ?
+		collisionDestruction();
+		break;
+	case CollisionType::PowerUP:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -426,5 +428,24 @@ void Player::prepareShot(void)
 		}
 
 		_deltaLastShoot = 0.f;
+	}
+}
+
+void Player::collisionDestruction(void)
+{
+	Explosion *explosion = World::spawnEntity<Explosion>();
+	explosion->setPosition(getPosition());
+	explosion->setReadyForInit(true);
+
+	_currentDirection = FRAME_EXP;
+	_currentFrame = 0;
+	_targetFrame = 5;
+
+	setAngle(-1);
+	setVelocity(0);
+
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
 	}
 }

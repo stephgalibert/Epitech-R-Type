@@ -14,6 +14,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
+	virtual void applyCollision(CollisionType type);
 	virtual void move(float delta);
 
 	void setColor(uint8_t color);

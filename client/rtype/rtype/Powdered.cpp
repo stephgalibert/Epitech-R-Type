@@ -55,6 +55,11 @@ void Powdered::collision(IClient *client, AEntity *other)
 	(void)other;
 }
 
+void Powdered::applyCollision(CollisionType type)
+{
+	(void)type;
+}
+
 void Powdered::move(float delta)
 {
 	(void)delta;

@@ -28,6 +28,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
+	virtual void applyCollision(CollisionType type);
 	virtual void input(InputHandler &input);
 	virtual void move(float delta);
 
@@ -45,6 +46,8 @@ private:
 	void joystick(InputHandler &input);
 
 	void prepareShot(void);
+
+	void collisionDestruction(void);
 
 	float _delta;
 	float _deltaLastShoot;
