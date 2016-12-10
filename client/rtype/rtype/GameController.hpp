@@ -14,6 +14,7 @@
 #include "CMDConnect.hpp"
 
 #include "LoadingController.hpp"
+#include "ConnectionLostController.hpp"
 
 class GameController : public AController
 {
@@ -37,6 +38,7 @@ public:
 
 private:
 	LoadingController _loading;
+	ConnectionLostController _connectionLost;
 
 	IClient &_network;
 	std::string _partyName;

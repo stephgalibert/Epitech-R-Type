@@ -184,6 +184,7 @@
     <ClCompile Include="AProjectile.cpp" />
     <ClCompile Include="AStatic.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="ConnectionLostController.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="AStatic.hpp" />
     <ClInclude Include="Background.hpp" />
     <ClInclude Include="CacheManager.hpp" />
+    <ClInclude Include="ConnectionLostController.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FPSCounter.hpp" />

@@ -23,6 +23,9 @@ void GameController::init(void)
 	_loading.init();
 	_loading.setBaseText("Waiting players");
 
+	_connectionLost.init();
+	_connectionLost.setBaseText("Connection lost :/");
+
 	_back.init();
 	_front.init();
 }
@@ -44,6 +47,9 @@ void GameController::update(float delta)
 		_loading.update(delta);
 	} else {
 		World::update(delta);
+		if (!_network.isConnected()) {
+			_connectionLost.update(delta);
+		}
 	}
 }
 
@@ -57,6 +63,9 @@ void GameController::draw(sf::RenderWindow &window)
 	}
 	else {
 		World::display(window);
+		if (!_network.isConnected()) {
+			_connectionLost.draw(window);
+		}
 	}
 }
 
