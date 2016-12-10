@@ -3,19 +3,22 @@
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
-const uint32_t MainMenuController::BUTTON_X_ALIGN = 550;
-const uint32_t MainMenuController::TITLE_BASE_Y_POS = 100;
-const uint32_t MainMenuController::TITLE_FINAL_Y_POS = 280;
-const uint32_t MainMenuController::TITLE_CHAR_SPACING = 10;
-const uint32_t MainMenuController::SPLASH_PX_PER_SEC = static_cast<uint32_t>(800 / 1.5);
-const uint32_t MainMenuController::SPLASH_INIT_POS = 800;
-const uint32_t MainMenuController::SPLASH_TITLE_TARGET_POS = 35;
+const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 190;
+const float MainMenuController::TITLE_LETTER_SCALE = 2.f;
+const uint32_t MainMenuController::TITLE_LETTER_HEIGHT = static_cast<uint32_t>(56 * MainMenuController::TITLE_LETTER_SCALE);
+const uint32_t MainMenuController::TITLE_FINAL_BOTTOM_OFFSET = 25;
+const uint32_t MainMenuController::TITLE_BASE_Y_POS = (StaticTools::GetResolution().second / 2) - MainMenuController::TITLE_LETTER_HEIGHT;
+const uint32_t MainMenuController::TITLE_FINAL_Y_POS = (StaticTools::GetResolution().second
+	- MainMenuController::TITLE_LETTER_HEIGHT - MainMenuController::TITLE_FINAL_BOTTOM_OFFSET);
+const uint32_t MainMenuController::TITLE_CHAR_SPACING = 15;
+const float MainMenuController::SPLASH_PX_PER_SEC = StaticTools::GetResolution().first / 1.5f;
+const uint32_t MainMenuController::SPLASH_INIT_POS = StaticTools::GetResolution().first;
+const uint32_t MainMenuController::SPLASH_TITLE_TARGET_POS = StaticTools::GetResolution().first / 5;
 const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
 
 MainMenuController::MainMenuController()
-	: _fsm(State::ST_Splash1), _action(SelectedAction::NONE), _keyboardEventDelta(0.f)
+	: _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _pushAction(SelectedAction::NONE), _keyboardEventDelta(0.f)
 {
-	_pushAction = SelectedAction::NONE;
 	MainMenuResource::menuResourceManager.load();
 	buildKeyActionsMap();
 }
@@ -34,13 +37,13 @@ void MainMenuController::init()
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_P)));
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_E)));
 		for (auto &sprite : _titleSprites) {
-			sprite.setScale(2.f, 2.f);
+			sprite.setScale(TITLE_LETTER_SCALE, TITLE_LETTER_SCALE);
 			sprite.setPosition(static_cast<float>(SPLASH_INIT_POS), static_cast<float>(TITLE_BASE_Y_POS));
 		}
 		_buttons.push_back(MenuButton("Play", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_action = SelectedAction::PLAY;
-		//ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
+		//unmute();		
 		_fsm = State::ST_Splash1;
 	}
 	catch (std::exception const& e) {
@@ -138,7 +141,7 @@ void MainMenuController::update(float delta)
 void MainMenuController::updateSplashFirstPhase(const float delta) {
 	float pos = _titleSprites.begin()->getPosition().x - (delta * SPLASH_PX_PER_SEC);
 	if (pos < SPLASH_TITLE_TARGET_POS)
-		pos = SPLASH_TITLE_TARGET_POS;
+		pos = static_cast<float>(SPLASH_TITLE_TARGET_POS);
 	for (auto &sprite : _titleSprites) {
 		sprite.setPosition(pos, static_cast<float>(TITLE_BASE_Y_POS));
 	}
@@ -147,7 +150,7 @@ void MainMenuController::updateSplashFirstPhase(const float delta) {
 }
 
 void MainMenuController::updateSplashSecondPhase(const float delta) {
-	float targetPos = SPLASH_TITLE_TARGET_POS;
+	float targetPos = static_cast<float>(SPLASH_TITLE_TARGET_POS);
 	for (auto &sprite : _titleSprites) {
 		float pos = sprite.getPosition().x + (delta * SPLASH_PX_PER_SEC);
 		if (pos > targetPos)
@@ -192,6 +195,14 @@ void MainMenuController::updateMenu(const float delta) {
 
 void MainMenuController::abortSplash(void) {
 	_fsm = State::ST_Menu;
+}
+
+void MainMenuController::mute(void) const {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).pause();
+}
+
+void MainMenuController::unmute(void) const {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
 }
 
 void MainMenuController::draw(sf::RenderWindow &window)
