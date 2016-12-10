@@ -57,7 +57,7 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
-	uint8_t id = connection->getID();
+	uint16_t id = connection->getID();
 
 	_cm.leave(connection);
 	_cm.broadcast(connection, std::make_shared<CMDDisconnected>(id));

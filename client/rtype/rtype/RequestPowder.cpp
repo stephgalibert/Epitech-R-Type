@@ -20,7 +20,7 @@ void RequestPowder::execute(IClient &client, std::shared_ptr<ICommand> data,
 	(void)toSend;
 	LoadedPowder *powder = (LoadedPowder *)data->getData();
 
-	uint8_t id = powder->id;
+	uint16_t id = powder->id;
 
 	AEntity *entity = World::getEntityByID(id);
 	ANPC *anpc = dynamic_cast<ANPC *>(entity);

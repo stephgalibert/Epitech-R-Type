@@ -35,12 +35,12 @@ public:
 	float getAngle(void) const;
 	float getRadians(void) const;
 
-	void setID(uint8_t id);
-	uint8_t getID(void) const;
+	void setID(uint16_t id);
+	uint16_t getID(void) const;
 
 private:
 	bool _readyForInit;
-	uint8_t _id;
+	uint16_t _id;
 	float _velocity;
 	float _degrees;
 	float _radians;

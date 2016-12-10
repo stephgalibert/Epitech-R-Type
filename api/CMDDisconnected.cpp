@@ -1,6 +1,6 @@
 #include "CMDDisconnected.hpp"
 
-CMDDisconnected::CMDDisconnected(uint8_t id)
+CMDDisconnected::CMDDisconnected(uint16_t id)
 {
 	_data = new Disconnected;
 	_data->cmdType = getCommandType();

@@ -17,7 +17,7 @@ public:
 	virtual void applyCollision(CollisionType type);
 	virtual void move(float delta);
 
-	void setColor(uint8_t color);
+	void setColor(uint16_t color);
 
 private:
 	void initFrame(void);
@@ -26,7 +26,7 @@ private:
 	sf::RectangleShape *_shape;
 	float _delta;
 	uint8_t _currentFrame;
-	uint8_t _color;
+	uint16_t _color;
 	std::vector<sf::IntRect> _frames;
 };
 

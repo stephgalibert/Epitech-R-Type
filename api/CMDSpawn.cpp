@@ -1,6 +1,6 @@
 #include "CMDSpawn.hpp"
 
-CMDSpawn::CMDSpawn(ObjectType object, uint8_t id, uint16_t x, uint16_t y,
+CMDSpawn::CMDSpawn(ObjectType object, uint16_t id, uint16_t x, uint16_t y,
 	uint8_t type, uint8_t effect, bool player)
 {
 	_data = new Spawn;

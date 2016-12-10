@@ -5,7 +5,7 @@
 class CMDDisconnected : public ICommand
 {
 public:
-	CMDDisconnected(uint8_t id);
+	CMDDisconnected(uint16_t id);
 	CMDDisconnected(void);
 	virtual ~CMDDisconnected(void);
 

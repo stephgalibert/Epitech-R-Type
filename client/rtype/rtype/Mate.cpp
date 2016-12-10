@@ -164,8 +164,8 @@ void Mate::shoot(Fire const& param)
 	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
 
 	MissileType type = param.type;
-	uint8_t id = param.id;
-	uint8_t id_launcher = param.id_launcher;
+	uint16_t id = param.id;
+	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;

@@ -45,7 +45,7 @@ void ConnectionManager::distributeShipID(void)
 {
 	for (auto &it : _connections) {
 		ObjectType object = ObjectType::Ship;
-		uint8_t id = it->getID();
+		uint16_t id = it->getID();
 		uint16_t x = it->getPosition().first;
 		uint16_t y = it->getPosition().second;
 		uint8_t type = (uint8_t)ShipType::Standard;
@@ -62,7 +62,7 @@ void ConnectionManager::sendSpawnedShip(void)
 		for (auto &it2 : _connections) {
 			if (it->getID() != it2->getID()) {
 				ObjectType object = ObjectType::Ship;
-				uint8_t id = it2->getID();
+				uint16_t id = it2->getID();
 				uint16_t x = it2->getPosition().first;
 				uint16_t y = it2->getPosition().second;
 				uint8_t type = (uint8_t)ShipType::Standard;

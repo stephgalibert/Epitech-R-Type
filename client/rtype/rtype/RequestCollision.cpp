@@ -14,8 +14,8 @@ void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 {
 	Collision *collision = (Collision *)data->getData();
 	CollisionType type = collision->type;
-	uint8_t id1 = collision->id_first;
-	uint8_t id2 = collision->id_second;
+	uint16_t id1 = collision->id_first;
+	uint16_t id2 = collision->id_second;
 
 	AEntity *entity = World::getEntityByID(id1);
 	AEntity *entity2 = World::getEntityByID(id2);

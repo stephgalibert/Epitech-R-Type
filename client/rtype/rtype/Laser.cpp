@@ -88,7 +88,7 @@ void Laser::applyCollision(CollisionType type)
 	}
 }
 
-void Laser::setColor(uint8_t color)
+void Laser::setColor(uint16_t color)
 {
 	_color = color;
 }

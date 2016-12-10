@@ -44,7 +44,7 @@ private:
 	std::thread _party;
 	std::mutex _mutex;
 	bool _launched;
-	std::set<uint8_t> _ids;
+	std::set<uint16_t> _ids;
 	uint8_t _nextID;
 };
 

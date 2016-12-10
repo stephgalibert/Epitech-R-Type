@@ -14,7 +14,7 @@ void RequestDisconnect::execute(IClient &client, std::shared_ptr<ICommand> data,
 	(void)client;
 	(void)toSend;
 	Disconnected *disconnected = (Disconnected *)data->getData();
-	uint8_t id = disconnected->id;
+	uint16_t id = disconnected->id;
 
 
 	StaticTools::Log << "executing disconnected request : id " << (int)id << std::endl;

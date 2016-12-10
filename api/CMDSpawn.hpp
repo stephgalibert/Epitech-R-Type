@@ -7,7 +7,7 @@
 class CMDSpawn : public ICommand
 {
 public:
-	CMDSpawn(ObjectType object, uint8_t id, uint16_t x, uint16_t y,
+	CMDSpawn(ObjectType object, uint16_t id, uint16_t x, uint16_t y,
 		      uint8_t type, uint8_t effect, bool player);
 	CMDSpawn(void);
 	virtual ~CMDSpawn(void);

@@ -1,6 +1,6 @@
 #include "CMDPowder.hpp"
 
-CMDPowder::CMDPowder(uint8_t id, PowderType type)
+CMDPowder::CMDPowder(uint16_t id, PowderType type)
 {
 	_data = new LoadedPowder;
 	_data->cmdType = getCommandType();

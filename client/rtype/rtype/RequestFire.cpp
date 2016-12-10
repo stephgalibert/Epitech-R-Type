@@ -16,7 +16,7 @@ void RequestFire::execute(IClient &client, std::shared_ptr<ICommand> data,
 	(void)toSend;
 	Fire *fire = (Fire *)data->getData();
 
-	uint8_t id_launcher = fire->id_launcher;
+	uint16_t id_launcher = fire->id_launcher;
 
 	AEntity *entity = World::getEntityByID(id_launcher);
 	AShip *ship = dynamic_cast<AShip *>(entity);

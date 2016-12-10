@@ -15,7 +15,7 @@ void RequestMove::execute(IClient &client, std::shared_ptr<ICommand> data,
 	(void)toSend;
 	Move *move = (Move *)data->getData();
 
-	uint8_t id = move->id_tomove;
+	uint16_t id = move->id_tomove;
 	uint8_t direction = move->direction;
 	uint16_t velocity = move->velocity;
 	uint16_t x = 0;

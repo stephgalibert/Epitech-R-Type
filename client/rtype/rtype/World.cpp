@@ -70,18 +70,14 @@ void World::recycle(void)
 	Entities.clear();
 }
 
-AEntity *World::getEntityByID(uint8_t id)
+AEntity *World::getEntityByID(uint16_t id)
 {
 	std::lock_guard<std::mutex> lock(Mutex);
 
-	//std::cout << "begin" << std::endl;
 	for (auto it : Entities) {
-		//std::cout << "id: " << (int)it->getID() << std::endl;
 		if (it->getID() == id) {
-			//std::cout << "end" << std::endl;
 			return (it);
 		}
 	}
-	//std::cout << "end" << std::endl;
 	return (NULL);
 }

@@ -1,6 +1,6 @@
 #include "CMDCollision.hpp"
 
-CMDCollision::CMDCollision(CollisionType type, uint8_t id_first, uint8_t id_second)
+CMDCollision::CMDCollision(CollisionType type, uint16_t id_first, uint16_t id_second)
 {
 	_data = new Collision;
 	_data->cmdType = getCommandType();

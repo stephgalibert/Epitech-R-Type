@@ -1,6 +1,6 @@
 #include "CMDFire.hpp"
 
-CMDFire::CMDFire(MissileType type, uint8_t id, uint8_t id_launcher, uint16_t x, uint16_t y,
+CMDFire::CMDFire(MissileType type, uint16_t id, uint16_t id_launcher, uint16_t x, uint16_t y,
 	uint8_t velocity, uint8_t angle, uint8_t effect, uint8_t level)
 {
 	_data = new Fire;

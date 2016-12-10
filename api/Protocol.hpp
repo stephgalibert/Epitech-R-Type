@@ -73,14 +73,14 @@ struct Error
 struct Disconnected
 {
 	CommandType cmdType;
-	uint8_t id;
+	uint16_t id;
 };
 
 struct Spawn
 {
 	CommandType cmdType;
 	ObjectType object;
-	uint8_t id_tospawn;
+	uint16_t id_tospawn;
 	uint32_t position;
 	uint8_t type;
 	uint8_t effect;
@@ -90,7 +90,7 @@ struct Spawn
 struct Move
 {
 	CommandType cmdType;
-	uint8_t id_tomove;
+	uint16_t id_tomove;
 	uint32_t position;
 	uint16_t velocity;
 	uint8_t direction;
@@ -100,8 +100,8 @@ struct Fire
 {
 	CommandType cmdType;
 	MissileType type;
-	uint8_t id;
-	uint8_t id_launcher;
+	uint16_t id;
+	uint16_t id_launcher;
 	uint32_t position;
 	uint8_t velocity;
 	uint8_t angle;
@@ -112,15 +112,15 @@ struct Fire
 struct Destroyed
 {
 	CommandType cmdType;
-	uint8_t id;
+	uint16_t id;
 };
 
 struct Collision
 {
 	CommandType cmdType;
 	CollisionType type;
-	uint8_t id_first;
-	uint8_t id_second;
+	uint16_t id_first;
+	uint16_t id_second;
 };
 
 struct Game
@@ -138,21 +138,21 @@ struct Level
 struct Score
 {
 	CommandType cmdType;
-	uint8_t id;
+	uint16_t id;
 	uint16_t score;
 };
 
 struct Life
 {
 	CommandType cmdType;
-	uint8_t id;
+	uint16_t id;
 	uint8_t life;
 };
 
 struct LoadedPowder
 {
 	CommandType cmdType;
-	uint8_t id;
+	uint16_t id;
 	PowderType type;
 };
 

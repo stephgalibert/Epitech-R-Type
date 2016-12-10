@@ -20,7 +20,7 @@ public:
 	virtual void collision(IClient *client, AEntity *other);
 	virtual void applyCollision(CollisionType type);
 
-	void setColor(uint8_t color);
+	void setColor(uint16_t color);
 	void setLoadedTiming(float delta);
 
 	sf::Vector2f getSpriteSize(void) const;
@@ -33,7 +33,7 @@ private:
 
 	float _delta;
 	uint8_t _currentFrame;
-	uint8_t _color;
+	uint16_t _color;
 	std::unordered_map<uint8_t, sf::IntRect[2]> Frames;
 	bool _toRecycle;
 };

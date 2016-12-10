@@ -6,7 +6,7 @@ class CMDCollision : public ICommand
 {
 public:
 	CMDCollision(void);
-	CMDCollision(CollisionType type, uint8_t id_first, uint8_t id_second);
+	CMDCollision(CollisionType type, uint16_t id_first, uint16_t id_second);
 	virtual ~CMDCollision(void);
 
 	virtual void loadFromMemory(char const *data);

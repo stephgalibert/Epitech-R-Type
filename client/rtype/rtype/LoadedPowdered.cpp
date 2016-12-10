@@ -58,7 +58,7 @@ void LoadedPowdered::move(float delta)
 	(void)delta;
 }
 
-void LoadedPowdered::setColor(uint8_t color)
+void LoadedPowdered::setColor(uint16_t color)
 {
 	_color = color;
 }

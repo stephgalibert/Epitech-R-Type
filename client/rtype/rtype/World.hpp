@@ -23,7 +23,7 @@ public:
 	static void display(sf::RenderWindow &window);
 	static void recycle(void);
 
-	static AEntity *getEntityByID(uint8_t id);
+	static AEntity *getEntityByID(uint16_t id);
 
 	template<typename T>
 	static T *spawnEntity(void)

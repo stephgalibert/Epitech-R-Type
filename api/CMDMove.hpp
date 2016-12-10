@@ -7,7 +7,7 @@
 class CMDMove : public ICommand
 {
 public:
-	CMDMove(uint8_t id, uint16_t x, uint16_t y, uint16_t velocity, uint8_t direction);
+	CMDMove(uint16_t id, uint16_t x, uint16_t y, uint16_t velocity, uint8_t direction);
 	CMDMove(void);
 	virtual ~CMDMove(void);
 

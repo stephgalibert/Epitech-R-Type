@@ -14,12 +14,12 @@ AEntity::~AEntity(void)
 {
 }
 
-void AEntity::setID(uint8_t id)
+void AEntity::setID(uint16_t id)
 {
 	_id = id;
 }
 
-uint8_t AEntity::getID(void) const
+uint16_t AEntity::getID(void) const
 {
 	return (_id);
 }

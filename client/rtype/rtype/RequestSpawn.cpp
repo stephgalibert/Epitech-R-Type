@@ -16,7 +16,7 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 	Spawn *spawn = (Spawn *)data->getData();
 
 	//ObjectType object = spawn->object;
-	uint8_t id = spawn->id_tospawn;
+	uint16_t id = spawn->id_tospawn;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	/*uint8_t type = spawn->type;
