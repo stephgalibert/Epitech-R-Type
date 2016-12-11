@@ -17,13 +17,15 @@ TCPWinSocket::~TCPWinSocket(void)
 bool TCPWinSocket::connectToServer(std::string const& host, short port)
 {
 	SOCKADDR_IN sin;
+	char ipstr[INET6_ADDRSTRLEN];
 	int ret = 0;
 	_socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket <= 0) {
 		return false;
 	}
-	sin.sin_addr.s_addr = inet_addr(host.c_str());
 	sin.sin_family = AF_INET;
+	sin.sin_addr.s_addr = inet_pton(AF_INET, host.c_str(), ipstr);
+	//sin.sin_addr.s_addr = inet_addr(host.c_str());
 	sin.sin_port = htons(port);
 	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin))) {
 		closesocket(_socket);
