@@ -9,6 +9,8 @@
 #include "Powdered.hpp"
 #include "LoadedPowdered.hpp"
 
+#include "HUDController.hpp"
+
 class IClient;
 
 class Player : public APC
@@ -35,6 +37,7 @@ public:
 	virtual void shoot(Fire const& param);
 
 	void setIClient(IClient *client);
+	void setHUD(HUDController *hud);
 
 	/* ici les getters pour le hud */
 
@@ -52,6 +55,7 @@ private:
 	float _delta;
 	float _deltaLastShoot;
 	IClient *_client;
+	HUDController *_hud;
 	bool _decrease;
 	uint8_t _targetFrame;
 	uint8_t _currentFrame;

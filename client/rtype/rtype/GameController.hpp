@@ -13,6 +13,7 @@
 #include "IClient.hpp"
 #include "CMDConnect.hpp"
 
+#include "HUDController.hpp"
 #include "LoadingController.hpp"
 #include "ConnectionLostController.hpp"
 
@@ -32,6 +33,8 @@ public:
 
 	void setReady(bool value);
 	void setPlayer(Player *player);
+
+	Player *getPlayer(void) const;
 	//void addMate(Mate *mate);
 
 	bool isReady(void) const;
@@ -39,6 +42,7 @@ public:
 private:
 	LoadingController _loading;
 	ConnectionLostController _connectionLost;
+	HUDController _hud;
 
 	IClient &_network;
 	std::string _partyName;

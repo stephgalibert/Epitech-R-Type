@@ -5,6 +5,7 @@ Player::Player()
 	: _delta(0.f),
 	_deltaLastShoot(0),
 	_client(NULL),
+	_hud(NULL),
 	_decrease(false),
 	_powder(NULL),
 	_loadedPowder(NULL)
@@ -79,6 +80,11 @@ void Player::destroy(void)
 void Player::setIClient(IClient *client)
 {
 	_client = client;
+}
+
+void Player::setHUD(HUDController *hud)
+{
+	_hud = hud;
 }
 
 void Player::collision(IClient *client, AEntity *other)
@@ -325,6 +331,10 @@ void Player::keyboard(InputHandler &input)
 		if (_client) {
 			_client->write(std::make_shared<CMDPowder>(getID(), PowderType::LoadedPowder));
 		}
+	}
+
+	if (_hud) {
+		_hud->setLoaded(_deltaLoadedShot);
 	}
 
 	if (!_loadedShot && input.isKeyDown(sf::Keyboard::Space)) {

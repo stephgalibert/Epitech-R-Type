@@ -270,6 +270,15 @@
     <ClCompile Include="ConnectionLostController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="HUDController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadedShotLayout.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -504,6 +513,15 @@
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
     <ClInclude Include="ConnectionLostController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="HUDController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadedShotLayout.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
   </ItemGroup>

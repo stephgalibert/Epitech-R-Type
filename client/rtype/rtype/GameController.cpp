@@ -26,8 +26,12 @@ void GameController::init(void)
 	_connectionLost.init();
 	_connectionLost.setBaseText("Connection lost :/");
 
+	_hud.init();
+
 	_back.init();
 	_front.init();
+
+	//_hud.setHealth(3);
 }
 
 bool GameController::input(InputHandler &input)
@@ -35,8 +39,8 @@ bool GameController::input(InputHandler &input)
 	if (_player) {
 		_player->input(input);
 	}
+	_hud.input(input);
 	return (false);
-
 }
 void GameController::update(float delta)
 {
@@ -51,6 +55,7 @@ void GameController::update(float delta)
 			_connectionLost.update(delta);
 		}
 	}
+	_hud.update(delta);
 }
 
 void GameController::draw(sf::RenderWindow &window)
@@ -67,6 +72,8 @@ void GameController::draw(sf::RenderWindow &window)
 			_connectionLost.draw(window);
 		}
 	}
+
+	_hud.draw(window);
 }
 
 void GameController::recycle(void)
@@ -93,6 +100,13 @@ void GameController::setReady(bool value)
 void GameController::setPlayer(Player *player)
 {
 	_player = player;
+	_player->setHUD(&_hud);
+	_hud.setColor(_player->getID());
+}
+
+Player *GameController::getPlayer(void) const
+{
+	return (_player);
 }
 
 bool GameController::isReady(void) const

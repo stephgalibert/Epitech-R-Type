@@ -29,7 +29,13 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 	if (player) {
 		GameController *game = client.getGameController();
 		if (game) {
-			Player *player = World::spawnEntity<Player>();
+			Player *player = game->getPlayer();
+			if (!player) {
+				player = World::spawnEntity<Player>();
+			}
+			else {
+				// set life-1
+			}
 			player->setID(id);
 			player->setPosition(x, y);
 			player->setIClient(&client);
