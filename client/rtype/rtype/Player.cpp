@@ -364,6 +364,12 @@ void Player::keyboard(InputHandler &input)
 		_loadedShot = false;
 		_deltaLoadedShot = 0;
 	}
+
+	if (input.isKeyDown(sf::Keyboard::A)) {
+		if (_client) {
+			_client->write(std::make_shared<CMDGetParty>());
+		}
+	}
 }
 
 void Player::joystick(InputHandler &input)
@@ -380,11 +386,12 @@ void Player::joystick(InputHandler &input)
 	}
 
 	if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
-		direction |= EAST;
-		_targetFrame = 3;
+		direction |= WEAST;
+
 	}
 	else if (input.getJoystickAxis(0, sf::Joystick::X) > InputHandler::JOYSTICK_DEAD_ZONE) {
-		direction |= WEAST;
+		direction |= EAST;
+		_targetFrame = 3;
 	}
 
 	if (getDirection() != direction) {
@@ -407,9 +414,38 @@ void Player::joystick(InputHandler &input)
 		_currentDirection = FRAME_BOT;
 	}
 
-	if (input.isJoystickButtonDown(0)) {
-		prepareShot();
+	if (_deltaLoadedShot > 0.2f && !_loadedPowder) {
+		_loadedPowder = World::spawnEntity<LoadedPowdered>();
+		_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
+		_loadedPowder->setColor(getID());
+		_loadedPowder->setReadyForInit(true);
+		if (_client) {
+			_client->write(std::make_shared<CMDPowder>(getID(), PowderType::LoadedPowder));
+		}
 	}
+
+	if (_hud) {
+		_hud->setLoaded(_deltaLoadedShot);
+	}
+
+	if (!_loadedShot && input.isJoystickButtonDown(0)) {
+		_deltaLoadedShot = 0;
+		_loadedShot = true;
+	}
+	else if (_loadedShot && !input.isJoystickButtonDown(0)) {
+		if (_loadedPowder) {
+			_loadedPowder->recycle();
+			_loadedPowder = NULL;
+		}
+
+		prepareShot();
+		_loadedShot = false;
+		_deltaLoadedShot = 0;
+	}
+
+	//if (input.isJoystickButtonDown(0)) {
+	//	prepareShot();
+	//}
 }
 
 
@@ -474,7 +510,6 @@ void Player::collisionDestruction(void)
 
 void Player::sendRespawnRequest(void)
 {
-	std::cout << "respawn request" << std::endl;
 	if (_client) {
 		_client->write(std::make_shared<CMDDestroyed>(getID()));
 	}

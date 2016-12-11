@@ -285,6 +285,12 @@
     <ClCompile Include="RequestRespawn.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDGetParty.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestGetParty.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -534,6 +540,12 @@
       <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="RequestRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDGetParty.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestGetParty.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>

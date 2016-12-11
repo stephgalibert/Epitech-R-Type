@@ -89,6 +89,11 @@ std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> c
 	return (NULL);
 }
 
+std::unordered_map<std::string, std::shared_ptr<Party> > const& PartyManager::getParties(void) const
+{
+	return (_parties);
+}
+
 void PartyManager::checkPartyExist(std::string const& name) const
 {
 	if (_parties.find(name) != _parties.cend() || _parties.find(name) != _parties.cend()) {

@@ -18,6 +18,7 @@
 #include "RequestDestroyed.hpp"
 #include "RequestCollision.hpp"
 #include "RequestRespawn.hpp"
+#include "RequestGetParty.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {
@@ -28,6 +29,7 @@ public:
 	std::unique_ptr<IRequest> build(CommandType type) const;
 
 private:
+	std::unique_ptr<IRequest> create_GetPartyRequest(void) const;
 	std::unique_ptr<IRequest> create_RespawnRequest(void) const;
 	std::unique_ptr<IRequest> create_DestroyedRequest(void) const;
 	std::unique_ptr<IRequest> create_LoadedPowderRequest(void) const;

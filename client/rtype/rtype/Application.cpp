@@ -3,7 +3,6 @@
 Application::Application(void)
 	: _client(&_game, "127.0.0.1", "4242")
 {
-		//_game(_client, "room1", "pwd1")
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 
 	sf::ContextSettings context;
@@ -32,8 +31,8 @@ Application::~Application(void)
 //#include <Windows.h> // !
 void Application::init(std::string host, std::string pwd)
 {
-  (void)host;
-  (void)pwd;
+	_host = host;
+	_pwd = pwd;
 	try {
 		StaticTools::Log.open("client.log" /*+ std::to_string(GetCurrentProcessId()) + ".log"*/, std::ios::out | std::ios::app);
 		ProjectResource::TheProjectResource.load();
@@ -116,7 +115,7 @@ void Application::updateMenu(float delta)
 	_state = ApplicationState::AS_Game;
 	_game = new GameController(_client);
 	_game->init();
-	_game->connectToParty("name", "pwd");
+	_game->connectToParty(_host, _pwd);
 	//	break;
 	//case MainMenuController::SelectedAction::QUIT:
 	//	_quit = true;

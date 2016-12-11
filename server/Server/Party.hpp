@@ -37,6 +37,8 @@ public:
 	std::string const& getName(void) const;
 	std::string const& getPassword(void) const;
 
+	uint8_t getNbPlayer(void) const;
+
 private:
 	std::string _name;
 	std::string _password;

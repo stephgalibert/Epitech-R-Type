@@ -58,5 +58,9 @@ private:
 	std::unordered_map<ApplicationState, std::function<void(InputHandler &)> > _inputs;
 	std::unordered_map<ApplicationState, std::function<void(float)> > _updates;
 	std::unordered_map<ApplicationState, std::function<void(sf::RenderWindow &)> > _draws;
+
+	/* to remove later */
+	std::string _host;
+	std::string _pwd;
 };
 

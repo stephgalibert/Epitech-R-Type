@@ -161,6 +161,7 @@
     <ClCompile Include="..\..\..\api\CMDDisconnected.cpp" />
     <ClCompile Include="..\..\..\api\CMDError.cpp" />
     <ClCompile Include="..\..\..\api\CMDFire.cpp" />
+    <ClCompile Include="..\..\..\api\CMDGetParty.cpp" />
     <ClCompile Include="..\..\..\api\CMDPowder.cpp" />
     <ClCompile Include="..\..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\..\api\CMDPing.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="RequestDestroyed.cpp" />
     <ClCompile Include="RequestDisconnect.cpp" />
     <ClCompile Include="RequestFire.cpp" />
+    <ClCompile Include="RequestGetParty.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
     <ClCompile Include="RequestPowder.cpp" />
@@ -237,6 +239,7 @@
     <ClInclude Include="..\..\..\api\CMDDisconnected.hpp" />
     <ClInclude Include="..\..\..\api\CMDError.hpp" />
     <ClInclude Include="..\..\..\api\CMDFire.hpp" />
+    <ClInclude Include="..\..\..\api\CMDGetParty.hpp" />
     <ClInclude Include="..\..\..\api\CMDPowder.hpp" />
     <ClInclude Include="..\..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\..\api\CMDPing.hpp" />
@@ -300,6 +303,7 @@
     <ClInclude Include="RequestDestroyed.hpp" />
     <ClInclude Include="RequestDisconnect.hpp" />
     <ClInclude Include="RequestFire.hpp" />
+    <ClInclude Include="RequestGetParty.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
     <ClInclude Include="RequestPowder.hpp" />

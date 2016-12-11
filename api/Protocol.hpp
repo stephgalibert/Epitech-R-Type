@@ -185,6 +185,16 @@ struct CreateParty
 	char data[0];
 };
 
+struct GetParty
+{
+	CommandType cmdType;
+	uint8_t nbPlayer;
+	bool pwdPresent;
+	bool running;
+	uint8_t size;
+	char data[0];
+};
+
 #  pragma pack(pop)
 # undef PACKED
 
@@ -202,6 +212,16 @@ struct CreateParty
 		CommandType cmdType;
 		uint16_t size;
 		char data[0];
+	} __attribute__((packed));
+
+	struct GetParty
+	{
+		CommandType cmdType;
+		uint8_t nbPlayer;
+		bool pwdPresent;
+		bool running;
+		char data[0];
+		uint8_t size;
 	} __attribute__((packed));
 
 #endif

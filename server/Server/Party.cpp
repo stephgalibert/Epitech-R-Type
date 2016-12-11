@@ -123,7 +123,7 @@ void Party::loop(void)
 
 bool Party::isReady(void) const
 {
-	return (_cm.getPlayerNumber() > 3);
+	return (_cm.getPlayerNumber() > 1);
 }
 
 bool Party::isFinished(void) const
@@ -144,4 +144,9 @@ std::string const& Party::getName(void) const
 std::string const& Party::getPassword(void) const
 {
 	return (_password);
+}
+
+uint8_t Party::getNbPlayer(void) const
+{
+	return (_cm.getPlayerNumber());
 }

@@ -7,6 +7,7 @@ enum class CommandType : uint8_t
 	Ping = 0,
 	Error = 1,
 	Disconnected = 2,
+	GetParty = 3,
 	Connect = 5,
 	CreateParty = 6,
 	Score = 7,
