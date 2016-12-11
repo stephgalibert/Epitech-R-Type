@@ -33,10 +33,9 @@ public:
 
 	void setReady(bool value);
 	void setPlayer(Player *player);
-
-	Player *getPlayer(void) const;
 	//void addMate(Mate *mate);
 
+	Player *getPlayer(void) const;
 	bool isReady(void) const;
 
 private:
@@ -48,6 +47,7 @@ private:
 	std::string _partyName;
 	std::string _partyPwd;
 	Player *_player;
+	//Mate *_mates[3];
 	// mates
 	Background _back;
 	Background _front;

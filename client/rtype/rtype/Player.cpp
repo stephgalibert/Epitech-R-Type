@@ -185,7 +185,6 @@ void Player::shoot(Fire const& param)
 	StaticTools::DeserializePosition(param.position, x, y);
 
 	Laser *laser = World::spawnEntity<Laser>();
-	//Laser *laser = new Laser;
 	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
@@ -195,14 +194,27 @@ void Player::shoot(Fire const& param)
 	laser->setColor(id_launcher);
 	laser->setReadyForInit(true);
 
-	//World::pushEntity(laser);
-
 	if (!_powder) {
 		_powder = World::spawnEntity<Powdered>();
 		_powder->setPosition(getPosition().x + 35, y + 2.f);
 		_powder->setColor(getID());
 		_powder->setReadyForInit(true);
 	}
+}
+
+void Player::respawn(void)
+{
+	setCollisioned(false);
+	setCollisionType(COLLISION_FATAL);
+	_currentDirection = FRAME_MID;
+	_currentFrame = 0;
+	_targetFrame = 0;
+	setVisiblity(VISIBILITY_VISIBLE);
+	setDead(false);
+	setVelocity(150);
+	_delta = 0;
+	_deltaLastShoot = 0;
+	_deltaLoadedShot = 0;
 }
 
 void Player::initFrame(void)
@@ -246,6 +258,7 @@ void Player::updateFrame(void)
 			if (_currentFrame == 5) {
 				setDead(true);
 				setVisiblity(VISIBILITY_GONE);
+				sendRespawnRequest();
 				return;
 			}
 		}
@@ -347,9 +360,6 @@ void Player::keyboard(InputHandler &input)
 			_loadedPowder = NULL;
 		}
 
-		//Fire fire;
-		//fire.type = MissileType::MT_FriendFire_Lv1;
-		//shoot(fire);
 		prepareShot();
 		_loadedShot = false;
 		_deltaLoadedShot = 0;
@@ -398,9 +408,6 @@ void Player::joystick(InputHandler &input)
 	}
 
 	if (input.isJoystickButtonDown(0)) {
-		/*Fire fire;
-		fire.type = MissileType::MT_FriendFire_Lv1;
-		shoot(fire);*/
 		prepareShot();
 	}
 }
@@ -412,7 +419,6 @@ void Player::prepareShot(void)
 		sf::Vector2f size;
 		sf::Vector2f pos = getPosition();
 
-		//Laser *shot = World::spawnEntity<Laser>();
 		Laser *shot = new Laser;
 		shot->setLoadedTiming(_deltaLoadedShot);
 		shot->setAngle(0);
@@ -443,6 +449,9 @@ void Player::prepareShot(void)
 
 void Player::collisionDestruction(void)
 {
+	setCollisioned(true);
+	setCollisionType(COLLISION_NONE);
+
 	Explosion *explosion = World::spawnEntity<Explosion>();
 	explosion->setPosition(getPosition());
 	explosion->setReadyForInit(true);
@@ -457,5 +466,16 @@ void Player::collisionDestruction(void)
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
 		_loadedPowder = NULL;
+	}
+
+	setHealth(getHealth() - 1);
+	_hud->setHealth(getHealth());
+}
+
+void Player::sendRespawnRequest(void)
+{
+	std::cout << "respawn request" << std::endl;
+	if (_client) {
+		_client->write(std::make_shared<CMDDestroyed>(getID()));
 	}
 }

@@ -40,12 +40,14 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	uint8_t id = _nextID;
 	uint16_t x = 100;
 	uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
+	uint8_t health = 3;
 	
 	/*uint8_t type = (uint8_t)ShipType::Standard;
 	  uint8_t effect = 0;*/
 
 	connection->setPosition(std::make_pair(x, y));
 	connection->setID(id);
+	connection->setLife(health);
 	// ...
 
 	_cm.add(connection);
@@ -85,6 +87,25 @@ void Party::fire(std::shared_ptr<ICommand> cmd)
 	_cm.broadcast(cmd);
 	++_nextID;
 	std::cout << "next id: " << (int)_nextID << std::endl;
+}
+
+void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd)
+{
+	Destroyed *destroyed = reinterpret_cast<Destroyed *>(cmd->getData());
+
+	if (connection->getID() == destroyed->id) {
+		connection->setLife(connection->getLife() - 1);
+		if (connection->getLife() > 0) {
+			uint16_t x = connection->getPosition().first;
+			uint16_t y = connection->getPosition().second;
+			_cm.broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
+		}
+	}
+}
+
+void Party::respawn(std::shared_ptr<ICommand> cmd)
+{
+
 }
 
 void Party::loop(void)

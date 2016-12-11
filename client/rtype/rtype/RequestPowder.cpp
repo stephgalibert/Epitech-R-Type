@@ -15,7 +15,6 @@ RequestPowder::~RequestPowder(void)
 void RequestPowder::execute(IClient &client, std::shared_ptr<ICommand> data,
 								  std::shared_ptr<ICommand> &toSend)
 {
-	std::cout << "receiving loaded powder" << std::endl;
 	(void)client;
 	(void)toSend;
 	LoadedPowder *powder = (LoadedPowder *)data->getData();

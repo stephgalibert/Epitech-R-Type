@@ -20,4 +20,5 @@ public:
 	virtual void move(float delta);
 
 	virtual void shoot(Fire const& param) = 0;
+	virtual void respawn(void) = 0;
 };

@@ -1,7 +1,7 @@
 #include "CMDSpawn.hpp"
 
 CMDSpawn::CMDSpawn(ObjectType object, uint16_t id, uint16_t x, uint16_t y,
-	uint8_t type, uint8_t effect, bool player)
+	uint8_t type, uint8_t effect, uint8_t health, bool player)
 {
 	_data = new Spawn;
 	_data->cmdType = getCommandType();
@@ -10,6 +10,7 @@ CMDSpawn::CMDSpawn(ObjectType object, uint16_t id, uint16_t x, uint16_t y,
 	_data->position = StaticTools::SerializePosition(x, y);
 	_data->type = type;
 	_data->effect = effect;
+	_data->health = health;
 	_data->is_player = player;
 }
 
@@ -33,6 +34,7 @@ void CMDSpawn::loadFromMemory(char const *data)
 	_data->position = spawn.position;
 	_data->type = spawn.type;
 	_data->effect = spawn.effect;
+	_data->health = spawn.health;
 	_data->is_player = spawn.is_player;
 }
 

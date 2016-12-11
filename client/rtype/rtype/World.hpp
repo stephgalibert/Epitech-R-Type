@@ -18,12 +18,13 @@ class Player;
 class World
 {
 public:
-	static void init(IClient *client);
+	static void init(Player **player, IClient *client);
 	static void update(float delta);
 	static void display(sf::RenderWindow &window);
 	static void recycle(void);
 
 	static AEntity *getEntityByID(uint16_t id);
+	static Player *GetPlayer(void);
 
 	template<typename T>
 	static T *spawnEntity(void)
@@ -41,6 +42,6 @@ private:
 	static std::vector<AEntity *> ToPush;
 	static std::mutex Mutex;
 	static IClient *Client;
-	static Player **thePlayer;
+	static Player **ThePlayer;
 	static float Delta;
 };

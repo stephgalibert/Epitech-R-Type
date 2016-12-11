@@ -17,5 +17,6 @@ public:
 
 	virtual void shoot(Fire const& param) = 0;
 	virtual void setPowder(PowderType powderType) = 0;
+	virtual void respawn(void) = 0;
 };
 

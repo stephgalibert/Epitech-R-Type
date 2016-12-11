@@ -36,6 +36,8 @@ public:
 
 	virtual void shoot(Fire const& param);
 
+	virtual void respawn(void);
+
 	void setIClient(IClient *client);
 	void setHUD(HUDController *hud);
 
@@ -51,6 +53,7 @@ private:
 	void prepareShot(void);
 
 	void collisionDestruction(void);
+	void sendRespawnRequest(void);
 
 	float _delta;
 	float _deltaLastShoot;

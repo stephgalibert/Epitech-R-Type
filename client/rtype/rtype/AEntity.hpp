@@ -38,6 +38,9 @@ public:
 	void setID(uint16_t id);
 	uint16_t getID(void) const;
 
+	void setHealth(uint8_t health);
+	uint8_t getHealth(void) const;
+
 private:
 	bool _readyForInit;
 	uint16_t _id;
@@ -45,4 +48,5 @@ private:
 	float _degrees;
 	float _radians;
 	uint8_t _direction;
+	uint8_t _health;
 };

@@ -101,7 +101,7 @@ void Mate::collision(IClient *client, AEntity *other)
 	if (getCollisionType() != COLLISION_NONE
 		&& other->getCollisionType() == COLLISION_FATAL
 		&& !hasCollisioned()) {
-		
+
 		setCollisioned(true);
 
 		//if (!other->hasCollisioned()) {
@@ -175,7 +175,6 @@ void Mate::shoot(Fire const& param)
 	StaticTools::DeserializePosition(param.position, x, y);
 
 	Laser *laser = World::spawnEntity<Laser>();
-	//Laser *laser = new Laser;
 	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
@@ -184,7 +183,6 @@ void Mate::shoot(Fire const& param)
 	laser->setVelocity(velocity);
 	laser->setColor(id_launcher);
 	laser->setReadyForInit(true);
-	//World::pushEntity(laser);
 
 	if (!_powder) {
 		_powder = World::spawnEntity<Powdered>();
@@ -192,6 +190,20 @@ void Mate::shoot(Fire const& param)
 		_powder->setColor(getID());
 		_powder->setReadyForInit(true);
 	}
+}
+
+void Mate::respawn(void)
+{
+	std::cout << "respawn" << std::endl;
+	setCollisioned(false);
+	setCollisionType(COLLISION_FATAL);
+	_currentDirection = FRAME_MID;
+	_currentFrame = 0;
+	_targetFrame = 0;
+	setVisiblity(VISIBILITY_VISIBLE);
+	setDead(false);
+	setVelocity(150);
+	_delta = 0;
 }
 
 void Mate::setPowder(PowderType powderType)
@@ -295,6 +307,9 @@ void Mate::updateFrame(void)
 
 void Mate::collisionDestruction(void)
 {
+	setCollisioned(true);
+	setCollisionType(COLLISION_NONE);
+
 	Explosion *explosion = World::spawnEntity<Explosion>();
 	explosion->setPosition(getPosition());
 	explosion->setReadyForInit(true);

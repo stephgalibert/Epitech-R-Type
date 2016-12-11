@@ -50,9 +50,10 @@ void ConnectionManager::distributeShipID(void)
 		uint16_t y = it->getPosition().second;
 		uint8_t type = (uint8_t)ShipType::Standard;
 		uint8_t effect = 0;
+		uint8_t health = it->getLife();
 		bool player = true;
 
-		it->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, player));
+		it->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, health, player));
 	}
 }
 
@@ -67,9 +68,10 @@ void ConnectionManager::sendSpawnedShip(void)
 				uint16_t y = it2->getPosition().second;
 				uint8_t type = (uint8_t)ShipType::Standard;
 				uint8_t effect = 0;
+				uint8_t health = it2->getLife();
 				bool player = false;
 
-				it->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, player));
+				it->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, health, player));
 			}
 		}
 	}

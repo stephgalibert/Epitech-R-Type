@@ -3,10 +3,12 @@
 std::list<AEntity *> World::Entities;
 std::vector<AEntity *> World::ToPush;
 std::mutex World::Mutex;
-IClient *World::Client;
+IClient *World::Client = NULL;
+Player **World::ThePlayer = NULL;
 
-void World::init(IClient *client)
+void World::init(Player **player, IClient *client)
 {
+	ThePlayer = player;
 	Client = client;
 }
 
@@ -78,6 +80,14 @@ AEntity *World::getEntityByID(uint16_t id)
 		if (it->getID() == id) {
 			return (it);
 		}
+	}
+	return (NULL);
+}
+
+Player *World::GetPlayer(void)
+{
+	if (ThePlayer) {
+		return (*ThePlayer);
 	}
 	return (NULL);
 }

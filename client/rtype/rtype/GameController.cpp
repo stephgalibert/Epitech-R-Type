@@ -6,6 +6,9 @@ GameController::GameController(IClient &network)
 	  _back("background", 0.03f),
 	  _front("background2", 0.01f)
 {
+	//for (size_t i = 0; i < 3; ++i) {
+	//	_mates[i] = NULL;
+	//}
 }
 
 GameController::~GameController(void)
@@ -16,7 +19,7 @@ GameController::~GameController(void)
 void GameController::init(void)
 {
 	LevelResource::TheLevelResource.load();
-	World::init(&_network);
+	World::init(&_player, &_network);
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
 
@@ -30,8 +33,6 @@ void GameController::init(void)
 
 	_back.init();
 	_front.init();
-
-	//_hud.setHealth(3);
 }
 
 bool GameController::input(InputHandler &input)
@@ -103,6 +104,18 @@ void GameController::setPlayer(Player *player)
 	_player->setHUD(&_hud);
 	_hud.setColor(_player->getID());
 }
+
+//void GameController::addMate(Mate *mate)
+//{
+//	size_t i = 0;
+//
+//	while (i < 3 && !_mates[i]) {
+//		++i;
+//	}
+//	if (i < 3 && _mates[i]) {
+//		_mates[i] = mate;
+//	}
+//}
 
 Player *GameController::getPlayer(void) const
 {

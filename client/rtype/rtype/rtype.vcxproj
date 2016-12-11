@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\..\api\CMDPowder.cpp" />
     <ClCompile Include="..\..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\..\api\CMDPing.cpp" />
+    <ClCompile Include="..\..\..\api\CMDRespawn.cpp" />
     <ClCompile Include="..\..\..\api\CMDScore.cpp" />
     <ClCompile Include="..\..\..\api\CMDSpawn.cpp" />
     <ClCompile Include="..\..\..\api\CommandFactory.cpp" />
@@ -218,6 +219,7 @@
     <ClCompile Include="AShip.cpp" />
     <ClCompile Include="RequestPowder.cpp" />
     <ClCompile Include="RequestMove.cpp" />
+    <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="TCPClient.cpp" />
@@ -238,6 +240,7 @@
     <ClInclude Include="..\..\..\api\CMDPowder.hpp" />
     <ClInclude Include="..\..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\..\api\CMDPing.hpp" />
+    <ClInclude Include="..\..\..\api\CMDRespawn.hpp" />
     <ClInclude Include="..\..\..\api\CMDScore.hpp" />
     <ClInclude Include="..\..\..\api\CMDSpawn.hpp" />
     <ClInclude Include="..\..\..\api\CommandFactory.hpp" />
@@ -301,6 +304,7 @@
     <ClInclude Include="AShip.hpp" />
     <ClInclude Include="RequestPowder.hpp" />
     <ClInclude Include="RequestMove.hpp" />
+    <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="TCPClient.hpp" />

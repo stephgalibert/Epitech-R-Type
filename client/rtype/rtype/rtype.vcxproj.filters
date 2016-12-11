@@ -279,6 +279,12 @@
     <ClCompile Include="LoadedShotLayout.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDRespawn.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestRespawn.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -523,6 +529,12 @@
     </ClInclude>
     <ClInclude Include="LoadedShotLayout.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,8 +18,6 @@ void RequestFire::execute(std::shared_ptr<AConnection> owner,
 	std::shared_ptr<Party> party = owner->getCurrentParty();
 
 	if (party) {
-		if (received->getCommandType() == CommandType::Fire) {
-			party->fire(received);
-		}
+		party->fire(received);
 	}
 }

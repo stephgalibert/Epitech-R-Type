@@ -17,6 +17,7 @@
 #include "CMDDestroyed.hpp"
 #include "CMDScore.hpp"
 #include "CMDPowder.hpp"
+#include "CMDRespawn.hpp"
 
 class CommandFactory
 {
@@ -24,6 +25,7 @@ public:
 	static std::shared_ptr<ICommand> build(CommandType type);
 
 private:
+	static std::shared_ptr<ICommand> cmd_respawn(void);
 	static std::shared_ptr<ICommand> cmd_loadedPowder(void);
 	static std::shared_ptr<ICommand> cmd_collision(void);
 	static std::shared_ptr<ICommand> cmd_destroyed(void);

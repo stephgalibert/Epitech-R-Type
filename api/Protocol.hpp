@@ -84,6 +84,7 @@ struct Spawn
 	uint32_t position;
 	uint8_t type;
 	uint8_t effect;
+	uint8_t health;
 	bool is_player;
 };
 
@@ -154,6 +155,14 @@ struct LoadedPowder
 	CommandType cmdType;
 	uint16_t id;
 	PowderType type;
+};
+
+struct Respawn
+{
+	CommandType cmdType;
+	uint32_t position;
+	uint16_t id;
+	uint8_t life;
 };
 
 #ifdef _MSC_VER

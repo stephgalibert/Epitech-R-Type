@@ -10,6 +10,7 @@ class ADrawable : public sf::Drawable, public sf::Transformable
 {
 public:
 	static const int VISIBILITY_GONE = 1;
+	static const int VISIBILITY_VISIBLE = 2;
 
 public:
 	ADrawable();

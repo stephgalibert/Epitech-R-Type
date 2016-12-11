@@ -1,4 +1,5 @@
 #include "Laser.hpp"
+#include "Player.hpp"
 
 Laser::Laser(void)
 	: _shape(NULL),
@@ -60,7 +61,8 @@ void Laser::collision(IClient *client, AEntity *other)
 	if (!hasCollisioned() && other->getCollisionType() == COLLISION_FATAL) {
 		setCollisioned(true);
 
-		if (!other->hasCollisioned()) {
+		if (!other->hasCollisioned() && World::GetPlayer() && getOwnerID() == World::GetPlayer()->getID()) {
+			std::cout << "laser sending collision" << std::endl;
 			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 		}
 	}
@@ -73,13 +75,14 @@ void Laser::applyCollision(CollisionType type)
 	case CollisionType::None:
 		break;
 	case CollisionType::Destruction:
-			if (getLevel() > 0) {
-				setLevel(getLevel() - 1);
-				setCollisioned(false);
-			}
-			else {
-				_toRecycle = true;
-			}
+		std::cout << "laser destruction collision" << std::endl;
+		if (getLevel() > 0) {
+			setLevel(getLevel() - 1);
+			setCollisioned(false);
+		}
+		else {
+			_toRecycle = true;
+		}
 		break;
 	case CollisionType::PowerUP:
 		break;

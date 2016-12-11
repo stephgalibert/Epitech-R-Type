@@ -24,6 +24,16 @@ uint16_t AEntity::getID(void) const
 	return (_id);
 }
 
+void AEntity::setHealth(uint8_t health)
+{
+	_health = health;
+}
+
+uint8_t AEntity::getHealth(void) const
+{
+	return (_health);
+}
+
 void AEntity::setDirection(uint8_t direction)
 {
 	setAngle(-1);

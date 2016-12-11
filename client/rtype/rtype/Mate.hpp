@@ -30,6 +30,8 @@ public:
 	virtual void shoot(Fire const& param);
 	virtual void setPowder(PowderType powderType);
 
+	virtual void respawn(void);
+
 private:
 	void initFrame(void);
 	void updateFrame(void);

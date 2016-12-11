@@ -1,5 +1,6 @@
 #include "RequestCollision.hpp"
 #include "ICommand.hpp"
+#include "Laser.hpp"
 
 RequestCollision::RequestCollision(void)
 {
@@ -19,8 +20,13 @@ void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 
 	AEntity *entity = World::getEntityByID(id1);
 	AEntity *entity2 = World::getEntityByID(id2);
-	if (entity && entity2) {
-		entity->applyCollision(type);
-		entity2->applyCollision(type);
+	Laser *laser = dynamic_cast<Laser *>(entity);
+	if (!laser) {
+		if (entity) {
+			entity->applyCollision(type);
+		}
+		if (entity2) {
+			entity2->applyCollision(type);
+		}
 	}
 }
