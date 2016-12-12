@@ -18,7 +18,8 @@ void Buffer::prepare(size_t len)
 	if (_data) {
 		delete (_data);
 	}
-	_data = new char[len] { 0 };
+	_data = new char[len];
+	memset(_data, 0, len);
 	_size = len;
 }
 
@@ -41,7 +42,8 @@ void Buffer::consume(size_t len)
 	}
 
 	_size = _size - len;
-	char *tmp = new char[_size]{ 0 };
+	char *tmp = new char[_size];
+	memset(tmp, 0, _size);
 	memcpy(tmp, &_data[len], _size);
 	delete (_data);
 	_data = tmp;

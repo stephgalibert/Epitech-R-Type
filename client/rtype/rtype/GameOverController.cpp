@@ -22,7 +22,7 @@ void GameOverController::init(void)
 		_text.setCharacterSize(22);
 		_text.setFillColor(sf::Color::Red);
 		_text.setString(_string);
-		
+
 
 		_restartingIn.setCharacterSize(20);
 		_restartingIn.setFillColor(sf::Color::Red);
@@ -35,7 +35,7 @@ void GameOverController::init(void)
 		sf::FloatRect restartingInRect = _restartingIn.getLocalBounds();
 		_restartingIn.setOrigin(restartingInRect.left + restartingInRect.width / 2.0f, restartingInRect.top + restartingInRect.height / 2.0f);
 		_restartingIn.setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + textRect.height + 5));
-	
+
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "GameOverController: " << e.what() << std::endl;

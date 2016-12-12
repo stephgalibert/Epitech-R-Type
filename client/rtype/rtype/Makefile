@@ -5,7 +5,7 @@ SFML_LIB_REL	=	../../../../../Libraries/SFML/lib
 SFML_LIB_GEN	=	~/Libraries/SFML/lib
 SFML_INCLUDE	=	../../../../../Libraries/SFML/include
 
-CXX		=	g++
+CXX		=	g++-4.9
 
 RM		=	rm -f
 
@@ -44,7 +44,6 @@ SRCS		+=	DisplayArea.cpp
 SRCS		+=	Explosion.cpp
 SRCS		+=	FPSCounter.cpp
 SRCS		+=	GameController.cpp
-SRCS		+=	Generator.cpp
 SRCS		+=	InputHandler.cpp
 SRCS		+=	Laser.cpp
 SRCS		+=	LevelResource.cpp
@@ -86,6 +85,7 @@ SRCS		+=	LoadedShotLayout.cpp
 SRCS		+=	Health.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
+SRCS		+=	../../../common/Generator.cpp
 
 SRCS		+=	../../../api/CMDPowder.cpp
 SRCS		+=	../../../api/CMDScore.cpp
