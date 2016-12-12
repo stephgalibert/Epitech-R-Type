@@ -228,6 +228,12 @@
     <ClCompile Include="RequestGetParty.cpp">
       <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\api\CMDGameStatus.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestGameStatus.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -441,6 +447,12 @@
       <Filter>Fichiers d%27en-tête\Protocol</Filter>
     </ClInclude>
     <ClInclude Include="RequestGetParty.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDGameStatus.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestGameStatus.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>

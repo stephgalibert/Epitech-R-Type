@@ -16,8 +16,6 @@ void RequestDisconnect::execute(IClient &client, std::shared_ptr<ICommand> data,
 	Disconnected *disconnected = (Disconnected *)data->getData();
 	uint16_t id = disconnected->id;
 
-
-	StaticTools::Log << "executing disconnected request : id " << (int)id << std::endl;
 	AEntity *entity = World::getEntityByID(id);
 	if (entity) {
 		entity->recycle();

@@ -19,6 +19,7 @@
 #include "CMDPowder.hpp"
 #include "CMDRespawn.hpp"
 #include "CMDGetParty.hpp"
+#include "CMDGameStatus.hpp"
 
 class CommandFactory
 {
@@ -26,6 +27,7 @@ public:
 	static std::shared_ptr<ICommand> build(CommandType type);
 
 private:
+	static std::shared_ptr<ICommand> cmd_gameStatus(void);
 	static std::shared_ptr<ICommand> cmd_getParty(void);
 	static std::shared_ptr<ICommand> cmd_respawn(void);
 	static std::shared_ptr<ICommand> cmd_loadedPowder(void);

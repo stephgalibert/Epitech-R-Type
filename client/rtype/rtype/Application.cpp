@@ -1,7 +1,7 @@
 #include "Application.hpp"
 
 Application::Application(void)
-	: _client(&_game, "127.0.0.1", "4242")
+	: _client(&_game, _menu, "127.0.0.1", "4242")
 {
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 

@@ -38,11 +38,12 @@ enum class ObstacleType : uint8_t
 	Standard = 0
 };
 
-enum class GameStatus : uint8_t
+enum class GameStatusType : uint8_t
 {
 	Waiting = 0,
-	GameOver = 1,
-	Win = 2
+	Playing = 1,
+	GameOver = 2,
+	GameWin = 3
 };
 
 enum class PowderType : uint8_t
@@ -124,12 +125,6 @@ struct Collision
 	uint16_t id_second;
 };
 
-struct Game
-{
-	CommandType cmdType;
-	GameStatus status;
-};
-
 struct Level
 {
 	CommandType cmdType;
@@ -163,6 +158,12 @@ struct Respawn
 	uint32_t position;
 	uint16_t id;
 	uint8_t life;
+};
+
+struct GameStatus
+{
+	CommandType cmdType;
+	GameStatusType status;
 };
 
 #ifdef _MSC_VER

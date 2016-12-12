@@ -19,6 +19,7 @@
 #include "RequestCollision.hpp"
 #include "RequestRespawn.hpp"
 #include "RequestGetParty.hpp"
+#include "RequestGameStatus.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {
@@ -29,6 +30,7 @@ public:
 	std::unique_ptr<IRequest> build(CommandType type) const;
 
 private:
+	std::unique_ptr<IRequest> create_GameStatusRequest(void) const;
 	std::unique_ptr<IRequest> create_GetPartyRequest(void) const;
 	std::unique_ptr<IRequest> create_RespawnRequest(void) const;
 	std::unique_ptr<IRequest> create_DestroyedRequest(void) const;
@@ -42,7 +44,6 @@ private:
 	std::unique_ptr<IRequest> create_ErrorRequest(void) const;
 	std::unique_ptr<IRequest> create_PingRequest(void) const;
 	std::unique_ptr<IRequest> create_FireRequest(void) const;
-	std::unique_ptr<IRequest> create_GameStatusRequest(void) const;
 
 	std::unordered_map<int, std::function<std::unique_ptr<IRequest>(void)> > _requests;
 };

@@ -9,6 +9,7 @@ GameController::GameController(IClient &network)
 	//for (size_t i = 0; i < 3; ++i) {
 	//	_mates[i] = NULL;
 	//}
+	_state = GameStatusType::Waiting;
 }
 
 GameController::~GameController(void)
@@ -45,36 +46,44 @@ bool GameController::input(InputHandler &input)
 }
 void GameController::update(float delta)
 {
-	_back.update(delta);
-	_front.update(delta);
-
-	if (!isReady()) {
-		_loading.update(delta);
-	} else {
-		World::update(delta);
-		if (!_network.isConnected()) {
-			_connectionLost.update(delta);
-		}
+	switch (_state)
+	{
+	case GameStatusType::Waiting:
+		updateWaiting(delta);
+		break;
+	case GameStatusType::Playing:
+		updatePlaying(delta);
+		break;
+	case GameStatusType::GameOver:
+		updateGameOver(delta);
+		break;
+	case GameStatusType::GameWin:
+		updateGameWin(delta);
+		break;
+	default:
+		break;
 	}
-	_hud.update(delta);
 }
 
 void GameController::draw(sf::RenderWindow &window)
 {
-	_back.draw(window);
-	_front.draw(window);
-
-	if (!isReady()) {
-		_loading.draw(window);
+	switch (_state)
+	{
+	case GameStatusType::Waiting:
+		drawWaiting(window);
+		break;
+	case GameStatusType::Playing:
+		drawPlaying(window);
+		break;
+	case GameStatusType::GameOver:
+		drawGameOver(window);
+		break;
+	case GameStatusType::GameWin:
+		drawGameWin(window);
+		break;
+	default:
+		break;
 	}
-	else {
-		World::display(window);
-		if (!_network.isConnected()) {
-			_connectionLost.draw(window);
-		}
-	}
-
-	_hud.draw(window);
 }
 
 void GameController::recycle(void)
@@ -105,6 +114,11 @@ void GameController::setPlayer(Player *player)
 	_hud.setColor(_player->getID());
 }
 
+void GameController::setGameStatus(GameStatusType status)
+{
+	_state = status;
+}
+
 //void GameController::addMate(Mate *mate)
 //{
 //	size_t i = 0;
@@ -125,4 +139,96 @@ Player *GameController::getPlayer(void) const
 bool GameController::isReady(void) const
 {
 	return (_ready);
+}
+
+void GameController::updateWaiting(float delta)
+{
+	_back.update(delta);
+	_front.update(delta);
+	_loading.update(delta);
+}
+
+void GameController::updatePlaying(float delta)
+{
+	_back.update(delta);
+	_front.update(delta);
+
+	//if (!isReady()) {
+	//	_loading.update(delta);
+	//}
+	//else {
+	World::update(delta);
+	if (!_network.isConnected()) {
+		_connectionLost.update(delta);
+	}
+	//}
+	_hud.update(delta);
+}
+
+void GameController::updateGameOver(float delta)
+{
+	_back.update(delta);
+	_front.update(delta);
+	if (_player) {
+		_player = NULL;
+		World::recycle();
+	}
+}
+
+void GameController::updateGameWin(float delta)
+{
+	_back.update(delta);
+	_front.update(delta);
+	if (_player) {
+		_player = NULL;
+		World::recycle();
+	}
+}
+
+
+void GameController::drawWaiting(sf::RenderWindow &window)
+{
+	_back.draw(window);
+	_front.draw(window);
+
+	_loading.draw(window);
+
+	_hud.draw(window);
+}
+
+void GameController::drawPlaying(sf::RenderWindow &window)
+{
+	_back.draw(window);
+	_front.draw(window);
+
+	//if (!isReady()) {
+	//	_loading.draw(window);
+	//}
+	//else {
+	World::display(window);
+	if (!_network.isConnected()) {
+		_connectionLost.draw(window);
+	}
+	//}
+	_hud.draw(window);
+}
+
+void GameController::drawGameOver(sf::RenderWindow &window)
+{
+	_back.draw(window);
+	_front.draw(window);
+
+	_loading.draw(window);
+
+	_hud.draw(window);
+}
+
+void GameController::drawGameWin(sf::RenderWindow &window)
+{
+	_back.draw(window);
+	_front.draw(window);
+
+	_loading.draw(window);
+
+	_hud.draw(window);
 }

@@ -12,6 +12,15 @@
 
 class Party : public std::enable_shared_from_this<Party>
 {
+//private:
+//	enum class State : uint8_t
+//	{
+//		Waiting = 0,
+//		Playing = 1,
+//		GameOver = 2,
+//		GameWin = 3
+//	};
+
 public:
 	Party(void);
 	~Party(void);
@@ -27,7 +36,6 @@ public:
 	void broadcast(std::shared_ptr<ICommand> data);
 	void fire(std::shared_ptr<ICommand> cmd);
 	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd);
-	void respawn(std::shared_ptr<ICommand> cmd);
 	void loop(void);
 
 	bool isReady(void) const;
@@ -40,15 +48,22 @@ public:
 	uint8_t getNbPlayer(void) const;
 
 private:
+	void reset(void);
+
+	void waiting(float delta);
+	void playing(float delta);
+	void gameOver(float delta);
+	void gameWin(float delta);
+
 	std::string _name;
 	std::string _password;
 	ConnectionManager _cm;
 
 	Timer _timer;
 	std::thread _party;
-	std::mutex _mutex;
 	bool _launched;
-	//std::set<uint16_t> _ids;
 	uint8_t _nextID;
+	GameStatusType _state;
+	float _delta;
 };
 

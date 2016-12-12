@@ -20,9 +20,11 @@ public:
 	void broadcast(std::shared_ptr<ICommand> command);
 	void closeAll(void);
 
+	void reset(void);
 	void distributeShipID(void);
 	void sendSpawnedShip(void);
 	uint8_t getPlayerNumber(void) const;
+	bool isPlayersAlive(void);
 
 private:
 	std::set<std::shared_ptr<AConnection> > _connections;

@@ -19,6 +19,15 @@
 
 class GameController : public AController
 {
+private:
+	enum class State : uint8_t
+	{
+		Waiting = 0,
+		Playing = 1,
+		GameOver = 2,
+		GameWin = 3
+	};
+
 public:
 	GameController(IClient &network);
 	virtual ~GameController(void);
@@ -33,12 +42,23 @@ public:
 
 	void setReady(bool value);
 	void setPlayer(Player *player);
+	void setGameStatus(GameStatusType status);
 	//void addMate(Mate *mate);
 
 	Player *getPlayer(void) const;
 	bool isReady(void) const;
 
 private:
+	void updateWaiting(float delta);
+	void updatePlaying(float delta);
+	void updateGameOver(float delta);
+	void updateGameWin(float delta);
+
+	void drawWaiting(sf::RenderWindow &window);
+	void drawPlaying(sf::RenderWindow &window);
+	void drawGameOver(sf::RenderWindow &window);
+	void drawGameWin(sf::RenderWindow &window);
+
 	LoadingController _loading;
 	ConnectionLostController _connectionLost;
 	HUDController _hud;
@@ -52,5 +72,6 @@ private:
 	Background _back;
 	Background _front;
 	bool _ready;
+	GameStatusType _state;
 };
 

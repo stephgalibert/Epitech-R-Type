@@ -1,10 +1,12 @@
 #include "UDPClient.hpp"
 #include "GameController.hpp"
+#include "MainMenuController.hpp"
 
-UDPClient::UDPClient(GameController **game, std::string const& ip, std::string const& port)
+UDPClient::UDPClient(GameController **game, MainMenuController &menu, std::string const& ip, std::string const& port)
 	: _resolver(_io_service),
 	  _socket(_io_service, boost::asio::ip::udp::udp::endpoint(boost::asio::ip::udp::udp::v4(), std::atoi(port.c_str()))),
-	  _controller(game),
+	  _game(game),
+	  _menu(menu),
 	  _remote(ip),
 	  _port(port)
 {
@@ -40,10 +42,15 @@ void UDPClient::write(std::shared_ptr<ICommand> packet)
 
 GameController *UDPClient::getGameController(void) const
 {
-	if (_controller) {
-		return (*_controller);
+	if (_game) {
+		return (*_game);
 	}
 	return (NULL);
+}
+
+MainMenuController &UDPClient::getMainMenuController(void)
+{
+	return (_menu);
 }
 
 void UDPClient::do_write(boost::system::error_code const& ec, size_t)

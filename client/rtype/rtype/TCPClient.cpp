@@ -1,12 +1,15 @@
 #include "TCPClient.hpp"
 #include "GameController.hpp"
+#include "MainMenuController.hpp"
 
-TCPClient::TCPClient(GameController **game, std::string const& remote, std::string const& port)
+TCPClient::TCPClient(GameController **game, MainMenuController &menu,
+					 std::string const& remote, std::string const& port)
 	: _timer(_io_service),
 	  _resolver(_io_service),
 	  _socket(_io_service),
 	  _connected(false),
-	  _controller(game),
+	  _game(game),
+	  _menu(menu),
 	  _remote(remote),
 	  _port(port)
 {
@@ -60,17 +63,17 @@ bool TCPClient::isConnected(void) const
 	return (_connected);
 }
 
-//void TCPClient::setGameController(GameController *controller)
-//{
-//	_controller = controller;
-//}
-
 GameController *TCPClient::getGameController(void) const
 {
-	if (_controller) {
-		return (*_controller);
+	if (_game) {
+		return (*_game);
 	}
 	return (NULL);
+}
+
+MainMenuController &TCPClient::getMainMenuController(void)
+{
+	return (_menu);
 }
 
 IClient &TCPClient::operator<<(std::shared_ptr<ICommand> packet)

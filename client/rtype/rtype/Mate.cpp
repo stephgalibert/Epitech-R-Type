@@ -159,8 +159,6 @@ void Mate::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
-	std::cout << "spawning shot with id " << (int)param.id << std::endl;
-
 	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
 
 	MissileType type = param.type;
@@ -194,7 +192,6 @@ void Mate::shoot(Fire const& param)
 
 void Mate::respawn(void)
 {
-	std::cout << "respawn" << std::endl;
 	setCollisioned(false);
 	setCollisionType(COLLISION_FATAL);
 	_currentDirection = FRAME_MID;

@@ -85,6 +85,7 @@ void Player::setIClient(IClient *client)
 void Player::setHUD(HUDController *hud)
 {
 	_hud = hud;
+	_hud->setHealth(getHealth());
 }
 
 void Player::collision(IClient *client, AEntity *other)
@@ -168,8 +169,6 @@ void Player::shoot(Fire const& param)
 		_loadedPowder->recycle();
 		_loadedPowder = NULL;
 	}
-
-	std::cout << "spawning shot with id " << (int)param.id << std::endl;
 
 	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
 

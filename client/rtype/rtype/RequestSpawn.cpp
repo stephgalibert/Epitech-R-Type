@@ -25,17 +25,10 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 
 	StaticTools::DeserializePosition(spawn->position, x, y);
 
-	StaticTools::Log << "executing spawn request : id " << (int)id << std::endl;
 	if (player) {
 		GameController *game = client.getGameController();
 		if (game) {
-			//Player *player = game->getPlayer();
-			//if (!player) {
-				Player *player = World::spawnEntity<Player>();
-			//}
-			//else {
-			//	//player->respawn();
-			//}
+			Player *player = World::spawnEntity<Player>();
 			player->setHealth(spawn->health);
 			player->setID(id);
 			player->setPosition(x, y);

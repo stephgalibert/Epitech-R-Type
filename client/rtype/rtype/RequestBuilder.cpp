@@ -11,6 +11,7 @@ RequestBuilder::RequestBuilder(void)
 	_requests[(int)CommandType::Collision] = std::bind(&RequestBuilder::create_CollisionRequest, this);
 	_requests[(int)CommandType::Respawn] = std::bind(&RequestBuilder::create_RespawnRequest, this);
 	_requests[(int)CommandType::GetParty] = std::bind(&RequestBuilder::create_GetPartyRequest, this);
+	_requests[(int)CommandType::GameStatus] = std::bind(&RequestBuilder::create_GameStatusRequest, this);
 }
 
 RequestBuilder::~RequestBuilder(void)
@@ -23,6 +24,11 @@ std::unique_ptr<IRequest> RequestBuilder::build(CommandType type) const
 		return (std::move(_requests.at((int)type)()));
 	}
 	return (NULL);
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_GameStatusRequest(void) const
+{
+	return (std::unique_ptr<IRequest>(new RequestGameStatus));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_GetPartyRequest(void) const
@@ -88,9 +94,4 @@ std::unique_ptr<IRequest> RequestBuilder::create_PingRequest(void) const
 std::unique_ptr<IRequest> RequestBuilder::create_FireRequest(void) const
 {
 	return (std::unique_ptr<IRequest>(new RequestFire));
-}
-
-std::unique_ptr<IRequest> RequestBuilder::create_GameStatusRequest(void) const
-{
-	return NULL;
 }
