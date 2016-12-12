@@ -31,7 +31,7 @@ void Health::init(void)
 
 void Health::update(float delta)
 {
-
+  (void)delta;
 }
 
 void Health::destroy(void)
@@ -41,7 +41,7 @@ void Health::destroy(void)
 
 void Health::setHealth(uint8_t health)
 {
-	if (health < 0 || health > MAX_HEALTH)
+	if (health > MAX_HEALTH)
 		return;
 
 	float coef = (100.f * health) / MAX_HEALTH;

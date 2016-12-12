@@ -10,10 +10,10 @@
 class Mate : public ANPC
 {
 private:
-	static const uint8_t FRAME_TOP = 0;
-	static const uint8_t FRAME_MID = 1;
-	static const uint8_t FRAME_BOT = 2;
-	static const uint8_t FRAME_EXP = 3;
+	static const uint8_t FRAME_TOP;
+	static const uint8_t FRAME_MID;
+	static const uint8_t FRAME_BOT;
+	static const uint8_t FRAME_EXP;
 
 public:
 	Mate(void);

@@ -1,5 +1,10 @@
 #include "Mate.hpp"
 
+const uint8_t Mate::FRAME_TOP = 0;
+const uint8_t Mate::FRAME_MID = 1;
+const uint8_t Mate::FRAME_BOT = 2;
+const uint8_t Mate::FRAME_EXP = 3;
+
 Mate::Mate(void)
 {
 	_targetFrame = 0;
@@ -161,14 +166,14 @@ void Mate::shoot(Fire const& param)
 
 	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
 
-	MissileType type = param.type;
+	//MissileType type = param.type;
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
 	uint8_t angle = param.angle;
-	uint8_t effect = param.effect;
+	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 

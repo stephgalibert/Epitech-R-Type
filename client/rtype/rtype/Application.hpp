@@ -55,9 +55,9 @@ private:
 	GameController *_game;
 	bool _quit;
 
-	std::unordered_map<ApplicationState, std::function<void(InputHandler &)> > _inputs;
-	std::unordered_map<ApplicationState, std::function<void(float)> > _updates;
-	std::unordered_map<ApplicationState, std::function<void(sf::RenderWindow &)> > _draws;
+  std::unordered_map<ApplicationState, std::function<void(InputHandler &)>, ApplicationStateHash > _inputs;
+  std::unordered_map<ApplicationState, std::function<void(float)>, ApplicationStateHash > _updates;
+  std::unordered_map<ApplicationState, std::function<void(sf::RenderWindow &)>, ApplicationStateHash > _draws;
 
 	/* to remove later */
 	std::string _host;

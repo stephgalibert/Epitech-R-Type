@@ -8,15 +8,11 @@ enum class ApplicationState : short
 	AS_Game = 1
 };
 
-namespace std
+struct ApplicationStateHash
 {
-	template<>
-	class less<ApplicationState>
-	{
-	public:
-		bool operator()(ApplicationState lhs, ApplicationState  rhs) const
-		{
-			return (lhs < rhs);
-		}
-	};
-}
+  template <typename T>
+  std::size_t operator()(T t) const
+  {
+    return static_cast<std::size_t>(t);
+  }
+};

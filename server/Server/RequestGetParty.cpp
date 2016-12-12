@@ -21,6 +21,6 @@ void RequestGetParty::execute(std::shared_ptr<AConnection> owner,
 		bool pwdPresent = !it.second->getPassword().empty();
 		bool running = it.second->isRunning();
 
-		owner->write(std::make_shared<CMDGetParty>(it.first, nbPlayer, pwdPresent, running));
+		owner->sync_write(std::make_shared<CMDGetParty>(it.first, nbPlayer, pwdPresent, running));
 	}
 }

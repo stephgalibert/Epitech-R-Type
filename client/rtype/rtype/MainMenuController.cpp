@@ -17,7 +17,7 @@ const uint32_t MainMenuController::SPLASH_TITLE_TARGET_POS = StaticTools::GetRes
 const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
 
 MainMenuController::MainMenuController()
-	: _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _pushAction(SelectedAction::NONE), _keyboardEventDelta(0.f)
+  : _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _keyboardEventDelta(0.f), _pushAction(SelectedAction::NONE)
 {
 	MainMenuResource::menuResourceManager.load();
 	buildKeyActionsMap();

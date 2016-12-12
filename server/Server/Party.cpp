@@ -125,7 +125,7 @@ void Party::loop(void)
 
 bool Party::isReady(void) const
 {
-	return (_cm.getPlayerNumber() > 3);
+	return (_cm.getPlayerNumber() > 1);
 }
 
 bool Party::isFinished(void) const
@@ -161,6 +161,7 @@ void Party::reset(void)
 
 void Party::waiting(float delta)
 {
+  (void)delta;
 	if (isReady()) {
 		_launched = true;
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Playing));
@@ -174,6 +175,7 @@ void Party::waiting(float delta)
 
 void Party::playing(float delta)
 {
+  (void)delta;
 	if (!_cm.isPlayersAlive()) {
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
 		_state = GameStatusType::GameOver;

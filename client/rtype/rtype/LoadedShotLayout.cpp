@@ -29,6 +29,7 @@ void LoadedShotLayout::init(void)
 
 void LoadedShotLayout::update(float delta)
 {
+  (void)delta;
 	//_delta += delta;
 	//if (_decrease) {
 	//	if (_deltaShot > 0) {

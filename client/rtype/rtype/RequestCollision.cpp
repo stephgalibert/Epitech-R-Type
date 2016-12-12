@@ -13,6 +13,8 @@ RequestCollision::~RequestCollision(void)
 void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 								std::shared_ptr<ICommand> &toSend)
 {
+  (void)client;
+  (void)toSend;
 	Collision *collision = (Collision *)data->getData();
 	CollisionType type = collision->type;
 	uint16_t id1 = collision->id_first;

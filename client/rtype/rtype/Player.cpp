@@ -1,6 +1,11 @@
 #include "Player.hpp"
 #include "IClient.hpp"
 
+const uint8_t Player::FRAME_TOP = 0;
+const uint8_t Player::FRAME_MID = 1;
+const uint8_t Player::FRAME_BOT = 2;
+const uint8_t Player::FRAME_EXP = 3;
+
 Player::Player()
 	: _delta(0.f),
 	_deltaLastShoot(0),
@@ -172,14 +177,14 @@ void Player::shoot(Fire const& param)
 
 	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
 
-	MissileType type = param.type;
+	//MissileType type = param.type;
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
 	uint8_t angle = param.angle;
-	uint8_t effect = param.effect;
+	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 

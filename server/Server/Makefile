@@ -20,6 +20,11 @@ SRCS		+=	RequestConnect.cpp
 SRCS		+=	RequestCreateParty.cpp
 SRCS		+=	RequestDestroyed.cpp
 SRCS		+=	RequestMove.cpp
+SRCS		+=	RequestGameStatus.cpp
+SRCS		+=	RequestFire.cpp
+SRCS		+=	RequestLoadedPowder.cpp
+SRCS		+=	RequestRespawn.cpp
+SRCS		+=	RequestGetParty.cpp
 SRCS		+=	ScheduledMonster.cpp
 SRCS		+=	SendToAsyncTask.cpp
 SRCS		+=	Timer.cpp
@@ -46,6 +51,11 @@ SRCS		+=	WriteAsyncTask.cpp
 
 SRCS		+=	../../common/StaticTools.cpp
 
+SRCS		+=	../../api/CMDPowder.cpp
+SRCS		+=	../../api/CMDScore.cpp
+SRCS		+=	../../api/CMDGetParty.cpp
+SRCS		+=	../../api/CMDRespawn.cpp
+SRCS		+=	../../api/CMDGameStatus.cpp
 SRCS		+=	../../api/CMDCollision.cpp
 SRCS		+=	../../api/CMDDestroyed.cpp
 SRCS		+=	../../api/CMDConnect.cpp
