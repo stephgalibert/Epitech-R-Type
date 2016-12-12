@@ -9,6 +9,7 @@
 #include "ConnectionManager.hpp"
 #include "AConnection.hpp"
 #include "Timer.hpp"
+#include "Generator.hpp"
 
 class Party : public std::enable_shared_from_this<Party>
 {
@@ -46,6 +47,8 @@ private:
 	void gameOver(float delta);
 	void gameWin(float delta);
 
+
+private:
 	std::string _name;
 	std::string _password;
 	ConnectionManager _cm;
@@ -56,5 +59,6 @@ private:
 	uint8_t _nextID;
 	GameStatusType _state;
 	float _delta;
+	Generator _generator;
 };
 

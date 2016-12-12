@@ -135,9 +135,6 @@
     <ClCompile Include="MemoryFile.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
-    <ClCompile Include="Generator.cpp">
-      <Filter>Fichiers sources\tools</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectResource.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
@@ -300,6 +297,9 @@
     <ClCompile Include="GameOverController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\common\Generator.cpp">
+      <Filter>Fichiers sources\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -366,9 +366,6 @@
       <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="CacheManager.hpp">
-      <Filter>Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Generator.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="IReader.hpp">
@@ -565,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="GameOverController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\common\Generator.hpp">
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

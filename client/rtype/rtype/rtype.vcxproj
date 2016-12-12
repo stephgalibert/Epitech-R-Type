@@ -170,6 +170,7 @@
     <ClCompile Include="..\..\..\api\CMDScore.cpp" />
     <ClCompile Include="..\..\..\api\CMDSpawn.cpp" />
     <ClCompile Include="..\..\..\api\CommandFactory.cpp" />
+    <ClCompile Include="..\..\..\common\Generator.cpp" />
     <ClCompile Include="..\..\..\common\StaticTools.cpp" />
     <ClCompile Include="AActor.cpp" />
     <ClCompile Include="AArea.cpp" />
@@ -193,7 +194,6 @@
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameOverController.cpp" />
-    <ClCompile Include="Generator.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -254,6 +254,7 @@
     <ClInclude Include="..\..\..\api\CommandType.hpp" />
     <ClInclude Include="..\..\..\api\ICommand.hpp" />
     <ClInclude Include="..\..\..\api\Protocol.hpp" />
+    <ClInclude Include="..\..\..\common\Generator.hpp" />
     <ClInclude Include="..\..\..\common\StaticTools.hpp" />
     <ClInclude Include="AActor.hpp" />
     <ClInclude Include="AArea.hpp" />
@@ -278,7 +279,6 @@
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="GameController.hpp" />
     <ClInclude Include="GameOverController.hpp" />
-    <ClInclude Include="Generator.hpp" />
     <ClInclude Include="Health.hpp" />
     <ClInclude Include="HUDController.hpp" />
     <ClInclude Include="IClient.hpp" />

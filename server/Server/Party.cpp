@@ -36,8 +36,14 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
 	//ObjectType object = ObjectType::Ship;
 	uint8_t id = _nextID;
-	uint16_t x = 100;
-	uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
+	//uint16_t x = 100;
+	//uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
+	std::pair<short, short> resolution = StaticTools::GetResolution();
+	float percent = (100.f * id / 4.f);
+	uint16_t x = _generator(100, 400);
+
+	uint16_t y = _generator((unsigned int)(((percent - 25.f) / 100.f) * (float)resolution.second) + 40,
+							(unsigned int)((percent / 100.f) * (float)resolution.second) - 80);
 	uint8_t health = 3;
 	/*uint8_t type = (uint8_t)ShipType::Standard;
 	  uint8_t effect = 0;*/

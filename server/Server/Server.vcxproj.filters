@@ -234,6 +234,9 @@
     <ClCompile Include="RequestGameStatus.cpp">
       <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\common\Generator.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="RequestGameStatus.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Generator.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
