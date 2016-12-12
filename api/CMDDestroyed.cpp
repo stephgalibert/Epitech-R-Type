@@ -1,6 +1,6 @@
 #include "CMDDestroyed.hpp"
 
-CMDDestroyed::CMDDestroyed(uint8_t id)
+CMDDestroyed::CMDDestroyed(uint16_t id)
 {
 	_data = new Destroyed;
 	_data->cmdType = getCommandType();

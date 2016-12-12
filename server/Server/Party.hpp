@@ -4,10 +4,12 @@
 #include <memory>
 #include <thread>
 #include <mutex>
+#include <set>
 
 #include "ConnectionManager.hpp"
 #include "AConnection.hpp"
 #include "Timer.hpp"
+#include "Generator.hpp"
 
 class Party : public std::enable_shared_from_this<Party>
 {
@@ -23,6 +25,9 @@ public:
 	void removeConnection(std::shared_ptr<AConnection> connection);
 
 	void broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
+	void broadcast(std::shared_ptr<ICommand> data);
+	void fire(std::shared_ptr<ICommand> cmd);
+	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd);
 	void loop(void);
 
 	bool isReady(void) const;
@@ -32,6 +37,17 @@ public:
 	std::string const& getName(void) const;
 	std::string const& getPassword(void) const;
 
+	uint8_t getNbPlayer(void) const;
+
+private:
+	void reset(void);
+
+	void waiting(float delta);
+	void playing(float delta);
+	void gameOver(float delta);
+	void gameWin(float delta);
+
+
 private:
 	std::string _name;
 	std::string _password;
@@ -39,7 +55,10 @@ private:
 
 	Timer _timer;
 	std::thread _party;
-	std::mutex _mutex;
 	bool _launched;
+	uint8_t _nextID;
+	GameStatusType _state;
+	float _delta;
+	Generator _generator;
 };
 

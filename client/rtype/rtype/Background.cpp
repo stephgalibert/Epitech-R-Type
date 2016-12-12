@@ -5,7 +5,6 @@ Background::Background(std::string const& textureName, float delayRefreshing)
 	  _delayRefreshing(delayRefreshing),
 	  _delta(0)
 {
-	//_resolution = sf::Vector2i(800, 480); // !
 	std::pair<short, short> tmp = StaticTools::GetResolution();
 	_resolution.x = tmp.first;
 	_resolution.y = tmp.second;

@@ -9,15 +9,17 @@
 #include "Powdered.hpp"
 #include "LoadedPowdered.hpp"
 
+#include "HUDController.hpp"
+
 class IClient;
 
 class Player : public APC
 {
 private:
-	static const uint8_t FRAME_TOP = 0;
-	static const uint8_t FRAME_MID = 1;
-	static const uint8_t FRAME_BOT = 2;
-	static const uint8_t FRAME_EXP = 3;
+	static const uint8_t FRAME_TOP;
+	static const uint8_t FRAME_MID;
+	static const uint8_t FRAME_BOT;
+	static const uint8_t FRAME_EXP;
 
 public:
 	Player();
@@ -27,15 +29,17 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void);
 
-	virtual void collision(IClient *client, ACollidable *other);
+	virtual void collision(IClient *client, AEntity *other);
+	virtual void applyCollision(CollisionType type);
 	virtual void input(InputHandler &input);
 	virtual void move(float delta);
 
 	virtual void shoot(Fire const& param);
 
-	void setIClient(IClient *client);
+	virtual void respawn(void);
 
-	/* ici les getters pour le hud */
+	void setIClient(IClient *client);
+	void setHUD(HUDController *hud);
 
 private:
 	void initFrame(void);
@@ -44,9 +48,18 @@ private:
 	void keyboard(InputHandler &input);
 	void joystick(InputHandler &input);
 
+	void prepareShot(void);
+
+	void collisionDestruction(void);
+	void sendRespawnRequest(void);
+
+	void refreshInvincibility(float delta);
+
+private:
 	float _delta;
 	float _deltaLastShoot;
 	IClient *_client;
+	HUDController *_hud;
 	bool _decrease;
 	uint8_t _targetFrame;
 	uint8_t _currentFrame;
@@ -59,5 +72,7 @@ private:
 	LoadedPowdered *_loadedPowder;
 	bool _loadedShot;
 	float _deltaLoadedShot;
+	float _deltaInvincibleAnim;
+	bool _invincibleAnimState;
 };
 

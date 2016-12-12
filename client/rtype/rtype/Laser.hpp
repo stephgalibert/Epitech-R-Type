@@ -17,9 +17,10 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void);
 
-	virtual void collision(IClient *client, ACollidable *other);
+	virtual void collision(IClient *client, AEntity *other);
+	virtual void applyCollision(CollisionType type);
 
-	void setColor(uint8_t color);
+	void setColor(uint16_t color);
 	void setLoadedTiming(float delta);
 
 	sf::Vector2f getSpriteSize(void) const;
@@ -31,9 +32,9 @@ private:
 	sf::RectangleShape *_shape;
 
 	float _delta;
-	//uint8_t _currentlevel;
 	uint8_t _currentFrame;
-	uint8_t _color;
-	std::unordered_map<uint8_t, sf::IntRect[2]> _frames;
+	uint16_t _color;
+	std::unordered_map<uint8_t, sf::IntRect[2]> Frames;
+	bool _toRecycle;
 };
 

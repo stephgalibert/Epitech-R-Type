@@ -1,10 +1,16 @@
 #include "Player.hpp"
 #include "IClient.hpp"
 
+const uint8_t Player::FRAME_TOP = 0;
+const uint8_t Player::FRAME_MID = 1;
+const uint8_t Player::FRAME_BOT = 2;
+const uint8_t Player::FRAME_EXP = 3;
+
 Player::Player()
 	: _delta(0.f),
 	_deltaLastShoot(0),
 	_client(NULL),
+	_hud(NULL),
 	_decrease(false),
 	_powder(NULL),
 	_loadedPowder(NULL)
@@ -14,7 +20,9 @@ Player::Player()
 	setVelocity(150.f);
 	_resolution = StaticTools::GetResolution();
 	_loadedShot = false;
-	_deltaLoadedShot = 0;
+	_deltaLoadedShot = 0.f;
+	_deltaInvincibleAnim = 0.f;
+	_invincibleAnimState = false;
 }
 
 Player::~Player(void)
@@ -58,6 +66,9 @@ void Player::update(float delta)
 
 	_delta += delta;
 	_deltaLastShoot += delta;
+
+	refreshInvincibility(delta);
+
 	if (_loadedShot) {
 		_deltaLoadedShot += delta;
 	}
@@ -80,33 +91,45 @@ void Player::setIClient(IClient *client)
 	_client = client;
 }
 
-void Player::collision(IClient *client, ACollidable *other)
+void Player::setHUD(HUDController *hud)
+{
+	_hud = hud;
+	_hud->setHealth(getHealth());
+}
+
+void Player::collision(IClient *client, AEntity *other)
 {
   (void)client;
-	if (getCollisionType() != COLLISION_NONE
-		&& other->getCollisionType() == COLLISION_FATAL
-		&& _currentDirection != FRAME_EXP
-		&& !hasCollisioned()) {
+  if (!isInvincible() && !other->isInvincible()) {
+	  if (getCollisionType() != COLLISION_NONE
+		  && other->getCollisionType() == COLLISION_FATAL
+		  && !hasCollisioned()) {
 
-		Explosion *explosion = World::spawnEntity<Explosion>();
-		explosion->setPosition(getPosition());
-		explosion->setReadyForInit(true);
+		  setCollisioned(true);
 
-		_currentDirection = FRAME_EXP;
-		_currentFrame = 0;
-		_targetFrame = 5;
+		  //if (!other->hasCollisioned() && _client) {
+		  //	other->collision(client, this);
+		  _client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+		  //}
 
-		setAngle(-1);
-		setVelocity(0);
+		  setCollisionType(COLLISION_NONE);
+	  }
+  }
+}
 
-		if (_loadedPowder) {
-			_loadedPowder->recycle();
-			_loadedPowder = NULL;
-		}
-
-		setCollisioned(true);
-		other->collision(client, this);
-		setCollisionType(COLLISION_NONE);
+void Player::applyCollision(CollisionType type)
+{
+	switch (type)
+	{
+	case CollisionType::None:
+		break;
+	case CollisionType::Destruction:
+		collisionDestruction();
+		break;
+	case CollisionType::PowerUP:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -152,35 +175,57 @@ void Player::move(float delta)
 
 void Player::shoot(Fire const& param)
 {
-	if (_deltaLastShoot > 0.25f) {
-		LevelResource::TheLevelResource.getSoundByKey("shot")->play();
-		sf::Vector2f const& pos = getPosition();
-		sf::Vector2f size;
-
-		Laser *shot = World::spawnEntity<Laser>();
-		shot->setLoadedTiming(_deltaLoadedShot);
-		shot->setAngle(0);
-		shot->setColor(getID());
-		shot->setOwnerID(getID());
-
-		size = shot->getSpriteSize();
-		shot->setPosition(pos.x + 45 + size.x / 2.f, pos.y);
-
-		shot->setReadyForInit(true);
-		_deltaLastShoot = 0.f;
-
-		if (_client) {
-			_client->write(std::make_shared<CMDFire>(param.type, getID(),
-				(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0, shot->getLevel()));
-		}
-
-		if (!_powder) {
-			_powder = World::spawnEntity<Powdered>();
-			_powder->setPosition(pos.x + 35.f, pos.y + 2.f);
-			_powder->setColor(getID());
-			_powder->setReadyForInit(true);
-		}
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
 	}
+
+	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
+
+	//MissileType type = param.type;
+	uint16_t id = param.id;
+	uint16_t id_launcher = param.id_launcher;
+	uint16_t x = 0;
+	uint16_t y = 0;
+	uint8_t velocity = param.velocity;
+	uint8_t angle = param.angle;
+	//uint8_t effect = param.effect;
+
+	StaticTools::DeserializePosition(param.position, x, y);
+
+	Laser *laser = World::spawnEntity<Laser>();
+	laser->setID(id);
+	laser->setLevel(param.level);
+	laser->setPosition(x, y);
+	laser->setOwnerID(id_launcher);
+	laser->setAngle(angle);
+	laser->setVelocity(velocity);
+	laser->setColor(id_launcher);
+	laser->setReadyForInit(true);
+
+	if (!_powder) {
+		_powder = World::spawnEntity<Powdered>();
+		_powder->setPosition(getPosition().x + 35, y + 2.f);
+		_powder->setColor(getID());
+		_powder->setReadyForInit(true);
+	}
+}
+
+void Player::respawn(void)
+{
+	setCollisioned(false);
+	setCollisionType(COLLISION_FATAL);
+	_invincibleDelay = 3.;
+	_currentDirection = FRAME_MID;
+	_currentFrame = 0;
+	_targetFrame = 0;
+	setVisiblity(VISIBILITY_VISIBLE);
+	setDead(false);
+	setVelocity(150);
+	_delta = 0;
+	_deltaLastShoot = 0;
+	_deltaLoadedShot = 0;
+	_deltaInvincibleAnim = 0.f;
 }
 
 void Player::initFrame(void)
@@ -224,6 +269,7 @@ void Player::updateFrame(void)
 			if (_currentFrame == 5) {
 				setDead(true);
 				setVisiblity(VISIBILITY_GONE);
+				sendRespawnRequest();
 				return;
 			}
 		}
@@ -311,6 +357,10 @@ void Player::keyboard(InputHandler &input)
 		}
 	}
 
+	if (_hud) {
+		_hud->setLoaded(_deltaLoadedShot);
+	}
+
 	if (!_loadedShot && input.isKeyDown(sf::Keyboard::Space)) {
 		_deltaLoadedShot = 0;
 		_loadedShot = true;
@@ -321,11 +371,15 @@ void Player::keyboard(InputHandler &input)
 			_loadedPowder = NULL;
 		}
 
-		Fire fire;
-		fire.type = MissileType::MT_FriendFire_Lv1;
-		shoot(fire);
+		prepareShot();
 		_loadedShot = false;
 		_deltaLoadedShot = 0;
+	}
+
+	if (input.isKeyDown(sf::Keyboard::A)) {
+		if (_client) {
+			_client->write(std::make_shared<CMDGetParty>());
+		}
 	}
 }
 
@@ -343,11 +397,12 @@ void Player::joystick(InputHandler &input)
 	}
 
 	if (input.getJoystickAxis(0, sf::Joystick::X) < -InputHandler::JOYSTICK_DEAD_ZONE) {
-		direction |= EAST;
-		_targetFrame = 3;
+		direction |= WEAST;
+
 	}
 	else if (input.getJoystickAxis(0, sf::Joystick::X) > InputHandler::JOYSTICK_DEAD_ZONE) {
-		direction |= WEAST;
+		direction |= EAST;
+		_targetFrame = 3;
 	}
 
 	if (getDirection() != direction) {
@@ -370,9 +425,128 @@ void Player::joystick(InputHandler &input)
 		_currentDirection = FRAME_BOT;
 	}
 
-	if (input.isJoystickButtonDown(0)) {
-		Fire fire;
-		fire.type = MissileType::MT_FriendFire_Lv1;
-		shoot(fire);
+	if (_deltaLoadedShot > 0.2f && !_loadedPowder) {
+		_loadedPowder = World::spawnEntity<LoadedPowdered>();
+		_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
+		_loadedPowder->setColor(getID());
+		_loadedPowder->setReadyForInit(true);
+		if (_client) {
+			_client->write(std::make_shared<CMDPowder>(getID(), PowderType::LoadedPowder));
+		}
+	}
+
+	if (_hud) {
+		_hud->setLoaded(_deltaLoadedShot);
+	}
+
+	if (!_loadedShot && input.isJoystickButtonDown(0)) {
+		_deltaLoadedShot = 0;
+		_loadedShot = true;
+	}
+	else if (_loadedShot && !input.isJoystickButtonDown(0)) {
+		if (_loadedPowder) {
+			_loadedPowder->recycle();
+			_loadedPowder = NULL;
+		}
+
+		prepareShot();
+		_loadedShot = false;
+		_deltaLoadedShot = 0;
+	}
+
+	//if (input.isJoystickButtonDown(0)) {
+	//	prepareShot();
+	//}
+}
+
+
+void Player::prepareShot(void)
+{
+	if (_deltaLastShoot > 0.25f) {
+		sf::Vector2f size;
+		sf::Vector2f pos = getPosition();
+
+		Laser *shot = new Laser;
+		shot->setLoadedTiming(_deltaLoadedShot);
+		shot->setAngle(0);
+		shot->setColor(getID());
+		shot->setOwnerID(getID());
+
+		size = shot->getSpriteSize();
+		shot->setPosition(pos.x + 45 + size.x / 2.f, pos.y);
+
+		shot->setReadyForInit(true);
+
+		if (_client) {
+			_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, getID(),
+				(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0, shot->getLevel()));
+		}
+		delete (shot);
+
+		if (!_powder) {
+			_powder = World::spawnEntity<Powdered>();
+			_powder->setPosition(pos.x + 35.f, pos.y + 2.f);
+			_powder->setColor(getID());
+			_powder->setReadyForInit(true);
+		}
+
+		_deltaLastShoot = 0.f;
+	}
+}
+
+void Player::collisionDestruction(void)
+{
+	setCollisioned(true);
+	setCollisionType(COLLISION_NONE);
+
+	Explosion *explosion = World::spawnEntity<Explosion>();
+	explosion->setPosition(getPosition());
+	explosion->setReadyForInit(true);
+
+	_currentDirection = FRAME_EXP;
+	_currentFrame = 0;
+	_targetFrame = 5;
+
+	setAngle(-1);
+	setVelocity(0);
+
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
+	}
+
+	setHealth(getHealth() - 1);
+	_hud->setHealth(getHealth());
+}
+
+void Player::sendRespawnRequest(void)
+{
+	if (_client) {
+		_client->write(std::make_shared<CMDDestroyed>(getID()));
+	}
+}
+
+
+void Player::refreshInvincibility(float delta)
+{
+	sf::Color const& color = getShape()->getFillColor();
+
+	if (isInvincible()) {
+		_invincibleDelay -= delta;
+		_deltaInvincibleAnim += delta;
+		if (_deltaInvincibleAnim > 0.1f) {
+			if (_invincibleAnimState) {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+				_invincibleAnimState = false;
+			}
+			else {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 64));
+				_invincibleAnimState = true;
+			}
+			_deltaInvincibleAnim = 0.f;
+		}
+	}
+	else {
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
 	}
 }

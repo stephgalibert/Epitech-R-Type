@@ -42,10 +42,15 @@ void LoadedPowdered::destroy(void)
 {
 }
 
-void LoadedPowdered::collision(IClient *client, ACollidable *other)
+void LoadedPowdered::collision(IClient *client, AEntity *other)
 {
 	(void)client;
 	(void)other;
+}
+
+void LoadedPowdered::applyCollision(CollisionType type)
+{
+	(void)type;
 }
 
 void LoadedPowdered::move(float delta)
@@ -53,7 +58,7 @@ void LoadedPowdered::move(float delta)
 	(void)delta;
 }
 
-void LoadedPowdered::setColor(uint8_t color)
+void LoadedPowdered::setColor(uint16_t color)
 {
 	_color = color;
 }

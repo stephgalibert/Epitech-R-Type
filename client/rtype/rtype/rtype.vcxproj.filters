@@ -135,9 +135,6 @@
     <ClCompile Include="MemoryFile.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
-    <ClCompile Include="Generator.cpp">
-      <Filter>Fichiers sources\tools</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectResource.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
@@ -264,6 +261,45 @@
     <ClCompile Include="LoadingController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="RequestDestroyed.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectionLostController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="HUDController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadedShotLayout.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDRespawn.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestRespawn.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDGetParty.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestGetParty.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDGameStatus.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestGameStatus.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\common\Generator.cpp">
+      <Filter>Fichiers sources\tools</Filter>
+    </ClCompile>
     <ClCompile Include="MenuServerBrowser.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
@@ -333,9 +369,6 @@
       <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="CacheManager.hpp">
-      <Filter>Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Generator.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="IReader.hpp">
@@ -496,6 +529,45 @@
     </ClInclude>
     <ClInclude Include="LoadingController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDestroyed.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionLostController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="HUDController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadedShotLayout.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDGetParty.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestGetParty.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDGameStatus.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestGameStatus.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\common\Generator.hpp">
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
     <ClInclude Include="MenuServerBrowser.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>

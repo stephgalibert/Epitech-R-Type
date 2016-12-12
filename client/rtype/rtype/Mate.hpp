@@ -10,10 +10,10 @@
 class Mate : public ANPC
 {
 private:
-	static const uint8_t FRAME_TOP = 0;
-	static const uint8_t FRAME_MID = 1;
-	static const uint8_t FRAME_BOT = 2;
-	static const uint8_t FRAME_EXP = 3;
+	static const uint8_t FRAME_TOP;
+	static const uint8_t FRAME_MID;
+	static const uint8_t FRAME_BOT;
+	static const uint8_t FRAME_EXP;
 
 public:
 	Mate(void);
@@ -23,17 +23,26 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(void);
 
-	virtual void collision(IClient *client, ACollidable *other);
+	virtual void collision(IClient *client, AEntity *other);
+	virtual void applyCollision(CollisionType type);
 	virtual void move(float delta);
 
 	virtual void shoot(Fire const& param);
 	virtual void setPowder(PowderType powderType);
 
+	virtual void respawn(void);
+
 private:
 	void initFrame(void);
 	void updateFrame(void);
 
-	uint8_t _prevDirection;
+	void collisionDestruction(void);
+
+	void refreshInvincibility(float delta);
+
+private:
+
+  //uint8_t _prevDirection;
 	float _delta;
 	bool _decrease;
 	uint8_t _targetFrame;
@@ -45,7 +54,7 @@ private:
 
 	Powdered *_powder;
 	LoadedPowdered *_loadedPowder;
-	//float _deltaLoadedShot;
 	bool _loadedShot;
+	float _deltaInvincibleAnim;
+	bool _invincibleAnimState;
 };
-

@@ -1,5 +1,10 @@
 #include "Mate.hpp"
 
+const uint8_t Mate::FRAME_TOP = 0;
+const uint8_t Mate::FRAME_MID = 1;
+const uint8_t Mate::FRAME_BOT = 2;
+const uint8_t Mate::FRAME_EXP = 3;
+
 Mate::Mate(void)
 {
 	_targetFrame = 0;
@@ -10,6 +15,8 @@ Mate::Mate(void)
 	_powder = NULL;
 	_loadedPowder = NULL;
 	_loadedShot = false;
+	_deltaInvincibleAnim = 0.f;
+	_invincibleAnimState = false;
 }
 
 Mate::~Mate(void)
@@ -53,6 +60,7 @@ void Mate::update(float delta)
 		return;
 	}
 	_delta += delta;
+	refreshInvincibility(delta);
 
 	if (_powder && _powder->isAnimationFinished()) {
 		_powder->recycle();
@@ -92,35 +100,42 @@ void Mate::update(float delta)
 
 void Mate::destroy(void)
 {
+
 }
 
-void Mate::collision(IClient *client, ACollidable *other)
+void Mate::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (getCollisionType() != COLLISION_NONE
-		&& other->getCollisionType() == COLLISION_FATAL
-		&& _currentDirection != FRAME_EXP
-		&& !hasCollisioned()) {
+	if (!isInvincible() && !other->isInvincible()) {
+		if (!isInvincible() && !other->isInvincible()) {
+			if (getCollisionType() != COLLISION_NONE
+				&& other->getCollisionType() == COLLISION_FATAL
+				&& !hasCollisioned()) {
 
-		Explosion *explosion = World::spawnEntity<Explosion>();
-		explosion->setPosition(getPosition());
-		explosion->setReadyForInit(true);
+				setCollisioned(true);
 
-		_currentDirection = FRAME_EXP;
-		_currentFrame = 0;
-		_targetFrame = 5;
-
-		setAngle(-1);
-		setVelocity(0);
-
-		if (_loadedPowder) {
-			_loadedPowder->recycle();
-			_loadedPowder = NULL;
+				//if (!other->hasCollisioned()) {
+				//	other->collision(client, this);
+				//}
+				setCollisionType(COLLISION_NONE);
+			}
 		}
+	}
+}
 
-		setCollisioned(true);
-		other->collision(client, this);
-		setCollisionType(COLLISION_NONE);
+void Mate::applyCollision(CollisionType type)
+{
+	switch (type)
+	{
+	case CollisionType::None:
+		break;
+	case CollisionType::Destruction:
+		collisionDestruction();
+		break;
+	case CollisionType::PowerUP:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -156,23 +171,27 @@ void Mate::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
-	MissileType type = param.type;
-	uint8_t id = param.id_launcher;
+	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
+
+	//MissileType type = param.type;
+	uint16_t id = param.id;
+	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
 	uint8_t angle = param.angle;
-	uint8_t effect = param.effect;
+	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
 	Laser *laser = World::spawnEntity<Laser>();
+	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
-	laser->setOwnerID(id);
+	laser->setOwnerID(id_launcher);
 	laser->setAngle(angle);
 	laser->setVelocity(velocity);
-	laser->setColor(id);
+	laser->setColor(id_launcher);
 	laser->setReadyForInit(true);
 
 	if (!_powder) {
@@ -181,6 +200,20 @@ void Mate::shoot(Fire const& param)
 		_powder->setColor(getID());
 		_powder->setReadyForInit(true);
 	}
+}
+
+void Mate::respawn(void)
+{
+	_invincibleDelay = 3.f;
+	setCollisioned(false);
+	setCollisionType(COLLISION_FATAL);
+	_currentDirection = FRAME_MID;
+	_currentFrame = 0;
+	_targetFrame = 0;
+	setVisiblity(VISIBILITY_VISIBLE);
+	setDead(false);
+	setVelocity(150);
+	_delta = 0;
 }
 
 void Mate::setPowder(PowderType powderType)
@@ -279,5 +312,51 @@ void Mate::updateFrame(void)
 		sf::IntRect const& r = _frames.at(_currentDirection);
 		getShape()->setTextureRect(sf::IntRect(_currentFrame * r.width, r.top, r.width, r.height));
 		_delta = 0.f;
+	}
+}
+
+void Mate::collisionDestruction(void)
+{
+	setCollisioned(true);
+	setCollisionType(COLLISION_NONE);
+
+	Explosion *explosion = World::spawnEntity<Explosion>();
+	explosion->setPosition(getPosition());
+	explosion->setReadyForInit(true);
+
+	_currentDirection = FRAME_EXP;
+	_currentFrame = 0;
+	_targetFrame = 5;
+
+	setAngle(-1);
+	setVelocity(0);
+
+	if (_loadedPowder) {
+		_loadedPowder->recycle();
+		_loadedPowder = NULL;
+	}
+}
+
+void Mate::refreshInvincibility(float delta)
+{
+	sf::Color const& color = getShape()->getFillColor();
+
+	if (isInvincible()) {
+		_invincibleDelay -= delta;
+		_deltaInvincibleAnim += delta;
+		if (_deltaInvincibleAnim > 0.1f) {
+			if (_invincibleAnimState) {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+				_invincibleAnimState = false;
+			}
+			else {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 64));
+				_invincibleAnimState = true;
+			}
+			_deltaInvincibleAnim = 0.f;
+		}
+	}
+	else {
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
 	}
 }

@@ -2,6 +2,7 @@
 
 #include <winsock2.h>
 #include <mutex>
+#include <ws2tcpip.h>
 #include "ITCPSocket.hpp"
 #include "Buffer.hpp"
 

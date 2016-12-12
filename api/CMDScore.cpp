@@ -5,7 +5,7 @@ CMDScore::CMDScore(void)
 	_data = new Score;
 }
 
-CMDScore::CMDScore(uint8_t id, uint16_t score)
+CMDScore::CMDScore(uint16_t id, uint16_t score)
 {
 	_data = new Score;
 	_data->cmdType = getCommandType();

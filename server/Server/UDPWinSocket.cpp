@@ -17,12 +17,14 @@ UDPWinSocket::~UDPWinSocket(void)
 void UDPWinSocket::init(std::string const& host)
 {
 	SOCKADDR_IN sin;
+	char ipstr[INET6_ADDRSTRLEN];
 
 	if ((_socket = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
 		throw (std::runtime_error("Can't create UDP Socket : " + std::to_string(WSAGetLastError())));
 	}
 	sin.sin_family = AF_INET;
-	sin.sin_addr.s_addr = inet_addr(host.c_str());
+	sin.sin_addr.s_addr = inet_pton(AF_INET, host.c_str(), ipstr);
+	//sin.sin_addr.s_addr = inet_addr(host.c_str());
 	sin.sin_port = htons(4242);
 	if (bind(_socket, (struct sockaddr *)&sin, sizeof(sin)) == SOCKET_ERROR) {
 		throw(std::runtime_error("Bind failed with error code : " + std::to_string(WSAGetLastError())));

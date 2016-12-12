@@ -10,7 +10,10 @@ std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > Command
 	{(int)CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed)},
 	{(int)CommandType::Fire, std::bind(&CommandFactory::cmd_fire)},
 	{(int)CommandType::Score, std::bind(&CommandFactory::cmd_score)},
-	{(int)CommandType::LoadedPowder, std::bind(&CommandFactory::cmd_loadedPowder)}
+	{(int)CommandType::LoadedPowder, std::bind(&CommandFactory::cmd_loadedPowder)},
+	{(int)CommandType::Respawn, std::bind(&CommandFactory::cmd_respawn)},
+	{(int)CommandType::GetParty, std::bind(&CommandFactory::cmd_getParty)},
+	{(int)CommandType::GameStatus, std::bind(&CommandFactory::cmd_gameStatus)}
 };
 
 std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
@@ -19,6 +22,21 @@ std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
 		return (Commands.at((int)type)());
 	}
 	return (NULL);
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_gameStatus(void)
+{
+	return std::make_shared<CMDGameStatus>();
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_getParty(void)
+{
+	return std::make_shared<CMDGetParty>();
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_respawn(void)
+{
+	return std::make_shared<CMDRespawn>();
 }
 
 std::shared_ptr<ICommand> CommandFactory::cmd_loadedPowder(void)

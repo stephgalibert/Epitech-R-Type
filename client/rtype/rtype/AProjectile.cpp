@@ -16,12 +16,12 @@ void AProjectile::update(float delta)
 	move(delta);
 }
 
-void AProjectile::setOwnerID(uint8_t ownerID)
+void AProjectile::setOwnerID(uint16_t ownerID)
 {
 	_ownerID = ownerID;
 }
 
-uint8_t AProjectile::getOwnerID(void) const
+uint16_t AProjectile::getOwnerID(void) const
 {
 	return (_ownerID);
 }

@@ -7,6 +7,7 @@
 #include "CommandFactory.hpp"
 
 class GameController;
+class MainMenuController;
 
 class IClient
 {
@@ -18,7 +19,7 @@ public:
 	virtual void disconnect(void) = 0;
 	virtual void run(void) = 0;
 	virtual bool isConnected(void) const = 0;
-	//virtual void setGameController(GameController *controller) = 0;
 	virtual GameController *getGameController(void) const = 0;
+	virtual MainMenuController &getMainMenuController(void) = 0;
 	virtual IClient &operator<<(std::shared_ptr<ICommand> packet) = 0;
 };

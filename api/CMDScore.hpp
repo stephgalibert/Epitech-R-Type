@@ -6,7 +6,7 @@ class CMDScore : public ICommand
 {
 public:
 	CMDScore(void);
-	CMDScore(uint8_t id, uint16_t score);
+	CMDScore(uint16_t id, uint16_t score);
 	virtual ~CMDScore(void);
 
 	virtual void loadFromMemory(char const *data);

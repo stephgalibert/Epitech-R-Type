@@ -3,6 +3,9 @@
 Party::Party(void)
 	: _launched(false)
 {
+	_nextID = 1;
+	_state = GameStatusType::Waiting;
+	_delta = 0;
 }
 
 Party::~Party(void)
@@ -31,27 +34,34 @@ void Party::close(void)
 
 void Party::addConnection(std::shared_ptr<AConnection> connection)
 {
-	std::lock_guard<std::mutex> lock(_mutex);
-
 	//ObjectType object = ObjectType::Ship;
-	uint8_t id = _cm.getPlayerNumber() + 1;
-	uint16_t x = 100;
-	uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
+	uint8_t id = _nextID;
+	//uint16_t x = 100;
+	//uint16_t y = 60 * (_cm.getPlayerNumber() + 1);
+	std::pair<short, short> resolution = StaticTools::GetResolution();
+	float percent = (100.f * id / 4.f);
+	uint16_t x = _generator(100, 400);
+
+	uint16_t y = _generator((unsigned int)(((percent - 25.f) / 100.f) * (float)resolution.second) + 40,
+							(unsigned int)((percent / 100.f) * (float)resolution.second) - 80);
+	uint8_t health = 3;
 	/*uint8_t type = (uint8_t)ShipType::Standard;
 	  uint8_t effect = 0;*/
 
 	connection->setPosition(std::make_pair(x, y));
 	connection->setID(id);
+	connection->setLife(health);
 	// ...
 
 	_cm.add(connection);
 	std::cout << "new connection" << std::endl;
+
+	++_nextID;
 }
 
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
 {
-	std::lock_guard<std::mutex> lock(_mutex);
-	uint8_t id = connection->getID();
+	uint16_t id = connection->getID();
 
 	_cm.leave(connection);
 	_cm.broadcast(connection, std::make_shared<CMDDisconnected>(id));
@@ -63,18 +73,61 @@ void Party::broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 	_cm.broadcast(connection, data);
 }
 
+void Party::broadcast(std::shared_ptr<ICommand> data)
+{
+	_cm.broadcast(data);
+}
+
+void Party::fire(std::shared_ptr<ICommand> cmd)
+{
+	Fire *fire = reinterpret_cast<Fire *>(cmd->getData());
+	fire->id = _nextID;
+	broadcast(cmd);
+	++_nextID;
+	std::cout << "next id: " << (int)_nextID << std::endl;
+}
+
+void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd)
+{
+	Destroyed *destroyed = reinterpret_cast<Destroyed *>(cmd->getData());
+
+	if (connection->getID() == destroyed->id) {
+		connection->setLife(connection->getLife() - 1);
+		if (connection->getLife() > 0) {
+			uint16_t x = connection->getPosition().first;
+			uint16_t y = connection->getPosition().second;
+			broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
+		}
+	}
+}
+
 void Party::loop(void)
 {
-	while (!isReady());
-	_launched = true;
+	while (!isFinished())
+	{
+		float delta = _timer.restart();
 
-	std::cout << "ready" << std::endl;
+		switch (_state)
+		{
+		case GameStatusType::Waiting:
+			waiting(delta);
+			break;
+		case GameStatusType::Playing:
+			playing(delta);
+			break;
+		case GameStatusType::GameOver:
+			gameOver(delta);
+			break;
+		case GameStatusType::GameWin:
+			gameWin(delta);
+			break;
+		default:
+			break;
+		}
 
-	_cm.distributeShipID();
-	_cm.sendSpawnedShip();
-
-	while (isRunning());
+	}
 }
+
 
 bool Party::isReady(void) const
 {
@@ -99,4 +152,71 @@ std::string const& Party::getName(void) const
 std::string const& Party::getPassword(void) const
 {
 	return (_password);
+}
+
+uint8_t Party::getNbPlayer(void) const
+{
+	return (_cm.getPlayerNumber());
+}
+
+void Party::reset(void)
+{
+	_nextID = 5;
+	_cm.reset();
+}
+
+void Party::waiting(float delta)
+{
+  (void)delta;
+	if (isReady()) {
+		_launched = true;
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Playing));
+		_cm.distributeShipID();
+		_cm.sendSpawnedShip();
+		std::cout << "ready" << std::endl;
+		_state = GameStatusType::Playing;
+		_delta = 0;
+	}
+}
+
+void Party::playing(float delta)
+{
+  (void)delta;
+	if (!_cm.isPlayersAlive()) {
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
+		_state = GameStatusType::GameOver;
+		_delta = 0;
+	}
+	// ...
+}
+
+void Party::gameOver(float delta)
+{
+	_delta += delta;
+	if (_delta > 10.f) {
+		std::cout << "restarting" << std::endl;
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
+		_state = GameStatusType::Waiting;
+		_delta = 0;
+		reset();
+	}
+	else {
+		std::cout << "game over" << std::endl;
+	}
+}
+
+void Party::gameWin(float delta)
+{
+	_delta += delta;
+	if (_delta > 10.f) {
+		std::cout << "restarting" << std::endl;
+		//_cm.broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
+		_state = GameStatusType::Waiting;
+		_delta = 0;
+		reset();
+	}
+	else {
+		std::cout << "game win" << std::endl;
+	}
 }

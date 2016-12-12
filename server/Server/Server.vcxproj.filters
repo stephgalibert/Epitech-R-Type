@@ -216,6 +216,27 @@
     <ClCompile Include="..\..\api\CMDPowder.cpp">
       <Filter>Fichiers sources\Protocol</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\api\CMDRespawn.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestRespawn.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDGetParty.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestGetParty.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\api\CMDGameStatus.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestGameStatus.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Generator.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -418,6 +439,27 @@
     </ClInclude>
     <ClInclude Include="..\..\api\CMDPowder.hpp">
       <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestRespawn.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDGetParty.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestGetParty.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDGameStatus.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestGameStatus.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Generator.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

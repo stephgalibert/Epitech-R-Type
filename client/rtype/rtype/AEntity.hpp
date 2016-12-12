@@ -17,7 +17,8 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void destroy(void) = 0;
 
-	virtual void collision(IClient *client, ACollidable *other) = 0;
+	virtual void collision(IClient *client, AEntity *other) = 0;
+	virtual void applyCollision(CollisionType type) = 0;
 
 	virtual void move(float delta) = 0;
 
@@ -34,14 +35,23 @@ public:
 	float getAngle(void) const;
 	float getRadians(void) const;
 
-	void setID(uint8_t id);
-	uint8_t getID(void) const;
+	void setID(uint16_t id);
+	uint16_t getID(void) const;
+
+	void setHealth(uint8_t health);
+	uint8_t getHealth(void) const;
+
+	bool isInvincible(void) const;
+
+protected:
+	float _invincibleDelay;
 
 private:
 	bool _readyForInit;
-	uint8_t _id;
+	uint16_t _id;
 	float _velocity;
 	float _degrees;
 	float _radians;
 	uint8_t _direction;
+	uint8_t _health;
 };

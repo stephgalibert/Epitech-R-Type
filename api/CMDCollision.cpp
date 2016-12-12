@@ -1,9 +1,10 @@
 #include "CMDCollision.hpp"
 
-CMDCollision::CMDCollision(uint8_t id_first, uint8_t id_second)
+CMDCollision::CMDCollision(CollisionType type, uint16_t id_first, uint16_t id_second)
 {
 	_data = new Collision;
 	_data->cmdType = getCommandType();
+	_data->type = type;
 	_data->id_first = id_first;
 	_data->id_second = id_second;
 }
@@ -23,6 +24,7 @@ void CMDCollision::loadFromMemory(char const *data)
 	Collision const* collision = reinterpret_cast<const Collision *>(data);
 
 	_data->cmdType = getCommandType();
+	_data->type = collision->type;
 	_data->id_first = collision->id_first;
 	_data->id_second = collision->id_second;
 }

@@ -12,6 +12,6 @@ public:
 	virtual ~RequestCollision(void);
 
 	virtual void execute(IClient &client, std::shared_ptr<ICommand> data,
-		std::shared_ptr<ICommand> &toSend);
+						 std::shared_ptr<ICommand> &toSend);
 };
 

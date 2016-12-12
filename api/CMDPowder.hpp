@@ -7,7 +7,7 @@ class CMDPowder : public ICommand
 {
 public:
 	CMDPowder(void);
-	CMDPowder(uint8_t id, PowderType type);
+	CMDPowder(uint16_t id, PowderType type);
 	virtual ~CMDPowder(void);
 
 	virtual void loadFromMemory(char const *data);

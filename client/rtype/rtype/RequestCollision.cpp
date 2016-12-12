@@ -1,4 +1,6 @@
 #include "RequestCollision.hpp"
+#include "ICommand.hpp"
+#include "Laser.hpp"
 
 RequestCollision::RequestCollision(void)
 {
@@ -11,13 +13,22 @@ RequestCollision::~RequestCollision(void)
 void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 								std::shared_ptr<ICommand> &toSend)
 {
+  (void)client;
+  (void)toSend;
 	Collision *collision = (Collision *)data->getData();
-	uint8_t id1 = collision->id_first;
-	uint8_t id2 = collision->id_second;
+	CollisionType type = collision->type;
+	uint16_t id1 = collision->id_first;
+	uint16_t id2 = collision->id_second;
 
-	StaticTools::Log << "executing collision request : id " << (int)id1 << " _ " << (int)id2 << std::endl;
 	AEntity *entity = World::getEntityByID(id1);
-	if (entity) {
-		entity->recycle();
+	AEntity *entity2 = World::getEntityByID(id2);
+	Laser *laser = dynamic_cast<Laser *>(entity);
+	if (!laser) {
+		if (entity) {
+			entity->applyCollision(type);
+		}
+		if (entity2) {
+			entity2->applyCollision(type);
+		}
 	}
 }

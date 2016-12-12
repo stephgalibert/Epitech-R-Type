@@ -5,7 +5,7 @@ SFML_LIB_REL	=	../../../../../Libraries/SFML/lib
 SFML_LIB_GEN	=	~/Libraries/SFML/lib
 SFML_INCLUDE	=	../../../../../Libraries/SFML/include
 
-CXX		=	g++
+CXX		=	g++-4.9
 
 RM		=	rm -f
 
@@ -44,7 +44,6 @@ SRCS		+=	DisplayArea.cpp
 SRCS		+=	Explosion.cpp
 SRCS		+=	FPSCounter.cpp
 SRCS		+=	GameController.cpp
-SRCS		+=	Generator.cpp
 SRCS		+=	InputHandler.cpp
 SRCS		+=	Laser.cpp
 SRCS		+=	LevelResource.cpp
@@ -69,9 +68,30 @@ SRCS		+=	RequestDisconnect.cpp
 SRCS		+=	RequestMove.cpp
 SRCS		+=	Mate.cpp
 SRCS		+=	MenuButton.cpp
+SRCS		+=	LoadingController.cpp
+SRCS		+=	GameOverController.cpp
+SRCS		+=	ConnectionLostController.cpp
+SRCS		+=	HUDController.cpp
+SRCS		+=	Powdered.cpp
+SRCS		+=	LoadedPowdered.cpp
+SRCS		+=	RequestGameStatus.cpp
+SRCS		+=	RequestGetParty.cpp
+SRCS		+=	RequestDestroyed.cpp
+SRCS		+=	RequestCollision.cpp
+SRCS		+=	RequestFire.cpp
+SRCS		+=	RequestRespawn.cpp
+SRCS		+=	RequestPowder.cpp
+SRCS		+=	LoadedShotLayout.cpp
+SRCS		+=	Health.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
+SRCS		+=	../../../common/Generator.cpp
 
+SRCS		+=	../../../api/CMDPowder.cpp
+SRCS		+=	../../../api/CMDScore.cpp
+SRCS		+=	../../../api/CMDRespawn.cpp
+SRCS		+=	../../../api/CMDGetParty.cpp
+SRCS		+=	../../../api/CMDGameStatus.cpp
 SRCS		+=	../../../api/CMDDestroyed.cpp
 SRCS		+=	../../../api/CMDCollision.cpp
 SRCS		+=	../../../api/CMDConnect.cpp

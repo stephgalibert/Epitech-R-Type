@@ -7,20 +7,37 @@ AEntity::AEntity()
 	   _direction(0)
 {
 	setAngle(-1);
+	setID(0);
+	_invincibleDelay = 0.f;
 }
 
 AEntity::~AEntity(void)
 {
 }
 
-void AEntity::setID(uint8_t id)
+void AEntity::setID(uint16_t id)
 {
 	_id = id;
 }
 
-uint8_t AEntity::getID(void) const
+uint16_t AEntity::getID(void) const
 {
 	return (_id);
+}
+
+void AEntity::setHealth(uint8_t health)
+{
+	_health = health;
+}
+
+uint8_t AEntity::getHealth(void) const
+{
+	return (_health);
+}
+
+bool AEntity::isInvincible(void) const
+{
+	return (_invincibleDelay > 0.000f);
 }
 
 void AEntity::setDirection(uint8_t direction)

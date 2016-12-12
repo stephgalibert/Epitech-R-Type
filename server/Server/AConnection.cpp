@@ -38,7 +38,7 @@ void AConnection::setCurrentParty(std::shared_ptr<Party> party)
 	_party = party;
 }
 
-void AConnection::setID(uint8_t id)
+void AConnection::setID(uint16_t id)
 {
 	_id = id;
 }
@@ -74,7 +74,7 @@ std::shared_ptr<Party> AConnection::getCurrentParty(void) const
 	return (_party);
 }
 
-uint8_t AConnection::getID(void) const
+uint16_t AConnection::getID(void) const
 {
 	return (_id);
 }

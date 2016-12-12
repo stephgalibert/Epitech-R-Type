@@ -3,10 +3,12 @@
 std::list<AEntity *> World::Entities;
 std::vector<AEntity *> World::ToPush;
 std::mutex World::Mutex;
-IClient *World::Client;
+IClient *World::Client = NULL;
+Player **World::ThePlayer = NULL;
 
-void World::init(IClient *client)
+void World::init(Player **player, IClient *client)
 {
+	ThePlayer = player;
 	Client = client;
 }
 
@@ -35,7 +37,8 @@ void World::update(float delta)
 				(*it)->update(delta);
 
 				for (auto it_sub : Entities) {
-					if (it_sub->getID() != (*it)->getID() && it_sub->isCollidingWith(*it)) {
+					if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
+						&& it_sub->isCollidingWith(*it)) {
 						it_sub->collision(Client, (*it));
 					}
 				}
@@ -69,12 +72,22 @@ void World::recycle(void)
 	Entities.clear();
 }
 
-AEntity *World::getEntityByID(uint8_t id)
+AEntity *World::getEntityByID(uint16_t id)
 {
+	std::lock_guard<std::mutex> lock(Mutex);
+
 	for (auto it : Entities) {
 		if (it->getID() == id) {
 			return (it);
 		}
+	}
+	return (NULL);
+}
+
+Player *World::GetPlayer(void)
+{
+	if (ThePlayer) {
+		return (*ThePlayer);
 	}
 	return (NULL);
 }

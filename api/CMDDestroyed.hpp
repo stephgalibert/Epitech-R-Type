@@ -5,7 +5,7 @@
 class CMDDestroyed : public ICommand
 {
 public:
-	CMDDestroyed(uint8_t id);
+	CMDDestroyed(uint16_t id);
 	CMDDestroyed(void);
 	virtual ~CMDDestroyed(void);
 

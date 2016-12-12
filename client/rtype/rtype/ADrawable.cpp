@@ -47,6 +47,8 @@ void ADrawable::setVisiblity(int visibility)
 	case VISIBILITY_GONE:
 		_shape->setFillColor(sf::Color(c.r, c.g, c.b, 0));
 		break;
+	case VISIBILITY_VISIBLE:
+		_shape->setFillColor(sf::Color(c.r, c.g, c.b, 255));
 	default:
 		break;
 	}

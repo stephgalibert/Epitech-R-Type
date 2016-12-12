@@ -1,12 +1,15 @@
 #include "TCPClient.hpp"
 #include "GameController.hpp"
+#include "MainMenuController.hpp"
 
-TCPClient::TCPClient(GameController **game, std::string const& remote, std::string const& port)
+TCPClient::TCPClient(GameController **game, MainMenuController &menu,
+					 std::string const& remote, std::string const& port)
 	: _timer(_io_service),
 	  _resolver(_io_service),
 	  _socket(_io_service),
 	  _connected(false),
-	  _controller(game),
+	  _game(game),
+	  _menu(menu),
 	  _remote(remote),
 	  _port(port)
 {
@@ -30,8 +33,10 @@ void TCPClient::connect(void)
 
 void TCPClient::write(std::shared_ptr<ICommand> packet)
 {
+	_mutex.lock();
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(packet);
+	_mutex.unlock();
 	if (!writeInProgress) {
 		write();
 	}
@@ -58,17 +63,17 @@ bool TCPClient::isConnected(void) const
 	return (_connected);
 }
 
-//void TCPClient::setGameController(GameController *controller)
-//{
-//	_controller = controller;
-//}
-
 GameController *TCPClient::getGameController(void) const
 {
-	if (_controller) {
-		return (*_controller);
+	if (_game) {
+		return (*_game);
 	}
 	return (NULL);
+}
+
+MainMenuController &TCPClient::getMainMenuController(void)
+{
+	return (_menu);
 }
 
 IClient &TCPClient::operator<<(std::shared_ptr<ICommand> packet)
@@ -87,7 +92,10 @@ void TCPClient::read(void)
 
 void TCPClient::write(void)
 {
+	_mutex.lock();
 	std::shared_ptr<ICommand> packet = _toWrites.front();
+	StaticTools::Log << "writing " << (int)packet->getCommandType() << std::endl;
+	_mutex.unlock();
 	boost::asio::async_write(_socket, boost::asio::buffer(packet->getData(), packet->getSize()),
 	boost::bind(&TCPClient::do_write, this,
 			boost::asio::placeholders::error,
@@ -149,7 +157,9 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 void TCPClient::do_write(boost::system::error_code const& ec, size_t)
 {
 	if (!ec) {
+		_mutex.lock();
 		_toWrites.pop();
+		_mutex.unlock();
 		if (!_toWrites.empty()) {
 			write();
 		}

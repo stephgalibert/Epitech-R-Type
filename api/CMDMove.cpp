@@ -1,6 +1,6 @@
 #include "CMDMove.hpp"
 
-CMDMove::CMDMove(uint8_t id, uint16_t x, uint16_t y, uint16_t velocity, uint8_t direction)
+CMDMove::CMDMove(uint16_t id, uint16_t x, uint16_t y, uint16_t velocity, uint8_t direction)
 {
 	_data = new Move;
 	_data->cmdType = getCommandType();
