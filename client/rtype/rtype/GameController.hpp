@@ -16,6 +16,7 @@
 #include "HUDController.hpp"
 #include "LoadingController.hpp"
 #include "ConnectionLostController.hpp"
+#include "GameOverController.hpp"
 
 class GameController : public AController
 {
@@ -61,6 +62,7 @@ private:
 
 	LoadingController _loading;
 	ConnectionLostController _connectionLost;
+	GameOverController _gameOver;
 	HUDController _hud;
 
 	IClient &_network;

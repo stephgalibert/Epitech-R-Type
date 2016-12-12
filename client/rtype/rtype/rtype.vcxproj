@@ -192,6 +192,7 @@
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="Generator.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="GameController.hpp" />
+    <ClInclude Include="GameOverController.hpp" />
     <ClInclude Include="Generator.hpp" />
     <ClInclude Include="Health.hpp" />
     <ClInclude Include="HUDController.hpp" />

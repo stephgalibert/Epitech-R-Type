@@ -297,6 +297,9 @@
     <ClCompile Include="RequestGameStatus.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -559,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="RequestGameStatus.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

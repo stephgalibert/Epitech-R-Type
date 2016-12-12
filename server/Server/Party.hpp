@@ -12,15 +12,6 @@
 
 class Party : public std::enable_shared_from_this<Party>
 {
-//private:
-//	enum class State : uint8_t
-//	{
-//		Waiting = 0,
-//		Playing = 1,
-//		GameOver = 2,
-//		GameWin = 3
-//	};
-
 public:
 	Party(void);
 	~Party(void);

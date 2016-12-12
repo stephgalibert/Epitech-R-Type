@@ -41,6 +41,9 @@ void Health::destroy(void)
 
 void Health::setHealth(uint8_t health)
 {
+	if (health < 0 || health > MAX_HEALTH)
+		return;
+
 	float coef = (100.f * health) / MAX_HEALTH;
 	sf::Vector2f size;
 	sf::Vector2f pos;

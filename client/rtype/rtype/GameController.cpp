@@ -30,6 +30,8 @@ void GameController::init(void)
 	_connectionLost.init();
 	_connectionLost.setBaseText("Connection lost :/");
 
+	_gameOver.init();
+
 	_hud.init();
 
 	_back.init();
@@ -153,15 +155,10 @@ void GameController::updatePlaying(float delta)
 	_back.update(delta);
 	_front.update(delta);
 
-	//if (!isReady()) {
-	//	_loading.update(delta);
-	//}
-	//else {
 	World::update(delta);
 	if (!_network.isConnected()) {
 		_connectionLost.update(delta);
 	}
-	//}
 	_hud.update(delta);
 }
 
@@ -173,6 +170,7 @@ void GameController::updateGameOver(float delta)
 		_player = NULL;
 		World::recycle();
 	}
+	_gameOver.update(delta);
 }
 
 void GameController::updateGameWin(float delta)
@@ -218,7 +216,7 @@ void GameController::drawGameOver(sf::RenderWindow &window)
 	_back.draw(window);
 	_front.draw(window);
 
-	_loading.draw(window);
+	_gameOver.draw(window);
 
 	_hud.draw(window);
 }
