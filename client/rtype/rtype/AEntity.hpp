@@ -41,6 +41,11 @@ public:
 	void setHealth(uint8_t health);
 	uint8_t getHealth(void) const;
 
+	bool isInvincible(void) const;
+
+protected:
+	float _invincibleDelay;
+
 private:
 	bool _readyForInit;
 	uint16_t _id;

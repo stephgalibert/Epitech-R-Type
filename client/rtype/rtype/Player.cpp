@@ -20,7 +20,9 @@ Player::Player()
 	setVelocity(150.f);
 	_resolution = StaticTools::GetResolution();
 	_loadedShot = false;
-	_deltaLoadedShot = 0;
+	_deltaLoadedShot = 0.f;
+	_deltaInvincibleAnim = 0.f;
+	_invincibleAnimState = false;
 }
 
 Player::~Player(void)
@@ -65,6 +67,8 @@ void Player::update(float delta)
 	_delta += delta;
 	_deltaLastShoot += delta;
 
+	refreshInvincibility(delta);
+
 	if (_loadedShot) {
 		_deltaLoadedShot += delta;
 	}
@@ -96,19 +100,21 @@ void Player::setHUD(HUDController *hud)
 void Player::collision(IClient *client, AEntity *other)
 {
   (void)client;
-  if (getCollisionType() != COLLISION_NONE
-	  && other->getCollisionType() == COLLISION_FATAL
-	  && !hasCollisioned()) {
+  if (!isInvincible() && !other->isInvincible()) {
+	  if (getCollisionType() != COLLISION_NONE
+		  && other->getCollisionType() == COLLISION_FATAL
+		  && !hasCollisioned()) {
 
-		setCollisioned(true);
+		  setCollisioned(true);
 
-		//if (!other->hasCollisioned() && _client) {
-		//	other->collision(client, this);
-			_client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
-		//}
+		  //if (!other->hasCollisioned() && _client) {
+		  //	other->collision(client, this);
+		  _client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+		  //}
 
-		setCollisionType(COLLISION_NONE);
-	}
+		  setCollisionType(COLLISION_NONE);
+	  }
+  }
 }
 
 void Player::applyCollision(CollisionType type)
@@ -118,7 +124,6 @@ void Player::applyCollision(CollisionType type)
 	case CollisionType::None:
 		break;
 	case CollisionType::Destruction:
-		// requet for re - spawn ?
 		collisionDestruction();
 		break;
 	case CollisionType::PowerUP:
@@ -210,6 +215,7 @@ void Player::respawn(void)
 {
 	setCollisioned(false);
 	setCollisionType(COLLISION_FATAL);
+	_invincibleDelay = 3.;
 	_currentDirection = FRAME_MID;
 	_currentFrame = 0;
 	_targetFrame = 0;
@@ -219,6 +225,7 @@ void Player::respawn(void)
 	_delta = 0;
 	_deltaLastShoot = 0;
 	_deltaLoadedShot = 0;
+	_deltaInvincibleAnim = 0.f;
 }
 
 void Player::initFrame(void)
@@ -516,5 +523,30 @@ void Player::sendRespawnRequest(void)
 {
 	if (_client) {
 		_client->write(std::make_shared<CMDDestroyed>(getID()));
+	}
+}
+
+
+void Player::refreshInvincibility(float delta)
+{
+	sf::Color const& color = getShape()->getFillColor();
+
+	if (isInvincible()) {
+		_invincibleDelay -= delta;
+		_deltaInvincibleAnim += delta;
+		if (_deltaInvincibleAnim > 0.1f) {
+			if (_invincibleAnimState) {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+				_invincibleAnimState = false;
+			}
+			else {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 64));
+				_invincibleAnimState = true;
+			}
+			_deltaInvincibleAnim = 0.f;
+		}
+	}
+	else {
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
 	}
 }

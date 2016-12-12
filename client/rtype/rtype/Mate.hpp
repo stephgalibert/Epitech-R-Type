@@ -38,6 +38,10 @@ private:
 
 	void collisionDestruction(void);
 
+	void refreshInvincibility(float delta);
+
+private:
+
 	uint8_t _prevDirection;
 	float _delta;
 	bool _decrease;
@@ -50,7 +54,8 @@ private:
 
 	Powdered *_powder;
 	LoadedPowdered *_loadedPowder;
-	//float _deltaLoadedShot;
 	bool _loadedShot;
+	float _deltaInvincibleAnim;
+	bool _invincibleAnimState;
 };
 

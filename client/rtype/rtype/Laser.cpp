@@ -15,7 +15,6 @@ Laser::Laser(void)
 
 Laser::~Laser(void)
 {
-	std::cout << "destroying laser" << std::endl;
 }
 
 void Laser::init(void)
@@ -58,12 +57,14 @@ void Laser::destroy(void)
 void Laser::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (!hasCollisioned() && other->getCollisionType() == COLLISION_FATAL) {
-		setCollisioned(true);
+	if (!other->isInvincible()) {
+		if (!hasCollisioned() && other->getCollisionType() == COLLISION_FATAL) {
+			setCollisioned(true);
 
-		if (!other->hasCollisioned() && World::GetPlayer() && getOwnerID() == World::GetPlayer()->getID()) {
-			std::cout << "laser sending collision" << std::endl;
-			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+			if (!other->hasCollisioned() && World::GetPlayer() && getOwnerID() == World::GetPlayer()->getID()) {
+				std::cout << "laser sending collision" << std::endl;
+				client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+			}
 		}
 	}
 }

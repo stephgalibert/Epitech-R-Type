@@ -41,8 +41,6 @@ public:
 	void setIClient(IClient *client);
 	void setHUD(HUDController *hud);
 
-	/* ici les getters pour le hud */
-
 private:
 	void initFrame(void);
 	void updateFrame(void);
@@ -55,6 +53,9 @@ private:
 	void collisionDestruction(void);
 	void sendRespawnRequest(void);
 
+	void refreshInvincibility(float delta);
+
+private:
 	float _delta;
 	float _deltaLastShoot;
 	IClient *_client;
@@ -71,5 +72,7 @@ private:
 	LoadedPowdered *_loadedPowder;
 	bool _loadedShot;
 	float _deltaLoadedShot;
+	float _deltaInvincibleAnim;
+	bool _invincibleAnimState;
 };
 

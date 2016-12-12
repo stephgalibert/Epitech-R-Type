@@ -15,6 +15,8 @@ Mate::Mate(void)
 	_powder = NULL;
 	_loadedPowder = NULL;
 	_loadedShot = false;
+	_deltaInvincibleAnim = 0.f;
+	_invincibleAnimState = false;
 }
 
 Mate::~Mate(void)
@@ -58,6 +60,7 @@ void Mate::update(float delta)
 		return;
 	}
 	_delta += delta;
+	refreshInvincibility(delta);
 
 	if (_powder && _powder->isAnimationFinished()) {
 		_powder->recycle();
@@ -103,16 +106,20 @@ void Mate::destroy(void)
 void Mate::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (getCollisionType() != COLLISION_NONE
-		&& other->getCollisionType() == COLLISION_FATAL
-		&& !hasCollisioned()) {
+	if (!isInvincible() && !other->isInvincible()) {
+		if (!isInvincible() && !other->isInvincible()) {
+			if (getCollisionType() != COLLISION_NONE
+				&& other->getCollisionType() == COLLISION_FATAL
+				&& !hasCollisioned()) {
 
-		setCollisioned(true);
+				setCollisioned(true);
 
-		//if (!other->hasCollisioned()) {
-		//	other->collision(client, this);
-		//}
-		setCollisionType(COLLISION_NONE);
+				//if (!other->hasCollisioned()) {
+				//	other->collision(client, this);
+				//}
+				setCollisionType(COLLISION_NONE);
+			}
+		}
 	}
 }
 
@@ -197,6 +204,7 @@ void Mate::shoot(Fire const& param)
 
 void Mate::respawn(void)
 {
+	_invincibleDelay = 3.f;
 	setCollisioned(false);
 	setCollisionType(COLLISION_FATAL);
 	_currentDirection = FRAME_MID;
@@ -326,5 +334,29 @@ void Mate::collisionDestruction(void)
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
 		_loadedPowder = NULL;
+	}
+}
+
+void Mate::refreshInvincibility(float delta)
+{
+	sf::Color const& color = getShape()->getFillColor();
+
+	if (isInvincible()) {
+		_invincibleDelay -= delta;
+		_deltaInvincibleAnim += delta;
+		if (_deltaInvincibleAnim > 0.1f) {
+			if (_invincibleAnimState) {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+				_invincibleAnimState = false;
+			}
+			else {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 64));
+				_invincibleAnimState = true;
+			}
+			_deltaInvincibleAnim = 0.f;
+		}
+	}
+	else {
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
 	}
 }

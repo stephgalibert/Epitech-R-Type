@@ -8,6 +8,7 @@ AEntity::AEntity()
 {
 	setAngle(-1);
 	setID(0);
+	_invincibleDelay = 0.f;
 }
 
 AEntity::~AEntity(void)
@@ -32,6 +33,11 @@ void AEntity::setHealth(uint8_t health)
 uint8_t AEntity::getHealth(void) const
 {
 	return (_health);
+}
+
+bool AEntity::isInvincible(void) const
+{
+	return (_invincibleDelay > 0.000f);
 }
 
 void AEntity::setDirection(uint8_t direction)
