@@ -64,7 +64,7 @@ void TCPConnection::read(void)
 void TCPConnection::do_read(bool error)
 {
 	if (error) {
-		CommandType type = StaticTools::GetPacketType(_read.getData());
+		CommandType type = (*(CommandType *)(_read.getData()));
 		std::shared_ptr<ICommand> command = CommandFactory::Build(type);
 
 		if (!command) {

@@ -69,7 +69,7 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	connection->sync_write(std::make_shared<CMDGameStatus>(_state));
 
 	std::cout << "new connection" << std::endl;
-
+	broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(id) + " connected"));
 	++_nextID;
 }
 
@@ -79,9 +79,9 @@ void Party::removeConnection(std::shared_ptr<AConnection> connection)
 	uint16_t id = connection->getID();
 
 	_cm.leave(connection);
-	_cm.broadcast(connection, std::make_shared<CMDDisconnected>(id));
-	_cm.broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(id) + " deconnected"));
-	
+	broadcast(connection, std::make_shared<CMDDisconnected>(id));
+	broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(id) + " deconnected"));
+
 	_playersIdAvailable.insert(id);
 	std::cout << "remove connection" << std::endl;
 }
@@ -115,6 +115,9 @@ void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 			uint16_t x = connection->getPosition().first;
 			uint16_t y = connection->getPosition().second;
 			broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
+		}
+		else {
+			broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(connection->getID()) + " is dead"));
 		}
 	}
 }
@@ -202,6 +205,7 @@ void Party::playing(double delta)
 {
   (void)delta;
 	if (!_cm.isPlayersAlive()) {
+		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
@@ -209,13 +213,12 @@ void Party::playing(double delta)
 	// ...
 }
 
-//#include <Windows.h>
-
 void Party::gameOver(double delta)
 {
 	_delta += delta;
 	if (_delta > 10.f) {
 		_launched = false;
+		//broadcast(std::make_shared<CMDMessage>("restarting ..."));
 		std::cout << "restarting" << std::endl;
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
 		_state = GameStatusType::Waiting;

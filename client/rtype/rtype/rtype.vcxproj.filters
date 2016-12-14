@@ -21,9 +21,6 @@
     <Filter Include="Fichiers sources\resources">
       <UniqueIdentifier>{aa2bf634-c168-4fd6-b794-df00a0ddb517}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\protocol">
-      <UniqueIdentifier>{70a2c2e7-5baa-43ae-8673-610ef1ed2618}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\request">
       <UniqueIdentifier>{99f3ae9e-8bfc-4c8e-aa20-09feacb201e8}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="Fichiers d%27en-tête\game">
       <UniqueIdentifier>{fffd7ae6-d601-4b1e-a81d-c6a114e3d412}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\protocol">
-      <UniqueIdentifier>{046575cd-8e98-4910-a928-6d29aba3ae94}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers d%27en-tête\request">
       <UniqueIdentifier>{d1edc5ef-3d94-4d8c-bdfd-82bb589c6477}</UniqueIdentifier>
@@ -162,36 +156,6 @@
     <ClCompile Include="AExplosion.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDCollision.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDCreateParty.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDDisconnected.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDError.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDFire.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDPing.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDSpawn.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CommandFactory.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDMove.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDConnect.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\common\StaticTools.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
@@ -228,23 +192,14 @@
     <ClCompile Include="RequestCollision.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDDestroyed.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
     <ClCompile Include="RequestFire.cpp">
       <Filter>Fichiers sources\request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDScore.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
     </ClCompile>
     <ClCompile Include="Powdered.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
     <ClCompile Include="LoadedPowdered.cpp">
       <Filter>Fichiers sources\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDPowder.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
     </ClCompile>
     <ClCompile Include="RequestPowder.cpp">
       <Filter>Fichiers sources\request</Filter>
@@ -267,20 +222,11 @@
     <ClCompile Include="LoadedShotLayout.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDRespawn.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
     <ClCompile Include="RequestRespawn.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDGetParty.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
-    </ClCompile>
     <ClCompile Include="RequestGetParty.cpp">
       <Filter>Fichiers sources\request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDGameStatus.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
     </ClCompile>
     <ClCompile Include="RequestGameStatus.cpp">
       <Filter>Fichiers sources\request</Filter>
@@ -296,9 +242,6 @@
     </ClCompile>
     <ClCompile Include="ScoreController.cpp">
       <Filter>Fichiers sources\game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\api\CMDMessage.cpp">
-      <Filter>Fichiers sources\protocol</Filter>
     </ClCompile>
     <ClCompile Include="AController.cpp">
       <Filter>Fichiers sources\game</Filter>
@@ -428,47 +371,8 @@
     <ClInclude Include="AExplosion.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDCollision.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDConnect.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDCreateParty.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDDisconnected.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDError.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDFire.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDMove.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDPing.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDSpawn.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CommandFactory.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\ICommand.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\Protocol.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\common\StaticTools.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CommandType.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="Laser.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
@@ -494,9 +398,6 @@
     <ClInclude Include="RequestDisconnect.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDDestroyed.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
     <ClInclude Include="RequestCollision.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
@@ -512,17 +413,11 @@
     <ClInclude Include="RequestFire.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDScore.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
     <ClInclude Include="Powdered.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="LoadedPowdered.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDPowder.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="RequestPowder.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
@@ -551,20 +446,11 @@
     <ClInclude Include="LoadedShotLayout.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDRespawn.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
     <ClInclude Include="RequestRespawn.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDGetParty.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
-    </ClInclude>
     <ClInclude Include="RequestGetParty.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDGameStatus.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="RequestGameStatus.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
@@ -577,9 +463,6 @@
     </ClInclude>
     <ClInclude Include="ScoreController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\api\CMDMessage.hpp">
-      <Filter>Fichiers d%27en-tête\protocol</Filter>
     </ClInclude>
     <ClInclude Include="Background.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
