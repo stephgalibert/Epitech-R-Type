@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "Protocol.hpp"
+#include "EnumHash.hpp"
 
 #include "CMDCollision.hpp"
 #include "CMDConnect.hpp"
@@ -20,13 +21,15 @@
 #include "CMDRespawn.hpp"
 #include "CMDGetParty.hpp"
 #include "CMDGameStatus.hpp"
+#include "CMDMessage.hpp"
 
 class CommandFactory
 {
 public:
-	static std::shared_ptr<ICommand> build(CommandType type);
+	static std::shared_ptr<ICommand> Build(CommandType type);
 
 private:
+	static std::shared_ptr<ICommand> cmd_message(void);
 	static std::shared_ptr<ICommand> cmd_gameStatus(void);
 	static std::shared_ptr<ICommand> cmd_getParty(void);
 	static std::shared_ptr<ICommand> cmd_respawn(void);
@@ -43,6 +46,6 @@ private:
 	static std::shared_ptr<ICommand> cmd_ping(void);
 	static std::shared_ptr<ICommand> cmd_spawn(void);
 
-	static std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > Commands;
+	static const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(void)>, EnumHash> Commands;
 };
 

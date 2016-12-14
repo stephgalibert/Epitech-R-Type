@@ -1,11 +1,16 @@
 #include "StaticTools.hpp"
 
+#ifdef _WIN32
+# include <Windows.h>
+#else
+# include <unistd.h>
+#endif
+
 std::ofstream StaticTools::Log;
 
 std::pair<short, short> StaticTools::GetResolution(void)
 {
 	return (std::make_pair<short, short>(1280, 720));
-	//return (std::make_pair<short, short>(800, 480));
 }
 
 CommandType StaticTools::GetPacketType(char const *packet)
@@ -27,4 +32,13 @@ void StaticTools::DeserializePosition(uint32_t position, uint16_t &x, uint16_t &
 {
 	x = position >> 16;
 	y = position & 0xffff;
+}
+
+void StaticTools::sleep(unsigned int milliseconds)
+{
+#ifdef _WIN32
+	Sleep(milliseconds);
+#else
+	usleep(milliseconds * 100);
+#endif
 }

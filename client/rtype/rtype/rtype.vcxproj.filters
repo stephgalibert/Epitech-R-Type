@@ -69,12 +69,6 @@
     <ClCompile Include="Application.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="AController.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="ACollidable.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
@@ -270,9 +264,6 @@
     <ClCompile Include="HUDController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
-    <ClCompile Include="Health.cpp">
-      <Filter>Fichiers sources\game</Filter>
-    </ClCompile>
     <ClCompile Include="LoadedShotLayout.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
@@ -300,12 +291,33 @@
     <ClCompile Include="..\..\..\common\Generator.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\api\CMDMessage.cpp">
+      <Filter>Fichiers sources\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="AController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageLayout.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestMessage.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="ALayout.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="AController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ADrawable.hpp">
@@ -497,9 +509,6 @@
     <ClInclude Include="MenuButton.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
-    <ClInclude Include="Background.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="RequestFire.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
@@ -565,6 +574,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\common\Generator.hpp">
       <Filter>Fichiers d%27en-tête\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\api\CMDMessage.hpp">
+      <Filter>Fichiers d%27en-tête\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="AController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\common\EnumHash.hpp">
+      <Filter>Fichiers d%27en-tête\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestMessage.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageLayout.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="ALayout.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

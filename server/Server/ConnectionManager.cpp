@@ -51,6 +51,33 @@ void ConnectionManager::closeAll(void)
 	_connections.clear();
 }
 
+void ConnectionManager::newConnection(std::shared_ptr<AConnection> connection)
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	ObjectType object = ObjectType::Ship;
+	uint16_t id = connection->getID();
+	uint16_t x = connection->getPosition().first;
+	uint16_t y = connection->getPosition().second;
+	uint8_t type = (uint8_t)ShipType::Standard;
+	uint8_t effect = 0;
+	uint8_t health = connection->getLife();
+
+	connection->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, health, true));
+
+	for (auto &it : _connections) {
+		it->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, health, false));
+	}
+
+	for (auto &it : _connections) {
+		id = it->getID();
+		x = it->getPosition().first;
+		y = it->getPosition().second;
+		health = it->getLife();
+		connection->sync_write(std::make_shared<CMDSpawn>(object, id, x, y, type, effect, health, false));
+	}
+}
+
 void ConnectionManager::reset(void)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
@@ -101,8 +128,9 @@ void ConnectionManager::sendSpawnedShip(void)
 }
 
 
-uint8_t ConnectionManager::getPlayerNumber(void) const
+uint8_t ConnectionManager::getPlayerNumber(void)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
 	return (static_cast<uint8_t>(_connections.size()));
 }
 

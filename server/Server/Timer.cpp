@@ -11,9 +11,9 @@ Timer::~Timer(void)
 
 }
 
-float Timer::restart(void)
+double Timer::restart(void)
 {
-	float elapsed = 0.;
+	double elapsed = 0.;
 
 	elapsed = getElapsedTime();
 	_value = 0.;
@@ -31,7 +31,7 @@ void Timer::toggle(void)
 
 void Timer::start(void)
 {
-  this->_current = std::chrono::steady_clock::now();
+  this->_current = std::chrono::high_resolution_clock::now();
   if (!_running)
     _running = true;
 }
@@ -45,12 +45,12 @@ void Timer::pause(void)
     }
 }
 
-float Timer::getElapsedTime(void)
+double Timer::getElapsedTime(void)
 {
   if (_running)
     {
-      _begin = std::chrono::steady_clock::now();
-      std::chrono::duration<float> time_span = std::chrono::duration_cast<std::chrono::duration<float> >(_begin - _current);
+      _begin = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double> >(_begin - _current);
       return (time_span.count() + _value);
     }
   return (this->_value);

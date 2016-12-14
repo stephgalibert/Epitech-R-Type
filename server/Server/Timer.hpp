@@ -8,17 +8,17 @@ public:
 	Timer(void);
 	~Timer(void);
     
-	float restart(void);
+	double restart(void);
     
 	void toggle(void);
 	void start(void);
 	void pause(void);
     
-	float getElapsedTime(void);
+	double getElapsedTime(void);
 
 private:
-	std::chrono::steady_clock::time_point _begin;
-	std::chrono::steady_clock::time_point _current;
+	std::chrono::high_resolution_clock::time_point _begin;
+	std::chrono::high_resolution_clock::time_point _current;
 	bool _running;
-	float _value;
+	double _value;
 };

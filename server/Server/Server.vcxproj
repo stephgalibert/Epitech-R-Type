@@ -28,6 +28,7 @@
     <ClCompile Include="..\..\api\CMDFire.cpp" />
     <ClCompile Include="..\..\api\CMDGameStatus.cpp" />
     <ClCompile Include="..\..\api\CMDGetParty.cpp" />
+    <ClCompile Include="..\..\api\CMDMessage.cpp" />
     <ClCompile Include="..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\api\CMDPing.cpp" />
     <ClCompile Include="..\..\api\CMDPowder.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="RequestGetParty.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="RequestLoadedPowder.cpp" />
+    <ClCompile Include="RequestMessage.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="ScheduledMonster.cpp" />
@@ -105,6 +107,7 @@
     <ClInclude Include="..\..\api\CMDFire.hpp" />
     <ClInclude Include="..\..\api\CMDGameStatus.hpp" />
     <ClInclude Include="..\..\api\CMDGetParty.hpp" />
+    <ClInclude Include="..\..\api\CMDMessage.hpp" />
     <ClInclude Include="..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\api\CMDPing.hpp" />
     <ClInclude Include="..\..\api\CMDPowder.hpp" />
@@ -160,6 +163,7 @@
     <ClInclude Include="RequestGetParty.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="RequestLoadedPowder.hpp" />
+    <ClInclude Include="RequestMessage.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="ScheduledMonster.hpp" />

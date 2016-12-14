@@ -163,6 +163,7 @@
     <ClCompile Include="..\..\..\api\CMDFire.cpp" />
     <ClCompile Include="..\..\..\api\CMDGameStatus.cpp" />
     <ClCompile Include="..\..\..\api\CMDGetParty.cpp" />
+    <ClCompile Include="..\..\..\api\CMDMessage.cpp" />
     <ClCompile Include="..\..\..\api\CMDPowder.cpp" />
     <ClCompile Include="..\..\..\api\CMDMove.cpp" />
     <ClCompile Include="..\..\..\api\CMDPing.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="ADrawable.cpp" />
     <ClCompile Include="AEntity.cpp" />
     <ClCompile Include="AExplosion.cpp" />
+    <ClCompile Include="ALayout.cpp" />
     <ClCompile Include="AMoveable.cpp" />
     <ClCompile Include="ANPC.cpp" />
     <ClCompile Include="APC.cpp" />
@@ -209,6 +211,7 @@
     <ClCompile Include="MainMenuResource.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MenuButton.cpp" />
+    <ClCompile Include="MessageLayout.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Powdered.cpp" />
@@ -222,10 +225,12 @@
     <ClCompile Include="RequestGetParty.cpp" />
     <ClCompile Include="RequestHandler.cpp" />
     <ClCompile Include="AShip.cpp" />
+    <ClCompile Include="RequestMessage.cpp" />
     <ClCompile Include="RequestPowder.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
+    <ClCompile Include="ScoreController.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="TCPClient.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -244,6 +249,7 @@
     <ClInclude Include="..\..\..\api\CMDFire.hpp" />
     <ClInclude Include="..\..\..\api\CMDGameStatus.hpp" />
     <ClInclude Include="..\..\..\api\CMDGetParty.hpp" />
+    <ClInclude Include="..\..\..\api\CMDMessage.hpp" />
     <ClInclude Include="..\..\..\api\CMDPowder.hpp" />
     <ClInclude Include="..\..\..\api\CMDMove.hpp" />
     <ClInclude Include="..\..\..\api\CMDPing.hpp" />
@@ -254,6 +260,7 @@
     <ClInclude Include="..\..\..\api\CommandType.hpp" />
     <ClInclude Include="..\..\..\api\ICommand.hpp" />
     <ClInclude Include="..\..\..\api\Protocol.hpp" />
+    <ClInclude Include="..\..\..\common\EnumHash.hpp" />
     <ClInclude Include="..\..\..\common\Generator.hpp" />
     <ClInclude Include="..\..\..\common\StaticTools.hpp" />
     <ClInclude Include="AActor.hpp" />
@@ -264,6 +271,7 @@
     <ClInclude Include="ADestroyable.hpp" />
     <ClInclude Include="AEntity.hpp" />
     <ClInclude Include="AExplosion.hpp" />
+    <ClInclude Include="ALayout.hpp" />
     <ClInclude Include="AMoveable.hpp" />
     <ClInclude Include="ANPC.hpp" />
     <ClInclude Include="APC.hpp" />
@@ -299,6 +307,7 @@
     <ClInclude Include="MainMenuResource.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MenuButton.hpp" />
+    <ClInclude Include="MessageLayout.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Powdered.hpp" />
@@ -312,10 +321,12 @@
     <ClInclude Include="RequestGetParty.hpp" />
     <ClInclude Include="RequestHandler.hpp" />
     <ClInclude Include="AShip.hpp" />
+    <ClInclude Include="RequestMessage.hpp" />
     <ClInclude Include="RequestPowder.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
+    <ClInclude Include="ScoreController.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="TCPClient.hpp" />
     <ClInclude Include="Timer.hpp" />

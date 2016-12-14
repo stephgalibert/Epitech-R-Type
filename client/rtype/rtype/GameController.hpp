@@ -17,6 +17,8 @@
 #include "LoadingController.hpp"
 #include "ConnectionLostController.hpp"
 #include "GameOverController.hpp"
+#include "ScoreController.hpp"
+#include "MessageLayout.hpp"
 
 class GameController : public AController
 {
@@ -40,16 +42,23 @@ public:
 	virtual void recycle(void);
 
 	void connectToParty(std::string const& partyName, std::string const& pwd);
+	void displayMessage(std::string const& msg);
 
 	void setReady(bool value);
 	void setPlayer(Player *player);
 	void setGameStatus(GameStatusType status);
-	//void addMate(Mate *mate);
+	void addMate(Mate *mate);
+	void removeMate(uint16_t id);
 
 	Player *getPlayer(void) const;
 	bool isReady(void) const;
 
 private:
+	bool inputWaiting(InputHandler &input);
+	bool inputPlaying(InputHandler &input);
+	bool inputGameOver(InputHandler &input);
+	bool inputGameWin(InputHandler &input);
+
 	void updateWaiting(float delta);
 	void updatePlaying(float delta);
 	void updateGameOver(float delta);
@@ -60,20 +69,24 @@ private:
 	void drawGameOver(sf::RenderWindow &window);
 	void drawGameWin(sf::RenderWindow &window);
 
+	void reset(void);
+
 	LoadingController _loading;
 	ConnectionLostController _connectionLost;
 	GameOverController _gameOver;
 	HUDController _hud;
+	ScoreController _scoreController;
+	MessageLayout _messageLayout;
 
 	IClient &_network;
 	std::string _partyName;
 	std::string _partyPwd;
 	Player *_player;
-	//Mate *_mates[3];
-	// mates
+	Mate *_mates[3];
 	Background _back;
 	Background _front;
 	bool _ready;
+	bool _reset;
 	GameStatusType _state;
 };
 

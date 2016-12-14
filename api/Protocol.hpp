@@ -196,6 +196,13 @@ struct GetParty
 	char data[0];
 };
 
+struct Message
+{
+	CommandType cmdType;
+	uint16_t size;
+	char data[0];
+};
+
 #  pragma pack(pop)
 # undef PACKED
 
@@ -223,6 +230,13 @@ struct GetParty
 		bool running;
 		char data[0];
 		uint8_t size;
+	} __attribute__((packed));
+
+	struct Message
+	{
+		CommandType cmdType;
+		uint16_t size;
+		char data[0];
 	} __attribute__((packed));
 
 #endif

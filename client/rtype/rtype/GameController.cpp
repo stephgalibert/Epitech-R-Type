@@ -1,15 +1,17 @@
 #include "GameController.hpp"
 
 GameController::GameController(IClient &network)
-	: _network(network),
+	: _scoreController(&_player, &_mates[0]),
+	  _network(network),
 	  _player(NULL),
 	  _back("background", 0.03f),
 	  _front("background2", 0.01f)
 {
-	//for (size_t i = 0; i < 3; ++i) {
-	//	_mates[i] = NULL;
-	//}
+	for (size_t i = 0; i < 3; ++i) {
+		_mates[i] = NULL;
+	}
 	_state = GameStatusType::Waiting;
+	_reset = false;
 }
 
 GameController::~GameController(void)
@@ -24,27 +26,48 @@ void GameController::init(void)
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
 
-	_loading.init();
-	_loading.setBaseText("Waiting players");
+	try {
+		_loading.init();
+		_loading.setBaseText("Waiting players");
 
-	_connectionLost.init();
-	_connectionLost.setBaseText("Connection lost :/");
+		_connectionLost.init();
+		_connectionLost.setBaseText("Connection lost :/");
 
-	_gameOver.init();
-
-	_hud.init();
-
-	_back.init();
-	_front.init();
+		_gameOver.init();
+		_hud.init();
+		_scoreController.init();
+		_back.init();
+		_front.init();
+		_messageLayout.init();
+	}
+	catch (std::exception const& e) {
+		StaticTools::Log << e.what() << std::endl;
+	}
 }
 
 bool GameController::input(InputHandler &input)
 {
-	if (_player) {
-		_player->input(input);
+	bool ret = false;
+
+	switch (_state)
+	{
+	case GameStatusType::Waiting:
+		ret = inputWaiting(input);
+		break;
+	case GameStatusType::Playing:
+		ret = inputPlaying(input);
+		break;
+	case GameStatusType::GameOver:
+		ret = inputGameOver(input);
+		break;
+	case GameStatusType::GameWin:
+		ret = inputGameWin(input);
+		break;
+	default:
+		break;
 	}
-	_hud.input(input);
-	return (false);
+
+	return (ret);
 }
 void GameController::update(float delta)
 {
@@ -104,6 +127,11 @@ void GameController::connectToParty(std::string const& partyName, std::string co
 	}
 }
 
+void GameController::displayMessage(std::string const& msg)
+{
+	_messageLayout.addMessage(msg);
+}
+
 void GameController::setReady(bool value)
 {
 	_ready = value;
@@ -111,9 +139,11 @@ void GameController::setReady(bool value)
 
 void GameController::setPlayer(Player *player)
 {
-	_player = player;
-	_player->setHUD(&_hud);
-	_hud.setColor(_player->getID());
+	if (player) {
+		_player = player;
+		_player->setHUD(&_hud);
+		_hud.setColor(_player->getID());
+	}
 }
 
 void GameController::setGameStatus(GameStatusType status)
@@ -121,17 +151,26 @@ void GameController::setGameStatus(GameStatusType status)
 	_state = status;
 }
 
-//void GameController::addMate(Mate *mate)
-//{
-//	size_t i = 0;
-//
-//	while (i < 3 && !_mates[i]) {
-//		++i;
-//	}
-//	if (i < 3 && _mates[i]) {
-//		_mates[i] = mate;
-//	}
-//}
+void GameController::addMate(Mate *mate)
+{
+	size_t i = 0;
+
+	while (i < 3 && _mates[i]) {
+		++i;
+	}
+	if (i < 3 && !_mates[i]) {
+		_mates[i] = mate;
+	}
+}
+
+void GameController::removeMate(uint16_t id)
+{
+	for (size_t i = 0; i < 3; ++i) {
+		if (_mates[i] && _mates[i]->getID() == id) {
+			_mates[i] = NULL;
+		}
+	}
+}
 
 Player *GameController::getPlayer(void) const
 {
@@ -143,11 +182,50 @@ bool GameController::isReady(void) const
 	return (_ready);
 }
 
+bool GameController::inputWaiting(InputHandler &input)
+{
+	_messageLayout.input(input);
+	return (false);
+}
+
+bool GameController::inputPlaying(InputHandler &input)
+{
+	static int d = 0;
+
+	if (_player) {
+		_player->input(input);
+		_hud.input(input);
+	}
+	if (input.isKeyDown(sf::Keyboard::A)) {
+		_messageLayout.addMessage("test: " + std::to_string(d));
+		++d;
+	}
+	_scoreController.input(input);
+	_messageLayout.input(input);
+	return (false);
+}
+
+bool GameController::inputGameOver(InputHandler &input)
+{
+	_messageLayout.input(input);
+	return (false);
+}
+
+bool GameController::inputGameWin(InputHandler &input)
+{
+	_messageLayout.input(input);
+	return (false);
+}
+
 void GameController::updateWaiting(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
 	_loading.update(delta);
+	if (_reset) {
+		_reset = false;
+	}
+	_messageLayout.update(delta);
 }
 
 void GameController::updatePlaying(float delta)
@@ -159,30 +237,37 @@ void GameController::updatePlaying(float delta)
 	if (!_network.isConnected()) {
 		_connectionLost.update(delta);
 	}
-	_hud.update(delta);
+
+	if (_player) {
+		_hud.update(delta);
+	}
+
+	_scoreController.update(delta);
+	_messageLayout.update(delta);
 }
 
 void GameController::updateGameOver(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	if (_player) {
-		_player = NULL;
-		World::recycle();
+	if (!_reset) {
+		reset();
+		_reset = true;
 	}
 	_gameOver.update(delta);
+	_messageLayout.update(delta);
 }
 
 void GameController::updateGameWin(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	if (_player) {
-		_player = NULL;
-		World::recycle();
+	if (!_reset) {
+		reset();
+		_reset = true;
 	}
+	_messageLayout.update(delta);
 }
-
 
 void GameController::drawWaiting(sf::RenderWindow &window)
 {
@@ -191,7 +276,10 @@ void GameController::drawWaiting(sf::RenderWindow &window)
 
 	_loading.draw(window);
 
-	_hud.draw(window);
+	if (_player) {
+		_hud.draw(window);
+	}
+	window.draw(_messageLayout);
 }
 
 void GameController::drawPlaying(sf::RenderWindow &window)
@@ -199,16 +287,16 @@ void GameController::drawPlaying(sf::RenderWindow &window)
 	_back.draw(window);
 	_front.draw(window);
 
-	//if (!isReady()) {
-	//	_loading.draw(window);
-	//}
-	//else {
 	World::display(window);
 	if (!_network.isConnected()) {
 		_connectionLost.draw(window);
 	}
-	//}
-	_hud.draw(window);
+	if (_player) {
+		_hud.draw(window);
+	}
+
+	_scoreController.draw(window);
+	window.draw(_messageLayout);
 }
 
 void GameController::drawGameOver(sf::RenderWindow &window)
@@ -218,7 +306,10 @@ void GameController::drawGameOver(sf::RenderWindow &window)
 
 	_gameOver.draw(window);
 
-	_hud.draw(window);
+	if (_player) {
+		_hud.draw(window);
+	}
+	window.draw(_messageLayout);
 }
 
 void GameController::drawGameWin(sf::RenderWindow &window)
@@ -228,5 +319,17 @@ void GameController::drawGameWin(sf::RenderWindow &window)
 
 	_loading.draw(window);
 
-	_hud.draw(window);
+	if (_player) {
+		_hud.draw(window);
+	}
+	window.draw(_messageLayout);
+}
+
+void GameController::reset(void)
+{
+	_player = NULL;
+	for (size_t i = 0; i < 3; ++i) {
+		_mates[i] = NULL;
+	}
+	World::recycle();
 }

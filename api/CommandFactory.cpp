@@ -1,27 +1,33 @@
 #include "CommandFactory.hpp"
 
-std::unordered_map<int, std::function<std::shared_ptr<ICommand>(void)> > CommandFactory::Commands = {
-	{(int)CommandType::Connect, std::bind(&CommandFactory::cmd_connect)},
-	{(int)CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty)},
-	{(int)CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn)},
-	{(int)CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected)},
-	{(int)CommandType::Move, std::bind(&CommandFactory::cmd_move)},
-	{(int)CommandType::Collision, std::bind(&CommandFactory::cmd_collision)},
-	{(int)CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed)},
-	{(int)CommandType::Fire, std::bind(&CommandFactory::cmd_fire)},
-	{(int)CommandType::Score, std::bind(&CommandFactory::cmd_score)},
-	{(int)CommandType::LoadedPowder, std::bind(&CommandFactory::cmd_loadedPowder)},
-	{(int)CommandType::Respawn, std::bind(&CommandFactory::cmd_respawn)},
-	{(int)CommandType::GetParty, std::bind(&CommandFactory::cmd_getParty)},
-	{(int)CommandType::GameStatus, std::bind(&CommandFactory::cmd_gameStatus)}
+const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(void)>, EnumHash> CommandFactory::Commands = {
+	{ CommandType::Connect, std::bind(&CommandFactory::cmd_connect) },
+	{ CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty) },
+	{ CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn) },
+	{ CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected) },
+	{ CommandType::Move, std::bind(&CommandFactory::cmd_move) },
+	{ CommandType::Collision, std::bind(&CommandFactory::cmd_collision) },
+	{ CommandType::Destroyed, std::bind(&CommandFactory::cmd_destroyed) },
+	{ CommandType::Fire, std::bind(&CommandFactory::cmd_fire) },
+	{ CommandType::Score, std::bind(&CommandFactory::cmd_score) },
+	{ CommandType::LoadedPowder, std::bind(&CommandFactory::cmd_loadedPowder) },
+	{ CommandType::Respawn, std::bind(&CommandFactory::cmd_respawn) },
+	{ CommandType::GetParty, std::bind(&CommandFactory::cmd_getParty)},
+	{ CommandType::GameStatus, std::bind(&CommandFactory::cmd_gameStatus) },
+	{ CommandType::Message, std::bind(&CommandFactory::cmd_message) }
 };
 
-std::shared_ptr<ICommand> CommandFactory::build(CommandType type)
+std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
 {
-	if (Commands.find((int)type) != Commands.cend()) {
-		return (Commands.at((int)type)());
+	if (Commands.find(type) != Commands.cend()) {
+		return (Commands.at(type)());
 	}
 	return (NULL);
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_message(void)
+{
+	return std::make_shared<CMDMessage>();
 }
 
 std::shared_ptr<ICommand> CommandFactory::cmd_gameStatus(void)

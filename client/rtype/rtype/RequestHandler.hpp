@@ -29,5 +29,5 @@ public:
 				 std::shared_ptr<ICommand> &toSend);
 
  private:
-	RequestBuilder _builder;
+	//RequestBuilder _builder;
 };

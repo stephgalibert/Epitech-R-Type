@@ -237,6 +237,12 @@
     <ClCompile Include="..\..\common\Generator.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\api\CMDMessage.cpp">
+      <Filter>Fichiers sources\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestMessage.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -460,6 +466,12 @@
     </ClInclude>
     <ClInclude Include="..\..\common\Generator.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\api\CMDMessage.hpp">
+      <Filter>Fichiers d%27en-tête\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestMessage.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

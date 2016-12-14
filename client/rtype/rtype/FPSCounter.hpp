@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "StaticTools.hpp"
 #include "ProjectResource.hpp"
 
 class FPSCounter
@@ -21,5 +22,6 @@ public:
 private:
 	sf::Text _text;
 	float _delta;
+	std::pair<short, short> _resolution;
 };
 

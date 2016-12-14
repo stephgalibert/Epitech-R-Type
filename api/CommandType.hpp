@@ -13,6 +13,7 @@ enum class CommandType : uint8_t
 	CreateParty = 6,
 	Score = 7,
 	Respawn = 8,
+	Message = 9,
 	Spawn = 10,
 	Move = 11,
 	Destroyed = 12,

@@ -82,7 +82,7 @@ void UDPClient::do_read(boost::system::error_code const& ec, size_t len)
 
 		CommandType type = StaticTools::GetPacketType(packet);
 		StaticTools::Log << "received packet type: " << (int)type << std::endl;
-		std::shared_ptr<ICommand> command = CommandFactory::build(type);
+		std::shared_ptr<ICommand> command = CommandFactory::Build(type);
 
 		if (!command) {
 			read();

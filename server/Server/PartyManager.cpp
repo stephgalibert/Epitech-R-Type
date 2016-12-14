@@ -10,29 +10,30 @@ PartyManager::~PartyManager(void)
 
 void PartyManager::update(void)
 {
-	if (!_toRun.empty()) {
+	if (!_toRun.empty() || !_parties.empty()) {
 		std::lock_guard<std::mutex> lock(_mutex);
 
-		std::pair<std::string, std::shared_ptr<Party> > party = *_toRun.begin();
-		_toRun.erase(party.first);
-		_parties.insert(party);
-		party.second->run();
-	}
+		if (!_toRun.empty()) {
+			std::pair<std::string, std::shared_ptr<Party> > party = *_toRun.begin();
+			_toRun.erase(party.first);
+			_parties.insert(party);
+			party.second->run();
+		}
 
-	if (!_parties.empty()) {
-		std::unordered_map<std::string, std::shared_ptr<Party> >::iterator it = _parties.begin();
-		while (it != _parties.cend()) {
-			if ((*it).second->isFinished()) {
-				std::lock_guard<std::mutex> lock(_mutex);
-				(*it).second->close();
-				it = _parties.erase(it);
-			}
-			else {
-				++it;
+		if (!_parties.empty()) {
+			std::unordered_map<std::string, std::shared_ptr<Party> >::iterator it = _parties.begin();
+			while (it != _parties.cend()) {
+				if ((*it).second->isFinished()) {
+					(*it).second->close();
+					it = _parties.erase(it);
+				}
+				else {
+					++it;
+				}
 			}
 		}
 	}
-
+	StaticTools::sleep(10);
 }
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
@@ -46,7 +47,9 @@ void PartyManager::addParty(std::string const& name, std::string const& pwd)
 		party->init(name, pwd);
 	}
 	catch (std::exception const& e) {
-		throw (std::runtime_error(e.what()));
+		//throw (std::runtime_error(e.what()));
+		std::cerr << e.what() << std::endl;
+		return;
 	}
 
 	_toRun.insert(std::make_pair(party->getName(), party));

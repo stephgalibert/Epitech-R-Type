@@ -20,5 +20,11 @@ public:
 
 	virtual void shoot(Fire const& param) = 0;
 	virtual void respawn(void) = 0;
+
+	void setScore(uint16_t score);
+	uint16_t getScore(void) const;
+
+private:
+	uint16_t _score;
 };
 

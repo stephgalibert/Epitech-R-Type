@@ -30,22 +30,22 @@ public:
 	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd);
 	void loop(void);
 
-	bool isReady(void) const;
-	bool isFinished(void) const;
-	bool isRunning(void) const;
+	bool isReady(void);
+	bool isFinished(void);
+	bool isRunning(void);
 
 	std::string const& getName(void) const;
 	std::string const& getPassword(void) const;
 
-	uint8_t getNbPlayer(void) const;
+	uint8_t getNbPlayer(void);
 
 private:
 	void reset(void);
 
-	void waiting(float delta);
-	void playing(float delta);
-	void gameOver(float delta);
-	void gameWin(float delta);
+	void waiting(double delta);
+	void playing(double delta);
+	void gameOver(double delta);
+	void gameWin(double delta);
 
 
 private:
@@ -53,12 +53,13 @@ private:
 	std::string _password;
 	ConnectionManager _cm;
 
-	Timer _timer;
 	std::thread _party;
 	bool _launched;
 	uint8_t _nextID;
 	GameStatusType _state;
-	float _delta;
+	double _delta;
 	Generator _generator;
+	std::set<uint16_t> _playersIdAvailable;
+	std::mutex _mutex;
 };
 

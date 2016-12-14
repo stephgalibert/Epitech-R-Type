@@ -25,9 +25,9 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 
 	StaticTools::DeserializePosition(spawn->position, x, y);
 
-	if (player) {
-		GameController *game = client.getGameController();
-		if (game) {
+	GameController *game = client.getGameController();
+	if (game) {
+		if (player) {
 			Player *player = World::spawnEntity<Player>();
 			player->setHealth(spawn->health);
 			player->setID(id);
@@ -37,14 +37,15 @@ void RequestSpawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 			player->setReadyForInit(true);
 			game->setReady(true);
 		}
-	}
-	else if (id < 5) {
-		StaticTools::Log << "mate information: " << std::endl
-			<< "\tid: " << id << std::endl
-			<< "x: " << x << " y: " << y << std::endl;
-		Mate *mate = World::spawnEntity<Mate>();
-		mate->setID(id);
-		mate->setPosition(x, y);
-		mate->setReadyForInit(true);
+		else if (id < 5) {
+			StaticTools::Log << "mate information: " << std::endl
+				<< "\tid: " << id << std::endl
+				<< "x: " << x << " y: " << y << std::endl;
+			Mate *mate = World::spawnEntity<Mate>();
+			mate->setID(id);
+			mate->setPosition(x, y);
+			game->addMate(mate);
+			mate->setReadyForInit(true);
+		}
 	}
 }

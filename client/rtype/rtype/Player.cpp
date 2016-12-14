@@ -375,12 +375,6 @@ void Player::keyboard(InputHandler &input)
 		_loadedShot = false;
 		_deltaLoadedShot = 0;
 	}
-
-	if (input.isKeyDown(sf::Keyboard::A)) {
-		if (_client) {
-			_client->write(std::make_shared<CMDGetParty>());
-		}
-	}
 }
 
 void Player::joystick(InputHandler &input)

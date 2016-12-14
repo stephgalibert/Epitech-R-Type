@@ -2,6 +2,7 @@
 
 FPSCounter::FPSCounter(void)
 {
+	_resolution = StaticTools::GetResolution();
 }
 
 FPSCounter::~FPSCounter(void)
@@ -20,7 +21,13 @@ void FPSCounter::init()
 	_text.setCharacterSize(14);
 	_text.setFillColor(sf::Color::Yellow);
 	_text.setString("0 FPS");
-	_text.setPosition(sf::Vector2f(7, 7));
+
+	sf::FloatRect textRect = _text.getLocalBounds();
+	_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	_text.setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f));
+
+	_text.setOrigin(textRect.width, 0);
+	_text.setPosition(sf::Vector2f(_resolution.first - 17.f, 7.f));
 }
 
 void FPSCounter::update(float delta)
