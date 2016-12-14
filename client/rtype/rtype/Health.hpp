@@ -19,10 +19,9 @@ public:
 	void setHealth(uint8_t health);
 
 private:
-	float _delta;
+  //float _delta;
 	sf::ConvexShape *_shape;
 	std::pair<short, short> _resolution;
 	sf::Vector2f _initSize;
 	sf::Vector2f _initPos;
 };
-

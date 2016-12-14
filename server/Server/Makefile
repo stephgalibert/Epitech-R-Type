@@ -50,6 +50,7 @@ SRCS		+=	ReadAsyncTask.cpp
 SRCS		+=	WriteAsyncTask.cpp
 
 SRCS		+=	../../common/StaticTools.cpp
+SRCS		+=	../../common/Generator.cpp
 
 SRCS		+=	../../api/CMDPowder.cpp
 SRCS		+=	../../api/CMDScore.cpp

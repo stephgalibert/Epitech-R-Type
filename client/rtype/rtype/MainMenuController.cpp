@@ -3,7 +3,7 @@
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
-const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 190;
+const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 450;
 const float MainMenuController::TITLE_LETTER_SCALE = 2.f;
 const uint32_t MainMenuController::TITLE_LETTER_HEIGHT = static_cast<uint32_t>(56 * MainMenuController::TITLE_LETTER_SCALE);
 const uint32_t MainMenuController::TITLE_FINAL_BOTTOM_OFFSET = 25;
@@ -15,9 +15,13 @@ const float MainMenuController::SPLASH_PX_PER_SEC = StaticTools::GetResolution()
 const uint32_t MainMenuController::SPLASH_INIT_POS = StaticTools::GetResolution().first;
 const uint32_t MainMenuController::SPLASH_TITLE_TARGET_POS = StaticTools::GetResolution().first / 5;
 const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
+const float MainMenuController::SERVER_BROWSER_POS_X = 75.f;
+const float MainMenuController::SERVER_BROWSER_POS_Y = 60.f;
+const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolution().first / 2.f + 10.f;
+const float MainMenuController::SERVER_BROWSER_HEIGHT = StaticTools::GetResolution().second / 2.f + 25.f;
 
 MainMenuController::MainMenuController()
-  : _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _keyboardEventDelta(0.f), _pushAction(SelectedAction::NONE)
+	: _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _pushAction(SelectedAction::NONE), _keyboardEventDelta(0.f), _selectedServer(-1)
 {
 	MainMenuResource::menuResourceManager.load();
 	buildKeyActionsMap();
@@ -40,11 +44,23 @@ void MainMenuController::init()
 			sprite.setScale(TITLE_LETTER_SCALE, TITLE_LETTER_SCALE);
 			sprite.setPosition(static_cast<float>(SPLASH_INIT_POS), static_cast<float>(TITLE_BASE_Y_POS));
 		}
-		_buttons.push_back(MenuButton("Play", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
+
+		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
+		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
+		
+		_browserContent.push_back("TEST 1");
+		_browserContent.push_back("TEST 2");
+		_browserContent.push_back("TEST 3");
+
+		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
+		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, SERVER_BROWSER_HEIGHT));
+		_browser.setContent(_browserContent);
+
 		_action = SelectedAction::PLAY;
-		//unmute();		
-		_fsm = State::ST_Splash1;
+		_fsm = State::ST_SplashStart;
+
+		//unmute();
 	}
 	catch (std::exception const& e) {
 		throw (std::runtime_error(e.what()));
@@ -79,6 +95,21 @@ bool MainMenuController::input(InputHandler &input)
 			}
 		}
 	}
+	else if (_fsm == State::ST_Selecting) {
+		if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+			if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Right)) {
+				_fsm = State::ST_Menu;
+				_keyboardEventDelta = 0.f;
+			}
+			if (input.isKeyDown(sf::Keyboard::Return)) {
+				_selectedServer = _browser.getSelected();
+				_fsm = State::ST_Menu;
+				_keyboardEventDelta = 0.f;
+			}
+			else if (_browser.input(input))
+				_keyboardEventDelta = 0.f;
+		}
+	}
 	return (false);
 }
 
@@ -101,8 +132,8 @@ bool MainMenuController::keyDown(void) {
 bool MainMenuController::keyReturn(void) {
 	switch (_action) {
 	case SelectedAction::PLAY: {
-		std::cout << "Play" << std::endl;
-		_pushAction = SelectedAction::PLAY;
+		//reload servers here
+		_fsm = State::ST_Selecting;
 		break;
 	}
 	case SelectedAction::QUIT: {
@@ -129,7 +160,11 @@ void MainMenuController::update(float delta)
 	case State::ST_Splash3:
 		updateSplashThirdPhase(delta);
 		break;
+	case State::ST_Splash4:
+		updateSplashFourthPhase(delta);
+		break;
 	case State::ST_Menu:
+	case State::ST_Selecting:
 		updateMenu(delta);
 		break;
 	case State::ST_None:
@@ -171,8 +206,12 @@ void MainMenuController::updateSplashThirdPhase(const float delta) {
 		sprite.setPosition(sprite.getPosition().x, pos);
 	}
 	if (_titleSprites.begin()->getPosition().y >= TITLE_FINAL_Y_POS) {
-		_fsm = State::ST_Menu;
+		_fsm = State::ST_Splash4;
 	}
+}
+
+void MainMenuController::updateSplashFourthPhase(const float delta) {
+	_fsm = State::ST_Menu;
 }
 
 void MainMenuController::updateMenu(const float delta) {
@@ -211,10 +250,13 @@ void MainMenuController::draw(sf::RenderWindow &window)
  	for (auto &titleSprite : _titleSprites) {
 		window.draw(titleSprite);
 	}
-	if (_fsm == State::ST_Menu) {
+	if (_fsm >= State::ST_Menu) {
 		for (auto &button : _buttons) {
 			window.draw(button);
 		}
+	}
+	if (_fsm == State::ST_Selecting) {
+		window.draw(_browser);
 	}
 }
 

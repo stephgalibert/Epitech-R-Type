@@ -42,7 +42,7 @@ private:
 
 private:
 
-	uint8_t _prevDirection;
+  //uint8_t _prevDirection;
 	float _delta;
 	bool _decrease;
 	uint8_t _targetFrame;
@@ -58,4 +58,3 @@ private:
 	float _deltaInvincibleAnim;
 	bool _invincibleAnimState;
 };
-
