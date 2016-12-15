@@ -9,6 +9,7 @@ const float MenuServerBrowser::ITEMS_HEIGHT = 30.f;
 const float MenuServerBrowser::ITEMS_SPACING = 0.f;
 const uint32_t MenuServerBrowser::FONT_CHAR_SIZE = 13;
 const float MenuServerBrowser::TEXT_TOP_PADDING = 2.f;
+const float MenuServerBrowser::TEXT_LEFT_PADDING = 2.f;
 
 MenuServerBrowser::MenuServerBrowser() : _selected(0) {
 	_frame.setFillColor(sf::Color::Black);
@@ -27,13 +28,17 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 		sf::Vector2f itemPos(_frame.getPosition().x, _frame.getPosition().y);
 		sf::RectangleShape itemBackground;
 		sf::Text itemLabel;
-		size_t itemsDisplayMax = static_cast<size_t>(_frame.getSize().y / (ITEMS_HEIGHT + ITEMS_SPACING));
+		size_t firstItemDisplayed = 0;
+
+		if (_selected > static_cast<int>(getDisplayedItemsMax() - 1)) {
+			firstItemDisplayed = _selected - (getDisplayedItemsMax() - 1);
+		}
 
 		itemLabel.setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
 		itemLabel.setCharacterSize(FONT_CHAR_SIZE);
 		itemBackground.setSize(itemSize);
 
-		for (size_t i = 0; i < _content.size(); i++) {
+		for (size_t i = firstItemDisplayed; i < (firstItemDisplayed + getDisplayedItemsCount()); i++) {
 			if (i == static_cast<size_t>(_selected)) {
 				itemBackground.setFillColor(ITEM_SECOND_COLOR);
 				itemLabel.setFillColor(ITEM_BASE_COLOR);
@@ -48,8 +53,7 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 			target.draw(itemBackground);
 
 			itemLabel.setString(_content.at(i));
-			itemLabel.setPosition(itemPos);
-			itemPos.y += TEXT_TOP_PADDING;
+			itemLabel.setPosition(sf::Vector2f(itemPos.x + TEXT_LEFT_PADDING, itemPos.y + TEXT_TOP_PADDING));
 
 			target.draw(itemLabel);
 
@@ -69,6 +73,14 @@ bool MenuServerBrowser::input(InputHandler &input) {
 		_selected++;
 		if (static_cast<size_t>(_selected) >= _content.size())
 			_selected = 0;
+		return true;
+	}
+	else if (input.isKeyDown(sf::Keyboard::PageDown)) {
+		_selected = _content.empty() ? 0 : _content.size() - 1;
+		return true;
+	}
+	else if (input.isKeyDown(sf::Keyboard::PageUp)) {
+		_selected = 0;
 		return true;
 	}
 	return false;
@@ -108,4 +120,18 @@ std::vector<std::string> const &MenuServerBrowser::getContent(void) const {
 
 int MenuServerBrowser::getSelected(void) const {
 	return _selected;
+}
+
+size_t MenuServerBrowser::getDisplayedItemsMax(void) const {
+	return static_cast<size_t>(_frame.getSize().y / (ITEMS_HEIGHT + ITEMS_SPACING));
+}
+
+size_t MenuServerBrowser::getDisplayedItemsCount(void) const {
+	size_t itemsDisplayMax = getDisplayedItemsMax();
+
+	return (itemsDisplayMax < _content.size() ? itemsDisplayMax : _content.size());
+}
+
+float MenuServerBrowser::getHeightForItems(const size_t items) {
+	return items * (ITEMS_HEIGHT + ITEMS_SPACING);
 }

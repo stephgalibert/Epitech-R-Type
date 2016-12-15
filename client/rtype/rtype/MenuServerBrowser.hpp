@@ -12,6 +12,7 @@ class MenuServerBrowser : public sf::Drawable {
 	static const float ITEMS_HEIGHT;
 	static const uint32_t FONT_CHAR_SIZE;
 	static const float TEXT_TOP_PADDING;
+	static const float TEXT_LEFT_PADDING;
 
 public:
 	MenuServerBrowser();
@@ -33,6 +34,11 @@ public:
 	sf::Vector2f const &getPosition(void) const;
 	std::vector<std::string> const &getContent(void) const;
 	int getSelected(void) const;
+	size_t getDisplayedItemsMax(void) const;
+	size_t getDisplayedItemsCount(void) const;
+
+public:
+	static float getHeightForItems(const size_t items);
 
 private:
 	std::vector<std::string> _content;

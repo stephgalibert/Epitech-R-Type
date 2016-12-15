@@ -5,7 +5,7 @@
 
 #include "AController.hpp"
 #include "MenuButton.hpp"
-//#include "MenuServerBrowser.hpp"
+#include "MenuServerBrowser.hpp"
 
 class MainMenuController : public AController
 {
@@ -25,7 +25,7 @@ class MainMenuController : public AController
 	static const float SERVER_BROWSER_POS_X;
 	static const float SERVER_BROWSER_POS_Y;
 	static const float SERVER_BROWSER_WIDTH;
-	static const float SERVER_BROWSER_HEIGHT;
+	static const size_t SERVER_BROWSER_ITEMS_SHOWN;
 
 public:
 	MainMenuController(void);
@@ -89,7 +89,7 @@ private:
 private:
 	std::vector<sf::Sprite> _titleSprites;
 	std::vector<MenuButton> _buttons;
-	//MenuServerBrowser _browser;
+	MenuServerBrowser _browser;
 
 	/* TEST ONLY */
 private:
