@@ -24,9 +24,6 @@
     <Filter Include="Fichiers sources\Plugins">
       <UniqueIdentifier>{ad7228a3-f614-4049-b937-4b4c02218639}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Monsters">
-      <UniqueIdentifier>{6a3d0463-d3de-4abc-b8a9-fa0c83a6d4ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -46,8 +43,17 @@
     <Filter Include="Fichiers d%27en-tête\Plugins">
       <UniqueIdentifier>{1e281c6b-f83c-4499-95e3-45ebea12ab93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Monsters">
-      <UniqueIdentifier>{4f88d17b-8ae9-40e7-bef7-58fc967565d2}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Party">
+      <UniqueIdentifier>{612b0f60-9ecb-4b7e-9499-1950ed897f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Tools">
+      <UniqueIdentifier>{4a56ea63-5cf5-490b-93a8-7d72bc751597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Tools">
+      <UniqueIdentifier>{36a9d46e-ef93-49bc-a7ef-7411e28be61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Party">
+      <UniqueIdentifier>{8aec171e-009e-404f-9e7f-1eff4a8eee69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,15 +61,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Party.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="PartyManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadPool.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="UnixServerSocket.cpp">
@@ -81,14 +78,8 @@
     <ClCompile Include="ReadAsyncTask.cpp">
       <Filter>Fichiers sources\AsyncTask</Filter>
     </ClCompile>
-    <ClCompile Include="Buffer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="WriteAsyncTask.cpp">
       <Filter>Fichiers sources\AsyncTask</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\common\StaticTools.cpp">
-      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="TCPWinSocket.cpp">
       <Filter>Fichiers sources\Socket</Filter>
@@ -132,29 +123,8 @@
     <ClCompile Include="RequestConnect.cpp">
       <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\plugins\WinDirectoryParser.cpp">
-      <Filter>Fichiers sources\Plugins</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\plugins\UnixDirectoryParser.cpp">
-      <Filter>Fichiers sources\Plugins</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\plugins\ADirectoryParser.cpp">
-      <Filter>Fichiers sources\Plugins</Filter>
-    </ClCompile>
     <ClCompile Include="RequestCreateParty.cpp">
       <Filter>Fichiers sources\Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\plugins\Godzilla.cpp">
-      <Filter>Fichiers sources\Monsters</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ScheduledMonster.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterManager.cpp">
-      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="RequestMove.cpp">
       <Filter>Fichiers sources\Request</Filter>
@@ -180,24 +150,51 @@
     <ClCompile Include="RequestGameStatus.cpp">
       <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\common\Generator.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="RequestMessage.cpp">
       <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestScore.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ScheduledMonster.cpp">
+      <Filter>Fichiers sources\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Generator.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>Fichiers sources\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="PartyManager.cpp">
+      <Filter>Fichiers sources\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\StaticTools.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Party.cpp">
+      <Filter>Fichiers sources\Party</Filter>
+    </ClCompile>
+    <ClCompile Include="WinDirectoryParser.cpp">
+      <Filter>Fichiers sources\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="UnixDirectoryParser.cpp">
+      <Filter>Fichiers sources\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="ADirectoryParser.cpp">
+      <Filter>Fichiers sources\Plugins</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Party.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="PartyManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadPool.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="UnixServerSocket.hpp">
@@ -221,17 +218,11 @@
     <ClInclude Include="ReadAsyncTask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
     </ClInclude>
-    <ClInclude Include="Buffer.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="ISocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
     <ClInclude Include="WriteAsyncTask.hpp">
       <Filter>Fichiers d%27en-tête\AsyncTask</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\StaticTools.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="TCPWinSocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
@@ -287,44 +278,8 @@
     <ClInclude Include="IRequest.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\plugins\ADirectoryParser.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\ADlLoader.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\DLManager.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\UnixDirectoryParser.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\UnixDlLoader.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\WinDirectoryParser.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\WinDlLoader.hpp">
-      <Filter>Fichiers d%27en-tête\Plugins</Filter>
-    </ClInclude>
     <ClInclude Include="RequestCreateParty.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\Godzilla.hpp">
-      <Filter>Fichiers d%27en-tête\Monsters</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\api\IMonster.hpp">
-      <Filter>Fichiers d%27en-tête\Monsters</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ScheduledMonster.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="RequestMove.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
@@ -350,11 +305,59 @@
     <ClInclude Include="RequestGameStatus.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\Generator.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="RequestMessage.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestScore.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.hpp">
+      <Filter>Fichiers d%27en-tête\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>Fichiers d%27en-tête\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Generator.hpp">
+      <Filter>Fichiers d%27en-tête\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\StaticTools.hpp">
+      <Filter>Fichiers d%27en-tête\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.hpp">
+      <Filter>Fichiers d%27en-tête\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Party.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="PartyManager.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="ScheduledMonster.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="WinDlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="WinDirectoryParser.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="UnixDlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="UnixDirectoryParser.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="DLManager.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="ADlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="ADirectoryParser.hpp">
+      <Filter>Fichiers d%27en-tête\Plugins</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

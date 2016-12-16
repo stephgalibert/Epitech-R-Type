@@ -23,7 +23,6 @@ const float MainMenuController::SERVER_BROWSER_HEIGHT = StaticTools::GetResoluti
 MainMenuController::MainMenuController()
 	: _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _pushAction(SelectedAction::NONE), _keyboardEventDelta(0.f), _selectedServer(-1)
 {
-	MainMenuResource::menuResourceManager.load();
 	buildKeyActionsMap();
 }
 
@@ -34,6 +33,8 @@ MainMenuController::~MainMenuController(void)
 void MainMenuController::init()
 {
 	try {
+		MainMenuResource::menuResourceManager.load();
+
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_R)));
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_DOT)));
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_T)));
@@ -53,9 +54,9 @@ void MainMenuController::init()
 		_browserContent.push_back("TEST 2");
 		_browserContent.push_back("TEST 3");
 
-		/*_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
+		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, SERVER_BROWSER_HEIGHT));
-		_browser.setContent(_browserContent);*/
+		_browser.setContent(_browserContent);
 
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
@@ -63,7 +64,9 @@ void MainMenuController::init()
 		//unmute();
 	}
 	catch (std::exception const& e) {
-		throw (std::runtime_error(e.what()));
+		//throw (std::runtime_error(e.what()));
+		//StaticTools::Log << e.what() << std::endl;
+		throw (std::runtime_error("menu: " + std::string(e.what())));
 	}
 }
 
@@ -102,12 +105,12 @@ bool MainMenuController::input(InputHandler &input)
 				_keyboardEventDelta = 0.f;
 			}
 			if (input.isKeyDown(sf::Keyboard::Return)) {
-				//_selectedServer = _browser.getSelected();
+				_selectedServer = _browser.getSelected();
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
 			}
-			//else if (_browser.input(input))
-				//_keyboardEventDelta = 0.f;
+			else if (_browser.input(input))
+				_keyboardEventDelta = 0.f;
 		}
 	}
 	return (false);
@@ -256,7 +259,7 @@ void MainMenuController::draw(sf::RenderWindow &window)
 		}
 	}
 	if (_fsm == State::ST_Selecting) {
-		//window.draw(_browser);
+		window.draw(_browser);
 	}
 }
 

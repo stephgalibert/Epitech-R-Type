@@ -11,7 +11,8 @@ const std::unordered_map<CommandType, std::function<std::unique_ptr<IRequest>(vo
 	{ CommandType::Respawn, std::bind(&RequestBuilder::create_RespawnRequest) },
 	{ CommandType::GetParty, std::bind(&RequestBuilder::create_GetPartyRequest) },
 	{ CommandType::GameStatus, std::bind(&RequestBuilder::create_GameStatusRequest) },
-	{ CommandType::Message, std::bind(&RequestBuilder::create_MessageRequest) }
+	{ CommandType::Message, std::bind(&RequestBuilder::create_MessageRequest) },
+	{ CommandType::Score, std::bind(&RequestBuilder::create_ScoreRequest) }
 };
 
 std::unique_ptr<IRequest> RequestBuilder::Build(CommandType type)
@@ -20,6 +21,11 @@ std::unique_ptr<IRequest> RequestBuilder::Build(CommandType type)
 		return (std::move(Requests.at(type)()));
 	}
 	return (NULL);
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_ScoreRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestScore));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_MessageRequest(void)
@@ -60,11 +66,6 @@ std::unique_ptr<IRequest> RequestBuilder::create_ConnectRequest(void)
 std::unique_ptr<IRequest> RequestBuilder::create_DisconnectedRequest(void)
 {
 	return (std::unique_ptr<IRequest>(new RequestDisconnect));
-}
-
-std::unique_ptr<IRequest> RequestBuilder::create_CreatePartyRequest(void)
-{
-	return (NULL);
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)

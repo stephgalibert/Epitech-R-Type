@@ -21,7 +21,6 @@ void ProjectResource::load(void)
 	try {
 		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
 		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
-		addTexture("health", "./rsrc/sprites/health.png");
 		addTexture("hud1", "./rsrc/sprites/hud1.png");
 		//addTexture("hud2", "./rsrc/sprites/hud2.png");
 	}

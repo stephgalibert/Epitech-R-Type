@@ -1,14 +1,17 @@
 #pragma once
+
 #include "ConnectionManager.hpp"
 #include "ScheduledMonster.hpp"
+#include "StaticTools.hpp"
 
 class MonsterManager
 {
 public:
 	MonsterManager(ConnectionManager const& cm);
-	~MonsterManager();
+	~MonsterManager(void);
 
-	void update();
+	void init(void);
+	void update(float delta);
 
 private:
 	ConnectionManager const& _cm;

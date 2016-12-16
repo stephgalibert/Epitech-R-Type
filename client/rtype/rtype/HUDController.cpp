@@ -42,6 +42,7 @@ void HUDController::update(float delta)
 {
 	_delta += delta;
 	_shot.update(delta);
+	_health.update(delta);
 }
 
 void HUDController::draw(sf::RenderWindow &window)

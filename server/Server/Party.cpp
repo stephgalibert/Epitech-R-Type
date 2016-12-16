@@ -198,7 +198,6 @@ void Party::waiting(double delta)
 		_state = GameStatusType::Playing;
 		_delta = 0.;
 	}
-	//std::cout << _delta << std::endl;
 }
 
 void Party::playing(double delta)

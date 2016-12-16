@@ -24,7 +24,7 @@ int main(int ac, char **av)
 		app.init(host, pwd);
 	}
 	catch (std::exception const& e) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << "main: " << e.what() << std::endl;
 		return (42);
 	}
 

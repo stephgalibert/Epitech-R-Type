@@ -2,9 +2,11 @@
 
 LoadedShotLayout::LoadedShotLayout(void)
 {
-	_decrease = false;
+	_max = false;
+	_inverse = false;
 	_delta = 0;
 	_deltaShot = 0;
+	_state = State::Normal;
 }
 
 LoadedShotLayout::~LoadedShotLayout(void)
@@ -21,7 +23,8 @@ void LoadedShotLayout::init(void)
 	_shape->setPoint(2, sf::Vector2f(20 + 167, 20));
 	_shape->setPoint(3, sf::Vector2f(0, 20));
 
-	_shape->setFillColor(sf::Color(0, 0, 255, 150));
+	_color = sf::Color(0, 0, 255, 150);
+	_shape->setFillColor(_color);
 
 	setPosition(144.f, 673.f);
 	setShape(_shape);
@@ -29,25 +32,21 @@ void LoadedShotLayout::init(void)
 
 void LoadedShotLayout::update(float delta)
 {
-  (void)delta;
-	//_delta += delta;
-	//if (_decrease) {
-	//	if (_deltaShot > 0) {
-	//		float diff = _deltaShot - delta;
-	//		_deltaShot -= delta;
-	//		std::cout << "diff: " << diff << std::endl;
-	//		//setLoadedShot(-diff);
-	//	}
-	//	else {
-	//		_deltaShot = 0.f;
-	//		_decrease = false;
-	//	}
-	//}
+	switch (_state)
+	{
+	case LoadedShotLayout::State::Normal:
+		updateNormal(delta);
+		break;
+	case LoadedShotLayout::State::Max:
+		updateMax(delta);
+		break;
+	default:
+		break;
+	}
 }
 
 void LoadedShotLayout::destroy(void)
 {
-
 }
 
 void LoadedShotLayout::setLoadedShot(float time)
@@ -60,27 +59,54 @@ void LoadedShotLayout::setLoadedShot(float time)
 		size.y = 20.;
 	}
 
-	//if (time == 0.f && _deltaShot > 0) {
-	//	_decrease = true;
-	//}
-	
-	//if (time > 0.f) {
-		if (size.x < size.y) {
-			size.x = 0;
-			size.y = 0;
-			//_decrease = true;
+	if (size.x < size.y) {
+		size.x = 0;
+		size.y = 0;
+	}
+	else {
+		if (size.x > 167.f) {
+			size.x = 167.f;
+			_max = true;
 		}
 		else {
-			if (size.x > 167.f) {
-				size.x = 167.f;
-			}
-			//else {
-			//	_deltaShot += time;
-			//}
-			_shape->setPoint(0, sf::Vector2f(size.y, 0));
-			_shape->setPoint(1, sf::Vector2f(size.x, 0));
-			_shape->setPoint(2, sf::Vector2f(size.x + size.y, size.y));
-			_shape->setPoint(3, sf::Vector2f(0, size.y));
+			_max = false;
 		}
-	//}
+		_shape->setPoint(0, sf::Vector2f(size.y, 0));
+		_shape->setPoint(1, sf::Vector2f(size.x, 0));
+		_shape->setPoint(2, sf::Vector2f(size.x + size.y, size.y));
+		_shape->setPoint(3, sf::Vector2f(0, size.y));
+	}
+}
+
+void LoadedShotLayout::updateNormal(float delta)
+{
+	(void)delta;
+	if (_max) {
+		_delta = 0;
+		_state = State::Max;
+	}
+}
+
+void LoadedShotLayout::updateMax(float delta)
+{
+	if (_max) {
+		_delta += delta;
+		if (_delta > 0.2f) {
+			if (_inverse) {
+				_color.g = 128;
+			}
+			else {
+				_color.g = 0;
+			}
+			_inverse = !_inverse;
+			_shape->setFillColor(_color);
+			_delta = 0;
+		}
+	}
+	else {
+		_delta = 0;
+		_color = sf::Color(0, 0, 255, 150);
+		_shape->setFillColor(_color);
+		_state = State::Normal;
+	}
 }

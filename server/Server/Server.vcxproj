@@ -21,15 +21,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\common\Generator.cpp" />
     <ClCompile Include="..\..\common\StaticTools.cpp" />
-    <ClCompile Include="..\..\plugins\ADirectoryParser.cpp" />
-    <ClCompile Include="..\..\plugins\Godzilla.cpp" />
-    <ClCompile Include="..\..\plugins\UnixDirectoryParser.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\plugins\WinDirectoryParser.cpp" />
     <ClCompile Include="AcceptAsyncTask.cpp" />
     <ClCompile Include="AConnection.cpp" />
+    <ClCompile Include="ADirectoryParser.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AServer.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
@@ -53,6 +47,7 @@
     <ClCompile Include="RequestMessage.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestRespawn.cpp" />
+    <ClCompile Include="RequestScore.cpp" />
     <ClCompile Include="ScheduledMonster.cpp" />
     <ClCompile Include="SendToAsyncTask.cpp" />
     <ClCompile Include="TCPConnection.cpp" />
@@ -65,6 +60,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="UDPWinSocket.cpp" />
+    <ClCompile Include="UnixDirectoryParser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="UnixServerSocket.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -73,6 +72,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="WinDirectoryParser.cpp" />
     <ClCompile Include="WinServerSocket.cpp" />
     <ClCompile Include="TCPWinSocket.cpp" />
     <ClCompile Include="WriteAsyncTask.cpp">
@@ -81,27 +81,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\api\IMonster.hpp" />
     <ClInclude Include="..\..\common\Generator.hpp" />
     <ClInclude Include="..\..\common\StaticTools.hpp" />
-    <ClInclude Include="..\..\plugins\ADirectoryParser.hpp" />
-    <ClInclude Include="..\..\plugins\ADlLoader.hpp" />
-    <ClInclude Include="..\..\plugins\DLManager.hpp" />
-    <ClInclude Include="..\..\plugins\Godzilla.hpp" />
-    <ClInclude Include="..\..\plugins\UnixDirectoryParser.hpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\UnixDlLoader.hpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\..\plugins\WinDirectoryParser.hpp" />
-    <ClInclude Include="..\..\plugins\WinDlLoader.hpp" />
     <ClInclude Include="AcceptAsyncTask.hpp" />
     <ClInclude Include="AConnection.hpp" />
+    <ClInclude Include="ADirectoryParser.hpp" />
+    <ClInclude Include="ADlLoader.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
+    <ClInclude Include="DLManager.hpp" />
     <ClInclude Include="MonsterManager.hpp" />
     <ClInclude Include="ReceiveFromAsyncTask.hpp" />
     <ClInclude Include="Buffer.hpp" />
@@ -129,6 +117,7 @@
     <ClInclude Include="RequestMessage.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestRespawn.hpp" />
+    <ClInclude Include="RequestScore.hpp" />
     <ClInclude Include="ScheduledMonster.hpp" />
     <ClInclude Include="SendToAsyncTask.hpp" />
     <ClInclude Include="TCPConnection.hpp" />
@@ -141,6 +130,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="UDPWinSocket.hpp" />
+    <ClInclude Include="UnixDirectoryParser.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="UnixDlLoader.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="UnixServerSocket.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -149,6 +146,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="WinDirectoryParser.hpp" />
+    <ClInclude Include="WinDlLoader.hpp" />
     <ClInclude Include="WinServerSocket.hpp" />
     <ClInclude Include="TCPWinSocket.hpp" />
     <ClInclude Include="WriteAsyncTask.hpp">

@@ -42,19 +42,17 @@ void Application::init(std::string host, std::string pwd)
 		
 		_fps.init();
 		_inputHandler.init();
-
+		
 		_menu.init();
 	}
 	catch (std::exception const& e) {
-		StaticTools::Log << e.what() << std::endl;
+		StaticTools::Log << "application: " << e.what() << std::endl;
 		throw (std::runtime_error(e.what()));
 	}
 
 	_timer.restart();
 }
 
-
-// les états peuvent se changer d'eux même => à faire
 void Application::loop(void)
 {
 	sf::Event event;
@@ -112,11 +110,11 @@ void Application::updateMenu(float delta)
 	//switch (_menu.pullAction())
 	//{
 	//case MainMenuController::SelectedAction::PLAY:
-	_state = ApplicationState::AS_Game;
-	_game = new GameController(_client);
-	_game->init();
-	_game->connectToParty(_host, _pwd);
-	//	break;
+		_state = ApplicationState::AS_Game;
+		_game = new GameController(_client);
+		_game->init();
+		_game->connectToParty(_host, _pwd);
+	//  break;
 	//case MainMenuController::SelectedAction::QUIT:
 	//	_quit = true;
 	//	break;

@@ -194,6 +194,7 @@
     <ClCompile Include="MainMenuResource.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MenuButton.cpp" />
+    <ClCompile Include="MenuServerBrowser.cpp" />
     <ClCompile Include="MessageLayout.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="RequestPowder.cpp" />
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestRespawn.cpp" />
+    <ClCompile Include="RequestScore.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
     <ClCompile Include="ScoreController.cpp" />
     <ClCompile Include="SoundBox.cpp" />
@@ -270,6 +272,7 @@
     <ClInclude Include="MainMenuResource.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MenuButton.hpp" />
+    <ClInclude Include="MenuServerBrowser.hpp" />
     <ClInclude Include="MessageLayout.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />
@@ -288,6 +291,7 @@
     <ClInclude Include="RequestPowder.hpp" />
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestRespawn.hpp" />
+    <ClInclude Include="RequestScore.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
     <ClInclude Include="ScoreController.hpp" />
     <ClInclude Include="SoundBox.hpp" />

@@ -1,0 +1,2 @@
+# seconds monster_type y
+3 0 200

@@ -196,10 +196,10 @@ bool GameController::inputPlaying(InputHandler &input)
 		_player->input(input);
 		_hud.input(input);
 	}
-	if (input.isKeyDown(sf::Keyboard::A)) {
-		_messageLayout.addMessage("test: " + std::to_string(d));
-		++d;
-	}
+	//if (input.isKeyDown(sf::Keyboard::A)) {
+	//	_messageLayout.addMessage("test: " + std::to_string(d));
+	//	++d;
+	//}
 	_scoreController.input(input);
 	_messageLayout.input(input);
 	return (false);
