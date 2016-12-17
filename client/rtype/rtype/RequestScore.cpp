@@ -13,6 +13,8 @@ RequestScore::~RequestScore(void)
 void RequestScore::execute(IClient &client, std::shared_ptr<ICommand> data,
 						   std::shared_ptr<ICommand> &toSend)
 {
+  (void)client;
+  (void)toSend;
 	Score const *getScore = reinterpret_cast<Score const *>(data->getData());
 
 	uint16_t id = getScore->id;

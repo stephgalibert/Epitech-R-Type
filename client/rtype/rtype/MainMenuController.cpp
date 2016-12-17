@@ -21,7 +21,11 @@ const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolutio
 const float MainMenuController::SERVER_BROWSER_HEIGHT = StaticTools::GetResolution().second / 2.f + 25.f;
 
 MainMenuController::MainMenuController()
-	: _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _pushAction(SelectedAction::NONE), _keyboardEventDelta(0.f), _selectedServer(-1)
+	: _fsm(State::ST_SplashStart),
+	  _action(SelectedAction::NONE),
+	  _keyboardEventDelta(0.f),
+	  _pushAction(SelectedAction::NONE),
+	  _selectedServer(-1)
 {
 	buildKeyActionsMap();
 }
@@ -49,7 +53,7 @@ void MainMenuController::init()
 		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
-		
+
 		_browserContent.push_back("TEST 1");
 		_browserContent.push_back("TEST 2");
 		_browserContent.push_back("TEST 3");
@@ -214,6 +218,7 @@ void MainMenuController::updateSplashThirdPhase(const float delta) {
 }
 
 void MainMenuController::updateSplashFourthPhase(const float delta) {
+  (void)delta;
 	_fsm = State::ST_Menu;
 }
 

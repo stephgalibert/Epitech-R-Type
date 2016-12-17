@@ -27,7 +27,7 @@ void Health::init(void)
 	_shape->setPoint(1, sf::Vector2f(_initSize.x, _initSize.x));
 	_shape->setPoint(2, sf::Vector2f(_initSize.x, _initSize.x + _initSize.y));
 	_shape->setPoint(3, sf::Vector2f(0, _initSize.y));
-	
+
 	_color = sf::Color(170, 0, 0, 180);
 	_shape->setFillColor(_color);
 
@@ -84,6 +84,7 @@ void Health::setHealth(uint8_t health)
 
 void Health::updateHealthOn(float delta)
 {
+  (void)delta;
 	if (_deltaLife > 0.f) {
 		_delta = 0;
 		_state = State::HealthOff;

@@ -14,7 +14,7 @@ CXXFLAGS	+=	-g -std=c++11
 
 CXXFLAGS	+=	-I./
 CXXFLAGS	+=	-I../../../common/
-CXXFLAGS	+=	-I../../../api/
+CXXFLAGS	+=	-I../../../protocol/
 CXXFLAGS	+=	-I$(SFML_INCLUDE)
 
 LDFLAGS		+=	-lpthread
@@ -46,7 +46,6 @@ SRCS		+=	FPSCounter.cpp
 SRCS		+=	GameController.cpp
 SRCS		+=	InputHandler.cpp
 SRCS		+=	Laser.cpp
-SRCS		+=	LevelResource.cpp
 SRCS		+=	LoadArea.cpp
 SRCS		+=	MainMenuController.cpp
 SRCS		+=	MemoryFile.cpp
@@ -83,26 +82,37 @@ SRCS		+=	RequestRespawn.cpp
 SRCS		+=	RequestPowder.cpp
 SRCS		+=	LoadedShotLayout.cpp
 SRCS		+=	Health.cpp
+SRCS		+=	APowerUp.cpp
+SRCS		+=	ScoreController.cpp
+SRCS		+=	ALayout.cpp
+SRCS		+=	RequestMessage.cpp
+SRCS		+=	RequestScore.cpp
+SRCS		+=	RequestSpawnPowerUp.cpp
+SRCS		+=	MessageLayout.cpp
+SRCS		+=	MenuServerBrowser.cpp
+SRCS		+=	IncreaseNumberOfCanon.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp
 
-SRCS		+=	../../../api/CMDPowder.cpp
-SRCS		+=	../../../api/CMDScore.cpp
-SRCS		+=	../../../api/CMDRespawn.cpp
-SRCS		+=	../../../api/CMDGetParty.cpp
-SRCS		+=	../../../api/CMDGameStatus.cpp
-SRCS		+=	../../../api/CMDDestroyed.cpp
-SRCS		+=	../../../api/CMDCollision.cpp
-SRCS		+=	../../../api/CMDConnect.cpp
-SRCS		+=	../../../api/CMDCreateParty.cpp
-SRCS		+=	../../../api/CMDDisconnected.cpp
-SRCS		+=	../../../api/CMDError.cpp
-SRCS		+=	../../../api/CMDFire.cpp
-SRCS		+=	../../../api/CMDMove.cpp
-SRCS		+=	../../../api/CMDPing.cpp
-SRCS		+=	../../../api/CMDSpawn.cpp
-SRCS		+=	../../../api/CommandFactory.cpp
+SRCS		+=	../../../protocol/CMDPowder.cpp
+SRCS		+=	../../../protocol/CMDScore.cpp
+SRCS		+=	../../../protocol/CMDRespawn.cpp
+SRCS		+=	../../../protocol/CMDGetParty.cpp
+SRCS		+=	../../../protocol/CMDGameStatus.cpp
+SRCS		+=	../../../protocol/CMDDestroyed.cpp
+SRCS		+=	../../../protocol/CMDCollision.cpp
+SRCS		+=	../../../protocol/CMDConnect.cpp
+SRCS		+=	../../../protocol/CMDCreateParty.cpp
+SRCS		+=	../../../protocol/CMDDisconnected.cpp
+SRCS		+=	../../../protocol/CMDError.cpp
+SRCS		+=	../../../protocol/CMDFire.cpp
+SRCS		+=	../../../protocol/CMDMove.cpp
+SRCS		+=	../../../protocol/CMDPing.cpp
+SRCS		+=	../../../protocol/CMDSpawn.cpp
+SRCS		+=	../../../protocol/CMDMessage.cpp
+SRCS		+=	../../../protocol/CMDSpawnPowerUp.cpp
+SRCS		+=	../../../protocol/CommandFactory.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

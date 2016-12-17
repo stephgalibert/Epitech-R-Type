@@ -26,5 +26,5 @@ void MonsterManager::init(void)
 
 void MonsterManager::update(float delta)
 {
-
+  (void)delta;
 }

@@ -195,16 +195,11 @@ bool GameController::inputWaiting(InputHandler &input)
 
 bool GameController::inputPlaying(InputHandler &input)
 {
-	static int d = 0;
-
 	if (_player) {
 		_player->input(input);
 		_hud.input(input);
 	}
-	//if (input.isKeyDown(sf::Keyboard::A)) {
-	//	_messageLayout.addMessage("test: " + std::to_string(d));
-	//	++d;
-	//}
+
 	_scoreController.input(input);
 	_messageLayout.input(input);
 	return (false);

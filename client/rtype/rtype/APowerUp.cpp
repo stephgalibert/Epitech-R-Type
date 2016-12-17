@@ -17,6 +17,7 @@ void APowerUp::collision(IClient *client, AEntity *other)
 
 void APowerUp::applyCollision(CollisionType type, AEntity *other)
 {
+  (void)other;
 	switch (type)
 	{
 	case CollisionType::None:

@@ -21,13 +21,14 @@ MenuServerBrowser::~MenuServerBrowser() {
 }
 
 void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  (void)states;
 	target.draw(_frame);
 	if (!_content.empty()) {
 		sf::Vector2f itemSize(_frame.getSize().x, ITEMS_HEIGHT);
 		sf::Vector2f itemPos(_frame.getPosition().x, _frame.getPosition().y);
 		sf::RectangleShape itemBackground;
 		sf::Text itemLabel;
-		size_t itemsDisplayMax = static_cast<size_t>(_frame.getSize().y / (ITEMS_HEIGHT + ITEMS_SPACING));
+		//size_t itemsDisplayMax = static_cast<size_t>(_frame.getSize().y / (ITEMS_HEIGHT + ITEMS_SPACING));
 
 		itemLabel.setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
 		itemLabel.setCharacterSize(FONT_CHAR_SIZE);

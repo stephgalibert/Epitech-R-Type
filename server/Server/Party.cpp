@@ -232,6 +232,7 @@ void Party::playing(double delta)
 
 void Party::gameOver(double delta)
 {
+  (void)delta;
 	/*_delta += delta;
 	if (_delta > 10.f) {
 		_launched = false;

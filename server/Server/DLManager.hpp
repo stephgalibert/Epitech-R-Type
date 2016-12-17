@@ -91,7 +91,7 @@ std::vector<T *> const& DLManager<T>::retrieveObject(void)
 	for (auto &it : _dls) {
 		_instances.push_back(it->getInstance());
 	}
-	return (_instances.at(type));
+	return (_instances);
 }
 
 template <typename T>
@@ -100,5 +100,5 @@ void DLManager<T>::deleteObjects(void)
 	for (auto &it : _instances) {
 		delete (it);
 	}
-	_instances.erase(type);
+	_instances.clear();
 }
