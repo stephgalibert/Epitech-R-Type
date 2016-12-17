@@ -1,4 +1,6 @@
 #include "Application.hpp"
+#include "XMLReader.hpp"
+#include "StaticTools.hpp"
 
 #ifdef WIN32
 # include <Windows.h>
@@ -10,6 +12,10 @@ int main(int ac, char **av)
 //	FreeConsole();
 //#endif
 
+	StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
+
+	XMLReader config;
+	std::string ip, port;
 	std::string host;
 	std::string pwd;
 
@@ -18,7 +24,19 @@ int main(int ac, char **av)
 		pwd = av[2];
 	}
 
-	Application app;
+	try {
+		config.readFromFile("config.xml");
+		ip = config.getValue<std::string>("config", "ip");
+		port = config.getValue<std::string>("config", "port");
+	}
+	catch (std::exception const& e) {
+		StaticTools::Log << e.what() << std::endl;
+		return (42);
+	}
+
+	std::cout << ip << ":" << port << std::endl;
+
+	Application app(ip, port);
 
 	try {
 		app.init(host, pwd);

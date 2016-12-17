@@ -1,7 +1,7 @@
 #include "Application.hpp"
 
-Application::Application(void)
-	: _client(&_game, _menu, "127.0.0.1", "4242")
+Application::Application(std::string const& ip, std::string const& port)
+	: _client(&_game, _menu, ip, port)
 {
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 
@@ -33,7 +33,6 @@ void Application::init(std::string host, std::string pwd)
 	_host = host;
 	_pwd = pwd;
 	try {
-		StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
 		ProjectResource::TheProjectResource.load();
 
 		initIcon();

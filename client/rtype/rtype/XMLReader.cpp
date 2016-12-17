@@ -25,8 +25,11 @@ void XMLReader::readFromFile(std::string const& filename)
 		if (ifs) {
 			boost::property_tree::read_xml(ifs, _root);
 		}
+		else {
+			throw (std::runtime_error("can't find " + filename));
+		}
 	} catch (std::exception const& e) {
-		throw (e);
+		throw (std::runtime_error(e.what()));
 	}
 }
 
