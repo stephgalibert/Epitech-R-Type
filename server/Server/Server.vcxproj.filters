@@ -66,9 +66,6 @@
     <ClCompile Include="UnixServerSocket.cpp">
       <Filter>Fichiers sources\Socket</Filter>
     </ClCompile>
-    <ClCompile Include="UnixSocket.cpp">
-      <Filter>Fichiers sources\Socket</Filter>
-    </ClCompile>
     <ClCompile Include="WinServerSocket.cpp">
       <Filter>Fichiers sources\Socket</Filter>
     </ClCompile>

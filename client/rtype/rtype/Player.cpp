@@ -175,8 +175,10 @@ void Player::move(float delta)
 		if (_loadedPowder) {
 			_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
 		}
+
 		for (auto it : _drawablePowerUps) {
-			it->ADrawable::move(x, y);
+			//it->ADrawable::move(x, y);
+			it->attachToEntity(this);
 		}
 	}
 }
