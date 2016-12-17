@@ -252,25 +252,25 @@
     <ClCompile Include="RequestMessage.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="ALayout.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="MenuServerBrowser.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
-    <ClCompile Include="RequestScore.cpp">
-      <Filter>Fichiers sources\request</Filter>
-    </ClCompile>
-    <ClCompile Include="ALayout.cpp">
-      <Filter>Fichiers sources\game</Filter>
-    </ClCompile>
     <ClCompile Include="APowerUp.cpp">
-      <Filter>Fichiers sources\graphics</Filter>
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="IncreaseNumberOfCanon.cpp">
-      <Filter>Fichiers sources\graphics</Filter>
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestScore.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="RequestSpawnPowerUp.cpp">
-      <Filter>Fichiers sources\request</Filter>
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="MenuServerBrowser.cpp">
+    <ClCompile Include="MenuTextField.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,17 +497,20 @@
     <ClInclude Include="MenuServerBrowser.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
-    <ClInclude Include="RequestScore.hpp">
-      <Filter>Fichiers d%27en-tête\request</Filter>
-    </ClInclude>
     <ClInclude Include="APowerUp.hpp">
-      <Filter>Fichiers d%27en-tête\graphics</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="IncreaseNumberOfCanon.hpp">
-      <Filter>Fichiers d%27en-tête\graphics</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestScore.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="RequestSpawnPowerUp.hpp">
-      <Filter>Fichiers d%27en-tête\request</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuTextField.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

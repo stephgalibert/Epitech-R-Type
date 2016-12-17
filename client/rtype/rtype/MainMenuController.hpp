@@ -6,6 +6,7 @@
 #include "AController.hpp"
 #include "MenuButton.hpp"
 #include "MenuServerBrowser.hpp"
+#include "MenuTextField.hpp"
 
 class MainMenuController : public AController
 {
@@ -26,6 +27,7 @@ class MainMenuController : public AController
 	static const float SERVER_BROWSER_POS_Y;
 	static const float SERVER_BROWSER_WIDTH;
 	static const size_t SERVER_BROWSER_ITEMS_SHOWN;
+	static const float TEXT_FIELD_HEIGHT;
 
 public:
 	MainMenuController(void);
@@ -40,7 +42,8 @@ public:
 		ST_Splash3 = 3,
 		ST_Splash4 = 4,
 		ST_Menu = 10,
-		ST_Selecting = 20
+		ST_Selecting = 20,
+		ST_Creating = 30
 	};
 
 public:
@@ -90,6 +93,7 @@ private:
 	std::vector<sf::Sprite> _titleSprites;
 	std::vector<MenuButton> _buttons;
 	MenuServerBrowser _browser;
+	MenuTextField _textField;
 
 	/* TEST ONLY */
 private:

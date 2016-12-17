@@ -22,6 +22,7 @@ OutputDir=rTypeSetup
 OutputBaseFilename=rtype_setup
 Compression=lzma
 SolidCompression=yes
+SetupIconFile=icon.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
