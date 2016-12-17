@@ -1,5 +1,6 @@
 #include "MainMenuController.hpp"
 #include "MainMenuResource.hpp"
+#include "IClient.hpp"
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
@@ -103,6 +104,8 @@ bool MainMenuController::input(InputHandler &input)
 			}
 			if (input.isKeyDown(sf::Keyboard::Return)) {
 				_selectedServer = _browser.getSelected();
+				//Connect to server
+				//IClient::write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
 			}
@@ -137,8 +140,11 @@ bool MainMenuController::keyReturn(void) {
 		break;
 	}
 	case SelectedAction::QUIT: {
-		std::cout << "Quit" << std::endl;
 		_pushAction = SelectedAction::QUIT;
+		break;
+	}
+	case SelectedAction::CREATE: {
+		//create server
 		break;
 	}
 	case SelectedAction::NONE:
