@@ -28,7 +28,7 @@ void GameController::init(void)
 
 	try {
 		_loading.init();
-		_loading.setBaseText("Waiting players");
+		_loading.setBaseText("Waiting for players");
 
 		_connectionLost.init();
 		_connectionLost.setBaseText("Connection lost :/");

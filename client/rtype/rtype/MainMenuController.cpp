@@ -1,9 +1,10 @@
 #include "MainMenuController.hpp"
 #include "MainMenuResource.hpp"
+#include "IClient.hpp"
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
-const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 450;
+const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 475;
 const float MainMenuController::TITLE_LETTER_SCALE = 2.f;
 const uint32_t MainMenuController::TITLE_LETTER_HEIGHT = static_cast<uint32_t>(56 * MainMenuController::TITLE_LETTER_SCALE);
 const uint32_t MainMenuController::TITLE_FINAL_BOTTOM_OFFSET = 25;
@@ -18,7 +19,7 @@ const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
 const float MainMenuController::SERVER_BROWSER_POS_X = 75.f;
 const float MainMenuController::SERVER_BROWSER_POS_Y = 60.f;
 const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolution().first / 2.f + 10.f;
-const float MainMenuController::SERVER_BROWSER_HEIGHT = StaticTools::GetResolution().second / 2.f + 25.f;
+const size_t MainMenuController::SERVER_BROWSER_ITEMS_SHOWN = 13u;
 
 MainMenuController::MainMenuController()
 	: _fsm(State::ST_SplashStart),
@@ -53,13 +54,13 @@ void MainMenuController::init()
 		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
-
-		_browserContent.push_back("TEST 1");
-		_browserContent.push_back("TEST 2");
-		_browserContent.push_back("TEST 3");
+		
+		for (int i = 0; i < 21; i++) {
+			_browserContent.push_back("Test #" + std::to_string(i));
+		}
 
 		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
-		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, SERVER_BROWSER_HEIGHT));
+		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
 		_browser.setContent(_browserContent);
 
 		_action = SelectedAction::PLAY;
@@ -110,6 +111,8 @@ bool MainMenuController::input(InputHandler &input)
 			}
 			if (input.isKeyDown(sf::Keyboard::Return)) {
 				_selectedServer = _browser.getSelected();
+				//Connect to server
+				//IClient::write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
 			}
@@ -144,8 +147,11 @@ bool MainMenuController::keyReturn(void) {
 		break;
 	}
 	case SelectedAction::QUIT: {
-		std::cout << "Quit" << std::endl;
 		_pushAction = SelectedAction::QUIT;
+		break;
+	}
+	case SelectedAction::CREATE: {
+		//create server
 		break;
 	}
 	case SelectedAction::NONE:

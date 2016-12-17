@@ -25,7 +25,7 @@ class MainMenuController : public AController
 	static const float SERVER_BROWSER_POS_X;
 	static const float SERVER_BROWSER_POS_Y;
 	static const float SERVER_BROWSER_WIDTH;
-	static const float SERVER_BROWSER_HEIGHT;
+	static const size_t SERVER_BROWSER_ITEMS_SHOWN;
 
 public:
 	MainMenuController(void);
