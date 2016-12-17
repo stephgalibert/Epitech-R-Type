@@ -3,13 +3,14 @@
 #include <string>
 
 #include "APC.hpp"
-#include "LevelResource.hpp"
 #include "Laser.hpp"
 #include "Explosion.hpp"
 #include "Powdered.hpp"
 #include "LoadedPowdered.hpp"
 
 #include "HUDController.hpp"
+#include "IncreaseNumberOfCanon.hpp"
+#include "APowerUp.hpp"
 
 class IClient;
 
@@ -30,7 +31,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
-	virtual void applyCollision(CollisionType type);
+	virtual void applyCollision(CollisionType type, AEntity *other);
 	virtual void input(InputHandler &input);
 	virtual void move(float delta);
 
@@ -51,6 +52,7 @@ private:
 	void prepareShot(void);
 
 	void collisionDestruction(void);
+	void collisionPowerUp(AEntity *other);
 	void sendRespawnRequest(void);
 
 	void refreshInvincibility(float delta);
@@ -74,5 +76,8 @@ private:
 	float _deltaLoadedShot;
 	float _deltaInvincibleAnim;
 	bool _invincibleAnimState;
+
+	//IncreaseNumberOfCanon *_increaseNumberOfCanon;
+	std::list<APowerUp *> _drawablePowerUps;
 };
 

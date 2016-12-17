@@ -63,6 +63,7 @@ private:
 	std::set<uint16_t> _playersIdAvailable;
 	std::mutex _mutex;
 
-	//MonsterManager _mm;
+	MonsterManager _mm;
+	std::set<uint16_t> _powerups;
 };
 

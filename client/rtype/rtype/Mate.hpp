@@ -1,11 +1,12 @@
 #pragma once
 
 #include "ANPC.hpp"
-#include "LevelResource.hpp"
 #include "Explosion.hpp"
 #include "Powdered.hpp"
 #include "Laser.hpp"
 #include "LoadedPowdered.hpp"
+
+#include "APowerUp.hpp"
 
 class Mate : public ANPC
 {
@@ -24,7 +25,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
-	virtual void applyCollision(CollisionType type);
+	virtual void applyCollision(CollisionType type, AEntity *other);
 	virtual void move(float delta);
 
 	virtual void shoot(Fire const& param);
@@ -37,12 +38,11 @@ private:
 	void updateFrame(void);
 
 	void collisionDestruction(void);
+	void collisionPowerUp(AEntity *other);
 
 	void refreshInvincibility(float delta);
 
 private:
-
-  //uint8_t _prevDirection;
 	float _delta;
 	bool _decrease;
 	uint8_t _targetFrame;
@@ -57,4 +57,6 @@ private:
 	bool _loadedShot;
 	float _deltaInvincibleAnim;
 	bool _invincibleAnimState;
+
+	std::list<APowerUp *> _drawablePowerUps;
 };

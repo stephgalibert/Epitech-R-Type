@@ -20,7 +20,7 @@ void Background::init(void)
 		_shape.setPosition(sf::Vector2f(0, 0));
 		_shape.setSize(sf::Vector2f((float)_resolution.x, (float)_resolution.y));
 
-		_texture = LevelResource::TheLevelResource.getTextureByKey(_textureName);
+		_texture = ProjectResource::TheProjectResource.getTextureByKey(_textureName);
 		_texture->setRepeated(true);
 
 		_shape.setTexture(_texture);

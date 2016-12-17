@@ -22,6 +22,20 @@ void ProjectResource::load(void)
 		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
 		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
 		addTexture("hud1", "./rsrc/sprites/hud1.png");
+
+		addTexture("shots1", "./rsrc/sprites/shots1.png");
+		addTexture("shots2", "./rsrc/sprites/shots2.png");
+		addTexture("shots3", "./rsrc/sprites/shots3.png");
+		addTexture("shots4", "./rsrc/sprites/shots4.png");
+		addTexture("players", "./rsrc/sprites/players.bmp");
+		addTexture("background", "./rsrc/sprites/background.png");
+		addTexture("background2", "./rsrc/sprites/background2.png");
+		addTexture("explosions", "./rsrc/sprites/explosions.png");
+		addTexture("powerups1", "./rsrc/sprites/powerups1.png");
+
+		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
+		addSound("explosions", "./rsrc/music/explosion.ogg");
+		addSound("shot", "./rsrc/music/shot.wav");
 		//addTexture("hud2", "./rsrc/sprites/hud2.png");
 	}
 	catch (std::runtime_error const& e) {
@@ -55,6 +69,16 @@ sf::Music &ProjectResource::getMusicByKey(std::string const& key)
 	}
 }
 
+sf::Sound *ProjectResource::getSoundByKey(std::string const& key)
+{
+	try {
+		return (_sounds.getSound(key));
+	}
+	catch (std::exception const& e) {
+		throw (std::runtime_error(e.what()));
+	}
+}
+
 void ProjectResource::addFont(std::string const& key, std::string const& fontName)
 {
 	sf::Font font;
@@ -76,4 +100,9 @@ void ProjectResource::addTexture(std::string const& key, std::string const& path
 		throw (std::runtime_error("texture: " + path + " not found"));
 	}
 	_textures.insert(std::make_pair(key, texture));
+}
+
+void ProjectResource::addSound(std::string const& key, std::string const& path)
+{
+	_sounds.addSample(key, path);
 }

@@ -1,2 +1,5 @@
 # seconds monster_type y
+# monster_type:
+# 0: Zork
+
 3 0 200

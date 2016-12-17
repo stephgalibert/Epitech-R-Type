@@ -24,11 +24,9 @@ void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 	AEntity *entity2 = World::getEntityByID(id2);
 	Laser *laser = dynamic_cast<Laser *>(entity);
 	if (!laser) {
-		if (entity) {
-			entity->applyCollision(type);
-		}
-		if (entity2) {
-			entity2->applyCollision(type);
+		if (entity && entity2) {
+			entity->applyCollision(type, entity2);
+			entity2->applyCollision(type, entity);
 		}
 	}
 }

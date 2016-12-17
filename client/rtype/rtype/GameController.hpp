@@ -53,6 +53,8 @@ public:
 	Player *getPlayer(void) const;
 	bool isReady(void) const;
 
+	bool gameFinished(void) const;
+
 private:
 	bool inputWaiting(InputHandler &input);
 	bool inputPlaying(InputHandler &input);
@@ -86,7 +88,8 @@ private:
 	Background _back;
 	Background _front;
 	bool _ready;
-	bool _reset;
+	bool _gameFinished;
+	//bool _reset;
 	GameStatusType _state;
 };
 

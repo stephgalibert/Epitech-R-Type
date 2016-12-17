@@ -1,8 +1,13 @@
 #pragma once
 
 #include "ConnectionManager.hpp"
-#include "ScheduledMonster.hpp"
 #include "StaticTools.hpp"
+#include "ScheduledMonster.hpp"
+
+#include "IMonster.hpp"
+
+template<typename T>
+class DLManager;
 
 class MonsterManager
 {
@@ -16,5 +21,6 @@ public:
 private:
 	ConnectionManager const& _cm;
 	ScheduledMonster _sm;
+	DLManager<IMonster> *_dlManager;
 };
 

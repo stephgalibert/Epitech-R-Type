@@ -12,7 +12,8 @@ const std::unordered_map<CommandType, std::function<std::unique_ptr<IRequest>(vo
 	{ CommandType::GetParty, std::bind(&RequestBuilder::create_GetPartyRequest) },
 	{ CommandType::GameStatus, std::bind(&RequestBuilder::create_GameStatusRequest) },
 	{ CommandType::Message, std::bind(&RequestBuilder::create_MessageRequest) },
-	{ CommandType::Score, std::bind(&RequestBuilder::create_ScoreRequest) }
+	{ CommandType::Score, std::bind(&RequestBuilder::create_ScoreRequest) },
+	{ CommandType::SpawnPowerUp, std::bind(&RequestBuilder::create_SpawnPowerUpRequest) }
 };
 
 std::unique_ptr<IRequest> RequestBuilder::Build(CommandType type)
@@ -21,6 +22,11 @@ std::unique_ptr<IRequest> RequestBuilder::Build(CommandType type)
 		return (std::move(Requests.at(type)()));
 	}
 	return (NULL);
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_SpawnPowerUpRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestSpawnPowerUp));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_ScoreRequest(void)

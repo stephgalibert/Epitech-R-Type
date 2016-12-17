@@ -4,6 +4,7 @@
 #include "ICommand.hpp"
 
 #define COLLISION_FATAL 1
+#define COLLISION_PUP 2
 #define COLLISION_NONE 5
 
 class IClient;
@@ -22,7 +23,7 @@ public:
 	virtual void destroy(void) = 0;
 
 	virtual void collision(IClient *client, AEntity *other) = 0;
-	virtual void applyCollision(CollisionType type) = 0;
+	virtual void applyCollision(CollisionType type, AEntity *other) = 0;
 
 	bool isCollidingWith(ACollidable *other);
 	sf::FloatRect getBoundingBox(void) const;

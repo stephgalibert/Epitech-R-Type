@@ -30,7 +30,8 @@ enum class MissileType : uint8_t
 
 enum class PowerUPsType : uint8_t
 {
-	Standard = 0
+	Standard = 0,
+	IncreaseNumberOfCanon = 1
 };
 
 enum class ObstacleType : uint8_t
@@ -87,6 +88,14 @@ struct Spawn
 	uint8_t effect;
 	uint8_t health;
 	bool is_player;
+};
+
+struct SpawnPowerUp
+{
+	CommandType cmdType;
+	PowerUPsType type;
+	uint16_t id;
+	uint32_t position;
 };
 
 struct Move

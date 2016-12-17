@@ -28,13 +28,12 @@ Application::~Application(void)
 {
 }
 
-//#include <Windows.h> // !
 void Application::init(std::string host, std::string pwd)
 {
 	_host = host;
 	_pwd = pwd;
 	try {
-		StaticTools::Log.open("client.log" /*+ std::to_string(GetCurrentProcessId()) + ".log"*/, std::ios::out | std::ios::app);
+		StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
 		ProjectResource::TheProjectResource.load();
 
 		initIcon();
@@ -126,6 +125,12 @@ void Application::updateGame(float delta)
 {
 	_fps.update(delta);
 	_game->update(delta);
+
+	if (_game->gameFinished()) {
+		_state = ApplicationState::AS_MainMenu;
+		delete (_game);
+		_game = NULL;
+	}
 }
 
 void Application::drawMenu(sf::RenderWindow &window)

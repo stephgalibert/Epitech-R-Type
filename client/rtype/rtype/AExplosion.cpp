@@ -40,9 +40,10 @@ void AExplosion::collision(IClient *client, AEntity *other)
 	(void)other;
 }
 
-void AExplosion::applyCollision(CollisionType type)
+void AExplosion::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)type;
+	(void)other;
 }
 
 void AExplosion::setTextureSize(sf::Vector2i const& size)

@@ -24,7 +24,7 @@ void Laser::init(void)
 	setOrigin(9, 7);
 
 	try {
-		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("shots" + std::to_string(_color));
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("shots" + std::to_string(_color));
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -62,15 +62,15 @@ void Laser::collision(IClient *client, AEntity *other)
 			setCollisioned(true);
 
 			if (!other->hasCollisioned() && World::GetPlayer() && getOwnerID() == World::GetPlayer()->getID()) {
-				std::cout << "laser sending collision" << std::endl;
 				client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 			}
 		}
 	}
 }
 
-void Laser::applyCollision(CollisionType type)
+void Laser::applyCollision(CollisionType type, AEntity *other)
 {
+	(void)other;
 	switch (type)
 	{
 	case CollisionType::None:

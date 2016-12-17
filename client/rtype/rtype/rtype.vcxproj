@@ -169,6 +169,7 @@
     <ClCompile Include="AMoveable.cpp" />
     <ClCompile Include="ANPC.cpp" />
     <ClCompile Include="APC.cpp" />
+    <ClCompile Include="APowerUp.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AProjectile.cpp" />
     <ClCompile Include="AStatic.cpp" />
@@ -181,9 +182,9 @@
     <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
+    <ClCompile Include="IncreaseNumberOfCanon.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Laser.cpp" />
-    <ClCompile Include="LevelResource.cpp" />
     <ClCompile Include="LoadArea.cpp" />
     <ClCompile Include="LoadedPowdered.cpp" />
     <ClCompile Include="LoadedShotLayout.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="RequestScore.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
+    <ClCompile Include="RequestSpawnPowerUp.cpp" />
     <ClCompile Include="ScoreController.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="TCPClient.cpp" />
@@ -240,6 +242,7 @@
     <ClInclude Include="AMoveable.hpp" />
     <ClInclude Include="ANPC.hpp" />
     <ClInclude Include="APC.hpp" />
+    <ClInclude Include="APowerUp.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="ApplicationState.hpp" />
     <ClInclude Include="AProjectile.hpp" />
@@ -256,13 +259,13 @@
     <ClInclude Include="HUDController.hpp" />
     <ClInclude Include="IClient.hpp" />
     <ClInclude Include="ADrawable.hpp" />
+    <ClInclude Include="IncreaseNumberOfCanon.hpp" />
     <ClInclude Include="InputHandler.hpp" />
     <ClInclude Include="IReader.hpp" />
     <ClInclude Include="IRequest.hpp" />
     <ClInclude Include="IResourceManager.hpp" />
     <ClInclude Include="ISound.hpp" />
     <ClInclude Include="Laser.hpp" />
-    <ClInclude Include="LevelResource.hpp" />
     <ClInclude Include="LoadArea.hpp" />
     <ClInclude Include="LoadedPowdered.hpp" />
     <ClInclude Include="LoadedShotLayout.hpp" />
@@ -293,6 +296,7 @@
     <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="RequestScore.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
+    <ClInclude Include="RequestSpawnPowerUp.hpp" />
     <ClInclude Include="ScoreController.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="TCPClient.hpp" />

@@ -146,6 +146,7 @@
     <ClCompile Include="CMDRespawn.cpp" />
     <ClCompile Include="CMDScore.cpp" />
     <ClCompile Include="CMDSpawn.cpp" />
+    <ClCompile Include="CMDSpawnPowerUp.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="CMDRespawn.hpp" />
     <ClInclude Include="CMDScore.hpp" />
     <ClInclude Include="CMDSpawn.hpp" />
+    <ClInclude Include="CMDSpawnPowerUp.hpp" />
     <ClInclude Include="CommandFactory.hpp" />
     <ClInclude Include="CommandType.hpp" />
     <ClInclude Include="EnumHash.hpp" />

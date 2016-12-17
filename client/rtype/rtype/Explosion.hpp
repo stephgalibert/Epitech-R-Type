@@ -2,8 +2,6 @@
 
 #include "AExplosion.hpp"
 
-#include "LevelResource.hpp"
-
 class Explosion : public AExplosion
 {
 public:

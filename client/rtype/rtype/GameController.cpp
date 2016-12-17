@@ -11,7 +11,7 @@ GameController::GameController(IClient &network)
 		_mates[i] = NULL;
 	}
 	_state = GameStatusType::Waiting;
-	_reset = false;
+	_gameFinished = false;
 }
 
 GameController::~GameController(void)
@@ -21,7 +21,7 @@ GameController::~GameController(void)
 
 void GameController::init(void)
 {
-	LevelResource::TheLevelResource.load();
+	//LevelResource::TheLevelResource.load();
 	World::init(&_player, &_network);
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
@@ -182,6 +182,11 @@ bool GameController::isReady(void) const
 	return (_ready);
 }
 
+bool GameController::gameFinished(void) const
+{
+	return (_gameFinished);
+}
+
 bool GameController::inputWaiting(InputHandler &input)
 {
 	_messageLayout.input(input);
@@ -222,9 +227,9 @@ void GameController::updateWaiting(float delta)
 	_back.update(delta);
 	_front.update(delta);
 	_loading.update(delta);
-	if (_reset) {
-		_reset = false;
-	}
+	//if (_reset) {
+	//	_reset = false;
+	//}
 	_messageLayout.update(delta);
 }
 
@@ -250,11 +255,12 @@ void GameController::updateGameOver(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	if (!_reset) {
-		reset();
-		_reset = true;
-	}
+
 	_gameOver.update(delta);
+	if (_gameOver.hasFinished()) {
+		_gameFinished = true;
+	}
+
 	_messageLayout.update(delta);
 }
 
@@ -262,10 +268,11 @@ void GameController::updateGameWin(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	if (!_reset) {
-		reset();
-		_reset = true;
-	}
+	//if (!_reset) {
+	//	reset();
+	//	_reset = true;
+	//}
+	// todo win msg
 	_messageLayout.update(delta);
 }
 
