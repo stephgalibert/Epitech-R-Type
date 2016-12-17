@@ -40,7 +40,7 @@ public:
 	uint32_t getDisplayedLettersMax(void) const;
 
 private:
-	bool handleTextInput(InputHandler const &input);
+	bool handleTextInput(InputHandler &input);
 	void updateTextDisplay(void);
 
 private:

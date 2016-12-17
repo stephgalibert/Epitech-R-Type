@@ -40,16 +40,18 @@ void MenuTextField::draw(sf::RenderTarget &target, sf::RenderStates states) cons
 }
 
 bool MenuTextField::input(InputHandler &input) {
-	if (input.isKeyDown(sf::Keyboard::BackSpace) && _cursor != 0) {
-		try {
-			_content.erase(_cursor - 1, 1);
-			cursorBack();
+	if (input.isKeyDown(sf::Keyboard::BackSpace)) {
+		if (_cursor != 0) {
+			try {
+				_content.erase(_cursor - 1, 1);
+				cursorBack();
+			}
+			catch (std::out_of_range const &) {
+				_cursor = 0u;
+				_textDisplayOffset = 0u;
+			}
+			updateTextDisplay();
 		}
-		catch (std::out_of_range const &) {
-			_cursor = 0u;
-			_textDisplayOffset = 0u;
-		}
-		updateTextDisplay();
 		return true;
 	}
 	else if (input.isKeyDown(sf::Keyboard::Left)) {
@@ -74,10 +76,13 @@ bool MenuTextField::input(InputHandler &input) {
 	return false;
 }
 
-bool MenuTextField::handleTextInput(InputHandler const &input) {
-	(void)input;
+bool MenuTextField::handleTextInput(InputHandler &input) {
+	char newChar = input.popTextEntered();
+
+	_content.insert(_cursor, 1, newChar);
+	cursorForward();
 	updateTextDisplay();
-	return false;
+	return true;
 }
 
 void MenuTextField::updateTextDisplay(void) {
@@ -131,7 +136,7 @@ void MenuTextField::cursorForward(void) {
 void MenuTextField::cursorBack(void) {
 	if (_cursor != 0u)
 		_cursor--;
-	if (_cursor < _textDisplayOffset)
+	if (_cursor < _textDisplayOffset + 1u)
 		_textDisplayOffset--;
 	updateTextDisplay();
 }
