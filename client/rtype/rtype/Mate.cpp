@@ -24,6 +24,9 @@ Mate::~Mate(void)
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
 	}
+	for (auto it : _drawablePowerUps) {
+		it->recycle();
+	}
 }
 
 void Mate::init(void)
@@ -35,7 +38,7 @@ void Mate::init(void)
 	try {
 		initFrame();
 
-		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("players");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("players");
 		texture->setSmooth(true);
 
 		setShape(shape);
@@ -106,24 +109,23 @@ void Mate::destroy(void)
 void Mate::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (!isInvincible() && !other->isInvincible()) {
-		if (!isInvincible() && !other->isInvincible()) {
+	if (!hasCollisioned()) {
+		if (other->getCollisionType() == COLLISION_PUP) {
+			other->setCollisionType(COLLISION_NONE);
+		}
+		else if (!isInvincible() && !other->isInvincible()) {
 			if (getCollisionType() != COLLISION_NONE
-				&& other->getCollisionType() == COLLISION_FATAL
-				&& !hasCollisioned()) {
+				&& other->getCollisionType() == COLLISION_FATAL) {
 
 				setCollisioned(true);
 
-				//if (!other->hasCollisioned()) {
-				//	other->collision(client, this);
-				//}
 				setCollisionType(COLLISION_NONE);
 			}
 		}
 	}
 }
 
-void Mate::applyCollision(CollisionType type)
+void Mate::applyCollision(CollisionType type, AEntity *other)
 {
 	switch (type)
 	{
@@ -133,6 +135,7 @@ void Mate::applyCollision(CollisionType type)
 		collisionDestruction();
 		break;
 	case CollisionType::PowerUP:
+		collisionPowerUp(other);
 		break;
 	default:
 		break;
@@ -161,6 +164,9 @@ void Mate::move(float delta)
 		if (_loadedPowder) {
 			_loadedPowder->setPosition(pos.x + 48, pos.y + 3);
 		}
+		for (auto it : _drawablePowerUps) {
+			it->ADrawable::move(x, y);
+		}
 	}
 }
 
@@ -171,7 +177,7 @@ void Mate::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
-	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
 	//MissileType type = param.type;
 	uint16_t id = param.id;
@@ -334,6 +340,21 @@ void Mate::collisionDestruction(void)
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
 		_loadedPowder = NULL;
+	}
+
+	for (auto it : _drawablePowerUps) {
+		it->recycle();
+	}
+	_drawablePowerUps.clear();
+}
+
+void Mate::collisionPowerUp(AEntity *other)
+{
+	APowerUp *powerUp = dynamic_cast<APowerUp *>(other);
+	if (other) {
+		other->setCollisionType(COLLISION_NONE);
+		powerUp->attachToEntity(this);
+		_drawablePowerUps.push_back(powerUp);
 	}
 }
 

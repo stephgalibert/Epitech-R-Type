@@ -13,11 +13,6 @@ std::pair<short, short> StaticTools::GetResolution(void)
 	return (std::make_pair<short, short>(1280, 720));
 }
 
-//CommandType StaticTools::GetPacketType(char const *packet)
-//{
-//	return (*(CommandType *)(packet));
-//}
-
 std::string StaticTools::SerializeLoginServer(std::string const& host, std::string const& pwd)
 {
 	return (host + ";" + pwd);

@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "IClient.hpp"
+#include "APowerUp.hpp"
 
 const uint8_t Player::FRAME_TOP = 0;
 const uint8_t Player::FRAME_MID = 1;
@@ -33,6 +34,9 @@ Player::~Player(void)
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
 	}
+	for (auto it : _drawablePowerUps) {
+		it->recycle();
+	}
 }
 
 void Player::init(void)
@@ -44,7 +48,7 @@ void Player::init(void)
 	try {
 		initFrame();
 
-		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("players");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("players");
 		texture->setSmooth(true);
 
 		setShape(shape);
@@ -100,24 +104,24 @@ void Player::setHUD(HUDController *hud)
 void Player::collision(IClient *client, AEntity *other)
 {
   (void)client;
-  if (!isInvincible() && !other->isInvincible()) {
-	  if (getCollisionType() != COLLISION_NONE
-		  && other->getCollisionType() == COLLISION_FATAL
-		  && !hasCollisioned()) {
+  if (!hasCollisioned()) {
+	  if (other->getCollisionType() == COLLISION_PUP) {
+		  other->setCollisionType(COLLISION_NONE);
+		  _client->write(std::make_shared<CMDCollision>(CollisionType::PowerUP, getID(), other->getID()));
+	  }
+	  else if (!isInvincible() && !other->isInvincible()) {
+		  if (getCollisionType() != COLLISION_NONE
+			  && other->getCollisionType() == COLLISION_FATAL) {
 
-		  setCollisioned(true);
-
-		  //if (!other->hasCollisioned() && _client) {
-		  //	other->collision(client, this);
-		  _client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
-		  //}
-
-		  setCollisionType(COLLISION_NONE);
+			  setCollisioned(true);
+			  _client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+			  setCollisionType(COLLISION_NONE);
+		  }
 	  }
   }
 }
 
-void Player::applyCollision(CollisionType type)
+void Player::applyCollision(CollisionType type, AEntity *other)
 {
 	switch (type)
 	{
@@ -127,6 +131,7 @@ void Player::applyCollision(CollisionType type)
 		collisionDestruction();
 		break;
 	case CollisionType::PowerUP:
+		collisionPowerUp(other);
 		break;
 	default:
 		break;
@@ -170,6 +175,9 @@ void Player::move(float delta)
 		if (_loadedPowder) {
 			_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);
 		}
+		for (auto it : _drawablePowerUps) {
+			it->ADrawable::move(x, y);
+		}
 	}
 }
 
@@ -180,7 +188,7 @@ void Player::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
-	LevelResource::TheLevelResource.getSoundByKey("shot")->play();
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
 	//MissileType type = param.type;
 	uint16_t id = param.id;
@@ -447,10 +455,6 @@ void Player::joystick(InputHandler &input)
 		_loadedShot = false;
 		_deltaLoadedShot = 0;
 	}
-
-	//if (input.isJoystickButtonDown(0)) {
-	//	prepareShot();
-	//}
 }
 
 
@@ -472,8 +476,14 @@ void Player::prepareShot(void)
 		shot->setReadyForInit(true);
 
 		if (_client) {
-			_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, getID(),
-				(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0, shot->getLevel()));
+			bool fired = false;
+			for (auto it : _drawablePowerUps) {
+				fired = it->fire(_client, getID(), sf::Vector2i((int)shot->getPosition().x, (int)pos.y), (int)shot->getVelocity(), (int)shot->getAngle(), shot->getLevel());
+			}
+			if (!fired) {
+				_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, getID(),
+					(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0, shot->getLevel()));
+			}
 		}
 		delete (shot);
 
@@ -504,6 +514,11 @@ void Player::collisionDestruction(void)
 	setAngle(-1);
 	setVelocity(0);
 
+	for (auto it : _drawablePowerUps) {
+		it->recycle();
+	}
+	_drawablePowerUps.clear();
+
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
 		_loadedPowder = NULL;
@@ -511,6 +526,16 @@ void Player::collisionDestruction(void)
 
 	setHealth(getHealth() - 1);
 	_hud->setHealth(getHealth());
+}
+
+void Player::collisionPowerUp(AEntity *other)
+{
+	APowerUp *powerUp = dynamic_cast<APowerUp *>(other);
+	if (other) {
+		other->setCollisionType(COLLISION_NONE);
+		powerUp->attachToEntity(this);
+		_drawablePowerUps.push_back(powerUp);
+	}
 }
 
 void Player::sendRespawnRequest(void)

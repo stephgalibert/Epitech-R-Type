@@ -1,7 +1,7 @@
 #include "Application.hpp"
 
-Application::Application(void)
-	: _client(&_game, _menu, "127.0.0.1", "4242")
+Application::Application(std::string const& ip, std::string const& port)
+	: _client(&_game, _menu, ip, port)
 {
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 
@@ -28,13 +28,11 @@ Application::~Application(void)
 {
 }
 
-//#include <Windows.h> // !
 void Application::init(std::string host, std::string pwd)
 {
 	_host = host;
 	_pwd = pwd;
 	try {
-		StaticTools::Log.open("client.log" /*+ std::to_string(GetCurrentProcessId()) + ".log"*/, std::ios::out | std::ios::app);
 		ProjectResource::TheProjectResource.load();
 
 		initIcon();
@@ -42,19 +40,17 @@ void Application::init(std::string host, std::string pwd)
 		
 		_fps.init();
 		_inputHandler.init();
-
+		
 		_menu.init();
 	}
 	catch (std::exception const& e) {
-		StaticTools::Log << e.what() << std::endl;
+		StaticTools::Log << "application: " << e.what() << std::endl;
 		throw (std::runtime_error(e.what()));
 	}
 
 	_timer.restart();
 }
 
-
-// les états peuvent se changer d'eux même => à faire
 void Application::loop(void)
 {
 	sf::Event event;
@@ -112,11 +108,11 @@ void Application::updateMenu(float delta)
 	//switch (_menu.pullAction())
 	//{
 	//case MainMenuController::SelectedAction::PLAY:
-	_state = ApplicationState::AS_Game;
-	_game = new GameController(_client);
-	_game->init();
-	_game->connectToParty(_host, _pwd);
-	//	break;
+		_state = ApplicationState::AS_Game;
+		_game = new GameController(_client);
+		_game->init();
+		_game->connectToParty(_host, _pwd);
+	//  break;
 	//case MainMenuController::SelectedAction::QUIT:
 	//	_quit = true;
 	//	break;
@@ -128,6 +124,12 @@ void Application::updateGame(float delta)
 {
 	_fps.update(delta);
 	_game->update(delta);
+
+	if (_game->gameFinished()) {
+		_state = ApplicationState::AS_MainMenu;
+		delete (_game);
+		_game = NULL;
+	}
 }
 
 void Application::drawMenu(sf::RenderWindow &window)

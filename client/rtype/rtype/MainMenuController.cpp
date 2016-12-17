@@ -22,9 +22,12 @@ const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolutio
 const size_t MainMenuController::SERVER_BROWSER_ITEMS_SHOWN = 13u;
 
 MainMenuController::MainMenuController()
-	: _fsm(State::ST_SplashStart), _action(SelectedAction::NONE), _pushAction(SelectedAction::NONE), _keyboardEventDelta(0.f), _selectedServer(-1)
+	: _fsm(State::ST_SplashStart),
+	  _action(SelectedAction::NONE),
+	  _keyboardEventDelta(0.f),
+	  _pushAction(SelectedAction::NONE),
+	  _selectedServer(-1)
 {
-	MainMenuResource::menuResourceManager.load();
 	buildKeyActionsMap();
 }
 
@@ -35,6 +38,8 @@ MainMenuController::~MainMenuController(void)
 void MainMenuController::init()
 {
 	try {
+		MainMenuResource::menuResourceManager.load();
+
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_R)));
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_DOT)));
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_T)));
@@ -64,7 +69,9 @@ void MainMenuController::init()
 		//unmute();
 	}
 	catch (std::exception const& e) {
-		throw (std::runtime_error(e.what()));
+		//throw (std::runtime_error(e.what()));
+		//StaticTools::Log << e.what() << std::endl;
+		throw (std::runtime_error("menu: " + std::string(e.what())));
 	}
 }
 
@@ -217,6 +224,7 @@ void MainMenuController::updateSplashThirdPhase(const float delta) {
 }
 
 void MainMenuController::updateSplashFourthPhase(const float delta) {
+  (void)delta;
 	_fsm = State::ST_Menu;
 }
 

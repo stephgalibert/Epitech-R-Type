@@ -11,7 +11,7 @@ GameController::GameController(IClient &network)
 		_mates[i] = NULL;
 	}
 	_state = GameStatusType::Waiting;
-	_reset = false;
+	_gameFinished = false;
 }
 
 GameController::~GameController(void)
@@ -21,14 +21,14 @@ GameController::~GameController(void)
 
 void GameController::init(void)
 {
-	LevelResource::TheLevelResource.load();
+	//LevelResource::TheLevelResource.load();
 	World::init(&_player, &_network);
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
 
 	try {
 		_loading.init();
-		_loading.setBaseText("Waiting players");
+		_loading.setBaseText("Waiting for players");
 
 		_connectionLost.init();
 		_connectionLost.setBaseText("Connection lost :/");
@@ -182,6 +182,11 @@ bool GameController::isReady(void) const
 	return (_ready);
 }
 
+bool GameController::gameFinished(void) const
+{
+	return (_gameFinished);
+}
+
 bool GameController::inputWaiting(InputHandler &input)
 {
 	_messageLayout.input(input);
@@ -190,16 +195,11 @@ bool GameController::inputWaiting(InputHandler &input)
 
 bool GameController::inputPlaying(InputHandler &input)
 {
-	static int d = 0;
-
 	if (_player) {
 		_player->input(input);
 		_hud.input(input);
 	}
-	if (input.isKeyDown(sf::Keyboard::A)) {
-		_messageLayout.addMessage("test: " + std::to_string(d));
-		++d;
-	}
+
 	_scoreController.input(input);
 	_messageLayout.input(input);
 	return (false);
@@ -222,9 +222,9 @@ void GameController::updateWaiting(float delta)
 	_back.update(delta);
 	_front.update(delta);
 	_loading.update(delta);
-	if (_reset) {
-		_reset = false;
-	}
+	//if (_reset) {
+	//	_reset = false;
+	//}
 	_messageLayout.update(delta);
 }
 
@@ -250,11 +250,12 @@ void GameController::updateGameOver(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	if (!_reset) {
-		reset();
-		_reset = true;
-	}
+
 	_gameOver.update(delta);
+	if (_gameOver.hasFinished()) {
+		_gameFinished = true;
+	}
+
 	_messageLayout.update(delta);
 }
 
@@ -262,10 +263,11 @@ void GameController::updateGameWin(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	if (!_reset) {
-		reset();
-		_reset = true;
-	}
+	//if (!_reset) {
+	//	reset();
+	//	_reset = true;
+	//}
+	// todo win msg
 	_messageLayout.update(delta);
 }
 

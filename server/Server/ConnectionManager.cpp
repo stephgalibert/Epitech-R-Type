@@ -48,6 +48,9 @@ void ConnectionManager::closeAll(void)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
+	for (auto &it : _connections) {
+		it->setCurrentParty(NULL);
+	}
 	_connections.clear();
 }
 

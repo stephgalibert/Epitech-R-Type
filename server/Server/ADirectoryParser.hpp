@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "StaticTools.hpp"
+
 class ADirectoryParser
 {
 public:
@@ -10,8 +12,6 @@ public:
 	virtual ~ADirectoryParser(void);
 
 	virtual void parse(void) = 0;
-
-	bool extension(std::string const& filename, std::string const& ext);
 
 	std::string const& getDirPath(void) const;
 	std::vector<std::string> const& getFiles(void) const;

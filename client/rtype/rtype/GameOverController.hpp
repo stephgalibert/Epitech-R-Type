@@ -16,13 +16,16 @@ public:
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
 
+	bool hasFinished(void) const;
+
 private:
 	float _delta;
 	sf::Text _text;
-	sf::Text _restartingIn;
+	sf::RectangleShape _shape;
+	sf::Color _color;
 	std::string _string;
-	std::string _stringRestartingIn;
 	std::pair<short, short> _resolution;
-	uint8_t _chronoRestarting;
+	bool _finished;
+	bool _started;
 };
 

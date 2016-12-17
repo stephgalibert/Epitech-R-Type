@@ -56,28 +56,33 @@ void ScoreController::update(float delta)
 				std::cout << "player" << std::endl;
 				_text[0].setString("Player: " + std::to_string((*_player)->getScore()));
 			}
+			std::string mate;
 			for (size_t i = 1; i < 4; ++i) {
+				mate = "Mate" + std::to_string(i) + ": ";
 				if ((_mates)[i - 1]) {
-					std::cout << "mate" << std::endl;
-					_text[i].setString("Mate" + std::to_string(i) + ": " + std::to_string((_mates)[i - 1]->getScore()));
+					mate += std::to_string((_mates)[i - 1]->getScore());
 				}
+				else {
+					mate += "None";
+				}
+				_text[i].setString(mate);
 			}
 
 			sf::FloatRect textRect0 = _text[0].getLocalBounds();
 			_text[0].setOrigin(textRect0.left + textRect0.width / 2.0f, textRect0.top + textRect0.height / 2.0f);
-			_text[0].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f));
+			_text[0].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f - 30));
 
 			sf::FloatRect textRect1 = _text[1].getLocalBounds();
 			_text[1].setOrigin(textRect1.left + textRect1.width / 2.0f, textRect1.top + textRect1.height / 2.0f);
-			_text[1].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 30));
+			_text[1].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f));
 
 			sf::FloatRect textRect2 = _text[2].getLocalBounds();
 			_text[2].setOrigin(textRect2.left + textRect2.width / 2.0f, textRect2.top + textRect2.height / 2.0f);
-			_text[2].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 60));
+			_text[2].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 30));
 
 			sf::FloatRect textRect3 = _text[3].getLocalBounds();
 			_text[3].setOrigin(textRect3.left + textRect3.width / 2.0f, textRect3.top + textRect3.height / 2.0f);
-			_text[3].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 90));
+			_text[3].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 60));
 
 			_delta = 0;
 		}
@@ -96,7 +101,6 @@ void ScoreController::draw(sf::RenderWindow &window)
 
 void ScoreController::recycle(void)
 {
-
 }
 
 void ScoreController::setVisible(bool value)

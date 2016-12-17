@@ -126,9 +126,6 @@
     <ClCompile Include="ProjectResource.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
-    <ClCompile Include="LevelResource.cpp">
-      <Filter>Fichiers sources\resources</Filter>
-    </ClCompile>
     <ClCompile Include="MusicBox.cpp">
       <Filter>Fichiers sources\resources</Filter>
     </ClCompile>
@@ -255,8 +252,23 @@
     <ClCompile Include="RequestMessage.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="MenuServerBrowser.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestScore.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
     <ClCompile Include="ALayout.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="APowerUp.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseNumberOfCanon.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestSpawnPowerUp.cpp">
+      <Filter>Fichiers sources\request</Filter>
     </ClCompile>
     <ClCompile Include="MenuServerBrowser.cpp">
       <Filter>Fichiers sources\menu</Filter>
@@ -339,9 +351,6 @@
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="ProjectResource.hpp">
-      <Filter>Fichiers d%27en-tête\resources</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelResource.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
     <ClInclude Include="ISound.hpp">
@@ -487,6 +496,18 @@
     </ClInclude>
     <ClInclude Include="MenuServerBrowser.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestScore.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="APowerUp.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseNumberOfCanon.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestSpawnPowerUp.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

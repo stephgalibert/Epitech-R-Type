@@ -13,7 +13,7 @@ public:
 	virtual void destroy(void) = 0;
 
 	virtual void collision(IClient *client, AEntity *other);
-	virtual void applyCollision(CollisionType type);
+	virtual void applyCollision(CollisionType type, AEntity *other);
 
 	virtual void move(float delta);
 

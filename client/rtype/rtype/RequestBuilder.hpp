@@ -23,6 +23,8 @@
 #include "RequestGetParty.hpp"
 #include "RequestGameStatus.hpp"
 #include "RequestMessage.hpp"
+#include "RequestScore.hpp"
+#include "RequestSpawnPowerUp.hpp"
 
 class RequestBuilder : private boost::noncopyable
 {
@@ -30,6 +32,8 @@ public:
 	static std::unique_ptr<IRequest> Build(CommandType type);
 
 private:
+	static std::unique_ptr<IRequest> create_SpawnPowerUpRequest(void);
+	static std::unique_ptr<IRequest> create_ScoreRequest(void);
 	static std::unique_ptr<IRequest> create_MessageRequest(void);
 	static std::unique_ptr<IRequest> create_GameStatusRequest(void);
 	static std::unique_ptr<IRequest> create_GetPartyRequest(void);
@@ -38,7 +42,6 @@ private:
 	static std::unique_ptr<IRequest> create_LoadedPowderRequest(void);
 	static std::unique_ptr<IRequest> create_ConnectRequest(void);
 	static std::unique_ptr<IRequest> create_DisconnectedRequest(void);
-	static std::unique_ptr<IRequest> create_CreatePartyRequest(void);
 	static std::unique_ptr<IRequest> create_SpawnRequest(void);
 	static std::unique_ptr<IRequest> create_MoveRequest(void);
 	static std::unique_ptr<IRequest> create_CollisionRequest(void);

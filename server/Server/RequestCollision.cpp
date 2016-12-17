@@ -16,8 +16,6 @@ void RequestCollision::execute(std::shared_ptr<AConnection> owner,
 	(void)reply;
 	std::shared_ptr<Party> party = owner->getCurrentParty();
 	if (party) {
-		std::cout << "execute collision request by " << (int)owner->getID() << std::endl;
-		//party->broadcast(owner, received);
 		party->broadcast(received);
 	}
 }

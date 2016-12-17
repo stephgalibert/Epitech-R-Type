@@ -24,7 +24,7 @@
 class Application
 {
 public:
-	Application(void);
+	Application(std::string const& ip, std::string const& port);
 	~Application(void);
 
 	void init(std::string host, std::string pwd);

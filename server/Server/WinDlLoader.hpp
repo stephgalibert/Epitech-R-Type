@@ -14,14 +14,11 @@ public:
 	virtual ~WinDlLoader(void);
 
 	virtual void load(std::string const& dlname);
-
 	virtual T *getInstance(void) const;
-	virtual std::string getType(void) const;
 
 private:
 	HMODULE _dll;
 };
-
 
 /*** Implementation ***/
 
@@ -56,20 +53,6 @@ T *WinDlLoader<T>::getInstance(void) const {
 			throw (std::runtime_error("entry name function not defined in " + _dlname));
 		}
 		return (((T *(*)(void))(addr))());
-	}
-	throw (std::runtime_error("no .dll loaded"));
-}
-
-template<typename T>
-std::string WinDlLoader<T>::getType(void) const {
-	if (_entryType.empty()) {
-		throw (std::runtime_error("Entry type not defined"));
-	} else if (_dll) {
-		FARPROC addr = GetProcAddress(_dll, _entryType.c_str());
-		if (!addr) {
-			throw (std::runtime_error("entry type function not defined in " + _dlname));
-		}
-		return (((const char *(*)(void))(addr))());
 	}
 	throw (std::runtime_error("no .dll loaded"));
 }

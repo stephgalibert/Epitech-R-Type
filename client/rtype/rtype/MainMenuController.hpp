@@ -81,7 +81,7 @@ private:
 	State _fsm;
 	short _action;
 	float _keyboardEventDelta;
-	std::unordered_map<uint32_t, std::function<bool(void)>> _keyActions;
+	std::unordered_map<uint32_t, std::function<bool(void)> > _keyActions;
 	short _pushAction;
 	uint8_t _buttonsAlpha;
 	int _selectedServer;

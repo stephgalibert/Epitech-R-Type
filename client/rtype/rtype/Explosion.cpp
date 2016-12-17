@@ -20,14 +20,14 @@ void Explosion::init(void)
 		shape->setTextureRect(sf::IntRect(0, 0, 256, 256));
 		shape->setSize(sf::Vector2f(256 * 0.2f, 256 * 0.2f));
 
-		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("explosions");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("explosions");
 		texture->setSmooth(true);
 
 		setShape(shape);
 		setTexture(texture);
 
 		std::cout << "play explosion" << std::endl;
-		LevelResource::TheLevelResource.getSoundByKey("explosions")->play();
+		ProjectResource::TheProjectResource.getSoundByKey("explosions")->play();
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;

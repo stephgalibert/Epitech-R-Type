@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ADrawable.hpp"
-#include "LevelResource.hpp"
 #include "StaticTools.hpp"
 
 class Background

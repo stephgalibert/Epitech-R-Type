@@ -1,7 +1,8 @@
 #include "Party.hpp"
 
 Party::Party(void)
-	: _launched(false)
+	: _launched(false),
+	  _mm(_cm)
 {
 	_nextID = 1;
 	_state = GameStatusType::Waiting;
@@ -11,6 +12,7 @@ Party::Party(void)
 
 Party::~Party(void)
 {
+	std::cout << "deleting party " << _name << std::endl;
 	_launched = true;
 	if (_party.joinable()) {
 		_party.join();
@@ -19,8 +21,15 @@ Party::~Party(void)
 
 void Party::init(std::string const& name, std::string const& pwd)
 {
-	_name = name;
-	_password = pwd;
+	try {
+		_name = name;
+		_password = pwd;
+
+		_mm.init();
+	}
+	catch (std::exception const& e) {
+		StaticTools::Log << e.what() << std::endl;
+	}
 }
 
 void Party::run(void)
@@ -47,7 +56,6 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 		return;
 	}
 	//ObjectType object = ObjectType::Ship;
-	//uint8_t id = _nextID;
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 	uint16_t id = *_playersIdAvailable.begin();
 	_playersIdAvailable.erase(id);
@@ -150,6 +158,7 @@ void Party::loop(void)
 
 		StaticTools::sleep(10);
 	}
+	std::cout << "game finished" << std::endl;
 }
 
 bool Party::isReady(void)
@@ -198,24 +207,33 @@ void Party::waiting(double delta)
 		_state = GameStatusType::Playing;
 		_delta = 0.;
 	}
-	//std::cout << _delta << std::endl;
 }
 
 void Party::playing(double delta)
 {
-  (void)delta;
+	static bool test = true;
+
+	_delta += delta;
 	if (!_cm.isPlayersAlive()) {
 		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
 	}
+	else if (_delta > 3.f && test) {
+		std::cout << "sending span powerup" << std::endl;
+		broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::IncreaseNumberOfCanon, _nextID, 200, 200));
+		_powerups.insert(_nextID);
+		++_nextID;
+		test = false;
+	}
 	// ...
 }
 
 void Party::gameOver(double delta)
 {
-	_delta += delta;
+  (void)delta;
+	/*_delta += delta;
 	if (_delta > 10.f) {
 		_launched = false;
 		//broadcast(std::make_shared<CMDMessage>("restarting ..."));
@@ -226,7 +244,8 @@ void Party::gameOver(double delta)
 		reset();
 		_cm.distributeShipID();
 		_cm.sendSpawnedShip();
-	}
+	}*/
+	_cm.closeAll();
 }
 
 void Party::gameWin(double delta)

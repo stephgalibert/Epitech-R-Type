@@ -17,7 +17,7 @@ void LoadedPowdered::init(void)
 	try {
 		initFrame();
 
-		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("shots" + std::to_string(_color));
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("shots" + std::to_string(_color));
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -48,9 +48,10 @@ void LoadedPowdered::collision(IClient *client, AEntity *other)
 	(void)other;
 }
 
-void LoadedPowdered::applyCollision(CollisionType type)
+void LoadedPowdered::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)type;
+	(void)other;
 }
 
 void LoadedPowdered::move(float delta)

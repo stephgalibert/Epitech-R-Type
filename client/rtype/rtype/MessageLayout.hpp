@@ -1,5 +1,7 @@
 #pragma once
 
+#include <list>
+
 #include "ALayout.hpp"
 #include "StaticTools.hpp"
 #include "ProjectResource.hpp"
@@ -28,4 +30,3 @@ private:
 	std::list<sf::Text> _texts;
 	sf::Vector2f _resolution;
 };
-

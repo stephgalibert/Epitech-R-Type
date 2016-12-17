@@ -1,9 +1,14 @@
 #include "AStatic.hpp"
 
-AStatic::AStatic()
+AStatic::AStatic(void)
 {
 }
 
-AStatic::~AStatic()
+AStatic::~AStatic(void)
 {
+}
+
+void AStatic::move(float delta)
+{
+	(void)delta;
 }

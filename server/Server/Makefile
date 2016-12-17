@@ -9,13 +9,15 @@ CXXFLAGS	+=	-g -std=c++11
 
 CXXFLAGS	+=	-I./
 CXXFLAGS	+=	-I../../common/
-CXXFLAGS	+=	-I../../api/
+CXXFLAGS	+=	-I../../protocol/
 
-LDFLAGS		+=	-lpthread
+LDFLAGS		+=	-lpthread -ldl
 
 SRCS		+=	MonsterManager.cpp
 SRCS		+=	ReceiveFromAsyncTask.cpp
 SRCS		+=	RequestCollision.cpp
+SRCS		+=	RequestScore.cpp
+SRCS		+=	RequestMessage.cpp
 SRCS		+=	RequestConnect.cpp
 SRCS		+=	RequestCreateParty.cpp
 SRCS		+=	RequestDestroyed.cpp
@@ -48,26 +50,30 @@ SRCS		+=	TCPUnixSocket.cpp
 SRCS		+=	AcceptAsyncTask.cpp
 SRCS		+=	ReadAsyncTask.cpp
 SRCS		+=	WriteAsyncTask.cpp
+SRCS		+=	UnixDirectoryParser.cpp
+SRCS		+=	ADirectoryParser.cpp
 
 SRCS		+=	../../common/StaticTools.cpp
 SRCS		+=	../../common/Generator.cpp
 
-SRCS		+=	../../api/CMDPowder.cpp
-SRCS		+=	../../api/CMDScore.cpp
-SRCS		+=	../../api/CMDGetParty.cpp
-SRCS		+=	../../api/CMDRespawn.cpp
-SRCS		+=	../../api/CMDGameStatus.cpp
-SRCS		+=	../../api/CMDCollision.cpp
-SRCS		+=	../../api/CMDDestroyed.cpp
-SRCS		+=	../../api/CMDConnect.cpp
-SRCS		+=	../../api/CMDCreateParty.cpp
-SRCS		+=	../../api/CMDDisconnected.cpp
-SRCS		+=	../../api/CMDError.cpp
-SRCS		+=	../../api/CMDFire.cpp
-SRCS		+=	../../api/CMDMove.cpp
-SRCS		+=	../../api/CMDPing.cpp
-SRCS		+=	../../api/CMDSpawn.cpp
-SRCS		+=	../../api/CommandFactory.cpp
+SRCS		+=	../../protocol/CMDPowder.cpp
+SRCS		+=	../../protocol/CMDScore.cpp
+SRCS		+=	../../protocol/CMDGetParty.cpp
+SRCS		+=	../../protocol/CMDRespawn.cpp
+SRCS		+=	../../protocol/CMDGameStatus.cpp
+SRCS		+=	../../protocol/CMDCollision.cpp
+SRCS		+=	../../protocol/CMDDestroyed.cpp
+SRCS		+=	../../protocol/CMDConnect.cpp
+SRCS		+=	../../protocol/CMDCreateParty.cpp
+SRCS		+=	../../protocol/CMDDisconnected.cpp
+SRCS		+=	../../protocol/CMDError.cpp
+SRCS		+=	../../protocol/CMDFire.cpp
+SRCS		+=	../../protocol/CMDMove.cpp
+SRCS		+=	../../protocol/CMDPing.cpp
+SRCS		+=	../../protocol/CMDSpawn.cpp
+SRCS		+=	../../protocol/CMDMessage.cpp
+SRCS		+=	../../protocol/CMDSpawnPowerUp.cpp
+SRCS		+=	../../protocol/CommandFactory.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

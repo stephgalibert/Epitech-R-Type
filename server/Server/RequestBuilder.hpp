@@ -19,6 +19,7 @@
 #include "RequestGetParty.hpp"
 #include "RequestGameStatus.hpp"
 #include "RequestMessage.hpp"
+#include "RequestScore.hpp"
 
 class RequestBuilder
 {
@@ -26,6 +27,7 @@ public:
 	static std::unique_ptr<IRequest> Build(CommandType type);
 
 private:
+	static std::unique_ptr<IRequest> create_ScoreRequest(void);
 	static std::unique_ptr<IRequest> create_MessageRequest(void);
 	static std::unique_ptr<IRequest> create_GameStatusRequest(void);
 	static std::unique_ptr<IRequest> create_GetPartyRequest(void);

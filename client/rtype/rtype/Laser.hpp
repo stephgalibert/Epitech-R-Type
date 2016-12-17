@@ -3,7 +3,6 @@
 #include <unordered_map>
 
 #include "AProjectile.hpp"
-#include "LevelResource.hpp"
 #include "Explosion.hpp"
 #include "World.hpp"
 
@@ -18,7 +17,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
-	virtual void applyCollision(CollisionType type);
+	virtual void applyCollision(CollisionType type, AEntity *other);
 
 	void setColor(uint16_t color);
 	void setLoadedTiming(float delta);

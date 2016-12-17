@@ -22,7 +22,7 @@ MenuServerBrowser::~MenuServerBrowser() {
 }
 
 void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-	target.draw(_frame);
+	target.draw(_frame, states);
 	if (!_content.empty()) {
 		sf::Vector2f itemSize(_frame.getSize().x, ITEMS_HEIGHT);
 		sf::Vector2f itemPos(_frame.getPosition().x, _frame.getPosition().y);
@@ -50,12 +50,12 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 
 			itemBackground.setPosition(itemPos);
 
-			target.draw(itemBackground);
+			target.draw(itemBackground, states);
 
 			itemLabel.setString(_content.at(i));
 			itemLabel.setPosition(sf::Vector2f(itemPos.x + TEXT_LEFT_PADDING, itemPos.y + TEXT_TOP_PADDING));
 
-			target.draw(itemLabel);
+			target.draw(itemLabel, states);
 
 			itemPos.y += itemBackground.getSize().y;
 		}

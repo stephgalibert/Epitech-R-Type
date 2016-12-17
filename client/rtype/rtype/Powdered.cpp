@@ -24,7 +24,7 @@ void Powdered::init(void)
 	try {
 		initFrame();
 
-		sf::Texture *texture = LevelResource::TheLevelResource.getTextureByKey("shots" + std::to_string(_color));
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("shots" + std::to_string(_color));
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -55,9 +55,10 @@ void Powdered::collision(IClient *client, AEntity *other)
 	(void)other;
 }
 
-void Powdered::applyCollision(CollisionType type)
+void Powdered::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)type;
+	(void)other;
 }
 
 void Powdered::move(float delta)

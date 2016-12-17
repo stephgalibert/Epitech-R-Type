@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "AEntity.hpp"
-#include "LevelResource.hpp"
 
 class Powdered : public AEntity
 {
@@ -16,7 +15,7 @@ public:
 	virtual void destroy(void);
 
 	virtual void collision(IClient *client, AEntity *other);
-	virtual void applyCollision(CollisionType type);
+	virtual void applyCollision(CollisionType type, AEntity *other);
 	virtual void move(float delta);
 
 	void setColor(uint16_t color);
