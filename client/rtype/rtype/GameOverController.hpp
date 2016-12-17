@@ -26,5 +26,6 @@ private:
 	std::string _string;
 	std::pair<short, short> _resolution;
 	bool _finished;
+	bool _started;
 };
 

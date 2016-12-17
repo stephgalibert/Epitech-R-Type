@@ -7,6 +7,7 @@ GameOverController::GameOverController(void)
 	_string = "Game Over !";
 	_color = sf::Color(0, 0, 0, 0);
 	_finished = false;
+	_started = false;
 }
 
 GameOverController::~GameOverController(void)
@@ -46,9 +47,16 @@ void GameOverController::update(float delta)
 {
 	_delta += delta;
 
-	if (_delta < 3.f) {
-		_color.a = static_cast<uint8_t>((_delta / 3.f) * 255.f);
-		_shape.setFillColor(_color);
+	if (!_started) {
+		ProjectResource::TheProjectResource.getMusicByKey("game_over").play();
+
+		_started = true;
+	}
+	if (_delta < 8.f) {
+		if (_delta < 6.f) {
+			_color.a = static_cast<uint8_t>((_delta / 6.f) * 255.f);
+			_shape.setFillColor(_color);
+		}
 	}
 	else {
 		_finished = true;

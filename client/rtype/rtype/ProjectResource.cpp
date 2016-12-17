@@ -34,6 +34,7 @@ void ProjectResource::load(void)
 		addTexture("powerups1", "./rsrc/sprites/powerups1.png");
 
 		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
+		addMusic("game_over", "./rsrc/music/game_over.ogg");
 		addSound("explosions", "./rsrc/music/explosion.ogg");
 		addSound("shot", "./rsrc/music/shot.wav");
 		//addTexture("hud2", "./rsrc/sprites/hud2.png");
