@@ -94,7 +94,7 @@ void TCPClient::write(void)
 {
 	_mutex.lock();
 	std::shared_ptr<ICommand> packet = _toWrites.front();
-	StaticTools::Log << "writing " << (int)packet->getCommandType() << std::endl;
+	std::cout << "writing " << (int)packet->getCommandType() << std::endl;
 	_mutex.unlock();
 	boost::asio::async_write(_socket, boost::asio::buffer(packet->getData(), packet->getSize()),
 	boost::bind(&TCPClient::do_write, this,

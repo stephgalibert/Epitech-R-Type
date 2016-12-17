@@ -41,3 +41,5 @@
 *.tlog
 *.pdb
 *.sbr
+*.iobj
+*.ipdb

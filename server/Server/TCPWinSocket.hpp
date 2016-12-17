@@ -16,7 +16,7 @@ public:
 	TCPWinSocket(void);
 	virtual ~TCPWinSocket(void);
 
-	virtual bool connectToServer(std::string const& host, short port);
+	//virtual bool connectToServer(std::string const& host, short port);
 	virtual bool connectFromAcceptedFd(int fd);
 	virtual int recv(char *buffer, size_t blocksize);
 	virtual bool recv(Buffer &buffer, size_t transferAtLeast);

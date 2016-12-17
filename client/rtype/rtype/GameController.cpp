@@ -121,10 +121,9 @@ void GameController::connectToParty(std::string const& partyName, std::string co
 	_partyName = partyName;
 	_partyPwd = pwd;
 
-	if (_network.isConnected()) {
-		_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
-		_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
-	}
+	while (!_network.isConnected());
+	_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
+	_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 }
 
 void GameController::displayMessage(std::string const& msg)
