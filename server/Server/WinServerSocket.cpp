@@ -26,9 +26,12 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 
 	sin.sin_family = AF_INET;
 	//sin.sin_addr.s_addr = inet_pton(AF_INET, _host.c_str(), ipstr);
-	sin.sin_addr.s_addr = inet_addr(_host.c_str());
+	//sin.sin_addr.s_addr = inet_addr(_host.c_str());
+	sin.sin_addr.s_addr = INADDR_ANY;
 	sin.sin_port = htons(_port);
 	_socket = socket(AF_INET, SOCK_STREAM, 0);
+	char value = 1;
+	setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof(value));
 	//ioctlsocket(_socket, FIONBIO, &socket_state);
 	if (_socket <= 0) {
 		throw (std::runtime_error("bad socket"));

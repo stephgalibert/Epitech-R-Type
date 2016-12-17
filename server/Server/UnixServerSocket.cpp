@@ -15,13 +15,17 @@ UnixServerSocket::~UnixServerSocket(void)
 
 void UnixServerSocket::init(std::string const & listenHost, short listenPort)
 {
+	(void)listenHost;
 	sockaddr_in sin;
 	int ret = 0;
 
-	sin.sin_addr.s_addr = inet_addr(listenHost.c_str());
+	//sin.sin_addr.s_addr = inet_addr(listenHost.c_str());
+	sin.sin_addr.s_addr = INADDR_ANY;
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(listenPort);
 	_socket = socket(AF_INET, SOCK_STREAM, 0);
+	char value = 1;
+	setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof(value));
 	if (_socket <= 0) {
 		throw (std::runtime_error("bad socket"));
 	}
