@@ -19,7 +19,8 @@ ProjectResource::~ProjectResource(void)
 void ProjectResource::load(void)
 {
 	try {
-		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
+		//addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
+		addFont(MAIN_FONT, "./rsrc/font/futurist_regular.ttf");
 
 		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
 
