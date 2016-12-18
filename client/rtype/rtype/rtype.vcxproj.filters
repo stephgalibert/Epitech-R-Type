@@ -273,6 +273,9 @@
     <ClCompile Include="MenuTextField.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Fichiers sources\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -511,6 +514,9 @@
     </ClInclude>
     <ClInclude Include="MenuTextField.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.hpp">
+      <Filter>Fichiers d%27en-tête\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

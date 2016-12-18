@@ -13,6 +13,8 @@
 
 #include "IClient.hpp"
 
+#include "QuadTree.hpp"
+
 class Player;
 
 class World
@@ -44,4 +46,5 @@ private:
 	static IClient *Client;
 	static Player **ThePlayer;
 	static float Delta;
+	static QuadTree *Region;
 };

@@ -76,7 +76,6 @@ void Laser::applyCollision(CollisionType type, AEntity *other)
 	case CollisionType::None:
 		break;
 	case CollisionType::Destruction:
-		std::cout << "laser destruction collision" << std::endl;
 		if (getLevel() > 0) {
 			setLevel(getLevel() - 1);
 			setCollisioned(false);

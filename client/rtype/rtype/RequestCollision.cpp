@@ -25,6 +25,7 @@ void RequestCollision::execute(IClient &client, std::shared_ptr<ICommand> data,
 	Laser *laser = dynamic_cast<Laser *>(entity);
 	if (!laser) {
 		if (entity && entity2) {
+			std::cout << "collision between " << entity->getID() << " " << entity2->getID() << std::endl;
 			entity->applyCollision(type, entity2);
 			entity2->applyCollision(type, entity);
 		}

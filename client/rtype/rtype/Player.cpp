@@ -113,6 +113,12 @@ void Player::collision(IClient *client, AEntity *other)
 		  if (getCollisionType() != COLLISION_NONE
 			  && other->getCollisionType() == COLLISION_FATAL) {
 
+			sf::FloatRect const& r0 = getBoundingBox();
+			sf::FloatRect const& r1 = other->getBoundingBox();
+
+			std::cout << r0.left << " " << r0.top << " " << r0.width << " " << r0.height
+			<< " colliding with " << r1.left << " " << r1.top << " " << r1.width << " " << r1.height << std::endl;
+
 			  setCollisioned(true);
 			  _client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 			  setCollisionType(COLLISION_NONE);
@@ -190,7 +196,7 @@ void Player::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
-	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
+	//ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
 	//MissileType type = param.type;
 	uint16_t id = param.id;

@@ -23,6 +23,7 @@ sf::FloatRect ACollidable::getBoundingBox(void) const
 	}
 	sf::FloatRect bounds = getShape()->getGlobalBounds();
 	sf::Vector2f position = getPosition();
+
 	bounds.top = position.y - (bounds.height / 2);
 	bounds.left = position.x - (bounds.width / 2);
 	

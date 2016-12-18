@@ -14,26 +14,6 @@ TCPWinSocket::~TCPWinSocket(void)
 	WSACleanup();
 }
 
-//bool TCPWinSocket::connectToServer(std::string const& host, short port)
-//{
-//	SOCKADDR_IN sin;
-//	char ipstr[INET6_ADDRSTRLEN];
-//	int ret = 0;
-//	_socket = socket(AF_INET, SOCK_STREAM, 0);
-//	if (_socket <= 0) {
-//		return false;
-//	}
-//	sin.sin_family = AF_INET;
-//	sin.sin_addr.s_addr = inet_pton(AF_INET, host.c_str(), ipstr);
-//	//sin.sin_addr.s_addr = inet_addr(host.c_str());
-//	sin.sin_port = htons(port);
-//	if (connect(_socket, reinterpret_cast<SOCKADDR *>(&sin), sizeof(sin))) {
-//		closesocket(_socket);
-//		return false;
-//	}
-//	return true;
-//}
-
 bool TCPWinSocket::connectFromAcceptedFd(int fd)
 {
 	_socket = fd;
@@ -51,7 +31,6 @@ bool TCPWinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 	int read = 0;
 	size_t total = 0;
 
-	std::cout << "in recv" << std::endl;
 	while (total < transferAtLeast && (read = recv(buf, 1024)) > 0) {
 		buffer.reallocate(buf, read);
 		total += read;
@@ -61,10 +40,5 @@ bool TCPWinSocket::recv(Buffer &buffer, size_t transferAtLeast)
 
 int TCPWinSocket::send(char *data, size_t size)
 {
-	int read = 0;
-
-	read = ::send(_socket, data, size, 0);
-	//std::cout << "send " << read << " bytes" << std::endl;
-
-	return (read);
+	return (::send(_socket, data, size, 0));
 }
