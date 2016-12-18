@@ -196,6 +196,7 @@
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuServerBrowser.cpp" />
+    <ClCompile Include="MenuTextField.cpp" />
     <ClCompile Include="MessageLayout.cpp" />
     <ClCompile Include="MusicBox.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MenuButton.hpp" />
     <ClInclude Include="MenuServerBrowser.hpp" />
+    <ClInclude Include="MenuTextField.hpp" />
     <ClInclude Include="MessageLayout.hpp" />
     <ClInclude Include="MusicBox.hpp" />
     <ClInclude Include="Player.hpp" />

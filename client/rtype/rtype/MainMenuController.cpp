@@ -20,6 +20,7 @@ const float MainMenuController::SERVER_BROWSER_POS_X = 75.f;
 const float MainMenuController::SERVER_BROWSER_POS_Y = 60.f;
 const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolution().first / 2.f + 10.f;
 const size_t MainMenuController::SERVER_BROWSER_ITEMS_SHOWN = 13u;
+const float MainMenuController::TEXT_FIELD_HEIGHT = 40.f;
 
 MainMenuController::MainMenuController()
 	: _fsm(State::ST_SplashStart),
@@ -62,6 +63,10 @@ void MainMenuController::init()
 		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
 		_browser.setContent(_browserContent);
+
+		_textField.setPosition(_browser.getPosition());
+		_textField.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, TEXT_FIELD_HEIGHT));
+		_textField.setContent("Test");
 
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
@@ -108,16 +113,39 @@ bool MainMenuController::input(InputHandler &input)
 			if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Right)) {
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
+				return true;
 			}
-			if (input.isKeyDown(sf::Keyboard::Return)) {
+			else if (input.isKeyDown(sf::Keyboard::Return)) {
 				_selectedServer = _browser.getSelected();
 				//Connect to server
 				//IClient::write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
+				return true;
 			}
-			else if (_browser.input(input))
+			else if (_browser.input(input)) {
 				_keyboardEventDelta = 0.f;
+				return true;
+			}
+		}
+	}
+	else if (_fsm == State::ST_Creating) {
+		if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+			if (input.isKeyDown(sf::Keyboard::Escape)) {
+				_fsm = State::ST_Menu;
+				_textField.clear();
+				_keyboardEventDelta = 0.f;
+				return true;
+			}
+			else if (input.isKeyDown(sf::Keyboard::Return)) {
+				_fsm = State::ST_Menu;
+				_keyboardEventDelta = 0.f;
+				return true;
+			}
+			else if (_textField.input(input)) {
+				_keyboardEventDelta = 0.f;
+				return true;
+			}
 		}
 	}
 	return (false);
@@ -151,7 +179,7 @@ bool MainMenuController::keyReturn(void) {
 		break;
 	}
 	case SelectedAction::CREATE: {
-		//create server
+		_fsm = State::ST_Creating;
 		break;
 	}
 	case SelectedAction::NONE:
@@ -178,6 +206,7 @@ void MainMenuController::update(float delta)
 		break;
 	case State::ST_Menu:
 	case State::ST_Selecting:
+	case State::ST_Creating:
 		updateMenu(delta);
 		break;
 	case State::ST_None:
@@ -271,6 +300,9 @@ void MainMenuController::draw(sf::RenderWindow &window)
 	}
 	if (_fsm == State::ST_Selecting) {
 		window.draw(_browser);
+	}
+	else if (_fsm == State::ST_Creating) {
+		window.draw(_textField);
 	}
 }
 
