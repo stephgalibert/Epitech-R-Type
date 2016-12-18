@@ -22,9 +22,6 @@ public:
 
 	void newConnection(std::shared_ptr<AConnection> connection);
 
-	void reset(void);
-	void distributeShipID(void);
-	void sendSpawnedShip(void);
 	uint8_t getPlayerNumber(void);
 	bool isPlayersAlive(void);
 

@@ -55,7 +55,7 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 		std::cout << "rejected" << std::endl;
 		return;
 	}
-	//ObjectType object = ObjectType::Ship;
+
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 	uint16_t id = *_playersIdAvailable.begin();
 	_playersIdAvailable.erase(id);
@@ -64,8 +64,6 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	uint16_t y = _generator((unsigned int)(((percent - 25.f) / 100.f) * (float)resolution.second) + 40,
 							(unsigned int)((percent / 100.f) * (float)resolution.second) - 80);
 	uint8_t health = 3;
-	/*uint8_t type = (uint8_t)ShipType::Standard;
-	  uint8_t effect = 0;*/
 
 	connection->setPosition(std::make_pair(x, y));
 	connection->setID(id);
@@ -77,7 +75,7 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	connection->sync_write(std::make_shared<CMDGameStatus>(_state));
 
 	std::cout << "new connection" << std::endl;
-	broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(id) + " connected"));
+	broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " connected"));
 	++_nextID;
 }
 
@@ -88,7 +86,7 @@ void Party::removeConnection(std::shared_ptr<AConnection> connection)
 
 	_cm.leave(connection);
 	broadcast(connection, std::make_shared<CMDDisconnected>(id));
-	broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(id) + " deconnected"));
+	broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " deconnected"));
 
 	_playersIdAvailable.insert(id);
 	std::cout << "remove connection" << std::endl;
@@ -110,7 +108,6 @@ void Party::fire(std::shared_ptr<ICommand> cmd)
 	fire->id = _nextID;
 	broadcast(cmd);
 	++_nextID;
-	std::cout << "next id: " << (int)_nextID << std::endl;
 }
 
 void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd)
@@ -125,7 +122,7 @@ void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 			broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
 		}
 		else {
-			broadcast(std::make_shared<CMDMessage>("Player " + std::to_string(connection->getID()) + " is dead"));
+			broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " is dead"));
 		}
 	}
 }
@@ -158,7 +155,6 @@ void Party::loop(void)
 
 		StaticTools::sleep(10);
 	}
-	std::cout << "game finished" << std::endl;
 }
 
 bool Party::isReady(void)
@@ -191,11 +187,11 @@ uint8_t Party::getNbPlayer(void)
 	return (_cm.getPlayerNumber());
 }
 
-void Party::reset(void)
-{
-	_nextID = 5;
-	_cm.reset();
-}
+//void Party::reset(void)
+//{
+//	_nextID = 5;
+//	_cm.reset();
+//}
 
 void Party::waiting(double delta)
 {
@@ -211,7 +207,7 @@ void Party::waiting(double delta)
 
 void Party::playing(double delta)
 {
-	static bool test = true;
+	static bool test = true; // todel
 
 	_delta += delta;
 	if (!_cm.isPlayersAlive()) {
@@ -258,7 +254,7 @@ void Party::gameWin(double delta)
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
 		_state = GameStatusType::Waiting;
 		_delta = 0;
-		reset();
+		//reset();
 	}
 	else {
 		std::cout << "game win" << std::endl;

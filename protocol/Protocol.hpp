@@ -78,17 +78,17 @@ struct Disconnected
 	uint16_t id;
 };
 
-struct Spawn
-{
-	CommandType cmdType;
-	ObjectType object;
-	uint16_t id_tospawn;
-	uint32_t position;
-	uint8_t type;
-	uint8_t effect;
-	uint8_t health;
-	bool is_player;
-};
+//struct Spawn
+//{
+//	CommandType cmdType;
+//	ObjectType object;
+//	uint16_t id_tospawn;
+//	uint32_t position;
+//	uint8_t type;
+//	uint8_t effect;
+//	uint8_t health;
+//	bool is_player;
+//};
 
 struct SpawnPowerUp
 {
@@ -189,7 +189,7 @@ struct Disconnect
 struct Connect
 {
 	CommandType cmdType;
-	uint16_t size;
+	uint32_t size;
 	char data[0];
 };
 
@@ -217,6 +217,17 @@ struct Message
 	char data[0];
 };
 
+struct SpawnPlayer
+{
+	CommandType cmdType;
+	uint16_t id;
+	uint32_t position;
+	uint8_t health;
+	bool isPlayer;
+	uint8_t size;
+	char username[0];
+};
+
 #  pragma pack(pop)
 # undef PACKED
 
@@ -225,7 +236,7 @@ struct Message
 	struct Connect
 	{
 		CommandType cmdType;
-		uint16_t size;
+		uint32_t size;
 		char data[0];
 	} __attribute__((packed));
 
@@ -251,6 +262,17 @@ struct Message
 		CommandType cmdType;
 		uint16_t size;
 		char data[0];
+	} __attribute__((packed));
+
+	struct SpawnPlayer
+	{
+		CommandType cmdType;
+		uint16_t id;
+		uint32_t position;
+		uint8_t health;
+		bool isPlayer;
+		uint8_t size;
+		char username[0];
 	} __attribute__((packed));
 
 #endif

@@ -74,8 +74,6 @@ void TCPConnection::do_read(bool error)
 		command->loadFromMemory(_read.getData());
 		_read.consume(command->getSize());
 
-		std::cout << "read " << (int)command->getCommandType() << std::endl;
-
 		std::shared_ptr<ICommand> reply = NULL;
 		getRequestHandler().receive(shared_from_this(), command, reply);
 		if (reply) {

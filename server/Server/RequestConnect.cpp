@@ -15,13 +15,17 @@ void RequestConnect::execute(std::shared_ptr<AConnection> owner,
 							 std::shared_ptr<ICommand> &reply)
 {
 	std::shared_ptr<Party> party = NULL;
-	Connect *connect = reinterpret_cast<Connect *>(received->getData());
+	Connect const *connect = reinterpret_cast<Connect const *>(received->getData());
 
 	std::string data(connect->data, connect->size);
-	std::string name = data.substr(0, data.find_first_of(';'));
-	std::string pwd = data.substr(name.size() + 1, data.size() - name.size() + 1);
 
-	party = owner->getPartyManager().addConnexion(owner, name, pwd);
+	std::string name = data.substr(0, data.find_first_of(';'));
+	std::string room = data.substr(name.size() + 1, data.find_first_of(';') + 1);
+	std::string pwd = data.substr(data.find_last_of(';') + 1);
+
+	owner->setName(name);
+	party = owner->getPartyManager().addConnexion(owner, room, pwd);
+	
 	if (party == NULL) {
 		reply = std::make_shared<CMDError>(RT_ERROR_NOT_FOUND);
 	}

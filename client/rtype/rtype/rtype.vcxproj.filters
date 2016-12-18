@@ -279,6 +279,9 @@
     <ClCompile Include="RequestDisconnected.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="RequestSpawnPlayer.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -522,6 +525,9 @@
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="RequestDisconnected.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestSpawnPlayer.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>

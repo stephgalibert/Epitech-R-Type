@@ -16,12 +16,17 @@ int main(int ac, char **av)
 
 	XMLReader config;
 	std::string ip, port;
-	std::string host;
-	std::string pwd;
+	std::string username, host, pwd;
 
-	if (ac > 1) {
-		host = av[1];
-		pwd = av[2];
+	if (ac > 2) {
+		username = av[1];
+		host = av[2];
+		pwd = av[3];
+	}
+	else {
+		username = "test";
+		host = "host";
+		pwd = "pwd";
 	}
 
 	try {
@@ -34,12 +39,12 @@ int main(int ac, char **av)
 		return (42);
 	}
 
-	std::cout << ip << ":" << port << std::endl;
+	std::cout << username << ":" << ip << ":" << port << std::endl;
 
 	Application app(ip, port);
 
 	try {
-		app.init(host, pwd);
+		app.init(username, host, pwd);
 	}
 	catch (std::exception const& e) {
 		std::cerr << "main: " << e.what() << std::endl;

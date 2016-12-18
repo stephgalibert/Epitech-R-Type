@@ -13,9 +13,14 @@ std::pair<short, short> StaticTools::GetResolution(void)
 	return (std::make_pair<short, short>(1280, 720));
 }
 
-std::string StaticTools::SerializeLoginServer(std::string const& host, std::string const& pwd)
+std::string StaticTools::SerializeLoginServer(std::string const& host, std::string const& pwd, std::string const& username)
 {
-	return (host + ";" + pwd);
+	if (username.empty()) {
+		return (host + ";" + pwd);
+	}
+	else {
+		return (username + ";" + host + ";" + pwd);
+	}
 }
 
 uint32_t StaticTools::SerializePosition(uint16_t x, uint16_t y)

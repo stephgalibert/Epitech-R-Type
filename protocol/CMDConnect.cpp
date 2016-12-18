@@ -1,19 +1,14 @@
 #include "CMDConnect.hpp"
 
-CMDConnect::CMDConnect(std::string const& host, std::string const& pwd)
+CMDConnect::CMDConnect(std::string const& username, std::string const& host, std::string const& pwd)
 {
-	std::string serial = StaticTools::SerializeLoginServer(host, pwd);
-	size_t i = 0;
+	std::string serial = StaticTools::SerializeLoginServer(host, pwd, username);
 
-	_data = (Connect *)malloc(sizeof(Connect) + serial.size() + 1);
+	_data = static_cast<Connect *>(malloc(sizeof(Connect) + serial.size() + 1));
 	_data->cmdType = getCommandType();
-	_data->size = (uint16_t)serial.size();
+	_data->size = static_cast<uint32_t>(serial.size());
 
-	while (i < serial.size()) {
-		_data->data[i] = serial.at(i);
-		++i;
-	}
-	_data->data[i] = 0;
+	memcpy(_data->data, serial.c_str(), serial.size());
 }
 
 CMDConnect::CMDConnect(void)
@@ -30,20 +25,15 @@ CMDConnect::~CMDConnect(void)
 
 void CMDConnect::loadFromMemory(char const *data)
 {
-	size_t i = 0;
 	Connect const* connect = reinterpret_cast<const Connect *>(data);
 
 	if (_data) {
 		free (_data);
 	}
-	_data = (Connect *)malloc(sizeof(Connect) + connect->size + 1);
+	_data = static_cast<Connect *>(malloc(sizeof(Connect) + connect->size + 1));
 	_data->cmdType = getCommandType();
 	_data->size = connect->size;
-	while (i < connect->size) {
-		_data->data[i] = connect->data[i];
-		++i;
-	}
-	_data->data[i] = 0;
+	memcpy(_data->data, connect->data, connect->size);
 }
 
 size_t CMDConnect::getSize(void) const

@@ -43,7 +43,7 @@ public:
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
 
-	void connectToParty(std::string const& partyName, std::string const& pwd);
+	void connectToParty(std::string const& username, std::string const& partyName, std::string const& pwd);
 	void displayMessage(std::string const& msg);
 
 	void setReady(bool value);
@@ -84,6 +84,7 @@ private:
 	EscapeLayout _escapeLayout;
 
 	IClient &_network;
+	std::string _username;
 	std::string _partyName;
 	std::string _partyPwd;
 	Player *_player;
@@ -92,7 +93,6 @@ private:
 	Background _front;
 	bool _ready;
 	bool _gameFinished;
-	//bool _reset;
 	GameStatusType _state;
 };
 

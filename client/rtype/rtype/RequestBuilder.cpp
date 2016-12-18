@@ -1,7 +1,7 @@
 #include "RequestBuilder.hpp"
 
 const std::unordered_map<CommandType, std::function<std::unique_ptr<IRequest>(void)>, EnumHash> RequestBuilder::Requests = {
-	{ CommandType::Spawn, std::bind(&RequestBuilder::create_SpawnRequest) },
+	//{ CommandType::Spawn, std::bind(&RequestBuilder::create_SpawnRequest) },
 	{ CommandType::Disconnected, std::bind(&RequestBuilder::create_DisconnectedRequest) },
 	{ CommandType::Move, std::bind(&RequestBuilder::create_MoveRequest) },
 	{ CommandType::Fire, std::bind(&RequestBuilder::create_FireRequest) },
@@ -13,7 +13,8 @@ const std::unordered_map<CommandType, std::function<std::unique_ptr<IRequest>(vo
 	{ CommandType::GameStatus, std::bind(&RequestBuilder::create_GameStatusRequest) },
 	{ CommandType::Message, std::bind(&RequestBuilder::create_MessageRequest) },
 	{ CommandType::Score, std::bind(&RequestBuilder::create_ScoreRequest) },
-	{ CommandType::SpawnPowerUp, std::bind(&RequestBuilder::create_SpawnPowerUpRequest) }
+	{ CommandType::SpawnPowerUp, std::bind(&RequestBuilder::create_SpawnPowerUpRequest) },
+	{ CommandType::SpawnPlayer, std::bind(&RequestBuilder::create_SpawnPlayerRequest) }
 };
 
 std::unique_ptr<IRequest> RequestBuilder::Build(CommandType type)
@@ -22,6 +23,11 @@ std::unique_ptr<IRequest> RequestBuilder::Build(CommandType type)
 		return (std::move(Requests.at(type)()));
 	}
 	return (NULL);
+}
+
+std::unique_ptr<IRequest> RequestBuilder::create_SpawnPlayerRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestSpawnPlayer));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_SpawnPowerUpRequest(void)
@@ -74,10 +80,10 @@ std::unique_ptr<IRequest> RequestBuilder::create_DisconnectedRequest(void)
 	return (std::unique_ptr<IRequest>(new RequestDisconnected));
 }
 
-std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)
-{
-	return (std::unique_ptr<IRequest>(new RequestSpawn));
-}
+//std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)
+//{
+//	return (std::unique_ptr<IRequest>(new RequestSpawn));
+//}
 
 std::unique_ptr<IRequest> RequestBuilder::create_MoveRequest(void)
 {
