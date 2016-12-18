@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string.h>
 
 #include "StaticTools.hpp"
 #include "ICommand.hpp"
@@ -20,4 +21,3 @@ public:
 private:
 	Connect *_data;
 };
-

@@ -63,7 +63,7 @@ SRCS		+=	UnloadArea.cpp
 SRCS		+=	World.cpp
 SRCS		+=	XMLReader.cpp
 SRCS		+=	RequestSpawn.cpp
-SRCS		+=	RequestDisconnect.cpp
+SRCS		+=	RequestDisconnected.cpp
 SRCS		+=	RequestMove.cpp
 SRCS		+=	Mate.cpp
 SRCS		+=	MenuButton.cpp
@@ -91,11 +91,17 @@ SRCS		+=	RequestSpawnPowerUp.cpp
 SRCS		+=	MessageLayout.cpp
 SRCS		+=	MenuServerBrowser.cpp
 SRCS		+=	IncreaseNumberOfCanon.cpp
+SRCS		+=	EscapeLayout.cpp
+SRCS		+=	MenuTextField.cpp
+SRCS		+=	QuadTree.cpp
+SRCS		+=	RequestSpawnPlayer.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp
 
 SRCS		+=	../../../protocol/CMDPowder.cpp
+SRCS		+=	../../../protocol/CMDDisconnect.cpp
+SRCS		+=	../../../protocol/CMDSpawnPlayer.cpp
 SRCS		+=	../../../protocol/CMDScore.cpp
 SRCS		+=	../../../protocol/CMDRespawn.cpp
 SRCS		+=	../../../protocol/CMDGetParty.cpp

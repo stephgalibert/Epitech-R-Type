@@ -33,6 +33,7 @@ void RequestSpawnPlayer::execute(IClient &client, std::shared_ptr<ICommand> data
 			player->setPosition(x, y);
 			player->setName(username);
 			player->setIClient(&client);
+			player->setHealth(life);
 			game->setPlayer(player);
 			player->setReadyForInit(true);
 			game->setReady(true);
@@ -42,6 +43,7 @@ void RequestSpawnPlayer::execute(IClient &client, std::shared_ptr<ICommand> data
 			mate->setID(id);
 			mate->setPosition(x, y);
 			mate->setName(username);
+			mate->setHealth(life);
 			game->addMate(mate);
 			mate->setReadyForInit(true);
 		}

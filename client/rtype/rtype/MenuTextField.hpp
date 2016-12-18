@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SFML\Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 #include "InputHandler.hpp"
 
@@ -53,4 +53,3 @@ private:
 	sf::RectangleShape _cursorBar;
 	sf::Text _text;
 };
-
