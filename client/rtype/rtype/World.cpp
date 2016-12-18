@@ -57,13 +57,6 @@ void World::update(float delta)
 						}
 					}
 				}
-				
-				//for (auto it_sub : Entities) {
-				//	if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
-				//		&& it_sub->isCollidingWith(*it)) {
-				//		it_sub->collision(Client, (*it));
-				//	}
-				//}
 
 				++it;
 			}

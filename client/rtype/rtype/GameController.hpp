@@ -18,7 +18,9 @@
 #include "ConnectionLostController.hpp"
 #include "GameOverController.hpp"
 #include "ScoreController.hpp"
+
 #include "MessageLayout.hpp"
+#include "EscapeLayout.hpp"
 
 class GameController : public AController
 {
@@ -79,6 +81,7 @@ private:
 	HUDController _hud;
 	ScoreController _scoreController;
 	MessageLayout _messageLayout;
+	EscapeLayout _escapeLayout;
 
 	IClient &_network;
 	std::string _partyName;

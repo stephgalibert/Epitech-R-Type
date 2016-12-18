@@ -21,7 +21,6 @@ GameController::~GameController(void)
 
 void GameController::init(void)
 {
-	//LevelResource::TheLevelResource.load();
 	World::init(&_player, &_network);
 
 	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
@@ -39,6 +38,7 @@ void GameController::init(void)
 		_back.init();
 		_front.init();
 		_messageLayout.init();
+		_escapeLayout.init();
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -189,30 +189,34 @@ bool GameController::gameFinished(void) const
 bool GameController::inputWaiting(InputHandler &input)
 {
 	_messageLayout.input(input);
+	_escapeLayout.input(input);
 	return (false);
 }
 
 bool GameController::inputPlaying(InputHandler &input)
 {
-	if (_player) {
+	if (_player && !_escapeLayout.isVisible()) {
 		_player->input(input);
 		_hud.input(input);
 	}
 
 	_scoreController.input(input);
 	_messageLayout.input(input);
+	_escapeLayout.input(input);
 	return (false);
 }
 
 bool GameController::inputGameOver(InputHandler &input)
 {
 	_messageLayout.input(input);
+	_escapeLayout.input(input);
 	return (false);
 }
 
 bool GameController::inputGameWin(InputHandler &input)
 {
 	_messageLayout.input(input);
+	_escapeLayout.input(input);
 	return (false);
 }
 
@@ -221,9 +225,7 @@ void GameController::updateWaiting(float delta)
 	_back.update(delta);
 	_front.update(delta);
 	_loading.update(delta);
-	//if (_reset) {
-	//	_reset = false;
-	//}
+	_escapeLayout.update(delta);
 	_messageLayout.update(delta);
 }
 
@@ -241,6 +243,12 @@ void GameController::updatePlaying(float delta)
 		_hud.update(delta);
 	}
 
+	_escapeLayout.update(delta);
+	if (_escapeLayout.exit()) {
+		_network.write(std::make_shared<CMDDisconnect>());
+		_gameFinished = true;
+	}
+
 	_scoreController.update(delta);
 	_messageLayout.update(delta);
 }
@@ -254,7 +262,7 @@ void GameController::updateGameOver(float delta)
 	if (_gameOver.hasFinished()) {
 		_gameFinished = true;
 	}
-
+	_escapeLayout.update(delta);
 	_messageLayout.update(delta);
 }
 
@@ -262,10 +270,7 @@ void GameController::updateGameWin(float delta)
 {
 	_back.update(delta);
 	_front.update(delta);
-	//if (!_reset) {
-	//	reset();
-	//	_reset = true;
-	//}
+	_escapeLayout.update(delta);
 	// todo win msg
 	_messageLayout.update(delta);
 }
@@ -281,6 +286,7 @@ void GameController::drawWaiting(sf::RenderWindow &window)
 		_hud.draw(window);
 	}
 	window.draw(_messageLayout);
+	window.draw(_escapeLayout);
 }
 
 void GameController::drawPlaying(sf::RenderWindow &window)
@@ -298,6 +304,7 @@ void GameController::drawPlaying(sf::RenderWindow &window)
 
 	_scoreController.draw(window);
 	window.draw(_messageLayout);
+	window.draw(_escapeLayout);
 }
 
 void GameController::drawGameOver(sf::RenderWindow &window)
@@ -305,12 +312,13 @@ void GameController::drawGameOver(sf::RenderWindow &window)
 	_back.draw(window);
 	_front.draw(window);
 
-	_gameOver.draw(window);
-
 	if (_player) {
 		_hud.draw(window);
 	}
+
 	window.draw(_messageLayout);
+	_gameOver.draw(window);
+	window.draw(_escapeLayout);
 }
 
 void GameController::drawGameWin(sf::RenderWindow &window)
@@ -324,6 +332,8 @@ void GameController::drawGameWin(sf::RenderWindow &window)
 		_hud.draw(window);
 	}
 	window.draw(_messageLayout);
+	// draw game win
+	window.draw(_escapeLayout);
 }
 
 void GameController::reset(void)

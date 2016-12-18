@@ -20,9 +20,10 @@ void ProjectResource::load(void)
 {
 	try {
 		addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
-		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
-		addTexture("hud1", "./rsrc/sprites/hud1.png");
 
+		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
+
+		addTexture("hud1", "./rsrc/sprites/hud1.png");
 		addTexture("shots1", "./rsrc/sprites/shots1.png");
 		addTexture("shots2", "./rsrc/sprites/shots2.png");
 		addTexture("shots3", "./rsrc/sprites/shots3.png");

@@ -13,7 +13,7 @@
 #include "EnumHash.hpp"
 
 #include "RequestSpawn.hpp"
-#include "RequestDisconnect.hpp"
+#include "RequestDisconnected.hpp"
 #include "RequestMove.hpp"
 #include "RequestFire.hpp"
 #include "RequestPowder.hpp"

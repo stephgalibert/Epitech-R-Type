@@ -23,6 +23,7 @@
 #include "CMDGameStatus.hpp"
 #include "CMDMessage.hpp"
 #include "CMDSpawnPowerUp.hpp"
+#include "CMDDisconnect.hpp"
 
 class CommandFactory
 {
@@ -30,6 +31,7 @@ public:
 	static std::shared_ptr<ICommand> Build(CommandType type);
 
 private:
+	static std::shared_ptr<ICommand> cmd_disconnect(void);
 	static std::shared_ptr<ICommand> cmd_spawnPowerup(void);
 	static std::shared_ptr<ICommand> cmd_message(void);
 	static std::shared_ptr<ICommand> cmd_gameStatus(void);

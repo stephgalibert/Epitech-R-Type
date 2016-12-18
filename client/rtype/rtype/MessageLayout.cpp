@@ -69,14 +69,6 @@ void MessageLayout::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 {
 	states.transform *= getTransform();
 
-	//if (_texture) {
-	//	states.texture = _texture;
-	//}
-
-	//if (_shape) {
-	//	target.draw(*_shape, states);
-	//}
-
 	for (auto &it : _texts) {
 		target.draw(it);
 	}

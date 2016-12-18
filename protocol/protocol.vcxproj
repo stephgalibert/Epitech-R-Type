@@ -134,6 +134,7 @@
     <ClCompile Include="CMDConnect.cpp" />
     <ClCompile Include="CMDCreateParty.cpp" />
     <ClCompile Include="CMDDestroyed.cpp" />
+    <ClCompile Include="CMDDisconnect.cpp" />
     <ClCompile Include="CMDDisconnected.cpp" />
     <ClCompile Include="CMDError.cpp" />
     <ClCompile Include="CMDFire.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="CMDConnect.hpp" />
     <ClInclude Include="CMDCreateParty.hpp" />
     <ClInclude Include="CMDDestroyed.hpp" />
+    <ClInclude Include="CMDDisconnect.hpp" />
     <ClInclude Include="CMDDisconnected.hpp" />
     <ClInclude Include="CMDError.hpp" />
     <ClInclude Include="CMDFire.hpp" />

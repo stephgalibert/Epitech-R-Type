@@ -175,6 +175,11 @@ struct GameStatus
 	GameStatusType status;
 };
 
+struct Disconnect
+{
+	CommandType cmdType;
+};
+
 #ifdef _MSC_VER
 
 # define PACKED

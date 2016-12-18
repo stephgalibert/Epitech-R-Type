@@ -180,9 +180,6 @@
     <ClCompile Include="MenuButton.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
-    <ClCompile Include="RequestDisconnect.cpp">
-      <Filter>Fichiers sources\request</Filter>
-    </ClCompile>
     <ClCompile Include="RequestMove.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
@@ -274,6 +271,12 @@
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
     <ClCompile Include="RequestSpawnPowerUp.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="EscapeLayout.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestDisconnected.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
   </ItemGroup>
@@ -410,9 +413,6 @@
     <ClInclude Include="MainMenuResource.hpp">
       <Filter>Fichiers d%27en-tête\resources</Filter>
     </ClInclude>
-    <ClInclude Include="RequestDisconnect.hpp">
-      <Filter>Fichiers d%27en-tête\request</Filter>
-    </ClInclude>
     <ClInclude Include="RequestCollision.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
@@ -517,6 +517,12 @@
     </ClInclude>
     <ClInclude Include="APowerUp.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="EscapeLayout.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDisconnected.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

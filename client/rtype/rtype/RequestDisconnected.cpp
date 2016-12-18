@@ -1,15 +1,15 @@
-#include "RequestDisconnect.hpp"
+#include "RequestDisconnected.hpp"
 #include "GameController.hpp"
 
-RequestDisconnect::RequestDisconnect(void)
+RequestDisconnected::RequestDisconnected(void)
 {
 }
 
-RequestDisconnect::~RequestDisconnect(void)
+RequestDisconnected::~RequestDisconnected(void)
 {
 }
 
-void RequestDisconnect::execute(IClient &client, std::shared_ptr<ICommand> data,
+void RequestDisconnected::execute(IClient &client, std::shared_ptr<ICommand> data,
 	std::shared_ptr<ICommand> &toSend)
 {
 	(void)client;

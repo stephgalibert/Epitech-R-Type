@@ -189,6 +189,9 @@
     <ClCompile Include="ADirectoryParser.cpp">
       <Filter>Fichiers sources\Plugins</Filter>
     </ClCompile>
+    <ClCompile Include="RequestDisconnect.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -355,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="ADirectoryParser.hpp">
       <Filter>Fichiers d%27en-tête\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDisconnect.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

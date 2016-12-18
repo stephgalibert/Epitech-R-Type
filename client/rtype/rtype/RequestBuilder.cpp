@@ -71,7 +71,7 @@ std::unique_ptr<IRequest> RequestBuilder::create_ConnectRequest(void)
 
 std::unique_ptr<IRequest> RequestBuilder::create_DisconnectedRequest(void)
 {
-	return (std::unique_ptr<IRequest>(new RequestDisconnect));
+	return (std::unique_ptr<IRequest>(new RequestDisconnected));
 }
 
 std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)

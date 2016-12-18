@@ -176,6 +176,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="ConnectionLostController.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
+    <ClCompile Include="EscapeLayout.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -206,7 +207,7 @@
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
     <ClCompile Include="RequestDestroyed.cpp" />
-    <ClCompile Include="RequestDisconnect.cpp" />
+    <ClCompile Include="RequestDisconnected.cpp" />
     <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestGameStatus.cpp" />
     <ClCompile Include="RequestGetParty.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="CacheManager.hpp" />
     <ClInclude Include="ConnectionLostController.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
+    <ClInclude Include="EscapeLayout.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="GameController.hpp" />
@@ -288,7 +290,7 @@
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />
     <ClInclude Include="RequestDestroyed.hpp" />
-    <ClInclude Include="RequestDisconnect.hpp" />
+    <ClInclude Include="RequestDisconnected.hpp" />
     <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestGameStatus.hpp" />
     <ClInclude Include="RequestGetParty.hpp" />

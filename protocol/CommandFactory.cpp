@@ -15,7 +15,8 @@ const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(vo
 	{ CommandType::GetParty, std::bind(&CommandFactory::cmd_getParty)},
 	{ CommandType::GameStatus, std::bind(&CommandFactory::cmd_gameStatus) },
 	{ CommandType::Message, std::bind(&CommandFactory::cmd_message) },
-	{ CommandType::SpawnPowerUp, std::bind(&CommandFactory::cmd_spawnPowerup) }
+	{ CommandType::SpawnPowerUp, std::bind(&CommandFactory::cmd_spawnPowerup) },
+	{ CommandType::Disconnect, std::bind(&CommandFactory::cmd_disconnect) }
 };
 
 std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
@@ -24,6 +25,12 @@ std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
 		return (Commands.at(type)());
 	}
 	return (NULL);
+}
+
+
+std::shared_ptr<ICommand> CommandFactory::cmd_disconnect(void)
+{
+	return std::make_shared<CMDDisconnect>();
 }
 
 std::shared_ptr<ICommand> CommandFactory::cmd_spawnPowerup(void)
