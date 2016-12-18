@@ -165,7 +165,8 @@ void Mate::move(float delta)
 			_loadedPowder->setPosition(pos.x + 48, pos.y + 3);
 		}
 		for (auto it : _drawablePowerUps) {
-			it->ADrawable::move(x, y);
+			//it->ADrawable::move(x, y);
+			it->attachToEntity(this);
 		}
 	}
 }
