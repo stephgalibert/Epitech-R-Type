@@ -6,7 +6,8 @@
 #include "AController.hpp"
 #include "MenuButton.hpp"
 #include "MenuServerBrowser.hpp"
-#include "MenuTextField.hpp"
+#include "MenuTextForm.hpp"
+#include "IClient.hpp"
 
 class MainMenuController : public AController
 {
@@ -27,10 +28,9 @@ class MainMenuController : public AController
 	static const float SERVER_BROWSER_POS_Y;
 	static const float SERVER_BROWSER_WIDTH;
 	static const size_t SERVER_BROWSER_ITEMS_SHOWN;
-	static const float TEXT_FIELD_HEIGHT;
 
 public:
-	MainMenuController(void);
+	MainMenuController(IClient &_client);
 	virtual ~MainMenuController(void);
 
 public:
@@ -88,12 +88,13 @@ private:
 	short _pushAction;
 	uint8_t _buttonsAlpha;
 	int _selectedServer;
+	IClient &_client;
 
 private:
 	std::vector<sf::Sprite> _titleSprites;
 	std::vector<MenuButton> _buttons;
 	MenuServerBrowser _browser;
-	MenuTextField _textField;
+	MenuTextForm _form;
 
 	/* TEST ONLY */
 private:

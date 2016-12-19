@@ -31,6 +31,7 @@ public:
 	void cursorForward(void);
 	void cursorBack(void);
 	void setCursorPos(const uint32_t pos);
+	void setCursorVisiblity(const bool visible);
 
 public:
 	sf::Vector2f const &getSize(void) const;
@@ -38,6 +39,7 @@ public:
 	uint32_t getFontSize(void) const;
 	std::string const &getContent(void) const;
 	uint32_t getDisplayedLettersMax(void) const;
+	bool isCursorVisible(void) const;
 
 private:
 	bool handleTextInput(InputHandler &input);
@@ -47,6 +49,7 @@ private:
 	std::string _content;
 	uint32_t _cursor;
 	uint32_t _textDisplayOffset;
+	bool _cursorVisible;
 
 private:
 	sf::RectangleShape _frame;

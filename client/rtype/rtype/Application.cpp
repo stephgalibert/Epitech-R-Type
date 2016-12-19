@@ -1,7 +1,7 @@
 #include "Application.hpp"
 
 Application::Application(std::string const& ip, std::string const& port)
-	: _client(&_game, _menu, ip, port)
+	: _client(&_game, _menu, ip, port), _menu(_client)
 {
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 
@@ -105,20 +105,20 @@ void Application::updateMenu(float delta)
 {
 	_fps.update(delta);
 	_menu.update(delta);
-	//switch (_menu.pullAction())
-	//{
-	//case MainMenuController::SelectedAction::PLAY:
+	switch (_menu.pullAction())
+	{
+	case MainMenuController::SelectedAction::PLAY:
 		_state = ApplicationState::AS_Game;
 		_game = new GameController(_client);
 		_game->init();
 		_game->connectToParty(_host, _pwd);
-	//  break;
-	//case MainMenuController::SelectedAction::QUIT:
-	//	_quit = true;
-	//	break;
-	//default:
-	//	break;
-	//}
+	  break;
+	case MainMenuController::SelectedAction::QUIT:
+		_quit = true;
+		break;
+	default:
+		break;
+	}
 }
 void Application::updateGame(float delta)
 {
