@@ -34,6 +34,7 @@ public:
 
 	void setCurrentParty(std::shared_ptr<Party> party);
 	void setID(uint16_t id);
+	void setName(std::string const& name);
 	void setLife(uint8_t life);
 	void setScore(uint16_t score);
 	void setRunning(bool value);
@@ -42,6 +43,7 @@ public:
 
 	std::shared_ptr<Party> getCurrentParty(void) const;
 	uint16_t getID(void) const;
+	std::string const& getName(void) const;
 	uint8_t getLife(void) const;
 	uint16_t getScore(void) const;
 	bool isRunning(void) const;
@@ -64,5 +66,6 @@ private:
 	uint16_t _id;
 	uint8_t _life;
 	uint16_t _score;
+	std::string _name;
 };
 

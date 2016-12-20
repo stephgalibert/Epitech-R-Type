@@ -221,6 +221,7 @@
     <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="RequestScore.cpp" />
     <ClCompile Include="RequestSpawn.cpp" />
+    <ClCompile Include="RequestSpawnPlayer.cpp" />
     <ClCompile Include="RequestSpawnPowerUp.cpp" />
     <ClCompile Include="ScoreController.cpp" />
     <ClCompile Include="SoundBox.cpp" />
@@ -306,6 +307,7 @@
     <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="RequestScore.hpp" />
     <ClInclude Include="RequestSpawn.hpp" />
+    <ClInclude Include="RequestSpawnPlayer.hpp" />
     <ClInclude Include="RequestSpawnPowerUp.hpp" />
     <ClInclude Include="ScoreController.hpp" />
     <ClInclude Include="SoundBox.hpp" />

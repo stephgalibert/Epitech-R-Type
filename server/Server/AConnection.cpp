@@ -43,6 +43,11 @@ void AConnection::setID(uint16_t id)
 	_id = id;
 }
 
+void AConnection::setName(std::string const& name)
+{
+	_name = name;
+}
+
 void AConnection::setLife(uint8_t life)
 {
 	_life = life;
@@ -77,6 +82,11 @@ std::shared_ptr<Party> AConnection::getCurrentParty(void) const
 uint16_t AConnection::getID(void) const
 {
 	return (_id);
+}
+
+std::string const& AConnection::getName(void) const
+{
+	return (_name);
 }
 
 uint8_t AConnection::getLife(void) const

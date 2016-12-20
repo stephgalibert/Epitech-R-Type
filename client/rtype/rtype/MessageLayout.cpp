@@ -47,7 +47,7 @@ void MessageLayout::addMessage(std::string const& msg)
 
 	if (it != std::end(_texts)) {
 		it->setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
-		it->setCharacterSize(10);
+		it->setCharacterSize(16);
 		it->setFillColor(sf::Color::Red);
 		it->setString(msg);
 	}

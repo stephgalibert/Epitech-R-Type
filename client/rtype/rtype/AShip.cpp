@@ -29,3 +29,13 @@ uint16_t AShip::getScore(void) const
 {
 	return (_score);
 }
+
+void AShip::setName(std::string const& name)
+{
+	_name = name;
+}
+
+std::string const& AShip::getName(void) const
+{
+	return (_name);
+}

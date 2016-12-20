@@ -116,14 +116,15 @@ void GameController::recycle(void)
 	World::recycle();
 }
 
-void GameController::connectToParty(std::string const& partyName, std::string const& pwd)
+void GameController::connectToParty(std::string const& username, std::string const& partyName, std::string const& pwd)
 {
+	_username = username;
 	_partyName = partyName;
 	_partyPwd = pwd;
 
 	while (!_network.isConnected());
 	_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
-	_network.write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
+	_network.write(std::make_shared<CMDConnect>(_username, _partyName, _partyPwd));
 }
 
 void GameController::displayMessage(std::string const& msg)

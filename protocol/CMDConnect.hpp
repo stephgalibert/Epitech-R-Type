@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <string.h>
 
 #include "StaticTools.hpp"
 #include "ICommand.hpp"
@@ -8,7 +9,7 @@
 class CMDConnect : public ICommand
 {
 public:
-	CMDConnect(std::string const& host, std::string const& pwd);
+	CMDConnect(std::string const& username, std::string const& host, std::string const& pwd);
 	CMDConnect(void);
 	virtual ~CMDConnect(void);
 
@@ -20,4 +21,3 @@ public:
 private:
 	Connect *_data;
 };
-

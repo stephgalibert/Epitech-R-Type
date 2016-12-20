@@ -28,8 +28,9 @@ Application::~Application(void)
 {
 }
 
-void Application::init(std::string host, std::string pwd)
+void Application::init(std::string const& username, std::string const& host, std::string const& pwd)
 {
+	_username = username;
 	_host = host;
 	_pwd = pwd;
 	try {
@@ -111,7 +112,7 @@ void Application::updateMenu(float delta)
 		_state = ApplicationState::AS_Game;
 		_game = new GameController(_client);
 		_game->init();
-		_game->connectToParty(_menu.getConnectData().game, _menu.getConnectData().password);
+		_game->connectToParty(_username, _menu.getConnectData().game, _menu.getConnectData().password);
 	  break;
 	case MainMenuController::SelectedAction::QUIT:
 		_quit = true;

@@ -14,7 +14,7 @@
 #include "CMDFire.hpp"
 #include "CMDMove.hpp"
 #include "CMDPing.hpp"
-#include "CMDSpawn.hpp"
+//#include "CMDSpawn.hpp"
 #include "CMDDestroyed.hpp"
 #include "CMDScore.hpp"
 #include "CMDPowder.hpp"
@@ -24,6 +24,7 @@
 #include "CMDMessage.hpp"
 #include "CMDSpawnPowerUp.hpp"
 #include "CMDDisconnect.hpp"
+#include "CMDSpawnPlayer.hpp"
 
 class CommandFactory
 {
@@ -31,6 +32,7 @@ public:
 	static std::shared_ptr<ICommand> Build(CommandType type);
 
 private:
+	static std::shared_ptr<ICommand> cmd_spawnPlayer(void);
 	static std::shared_ptr<ICommand> cmd_disconnect(void);
 	static std::shared_ptr<ICommand> cmd_spawnPowerup(void);
 	static std::shared_ptr<ICommand> cmd_message(void);
@@ -48,7 +50,7 @@ private:
 	static std::shared_ptr<ICommand> cmd_fire(void);
 	static std::shared_ptr<ICommand> cmd_move(void);
 	static std::shared_ptr<ICommand> cmd_ping(void);
-	static std::shared_ptr<ICommand> cmd_spawn(void);
+	//static std::shared_ptr<ICommand> cmd_spawn(void);
 
 	static const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(void)>, EnumHash> Commands;
 };

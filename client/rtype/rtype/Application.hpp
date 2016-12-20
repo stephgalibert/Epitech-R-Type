@@ -27,7 +27,7 @@ public:
 	Application(std::string const& ip, std::string const& port);
 	~Application(void);
 
-	void init(std::string host, std::string pwd);
+	void init(std::string const& username, std::string const& host, std::string const& pwd); // todo delete the params
 	void loop(void);
 
 private:
@@ -62,6 +62,7 @@ private:
 	std::unordered_map<ApplicationState, std::function<void(sf::RenderWindow &)>, EnumHash> _draws;
 
 	/* to remove later */
+	std::string _username;
 	std::string _host;
 	std::string _pwd;
 };

@@ -3,7 +3,7 @@
 const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(void)>, EnumHash> CommandFactory::Commands = {
 	{ CommandType::Connect, std::bind(&CommandFactory::cmd_connect) },
 	{ CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty) },
-	{ CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn) },
+	//{ CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn) },
 	{ CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected) },
 	{ CommandType::Move, std::bind(&CommandFactory::cmd_move) },
 	{ CommandType::Collision, std::bind(&CommandFactory::cmd_collision) },
@@ -16,7 +16,8 @@ const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(vo
 	{ CommandType::GameStatus, std::bind(&CommandFactory::cmd_gameStatus) },
 	{ CommandType::Message, std::bind(&CommandFactory::cmd_message) },
 	{ CommandType::SpawnPowerUp, std::bind(&CommandFactory::cmd_spawnPowerup) },
-	{ CommandType::Disconnect, std::bind(&CommandFactory::cmd_disconnect) }
+	{ CommandType::Disconnect, std::bind(&CommandFactory::cmd_disconnect) },
+	{ CommandType::SpawnPlayer, std::bind(&CommandFactory::cmd_spawnPlayer) }
 };
 
 std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
@@ -27,6 +28,10 @@ std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
 	return (NULL);
 }
 
+std::shared_ptr<ICommand> CommandFactory::cmd_spawnPlayer(void)
+{
+	return std::make_shared<CMDSpawnPlayer>();
+}
 
 std::shared_ptr<ICommand> CommandFactory::cmd_disconnect(void)
 {
@@ -113,7 +118,7 @@ std::shared_ptr<ICommand> CommandFactory::cmd_ping(void)
 	return std::make_shared<CMDPing>();
 }
 
-std::shared_ptr<ICommand> CommandFactory::cmd_spawn(void)
-{
-	return std::make_shared<CMDSpawn>();
-}
+//std::shared_ptr<ICommand> CommandFactory::cmd_spawn(void)
+//{
+//	return std::make_shared<CMDSpawn>();
+//}

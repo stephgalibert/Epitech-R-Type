@@ -24,7 +24,11 @@ public:
 	void setScore(uint16_t score);
 	uint16_t getScore(void) const;
 
+	void setName(std::string const& name);
+	std::string const& getName(void) const;
+
 private:
 	uint16_t _score;
+	std::string _name;
 };
 

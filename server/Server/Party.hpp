@@ -41,7 +41,7 @@ public:
 	uint8_t getNbPlayer(void);
 
 private:
-	void reset(void);
+	//void reset(void);
 
 	void waiting(double delta);
 	void playing(double delta);

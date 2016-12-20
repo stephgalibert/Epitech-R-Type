@@ -20,10 +20,10 @@ void ScoreController::init(void)
 		_text[2].setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
 		_text[3].setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
 
-		_text[0].setCharacterSize(16);
-		_text[1].setCharacterSize(16);
-		_text[2].setCharacterSize(16);
-		_text[3].setCharacterSize(16);
+		_text[0].setCharacterSize(22);
+		_text[1].setCharacterSize(22);
+		_text[2].setCharacterSize(22);
+		_text[3].setCharacterSize(22);
 
 		_text[0].setFillColor(sf::Color::Red);
 		_text[1].setFillColor(sf::Color::Red);
@@ -53,12 +53,11 @@ void ScoreController::update(float delta)
 		_delta += delta;
 		if (_delta > 0.2f) {
 			if (_player && *_player) {
-				std::cout << "player" << std::endl;
-				_text[0].setString("Player: " + std::to_string((*_player)->getScore()));
+				_text[0].setString("(You) " + (*_player)->getName() + ": " + std::to_string((*_player)->getScore()));
 			}
 			std::string mate;
 			for (size_t i = 1; i < 4; ++i) {
-				mate = "Mate" + std::to_string(i) + ": ";
+				mate = (_mates)[i - 1]->getName() + ": ";
 				if ((_mates)[i - 1]) {
 					mate += std::to_string((_mates)[i - 1]->getScore());
 				}
