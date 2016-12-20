@@ -95,6 +95,8 @@ SRCS		+=	EscapeLayout.cpp
 SRCS		+=	MenuTextField.cpp
 SRCS		+=	QuadTree.cpp
 SRCS		+=	RequestSpawnPlayer.cpp
+SRCS		+=	MenuTextForm.cpp
+SRCS		+=	MenuPopup.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp

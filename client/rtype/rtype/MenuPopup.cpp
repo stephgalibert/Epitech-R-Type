@@ -27,6 +27,7 @@ void MenuPopup::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 bool MenuPopup::input(InputHandler &input) {
+  (void)input;
 	return false;
 }
 
