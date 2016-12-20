@@ -7,7 +7,7 @@ const sf::Color MenuServerBrowser::ITEM_BASE_COLOR = sf::Color::Black;
 const sf::Color MenuServerBrowser::ITEM_SECOND_COLOR = sf::Color::White;
 const float MenuServerBrowser::ITEMS_HEIGHT = 30.f;
 const float MenuServerBrowser::ITEMS_SPACING = 0.f;
-const uint32_t MenuServerBrowser::FONT_CHAR_SIZE = 13u;
+const uint32_t MenuServerBrowser::FONT_CHAR_SIZE = 16u;
 const float MenuServerBrowser::TEXT_TOP_PADDING = 2.f;
 const float MenuServerBrowser::TEXT_LEFT_PADDING = 2.f;
 

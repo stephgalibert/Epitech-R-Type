@@ -279,6 +279,12 @@
     <ClCompile Include="RequestDisconnected.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="MenuTextForm.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPopup.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
     <ClCompile Include="RequestSpawnPlayer.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
@@ -526,6 +532,12 @@
     </ClInclude>
     <ClInclude Include="RequestDisconnected.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuTextForm.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPopup.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
     <ClInclude Include="RequestSpawnPlayer.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>

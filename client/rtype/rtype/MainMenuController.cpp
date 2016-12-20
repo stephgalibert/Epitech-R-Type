@@ -4,7 +4,7 @@
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
-const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 475;
+const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 380;
 const float MainMenuController::TITLE_LETTER_SCALE = 2.f;
 const uint32_t MainMenuController::TITLE_LETTER_HEIGHT = static_cast<uint32_t>(56 * MainMenuController::TITLE_LETTER_SCALE);
 const uint32_t MainMenuController::TITLE_FINAL_BOTTOM_OFFSET = 25;
@@ -20,14 +20,14 @@ const float MainMenuController::SERVER_BROWSER_POS_X = 75.f;
 const float MainMenuController::SERVER_BROWSER_POS_Y = 60.f;
 const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolution().first / 2.f + 10.f;
 const size_t MainMenuController::SERVER_BROWSER_ITEMS_SHOWN = 13u;
-const float MainMenuController::TEXT_FIELD_HEIGHT = 40.f;
 
-MainMenuController::MainMenuController()
-	: _fsm(State::ST_SplashStart),
-	  _action(SelectedAction::NONE),
-	  _keyboardEventDelta(0.f),
-	  _pushAction(SelectedAction::NONE),
-	  _selectedServer(-1)
+MainMenuController::MainMenuController(IClient &client)
+	: _client(client),
+	_fsm(State::ST_SplashStart),
+	_action(SelectedAction::NONE),
+	_keyboardEventDelta(0.f),
+	_pushAction(SelectedAction::NONE),
+	_selectedServer(-1)
 {
 	buildKeyActionsMap();
 }
@@ -64,9 +64,10 @@ void MainMenuController::init()
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
 		_browser.setContent(_browserContent);
 
-		_textField.setPosition(_browser.getPosition());
-		_textField.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, TEXT_FIELD_HEIGHT));
-		_textField.setContent("Test");
+		_form.setPosition(_browser.getPosition());
+		_form.addField("Game Name", "name");
+		_form.addField("Password", "pass");
+		_form.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, _form.getIdealHeight()));
 
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
@@ -118,7 +119,7 @@ bool MainMenuController::input(InputHandler &input)
 			else if (input.isKeyDown(sf::Keyboard::Return)) {
 				_selectedServer = _browser.getSelected();
 				//Connect to server
-				//IClient::write(std::make_shared<CMDConnect>(_partyName, _partyPwd));
+				//_client.write(std::make_shared<CMDConnect>(gameName, password));
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
 				return true;
@@ -133,16 +134,33 @@ bool MainMenuController::input(InputHandler &input)
 		if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
 			if (input.isKeyDown(sf::Keyboard::Escape)) {
 				_fsm = State::ST_Menu;
-				_textField.clear();
 				_keyboardEventDelta = 0.f;
 				return true;
 			}
-			else if (input.isKeyDown(sf::Keyboard::Return)) {
+			else if (input.isKeyDown(sf::Keyboard::Return) && _form.getFocusedField() + 1 == _form.getFieldCount()) {
+				try {
+					std::string gameName, password;
+
+					gameName = _form.getFieldContent("Game Name");
+					password = _form.getFieldContent("Password");
+
+					std::cout << "Creating game \"" << gameName << "\"; password is \"" << password << "\"" << std::endl;
+
+					_client.write(std::make_shared<CMDCreateParty>(gameName, password));
+					_connectData.game = gameName;
+					_connectData.password = password;
+					//_client.write(std::make_shared<CMDConnect>(gameName, password));
+					_pushAction = SelectedAction::PLAY;
+				}
+				catch (std::runtime_error const &e) {
+					std::cout << e.what() << std::endl;
+				}
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
+				_form.setFocusedField(0);
 				return true;
 			}
-			else if (_textField.input(input)) {
+			else if (_form.input(input)) {
 				_keyboardEventDelta = 0.f;
 				return true;
 			}
@@ -302,7 +320,7 @@ void MainMenuController::draw(sf::RenderWindow &window)
 		window.draw(_browser);
 	}
 	else if (_fsm == State::ST_Creating) {
-		window.draw(_textField);
+		window.draw(_form);
 	}
 }
 
@@ -324,4 +342,8 @@ short MainMenuController::pullAction(void)
 	short tmp = _pushAction;
 	_pushAction = SelectedAction::NONE;
 	return (tmp);
+}
+
+MainMenuController::ConnectData const &MainMenuController::getConnectData(void) const {
+	return _connectData;
 }

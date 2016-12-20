@@ -6,7 +6,8 @@
 #include "AController.hpp"
 #include "MenuButton.hpp"
 #include "MenuServerBrowser.hpp"
-#include "MenuTextField.hpp"
+#include "MenuTextForm.hpp"
+#include "IClient.hpp"
 
 class MainMenuController : public AController
 {
@@ -27,10 +28,9 @@ class MainMenuController : public AController
 	static const float SERVER_BROWSER_POS_Y;
 	static const float SERVER_BROWSER_WIDTH;
 	static const size_t SERVER_BROWSER_ITEMS_SHOWN;
-	static const float TEXT_FIELD_HEIGHT;
 
 public:
-	MainMenuController(void);
+	MainMenuController(IClient &_client);
 	virtual ~MainMenuController(void);
 
 public:
@@ -55,6 +55,12 @@ public:
 	};
 
 public:
+	struct ConnectData {
+		std::string game;
+		std::string password;
+	};
+
+public:
 	virtual void init();
 	virtual bool input(InputHandler &input);
 	virtual void update(float delta);
@@ -64,6 +70,7 @@ public:
 	void mute(void) const;
 	void unmute(void) const;
 	short pullAction(void);
+	ConnectData const &getConnectData(void) const;
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));
@@ -81,19 +88,21 @@ private:
 	bool keyReturn(void);
 
 private:
+	IClient &_client;
 	State _fsm;
 	short _action;
 	float _keyboardEventDelta;
-	std::unordered_map<uint32_t, std::function<bool(void)> > _keyActions;
 	short _pushAction;
-	uint8_t _buttonsAlpha;
 	int _selectedServer;
+	std::unordered_map<uint32_t, std::function<bool(void)> > _keyActions;
+	uint8_t _buttonsAlpha;
+	ConnectData _connectData;
 
 private:
 	std::vector<sf::Sprite> _titleSprites;
 	std::vector<MenuButton> _buttons;
 	MenuServerBrowser _browser;
-	MenuTextField _textField;
+	MenuTextForm _form;
 
 	/* TEST ONLY */
 private:
