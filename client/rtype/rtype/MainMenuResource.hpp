@@ -23,7 +23,7 @@ public:
 	virtual ~MainMenuResource(void);
 
 public:
-	void load(void);
+	virtual void load(void);
 	sf::Texture *getTextureByKey(std::string const &key);
 
 private:

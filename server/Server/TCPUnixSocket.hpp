@@ -27,5 +27,4 @@ public:
   
 private:
   int _socket;
-  std::mutex _mutex;
 };

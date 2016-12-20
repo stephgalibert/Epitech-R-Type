@@ -6,7 +6,6 @@
 
 #include "Protocol.hpp"
 
-
 class IMonster
 {
 public:

@@ -192,15 +192,18 @@
     <ClCompile Include="RequestDisconnect.cpp">
       <Filter>Fichiers sources\Request</Filter>
     </ClCompile>
+    <ClCompile Include="TCPUnixSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPUnixSocket.cpp">
+      <Filter>Fichiers sources\Socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="UnixServerSocket.hpp">
-      <Filter>Fichiers d%27en-tête\Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="UnixSocket.hpp">
       <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
     <ClInclude Include="WinServerSocket.hpp">
@@ -361,6 +364,12 @@
     </ClInclude>
     <ClInclude Include="RequestDisconnect.hpp">
       <Filter>Fichiers d%27en-tête\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="TCPUnixSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPUnixSocket.hpp">
+      <Filter>Fichiers d%27en-tête\Socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

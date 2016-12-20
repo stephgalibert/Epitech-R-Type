@@ -25,6 +25,5 @@ public:
 private:
 	SOCKET _socket;
 	WSADATA _wsdata;
-	std::mutex _mutex;
 };
 
