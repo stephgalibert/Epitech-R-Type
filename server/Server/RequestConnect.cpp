@@ -20,7 +20,11 @@ void RequestConnect::execute(std::shared_ptr<AConnection> owner,
 	std::string data(connect->data, connect->size);
 
 	std::string name = data.substr(0, data.find_first_of(';'));
+#ifdef _WIN32
 	std::string room = data.substr(name.size() + 1, data.find_first_of(';'));
+#else
+	std::string room = data.substr(name.size() + 1, data.find_first_of(';') + 1);
+#endif
 	std::string pwd = data.substr(data.find_last_of(';') + 1);
 
 	owner->setName(name);
