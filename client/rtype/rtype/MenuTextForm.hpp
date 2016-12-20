@@ -30,6 +30,7 @@ public:
 	void setFieldContent(std::string const &fieldName, std::string const &content);
 	void clearFieldsContent(void);
 	void removeFields(void);
+	void setFocusedField(const uint32_t field);
 
 public:
 	sf::Vector2f const &getSize(void) const;
@@ -39,6 +40,7 @@ public:
 	std::string const &getFieldContent(std::string const &fieldName) const;
 	MenuTextField const &getField(std::string const &fieldName) const;
 	uint32_t getDrawnFieldsMax(void) const;
+	uint32_t getFocusedField(void) const;
 
 private:
 	MenuTextField &getField(std::string const &fieldName);

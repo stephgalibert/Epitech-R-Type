@@ -111,7 +111,7 @@ void Application::updateMenu(float delta)
 		_state = ApplicationState::AS_Game;
 		_game = new GameController(_client);
 		_game->init();
-		_game->connectToParty(_host, _pwd);
+		_game->connectToParty(_menu.getConnectData().game, _menu.getConnectData().password);
 	  break;
 	case MainMenuController::SelectedAction::QUIT:
 		_quit = true;

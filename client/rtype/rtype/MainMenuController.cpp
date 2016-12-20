@@ -4,7 +4,7 @@
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
-const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 430;
+const uint32_t MainMenuController::BUTTON_X_ALIGN = StaticTools::GetResolution().first - 380;
 const float MainMenuController::TITLE_LETTER_SCALE = 2.f;
 const uint32_t MainMenuController::TITLE_LETTER_HEIGHT = static_cast<uint32_t>(56 * MainMenuController::TITLE_LETTER_SCALE);
 const uint32_t MainMenuController::TITLE_FINAL_BOTTOM_OFFSET = 25;
@@ -69,16 +69,6 @@ void MainMenuController::init()
 		_form.addField("Password", "pass");
 		_form.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, _form.getIdealHeight()));
 
-		/*
-		_gameNameTextField.setPosition(_browser.getPosition());
-		_gameNameTextField.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, TEXT_FIELD_HEIGHT));
-		_gameNameTextField.setContent("Game Name");
-
-		_gamePasswordTextField.setPosition(sf::Vector2f(_gameNameTextField.getPosition().x, _gameNameTextField.getPosition().y + _gameNameTextField.getSize().y + TEXT_FIELD_SPACING));
-		_gamePasswordTextField.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, TEXT_FIELD_HEIGHT));
-		_gamePasswordTextField.setContent("Password");
-		*/
-
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
 
@@ -129,7 +119,7 @@ bool MainMenuController::input(InputHandler &input)
 			else if (input.isKeyDown(sf::Keyboard::Return)) {
 				_selectedServer = _browser.getSelected();
 				//Connect to server
-				//_client.write(std::make_shared<CMDCreateParty>(gameName, password));
+				//_client.write(std::make_shared<CMDConnect>(gameName, password));
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
 				return true;
@@ -147,17 +137,27 @@ bool MainMenuController::input(InputHandler &input)
 				_keyboardEventDelta = 0.f;
 				return true;
 			}
-			else if (input.isKeyDown(sf::Keyboard::Return)) {
-				/*std::string gameName, password;
+			else if (input.isKeyDown(sf::Keyboard::Return) && _form.getFocusedField() + 1 == _form.getFieldCount()) {
+				try {
+					std::string gameName, password;
 
-				gameName = _gameNameTextField.getContent();
-				password = "";
+					gameName = _form.getFieldContent("Game Name");
+					password = _form.getFieldContent("Password");
 
-				std::cout << "Creating game \"" << gameName << "\"; password is \"" << password << "\"" << std::endl;
+					std::cout << "Creating game \"" << gameName << "\"; password is \"" << password << "\"" << std::endl;
 
-				_client.write(std::make_shared<CMDCreateParty>(gameName, password));*/
+					_client.write(std::make_shared<CMDCreateParty>(gameName, password));
+					_connectData.game = gameName;
+					_connectData.password = password;
+					//_client.write(std::make_shared<CMDConnect>(gameName, password));
+					_pushAction = SelectedAction::PLAY;
+				}
+				catch (std::runtime_error const &e) {
+					std::cout << e.what() << std::endl;
+				}
 				_fsm = State::ST_Menu;
 				_keyboardEventDelta = 0.f;
+				_form.setFocusedField(0);
 				return true;
 			}
 			else if (_form.input(input)) {
@@ -342,4 +342,8 @@ short MainMenuController::pullAction(void)
 	short tmp = _pushAction;
 	_pushAction = SelectedAction::NONE;
 	return (tmp);
+}
+
+MainMenuController::ConnectData const &MainMenuController::getConnectData(void) const {
+	return _connectData;
 }

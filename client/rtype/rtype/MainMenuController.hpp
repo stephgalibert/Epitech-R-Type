@@ -55,6 +55,12 @@ public:
 	};
 
 public:
+	struct ConnectData {
+		std::string game;
+		std::string password;
+	};
+
+public:
 	virtual void init();
 	virtual bool input(InputHandler &input);
 	virtual void update(float delta);
@@ -64,6 +70,7 @@ public:
 	void mute(void) const;
 	void unmute(void) const;
 	short pullAction(void);
+	ConnectData const &getConnectData(void) const;
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));
@@ -89,6 +96,7 @@ private:
 	uint8_t _buttonsAlpha;
 	int _selectedServer;
 	IClient &_client;
+	ConnectData _connectData;
 
 private:
 	std::vector<sf::Sprite> _titleSprites;

@@ -4,7 +4,7 @@
 const float MenuTextField::FRAME_OUTILINE_THICKNESS = 2.f;
 const sf::Color MenuTextField::DEFAULT_BACKFROUND_COLOR = sf::Color::Black;
 const sf::Color MenuTextField::DEFAULT_TEXT_COLOR = sf::Color::White;
-const uint32_t MenuTextField::FONT_CHAR_SIZE = 18u;
+const uint32_t MenuTextField::FONT_CHAR_SIZE = 20u;
 const float MenuTextField::TEXT_LEFT_PADDING = 3.f;
 const float MenuTextField::TEXT_TOP_PADDING = 3.f;
 const float MenuTextField::CURSOR_BAR_WIDTH = 1.f;
@@ -93,9 +93,9 @@ void MenuTextField::updateTextDisplay(void) {
 
 	_text.setString(dispStr);
 	if (_cursor < dispStr.length())
-		_cursorBar.setPosition(sf::Vector2f(_text.findCharacterPos(_cursor - _textDisplayOffset).x + 1.f, _text.getPosition().y - (TEXT_TOP_PADDING / 2.f)));
+		_cursorBar.setPosition(sf::Vector2f(_text.findCharacterPos(_cursor - _textDisplayOffset).x, _text.getPosition().y - (TEXT_TOP_PADDING / 2.f)));
 	else
-		_cursorBar.setPosition(sf::Vector2f(_text.getPosition().x + _text.getGlobalBounds().width + 1.f, _text.getPosition().y - (TEXT_TOP_PADDING / 2.f)));
+		_cursorBar.setPosition(sf::Vector2f(_text.getPosition().x + _text.getGlobalBounds().width + 2.f, _text.getPosition().y - (TEXT_TOP_PADDING / 2.f)));
 }
 
 void MenuTextField::setSize(sf::Vector2f const &size) {

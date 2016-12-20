@@ -49,11 +49,13 @@ bool MenuTextForm::input(InputHandler &input) {
 			if (_focusedField < _fields.size() - 1)
 				_focusedField++;
 			updateLayout();
+			return true;
 		}
 		else if (input.isKeyDown(sf::Keyboard::Up)) {
 			if (_focusedField != 0)
 				_focusedField--;
 			updateLayout();
+			return true;
 		}
 		else {
 			try {
@@ -102,6 +104,13 @@ void MenuTextForm::removeFields(void) {
 	updateLayout();
 }
 
+void MenuTextForm::setFocusedField(const uint32_t field) {
+	_focusedField = field;
+	if (_focusedField >= _fields.size())
+		_focusedField = _fields.size() ? _fields.size() - 1 : 0;
+	updateLayout();
+}
+
 sf::Vector2f const &MenuTextForm::getSize(void) const {
 	return _frame.getSize();
 }
@@ -137,6 +146,10 @@ MenuTextField const & MenuTextForm::getField(std::string const & fieldName) cons
 
 uint32_t MenuTextForm::getDrawnFieldsMax(void) const {
 	return static_cast<uint32_t>((_frame.getSize().y - FORM_VERTICAL_PADDING) / (TEXT_FIELD_HEIGHT + FORM_VERTICAL_PADDING * 2 + LABEL_FONT_CHAR_SIZE));
+}
+
+uint32_t MenuTextForm::getFocusedField(void) const {
+	return _focusedField;
 }
 
 MenuTextField &MenuTextForm::getField(std::string const &fieldName) {
