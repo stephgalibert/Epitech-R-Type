@@ -19,12 +19,13 @@ void RequestCreateParty::execute(std::shared_ptr<AConnection> owner,
 	std::string name = data.substr(0, data.find_first_of(';'));
 	std::string pwd = data.substr(name.size() + 1, data.size() - name.size() + 1);
 
+	std::cout << "creating party " << name << " " << pwd << std::endl;
+
 	try {
 		owner->getPartyManager().addParty(name, pwd);
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
-		//*reply = new CMDError(RT_ERROR_ALREADY_EXIST);
 		reply = std::make_shared<CMDError>(RT_ERROR_ALREADY_EXIST);
 	}
 }

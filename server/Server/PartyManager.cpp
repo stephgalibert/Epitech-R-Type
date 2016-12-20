@@ -18,6 +18,7 @@ void PartyManager::update(void)
 			_toRun.erase(party.first);
 			_parties.insert(party);
 			party.second->run();
+			std::cout << "insert in parties" << std::endl;
 		}
 
 		if (!_parties.empty()) {
@@ -38,7 +39,10 @@ void PartyManager::update(void)
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
 {
+	std::cout << "before lock" << std::endl;
 	std::lock_guard<std::mutex> lock(_mutex);
+	std::cout << "after lock" << std::endl;
+
 	std::shared_ptr<Party> party = std::make_shared<Party>();
 
 	StaticTools::Log << "Creating party '" + name + ":" + pwd + "'" << std::endl;
@@ -80,13 +84,21 @@ std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> c
 	auto party = _parties.find(name);
 	if (party != _parties.cend() && (*party).second->getPassword() == pwd) {
 		(*party).second->addConnection(connection);
+		std::cout << "found in parties" << std::endl;
 		return ((*party).second);
+	}
+	else {
+		std::cout << "not found in parties: " << name << ":" << pwd << std::endl;
 	}
 
 	auto toRun = _toRun.find(name);
 	if (toRun != _toRun.cend() && (*toRun).second->getPassword() == pwd) {
 		(*toRun).second->addConnection(connection);
+		std::cout << "found in toRun" << std::endl;
 		return ((*toRun).second);
+	}
+	else {
+		std::cout << "not found in toRun" << std::endl;
 	}
 
 	return (NULL);
