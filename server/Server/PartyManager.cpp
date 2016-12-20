@@ -39,10 +39,7 @@ void PartyManager::update(void)
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
 {
-	std::cout << "before lock" << std::endl;
 	std::lock_guard<std::mutex> lock(_mutex);
-	std::cout << "after lock" << std::endl;
-
 	std::shared_ptr<Party> party = std::make_shared<Party>();
 
 	StaticTools::Log << "Creating party '" + name + ":" + pwd + "'" << std::endl;
