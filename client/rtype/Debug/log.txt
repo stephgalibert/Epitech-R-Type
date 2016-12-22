@@ -1,0 +1,3 @@
+Args 0: ./rtype.exe
+Args 1: rtype:Hello
+Args 2: World

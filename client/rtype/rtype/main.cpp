@@ -11,17 +11,21 @@ int main(int ac, char **av)
 //#ifdef WIN32
 //	FreeConsole();
 //#endif
-
 	StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
 
 	XMLReader config;
 	std::string ip, port;
 	std::string username, host, pwd;
-
 	if (ac > 2) {
-		username = av[1];
-		host = av[2];
-		pwd = av[3];
+		if (std::string(av[1]).compare("rtype:")) {
+			username = av[1];
+			host = av[2];
+			pwd = av[3];
+		} else {
+			username = av[2];
+			host = av[3];
+			pwd = av[4];
+		}
 	}
 	else {
 		username = "test";

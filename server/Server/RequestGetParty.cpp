@@ -23,4 +23,5 @@ void RequestGetParty::execute(std::shared_ptr<AConnection> owner,
 
 		owner->sync_write(std::make_shared<CMDGetParty>(it.first, nbPlayer, pwdPresent, running));
 	}
+	owner->sync_write(std::make_shared<CMDPing>(0));
 }

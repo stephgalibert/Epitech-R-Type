@@ -196,7 +196,7 @@ uint8_t Party::getNbPlayer(void)
 void Party::waiting(double delta)
 {
 	_delta += delta;
-	if (_delta > 10. || isReady()) {
+	if (_delta > 100. || isReady()) {
 		_launched = true;
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Playing));
 		std::cout << "ready" << std::endl;
