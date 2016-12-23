@@ -180,10 +180,6 @@ body .demo-blog {
   order: -1;
 }
 
-.demo-blog .coffee-pic .mdl-card__media {
-  background-image: url('images/coffee.jpg');
-}
-
 .demo-blog .something-else .mdl-card__media {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -226,12 +222,8 @@ body .demo-blog {
   border-bottom-right-radius: 2px;
 }
 
-.demo-blog .on-the-road-again .mdl-card__media {
-  background-image: url('images/road.jpg');
-}
-
-.demo-blog .shopping .mdl-card__media {
-  background-image: url('images/shopping.jpg');
+.demo-blog .rtype .mdl-card__media {
+  background-image: url('back_Party.png');
 }
 
 .demo-blog .demo-blog__posts>.demo-nav {
@@ -521,16 +513,9 @@ body .demo-blog {
   border-radius: 2px;
 }
 
-.social-btn__twitter {
-  background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_twitter_black_24dp.png');
-}
-
-.social-btn__blogger {
-  background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_facebook_black_24dp.png');
-}
-
-.social-btn__gplus {
-  background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_gplus_black_24dp.png');
+.social-btn__github img {
+  height: 32px;
+  width: 32px;
 }
 
 .social-btn__share {
@@ -547,4 +532,27 @@ body .demo-blog {
   align-items: center;
   background-color: white;
   box-sizing: border-box;
+}
+
+.add_party {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 1000;
+}
+
+.refresh_party {
+  position: fixed;
+  right: 32px;
+  top: 32px;
+  z-index: 1000;
+}
+
+content {
+  margin: 0 !important;
+}
+
+a.demo-nav__button {
+  display: inline!important;
+  text-decoration: none;
 }
