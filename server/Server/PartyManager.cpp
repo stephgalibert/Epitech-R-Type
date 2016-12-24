@@ -18,6 +18,7 @@ void PartyManager::update(void)
 			_toRun.erase(party.first);
 			_parties.insert(party);
 			party.second->run();
+			std::cout << "insert in parties" << std::endl;
 		}
 
 		if (!_parties.empty()) {
@@ -33,7 +34,7 @@ void PartyManager::update(void)
 			}
 		}
 	}
-	StaticTools::sleep(10);
+	StaticTools::Sleep(10);
 }
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
@@ -47,7 +48,6 @@ void PartyManager::addParty(std::string const& name, std::string const& pwd)
 		party->init(name, pwd);
 	}
 	catch (std::exception const& e) {
-		//throw (std::runtime_error(e.what()));
 		std::cerr << e.what() << std::endl;
 		return;
 	}
@@ -99,7 +99,7 @@ std::unordered_map<std::string, std::shared_ptr<Party> > const& PartyManager::ge
 
 void PartyManager::checkPartyExist(std::string const& name) const
 {
-	if (_parties.find(name) != _parties.cend() || _parties.find(name) != _parties.cend()) {
+	if (_parties.find(name) != _parties.cend() || _toRun.find(name) != _toRun.cend()) {
 		throw (std::runtime_error("The party " + name + " already exist"));
 	}
 }

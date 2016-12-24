@@ -49,28 +49,27 @@ void Laser::update(float delta)
 	AProjectile::update(delta);
 }
 
-void Laser::destroy(void)
+void Laser::destroy(IClient &client)
 {
+	(void)client;
 	recycle();
 }
 
 void Laser::collision(IClient *client, AEntity *other)
 {
-	(void)client;
-	if (!other->isInvincible()) {
-		if (!hasCollisioned() && other->getCollisionType() == COLLISION_FATAL) {
-			setCollisioned(true);
-
-			if (!other->hasCollisioned() && World::GetPlayer() && getOwnerID() == World::GetPlayer()->getID()) {
-				client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
-			}
-		}
+	if (!other->isInvincible() && !hasCollisioned() && other->getID() > 4
+			&& other->getCollisionType() == COLLISION_FATAL) {
+		setCollisioned(true);
+		client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 	}
 }
 
 void Laser::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)other;
+	if (!hasCollisioned())
+		return;
+
 	switch (type)
 	{
 	case CollisionType::None:

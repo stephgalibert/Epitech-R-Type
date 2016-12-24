@@ -1,13 +1,10 @@
 #include "World.hpp"
 
 std::list<AEntity *> World::Entities;
-std::vector<AEntity *> World::ToPush;
 std::mutex World::Mutex;
 IClient *World::Client = NULL;
 Player **World::ThePlayer = NULL;
 QuadTree *World::Region = NULL;
-
-#include "Laser.hpp"
 
 void World::init(Player **player, IClient *client)
 {
@@ -27,8 +24,9 @@ void World::update(float delta)
 
 	Region->clear();
 	while (it != std::end(Entities)) {
-		if ((*it)->isWaitingForRecycle()) {
-			(*it)->destroy();
+		if ((*it)->isWaitingForRecycle() ||
+				(*it)->getPosition().x < 0 || (*it)->getPosition().x > StaticTools::GetResolution().first) {
+			(*it)->destroy(*Client);
 			delete (*it);
 			it = Entities.erase(it);
 		}
@@ -38,14 +36,10 @@ void World::update(float delta)
 				(*it)->init();
 				++it;
 			}
-			else if ((*it)->getPosition().x < 0 || (*it)->getPosition().x > StaticTools::GetResolution().first) {
-				(*it)->destroy();
-				++it;
-			}
 			else {
 				(*it)->update(delta);
-				if (!(*it)->isWaitingForRecycle()) {
 
+				if (!(*it)->isWaitingForRecycle()) {
 					Region->insert((*it));
 					collision.clear();
 
@@ -56,6 +50,13 @@ void World::update(float delta)
 							it_sub->collision(Client, (*it));
 						}
 					}
+
+					//for (auto it_sub : Entities) {
+					//	if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
+					//		&& it_sub->isCollidingWith(*it)) {
+					//		it_sub->collision(Client, (*it));
+					//	}
+					//}
 				}
 
 				++it;

@@ -14,7 +14,7 @@
 #include "CMDFire.hpp"
 #include "CMDMove.hpp"
 #include "CMDPing.hpp"
-//#include "CMDSpawn.hpp"
+#include "CMDSpawnMonster.hpp"
 #include "CMDDestroyed.hpp"
 #include "CMDScore.hpp"
 #include "CMDPowder.hpp"
@@ -50,7 +50,7 @@ private:
 	static std::shared_ptr<ICommand> cmd_fire(void);
 	static std::shared_ptr<ICommand> cmd_move(void);
 	static std::shared_ptr<ICommand> cmd_ping(void);
-	//static std::shared_ptr<ICommand> cmd_spawn(void);
+	static std::shared_ptr<ICommand> cmd_spawnMonster(void);
 
 	static const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(void)>, EnumHash> Commands;
 };

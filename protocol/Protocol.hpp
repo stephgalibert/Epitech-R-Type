@@ -78,18 +78,6 @@ struct Disconnected
 	uint16_t id;
 };
 
-//struct Spawn
-//{
-//	CommandType cmdType;
-//	ObjectType object;
-//	uint16_t id_tospawn;
-//	uint32_t position;
-//	uint8_t type;
-//	uint8_t effect;
-//	uint8_t health;
-//	bool is_player;
-//};
-
 struct SpawnPowerUp
 {
 	CommandType cmdType;
@@ -228,6 +216,18 @@ struct SpawnPlayer
 	char username[0];
 };
 
+struct SpawnMonster
+{
+	CommandType cmdType;
+	uint16_t id;
+	uint32_t position;
+	uint8_t health;
+	uint16_t velocity;
+	uint8_t angle;
+	uint16_t size;
+	char type[0];
+};
+
 #  pragma pack(pop)
 # undef PACKED
 
@@ -273,6 +273,18 @@ struct SpawnPlayer
 		bool isPlayer;
 		uint8_t size;
 		char username[0];
+	} __attribute__((packed));
+
+	struct SpawnMonster
+	{
+		CommandType cmdType;
+		uint16_t id;
+		uint32_t position;
+		uint8_t health;
+		uint16_t velocity;
+		uint8_t angle;
+		uint16_t size;
+		char type[0];
 	} __attribute__((packed));
 
 #endif

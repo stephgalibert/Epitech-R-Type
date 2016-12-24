@@ -10,14 +10,6 @@ ADirectoryParser::~ADirectoryParser(void)
 {
 }
 
-//bool ADirectoryParser::extension(std::string const& filename, std::string const& ext)
-//{
-//	size_t pos = std::string::npos;
-//
-//	pos = filename.find_last_of(".");
-//	return (pos != std::string::npos && filename.substr(pos + 1) == ext);
-//}
-
 std::string const& ADirectoryParser::getDirPath(void) const
 {
 	return (_path);
@@ -30,7 +22,16 @@ std::vector<std::string> const& ADirectoryParser::getFiles(void) const
 
 void ADirectoryParser::addFile(std::string const& filename)
 {
-	//_files.push_back(filename);
-	StaticTools::Log << "adding plugins " << filename << std::endl;
-	_files.emplace_back<std::string>(filename.c_str());
+	bool found = false;
+
+	for (auto &it : _files) {
+		if (it == filename) {
+			found = true;
+		}
+	}
+
+	if (!found) {
+		StaticTools::Log << "adding plugins " << filename << std::endl;
+		_files.emplace_back<std::string>(filename.c_str());
+	}
 }

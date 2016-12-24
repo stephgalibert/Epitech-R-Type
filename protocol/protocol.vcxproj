@@ -146,7 +146,7 @@
     <ClCompile Include="CMDPowder.cpp" />
     <ClCompile Include="CMDRespawn.cpp" />
     <ClCompile Include="CMDScore.cpp" />
-    <ClCompile Include="CMDSpawn.cpp" />
+    <ClCompile Include="CMDSpawnMonster.cpp" />
     <ClCompile Include="CMDSpawnPlayer.cpp" />
     <ClCompile Include="CMDSpawnPowerUp.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
@@ -168,7 +168,7 @@
     <ClInclude Include="CMDPowder.hpp" />
     <ClInclude Include="CMDRespawn.hpp" />
     <ClInclude Include="CMDScore.hpp" />
-    <ClInclude Include="CMDSpawn.hpp" />
+    <ClInclude Include="CMDSpawnMonster.hpp" />
     <ClInclude Include="CMDSpawnPlayer.hpp" />
     <ClInclude Include="CMDSpawnPowerUp.hpp" />
     <ClInclude Include="CommandFactory.hpp" />

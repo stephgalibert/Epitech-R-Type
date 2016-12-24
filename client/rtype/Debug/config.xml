@@ -1,4 +1,4 @@
 <config>
-	<ip>10.101.53.215</ip>
+	<ip>127.0.0.1</ip>
 	<port>4242</port>
 </config>

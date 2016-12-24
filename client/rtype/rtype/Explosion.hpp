@@ -5,10 +5,10 @@
 class Explosion : public AExplosion
 {
 public:
-	Explosion();
+	Explosion(void);
 	virtual ~Explosion(void);
 
 	virtual void init(void);
-	virtual void destroy(void);
+	virtual void destroy(IClient &client);
 };
 

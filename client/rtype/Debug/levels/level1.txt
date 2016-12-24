@@ -1,5 +1,25 @@
-# seconds monster_type y
-# monster_type:
-# 0: Zork
+# MONSTER seconds y
+# STATE End
+# POWERUP seconds x y
 
-3 0 200
+MONSTER Zork 2 200
+MONSTER Zork 2.3 250
+MONSTER Zork 2.6 300
+MONSTER Zork 2.9 350
+MONSTER Zork 3.2 400
+MONSTER Zork 3.5 450
+MONSTER Zork 3.8 250
+MONSTER Zork 4.1 300
+MONSTER Zork 4.4 350
+MONSTER Zork 4.7 200
+MONSTER Zork 4.7 300
+MONSTER Zork 4.7 400
+
+MONSTER Zork 5 250
+MONSTER Zork 5.3 300
+MONSTER Zork 5.6 350
+MONSTER Zork 5.9 400
+MONSTER Zork 6.2 450
+MONSTER Zork 6.5 250
+
+# STATE End

@@ -6,8 +6,8 @@ Zorg::Zorg(void)
 	_id = 0;
 	_life = 1;
 	_fireRate = 3;
-	_speed = 100;
-	_spawnPosition = 300;
+	_velocity = 150;
+	_angle = 180;
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(0, 0));
 	_canonsDegrees.emplace_back<float>(180);
 }
@@ -17,10 +17,9 @@ Zorg::~Zorg(void)
 	std::cout << "deleting zorg" << std::endl;
 }
 
-void Zorg::update(float delta)
+void Zorg::update(double delta)
 {
 	(void)delta;
-	std::cout << "refresh zorg" << std::endl;
 }
 
 void Zorg::takeDamage(uint8_t damage)
@@ -35,9 +34,19 @@ void Zorg::takeDamage(uint8_t damage)
 	}
 }
 
-void Zorg::setID(int value)
+void Zorg::setID(uint16_t value)
 {
 	_id = value;
+}
+
+void Zorg::setPosition(uint16_t y)
+{
+	_position = y;
+}
+
+uint16_t Zorg::getID(void) const
+{
+	return (_id);
 }
 
 uint16_t Zorg::getScoreValue(void) const
@@ -55,19 +64,24 @@ uint8_t Zorg::getFireRate(void) const
 	return (_fireRate);
 }
 
-uint16_t Zorg::getSpeed(void) const
+uint16_t Zorg::getVelocity(void) const
 {
-	return (_speed);
+	return (_velocity);
 }
 
-ShipType Zorg::getType(void) const
+uint8_t Zorg::getAngle(void) const
 {
-	return (ShipType::Standard);
+	return (_angle);
 }
 
-uint16_t Zorg::getSpawnPosition(void) const
+std::string Zorg::getType(void) const
 {
-	return (_spawnPosition);
+	return ("Zork");
+}
+
+uint16_t Zorg::getPosition(void) const
+{
+	return (_position);
 }
 
 std::vector<std::pair<uint16_t, uint16_t> > const& Zorg::getCanonRelativePosition(void) const

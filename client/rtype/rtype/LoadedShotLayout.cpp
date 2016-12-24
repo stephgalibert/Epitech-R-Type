@@ -45,8 +45,9 @@ void LoadedShotLayout::update(float delta)
 	}
 }
 
-void LoadedShotLayout::destroy(void)
+void LoadedShotLayout::destroy(IClient &client)
 {
+	(void)client;
 }
 
 void LoadedShotLayout::setLoadedShot(float time)

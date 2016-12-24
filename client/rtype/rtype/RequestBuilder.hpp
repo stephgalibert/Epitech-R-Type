@@ -12,7 +12,7 @@
 #include "IRequest.hpp"
 #include "EnumHash.hpp"
 
-//#include "RequestSpawn.hpp"
+#include "RequestSpawnMonster.hpp"
 #include "RequestDisconnected.hpp"
 #include "RequestMove.hpp"
 #include "RequestFire.hpp"
@@ -44,7 +44,7 @@ private:
 	static std::unique_ptr<IRequest> create_LoadedPowderRequest(void);
 	static std::unique_ptr<IRequest> create_ConnectRequest(void);
 	static std::unique_ptr<IRequest> create_DisconnectedRequest(void);
-	//static std::unique_ptr<IRequest> create_SpawnRequest(void);
+	static std::unique_ptr<IRequest> create_SpawnMonsterRequest(void);
 	static std::unique_ptr<IRequest> create_MoveRequest(void);
 	static std::unique_ptr<IRequest> create_CollisionRequest(void);
 	static std::unique_ptr<IRequest> create_ErrorRequest(void);

@@ -1,7 +1,7 @@
 #include "RequestBuilder.hpp"
 
 const std::unordered_map<CommandType, std::function<std::unique_ptr<IRequest>(void)>, EnumHash> RequestBuilder::Requests = {
-	//{ CommandType::Spawn, std::bind(&RequestBuilder::create_SpawnRequest) },
+	{ CommandType::SpawnMonster, std::bind(&RequestBuilder::create_SpawnMonsterRequest) },
 	{ CommandType::Disconnected, std::bind(&RequestBuilder::create_DisconnectedRequest) },
 	{ CommandType::Move, std::bind(&RequestBuilder::create_MoveRequest) },
 	{ CommandType::Fire, std::bind(&RequestBuilder::create_FireRequest) },
@@ -80,10 +80,10 @@ std::unique_ptr<IRequest> RequestBuilder::create_DisconnectedRequest(void)
 	return (std::unique_ptr<IRequest>(new RequestDisconnected));
 }
 
-//std::unique_ptr<IRequest> RequestBuilder::create_SpawnRequest(void)
-//{
-//	return (std::unique_ptr<IRequest>(new RequestSpawn));
-//}
+std::unique_ptr<IRequest> RequestBuilder::create_SpawnMonsterRequest(void)
+{
+	return (std::unique_ptr<IRequest>(new RequestSpawnMonster));
+}
 
 std::unique_ptr<IRequest> RequestBuilder::create_MoveRequest(void)
 {

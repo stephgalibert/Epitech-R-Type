@@ -1,10 +1,15 @@
 #pragma once
 
+#include <string>
+#include <queue>
+#include <list>
+#include <memory>
+
 #include "ConnectionManager.hpp"
 #include "StaticTools.hpp"
-#include "ScheduledMonster.hpp"
 
 #include "IMonster.hpp"
+#include "LevelManager.hpp"
 
 template<typename T>
 class DLManager;
@@ -12,15 +17,25 @@ class DLManager;
 class MonsterManager
 {
 public:
-	MonsterManager(ConnectionManager const& cm);
+	MonsterManager(ConnectionManager &cm, LevelManager &lm);
 	~MonsterManager(void);
 
 	void init(void);
-	void update(float delta);
+	void update(double delta);
+
+	bool destroyed(uint16_t id);
 
 private:
-	ConnectionManager const& _cm;
-	ScheduledMonster _sm;
+	void spawnMonster(MonsterInformation const& info);
+
+private:
+	ConnectionManager &_cm;
+	LevelManager &_lm;
 	DLManager<IMonster> *_dlManager;
+	double _delta;
+	std::queue<MonsterInformation> _monstersInfo;
+	std::list<IMonster *> _monsters;
+	uint16_t _nextID;
+	std::mutex _mutex;
 };
 

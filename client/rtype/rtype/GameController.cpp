@@ -124,6 +124,7 @@ void GameController::connectToParty(std::string const& username, std::string con
 
 	while (!_network.isConnected());
 	_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
+	//StaticTools::sleep(1000);
 	_network.write(std::make_shared<CMDConnect>(_username, _partyName, _partyPwd));
 }
 

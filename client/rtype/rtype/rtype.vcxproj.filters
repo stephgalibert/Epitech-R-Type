@@ -165,9 +165,6 @@
     <ClCompile Include="RequestHandler.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
-    <ClCompile Include="RequestSpawn.cpp">
-      <Filter>Fichiers sources\request</Filter>
-    </ClCompile>
     <ClCompile Include="Mate.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
@@ -286,6 +283,12 @@
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
     <ClCompile Include="RequestSpawnPlayer.cpp">
+      <Filter>Fichiers sources\request</Filter>
+    </ClCompile>
+    <ClCompile Include="Zork.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestSpawnMonster.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
     <ClCompile Include="MenuTextInputPopup.cpp">
@@ -419,9 +422,6 @@
     <ClInclude Include="IRequest.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
-    <ClInclude Include="RequestSpawn.hpp">
-      <Filter>Fichiers d%27en-tête\request</Filter>
-    </ClInclude>
     <ClInclude Include="Mate.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
@@ -471,9 +471,6 @@
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="Health.hpp">
-      <Filter>Fichiers d%27en-tête\game</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadedShotLayout.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="RequestRespawn.hpp">
@@ -547,6 +544,15 @@
     </ClInclude>
     <ClInclude Include="RequestSpawnPlayer.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="Zork.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestSpawnMonster.hpp">
+      <Filter>Fichiers d%27en-tête\request</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadedShotLayout.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="MenuTextInputPopup.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>

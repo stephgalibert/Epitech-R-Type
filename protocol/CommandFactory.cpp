@@ -3,7 +3,7 @@
 const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(void)>, EnumHash> CommandFactory::Commands = {
 	{ CommandType::Connect, std::bind(&CommandFactory::cmd_connect) },
 	{ CommandType::CreateParty, std::bind(&CommandFactory::cmd_createParty) },
-	//{ CommandType::Spawn, std::bind(&CommandFactory::cmd_spawn) },
+	{ CommandType::SpawnMonster, std::bind(&CommandFactory::cmd_spawnMonster) },
 	{ CommandType::Disconnected, std::bind(&CommandFactory::cmd_disconnected) },
 	{ CommandType::Move, std::bind(&CommandFactory::cmd_move) },
 	{ CommandType::Collision, std::bind(&CommandFactory::cmd_collision) },
@@ -118,7 +118,7 @@ std::shared_ptr<ICommand> CommandFactory::cmd_ping(void)
 	return std::make_shared<CMDPing>();
 }
 
-//std::shared_ptr<ICommand> CommandFactory::cmd_spawn(void)
-//{
-//	return std::make_shared<CMDSpawn>();
-//}
+std::shared_ptr<ICommand> CommandFactory::cmd_spawnMonster(void)
+{
+	return std::make_shared<CMDSpawnMonster>();
+}

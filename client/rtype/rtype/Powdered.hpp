@@ -12,7 +12,7 @@ public:
 
 	virtual void init(void);
 	virtual void update(float delta);
-	virtual void destroy(void);
+	virtual void destroy(IClient &client);
 
 	virtual void collision(IClient *client, AEntity *other);
 	virtual void applyCollision(CollisionType type, AEntity *other);
