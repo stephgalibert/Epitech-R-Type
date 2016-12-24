@@ -34,10 +34,22 @@ void StaticTools::DeserializePosition(uint32_t position, uint16_t &x, uint16_t &
 	y = position & 0xffff;
 }
 
-void StaticTools::sleep(unsigned int milliseconds)
+void StaticTools::SplitString(std::string const& s, char delim, std::vector<std::string> &elems)
+{
+	std::stringstream ss;
+	std::string buffer;
+
+	ss.str(s);
+	while (std::getline(ss, buffer, delim)) {
+		elems.push_back(buffer);
+	}
+}
+
+
+void StaticTools::Sleep(unsigned int milliseconds)
 {
 #ifdef _WIN32
-	Sleep(milliseconds);
+	::Sleep(milliseconds);
 #else
 	usleep(milliseconds * 100);
 #endif

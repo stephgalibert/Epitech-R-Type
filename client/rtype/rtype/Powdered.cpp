@@ -45,8 +45,9 @@ void Powdered::update(float delta)
 	updateFrame();
 }
 
-void Powdered::destroy(void)
+void Powdered::destroy(IClient &client)
 {
+	(void)client;
 }
 
 void Powdered::collision(IClient *client, AEntity *other)

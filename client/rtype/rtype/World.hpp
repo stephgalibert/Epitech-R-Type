@@ -41,7 +41,6 @@ public:
 
 private:
 	static std::list<AEntity *> Entities;
-	static std::vector<AEntity *> ToPush;
 	static std::mutex Mutex;
 	static IClient *Client;
 	static Player **ThePlayer;

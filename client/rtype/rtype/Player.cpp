@@ -7,6 +7,8 @@ const uint8_t Player::FRAME_MID = 1;
 const uint8_t Player::FRAME_BOT = 2;
 const uint8_t Player::FRAME_EXP = 3;
 
+#include "Zork.hpp"
+
 Player::Player()
 	: _delta(0.f),
 	_deltaLastShoot(0),
@@ -86,8 +88,9 @@ void Player::update(float delta)
 	APC::update(delta);
 }
 
-void Player::destroy(void)
+void Player::destroy(IClient &client)
 {
+	(void)client;
 }
 
 void Player::setIClient(IClient *client)
@@ -103,25 +106,21 @@ void Player::setHUD(HUDController *hud)
 
 void Player::collision(IClient *client, AEntity *other)
 {
-  (void)client;
-  if (!hasCollisioned()) {
+	if (!hasCollisioned()) {
 	  if (other->getCollisionType() == COLLISION_PUP) {
 		  other->setCollisionType(COLLISION_NONE);
-		  _client->write(std::make_shared<CMDCollision>(CollisionType::PowerUP, getID(), other->getID()));
+		  client->write(std::make_shared<CMDCollision>(CollisionType::PowerUP, getID(), other->getID()));
 	  }
-	  else if (!isInvincible() && !other->isInvincible()) {
+	  else if (!isInvincible() && !other->isInvincible() && other->getID() > 29999) {
 		  if (getCollisionType() != COLLISION_NONE
 			  && other->getCollisionType() == COLLISION_FATAL) {
 
 			sf::FloatRect const& r0 = getBoundingBox();
 			sf::FloatRect const& r1 = other->getBoundingBox();
 
-			std::cout << r0.left << " " << r0.top << " " << r0.width << " " << r0.height
-			<< " colliding with " << r1.left << " " << r1.top << " " << r1.width << " " << r1.height << std::endl;
-
-			  setCollisioned(true);
-			  _client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
-			  setCollisionType(COLLISION_NONE);
+			setCollisioned(true);
+			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+			setCollisionType(COLLISION_NONE);
 		  }
 	  }
   }
@@ -183,7 +182,6 @@ void Player::move(float delta)
 		}
 
 		for (auto it : _drawablePowerUps) {
-			//it->ADrawable::move(x, y);
 			it->attachToEntity(this);
 		}
 	}
@@ -318,6 +316,7 @@ void Player::updateFrame(void)
 		}
 
 		sf::IntRect const& r = _frames.at(_currentDirection);
+		setOrigin(r.width / 2.f, r.height / 2.f);
 		getShape()->setTextureRect(sf::IntRect(_currentFrame * r.width, r.top, r.width, r.height));
 		_delta = 0.f;
 	}
@@ -391,6 +390,16 @@ void Player::keyboard(InputHandler &input)
 		_loadedShot = false;
 		_deltaLoadedShot = 0;
 	}
+
+	//static bool t = false;
+	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
+	//	t = true;
+	//	Zork *zork = World::spawnEntity<Zork>();
+	//	zork->setPosition(getPosition());
+	//	zork->setVelocity(150);
+	//	zork->setAngle(180);
+	//	zork->setReadyForInit(true);
+	//}
 }
 
 void Player::joystick(InputHandler &input)

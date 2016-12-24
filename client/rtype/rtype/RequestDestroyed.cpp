@@ -20,6 +20,6 @@ void RequestDestroyed::execute(IClient &client, std::shared_ptr<ICommand> data,
 	StaticTools::Log << "executing destroyed request : id " << (int)id << std::endl;
 	AEntity *entity = World::getEntityByID(id);
 	if (entity) {
-		entity->destroy();
+		entity->recycle();
 	}
 }

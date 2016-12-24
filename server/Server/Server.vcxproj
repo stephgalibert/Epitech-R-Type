@@ -26,6 +26,8 @@
     <ClCompile Include="ADirectoryParser.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AServer.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LevelParser.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="ReceiveFromAsyncTask.cpp" />
     <ClCompile Include="Buffer.cpp" />
@@ -49,7 +51,6 @@
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="RequestScore.cpp" />
-    <ClCompile Include="ScheduledMonster.cpp" />
     <ClCompile Include="SendToAsyncTask.cpp" />
     <ClCompile Include="TCPConnection.cpp" />
     <ClCompile Include="TCPServer.cpp" />
@@ -95,6 +96,9 @@
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AServer.hpp" />
     <ClInclude Include="DLManager.hpp" />
+    <ClInclude Include="LevelManager.hpp" />
+    <ClInclude Include="LevelParser.hpp" />
+    <ClInclude Include="MonsterInformation.hpp" />
     <ClInclude Include="MonsterManager.hpp" />
     <ClInclude Include="ReceiveFromAsyncTask.hpp" />
     <ClInclude Include="Buffer.hpp" />
@@ -124,7 +128,6 @@
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="RequestScore.hpp" />
-    <ClInclude Include="ScheduledMonster.hpp" />
     <ClInclude Include="SendToAsyncTask.hpp" />
     <ClInclude Include="TCPConnection.hpp" />
     <ClInclude Include="TCPServer.hpp" />

@@ -1,12 +1,9 @@
 #include "UnloadArea.hpp"
 
-
-
-UnloadArea::UnloadArea()
+UnloadArea::UnloadArea(void)
 {
 }
 
-
-UnloadArea::~UnloadArea()
+UnloadArea::~UnloadArea(void)
 {
 }

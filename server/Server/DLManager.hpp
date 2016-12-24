@@ -14,20 +14,20 @@
 #endif
 
 template <typename T>
-class DLManager {
+class DLManager
+{
 public:
 	DLManager(void);
 	~DLManager(void);
 
-	void addLibrary(std::string const& path);
+	void addLibrary(std::string const& dirpath, std::string const& path);
 	void parseDirectory(std::string const& dirpath);
 
-	std::vector<T *> const& retrieveObject(void);
-	void deleteObjects(void);
-
+	T *retrieveObject(std::string const& type);
+	//void deleteObject(std::string const& type);
 private:
 	std::vector<ADlLoader<T> *> _dls;
-	std::vector<T *> _instances;
+	//std::unordered_map<std::string, std::vector<T *> > _instances;
 };
 
 
@@ -41,13 +41,19 @@ DLManager<T>::DLManager(void)
 template <typename T>
 DLManager<T>::~DLManager(void)
 {
+	//for (auto &it : _instances) {
+	//	for (auto &sub_it : it.second) {
+	//		delete (sub_it);
+	//	}
+	//}
+
 	for (auto it : _dls) {
 		delete (it);
 	}
 }
 
 template <typename T>
-void DLManager<T>::addLibrary(std::string const& path)
+void DLManager<T>::addLibrary(std::string const& dirpath, std::string const& path)
 {
 #ifdef WIN32
 	ADlLoader<T> *loader = new WinDlLoader<T>;
@@ -55,8 +61,9 @@ void DLManager<T>::addLibrary(std::string const& path)
 	ADlLoader<T> *loader = new UnixDlLoader<T>;
 #endif
 	try {
-		loader->load(path);
-	} catch (std::exception const& e) {
+		loader->load(dirpath, path);
+	}
+	catch (std::exception const& e) {
 		if (loader) {
 			delete (loader);
 		}
@@ -77,28 +84,45 @@ void DLManager<T>::parseDirectory(std::string const& dirpath)
 	try {
 		parser->parse();
 		for (auto &it : parser->getFiles()) {
-			addLibrary(it);
+			addLibrary(dirpath, it);
 		}
-	} catch (std::exception const& e) {
+	}
+	catch (std::exception const& e) {
 		throw (e);
 	}
+
 	delete (parser);
 }
 
 template <typename T>
-std::vector<T *> const& DLManager<T>::retrieveObject(void)
+T *DLManager<T>::retrieveObject(std::string const& type)
 {
-	for (auto &it : _dls) {
-		_instances.push_back(it->getInstance());
-	}
-	return (_instances);
+	//if (_instances.find(type) == _instances.cend()) {
+		for (auto &it : _dls) {
+			if (it->getType() == type) {
+				T *object = it->getInstance();
+				//_instances[type].push_back(object);
+				return object;
+			}
+		}
+	/*}
+
+	if (_instances.find(type) != _instances.cend()) {
+		return (_instances.at(type)[0]);
+	}*/
+
+	throw (std::runtime_error("an error has occured while retrieving an object"));
 }
 
-template <typename T>
-void DLManager<T>::deleteObjects(void)
-{
-	for (auto &it : _instances) {
-		delete (it);
-	}
-	_instances.clear();
-}
+//template <typename T>
+//void DLManager<T>::deleteObject(std::string const& type)
+//{
+//	if (_instances.find(type) == _instances.cend()) {
+//		throw (std::runtime_error("can not find the dl " + type));
+//	}
+//
+//	for (auto &it : _instances[type]) {
+//		delete (it);
+//	}
+//	_instances.erase(type);
+//}

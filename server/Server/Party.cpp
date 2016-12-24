@@ -2,7 +2,7 @@
 
 Party::Party(void)
 	: _launched(false),
-	  _mm(_cm)
+	  _mm(_cm, _lm)
 {
 	_nextID = 1;
 	_state = GameStatusType::Waiting;
@@ -25,6 +25,7 @@ void Party::init(std::string const& name, std::string const& pwd)
 		_name = name;
 		_password = pwd;
 
+		_lm.initialize();
 		_mm.init();
 	}
 	catch (std::exception const& e) {
@@ -114,15 +115,17 @@ void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 {
 	Destroyed *destroyed = reinterpret_cast<Destroyed *>(cmd->getData());
 
-	if (connection->getID() == destroyed->id) {
-		connection->setLife(connection->getLife() - 1);
-		if (connection->getLife() > 0) {
-			uint16_t x = connection->getPosition().first;
-			uint16_t y = connection->getPosition().second;
-			broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
-		}
-		else {
-			broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " is dead"));
+	if (!_mm.destroyed(destroyed->id)) {
+		if (connection->getID() == destroyed->id) {
+			connection->setLife(connection->getLife() - 1);
+			if (connection->getLife() > 0) {
+				uint16_t x = connection->getPosition().first;
+				uint16_t y = connection->getPosition().second;
+				broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
+			}
+			else {
+				broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " is dead"));
+			}
 		}
 	}
 }
@@ -153,7 +156,7 @@ void Party::loop(void)
 			break;
 		}
 
-		StaticTools::sleep(10);
+		StaticTools::Sleep(10);
 	}
 }
 
@@ -196,7 +199,7 @@ uint8_t Party::getNbPlayer(void)
 void Party::waiting(double delta)
 {
 	_delta += delta;
-	if (_delta > 100. || isReady()) {
+	if (_delta > 10.f || isReady()) {
 		_launched = true;
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Playing));
 		std::cout << "ready" << std::endl;
@@ -207,7 +210,7 @@ void Party::waiting(double delta)
 
 void Party::playing(double delta)
 {
-	static bool test = true; // todel
+	//static bool test = true; // todel
 
 	_delta += delta;
 	if (!_cm.isPlayersAlive()) {
@@ -216,14 +219,15 @@ void Party::playing(double delta)
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
 	}
-	else if (_delta > 3.f && test) {
-		std::cout << "sending span powerup" << std::endl;
-		broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::IncreaseNumberOfCanon, _nextID, 200, 200));
-		_powerups.insert(_nextID);
-		++_nextID;
-		test = false;
-	}
-	// ...
+	//else if (_delta > 3.f && test) {
+	//	std::cout << "sending span powerup" << std::endl;
+	//	broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::IncreaseNumberOfCanon, _nextID, 200, 200));
+	//	//_powerups.insert(_nextID);
+	//	++_nextID;
+	//	test = false;
+	//}
+
+	_mm.update(delta);
 }
 
 void Party::gameOver(double delta)

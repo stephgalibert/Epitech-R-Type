@@ -39,8 +39,9 @@ void IncreaseNumberOfCanon::update(float delta)
 	updateFrame();
 }
 
-void IncreaseNumberOfCanon::destroy(void)
+void IncreaseNumberOfCanon::destroy(IClient &client)
 {
+	(void)client;
 }
 
 void IncreaseNumberOfCanon::attachToEntity(AEntity *entity)

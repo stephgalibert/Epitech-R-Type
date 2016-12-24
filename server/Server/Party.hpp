@@ -11,6 +11,7 @@
 #include "Timer.hpp"
 #include "Generator.hpp"
 #include "MonsterManager.hpp"
+#include "LevelManager.hpp"
 
 class Party : public std::enable_shared_from_this<Party>
 {
@@ -51,10 +52,11 @@ private:
 	std::string _name;
 	std::string _password;
 	ConnectionManager _cm;
+	LevelManager _lm;
 
 	std::thread _party;
 	bool _launched;
-	uint8_t _nextID;
+	uint16_t _nextID;
 	GameStatusType _state;
 	double _delta;
 	Generator _generator;

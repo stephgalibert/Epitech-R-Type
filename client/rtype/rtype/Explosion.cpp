@@ -35,6 +35,7 @@ void Explosion::init(void)
 	}
 }
 
-void Explosion::destroy(void)
+void Explosion::destroy(IClient &client)
 {
+	(void)client;
 }

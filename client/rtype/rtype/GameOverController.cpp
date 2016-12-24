@@ -17,7 +17,7 @@ GameOverController::~GameOverController(void)
 void GameOverController::init(void)
 {
 	try {
-		_text.setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
+		_text.setFont(ProjectResource::TheProjectResource.getFontByKey("font_state"));
 
 		_text.setCharacterSize(26);
 		_text.setFillColor(sf::Color::Yellow);
@@ -30,7 +30,6 @@ void GameOverController::init(void)
 		sf::FloatRect textRect = _text.getLocalBounds();
 		_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 		_text.setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f));
-
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "GameOverController: " << e.what() << std::endl;

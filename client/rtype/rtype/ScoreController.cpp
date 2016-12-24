@@ -57,31 +57,20 @@ void ScoreController::update(float delta)
 			}
 			std::string mate;
 			for (size_t i = 1; i < 4; ++i) {
-				mate = (_mates)[i - 1]->getName() + ": ";
 				if ((_mates)[i - 1]) {
+					mate = (_mates)[i - 1]->getName() + ": ";
 					mate += std::to_string((_mates)[i - 1]->getScore());
+					_text[i].setString(mate);
+
+					sf::FloatRect textRect = _text[i].getLocalBounds();
+					_text[i].setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+					_text[i].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + ((i - 1) * 30)));
 				}
-				else {
-					mate += "None";
-				}
-				_text[i].setString(mate);
 			}
 
 			sf::FloatRect textRect0 = _text[0].getLocalBounds();
 			_text[0].setOrigin(textRect0.left + textRect0.width / 2.0f, textRect0.top + textRect0.height / 2.0f);
 			_text[0].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f - 30));
-
-			sf::FloatRect textRect1 = _text[1].getLocalBounds();
-			_text[1].setOrigin(textRect1.left + textRect1.width / 2.0f, textRect1.top + textRect1.height / 2.0f);
-			_text[1].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f));
-
-			sf::FloatRect textRect2 = _text[2].getLocalBounds();
-			_text[2].setOrigin(textRect2.left + textRect2.width / 2.0f, textRect2.top + textRect2.height / 2.0f);
-			_text[2].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 30));
-
-			sf::FloatRect textRect3 = _text[3].getLocalBounds();
-			_text[3].setOrigin(textRect3.left + textRect3.width / 2.0f, textRect3.top + textRect3.height / 2.0f);
-			_text[3].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + 60));
 
 			_delta = 0;
 		}

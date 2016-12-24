@@ -34,7 +34,7 @@ void PartyManager::update(void)
 			}
 		}
 	}
-	StaticTools::sleep(10);
+	StaticTools::Sleep(10);
 }
 
 void PartyManager::addParty(std::string const& name, std::string const& pwd)
@@ -48,7 +48,6 @@ void PartyManager::addParty(std::string const& name, std::string const& pwd)
 		party->init(name, pwd);
 	}
 	catch (std::exception const& e) {
-		//throw (std::runtime_error(e.what()));
 		std::cerr << e.what() << std::endl;
 		return;
 	}
@@ -81,21 +80,13 @@ std::shared_ptr<Party> PartyManager::addConnexion(std::shared_ptr<AConnection> c
 	auto party = _parties.find(name);
 	if (party != _parties.cend() && (*party).second->getPassword() == pwd) {
 		(*party).second->addConnection(connection);
-		std::cout << "found in parties" << std::endl;
 		return ((*party).second);
-	}
-	else {
-		std::cout << "not found in parties: " << name << ":" << pwd << std::endl;
 	}
 
 	auto toRun = _toRun.find(name);
 	if (toRun != _toRun.cend() && (*toRun).second->getPassword() == pwd) {
 		(*toRun).second->addConnection(connection);
-		std::cout << "found in toRun" << std::endl;
 		return ((*toRun).second);
-	}
-	else {
-		std::cout << "not found in toRun" << std::endl;
 	}
 
 	return (NULL);
@@ -108,7 +99,7 @@ std::unordered_map<std::string, std::shared_ptr<Party> > const& PartyManager::ge
 
 void PartyManager::checkPartyExist(std::string const& name) const
 {
-	if (_parties.find(name) != _parties.cend() || _parties.find(name) != _parties.cend()) {
+	if (_parties.find(name) != _parties.cend() || _toRun.find(name) != _toRun.cend()) {
 		throw (std::runtime_error("The party " + name + " already exist"));
 	}
 }

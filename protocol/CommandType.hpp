@@ -14,7 +14,7 @@ enum class CommandType : uint8_t
 	Score = 7,
 	Respawn = 8,
 	Message = 9,
-	Spawn = 10,
+	SpawnMonster = 10,
 	Move = 11,
 	Destroyed = 12,
 	Fire = 13,

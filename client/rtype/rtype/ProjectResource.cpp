@@ -19,10 +19,14 @@ ProjectResource::~ProjectResource(void)
 void ProjectResource::load(void)
 {
 	try {
-		//addFont(MAIN_FONT, "./rsrc/font/pixelmix.ttf");
 		addFont(MAIN_FONT, "./rsrc/font/futurist_regular.ttf");
+		addFont("font_state", "./rsrc/font/futurist_state.ttf");
 
 		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
+		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
+		addMusic("game_over", "./rsrc/music/game_over.ogg");
+		addSound("explosions", "./rsrc/music/explosion.ogg");
+		addSound("shot", "./rsrc/music/shot.wav");
 
 		addTexture("hud1", "./rsrc/sprites/hud1.png");
 		addTexture("shots1", "./rsrc/sprites/shots1.png");
@@ -35,11 +39,7 @@ void ProjectResource::load(void)
 		addTexture("explosions", "./rsrc/sprites/explosions.png");
 		addTexture("powerups1", "./rsrc/sprites/powerups1.png");
 
-		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
-		addMusic("game_over", "./rsrc/music/game_over.ogg");
-		addSound("explosions", "./rsrc/music/explosion.ogg");
-		addSound("shot", "./rsrc/music/shot.wav");
-		//addTexture("hud2", "./rsrc/sprites/hud2.png");
+		addTexture("ennemy1", "./rsrc/sprites/ennemy1.png");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);

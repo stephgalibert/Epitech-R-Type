@@ -50,8 +50,9 @@ void Health::update(float delta)
 	}
 }
 
-void Health::destroy(void)
+void Health::destroy(IClient &client)
 {
+	(void)client;
 }
 
 void Health::setHealth(uint8_t health)

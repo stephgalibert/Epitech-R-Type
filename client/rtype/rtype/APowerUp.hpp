@@ -11,7 +11,7 @@ public:
 
 	virtual void init(void) = 0;
 	virtual void update(float delta) = 0;
-	virtual void destroy(void) = 0;
+	virtual void destroy(IClient &client) = 0;
 
 	virtual void collision(IClient *client, AEntity *other);
 	virtual void applyCollision(CollisionType type, AEntity *other);

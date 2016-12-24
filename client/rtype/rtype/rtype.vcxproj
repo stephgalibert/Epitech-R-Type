@@ -220,7 +220,7 @@
     <ClCompile Include="RequestMove.cpp" />
     <ClCompile Include="RequestRespawn.cpp" />
     <ClCompile Include="RequestScore.cpp" />
-    <ClCompile Include="RequestSpawn.cpp" />
+    <ClCompile Include="RequestSpawnMonster.cpp" />
     <ClCompile Include="RequestSpawnPlayer.cpp" />
     <ClCompile Include="RequestSpawnPowerUp.cpp" />
     <ClCompile Include="ScoreController.cpp" />
@@ -231,6 +231,7 @@
     <ClCompile Include="UnloadArea.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="XMLReader.cpp" />
+    <ClCompile Include="Zork.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\common\EnumHash.hpp" />
@@ -306,7 +307,7 @@
     <ClInclude Include="RequestMove.hpp" />
     <ClInclude Include="RequestRespawn.hpp" />
     <ClInclude Include="RequestScore.hpp" />
-    <ClInclude Include="RequestSpawn.hpp" />
+    <ClInclude Include="RequestSpawnMonster.hpp" />
     <ClInclude Include="RequestSpawnPlayer.hpp" />
     <ClInclude Include="RequestSpawnPowerUp.hpp" />
     <ClInclude Include="ScoreController.hpp" />
@@ -317,6 +318,7 @@
     <ClInclude Include="UnloadArea.hpp" />
     <ClInclude Include="World.hpp" />
     <ClInclude Include="XMLReader.hpp" />
+    <ClInclude Include="Zork.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "ProjectResource.hpp"
+#include "IClient.hpp"
 
 class ADrawable : public sf::Drawable, public sf::Transformable
 {
@@ -18,7 +19,7 @@ public:
 
 	virtual void init(void) = 0;
 	virtual void update(float delta) = 0;
-	virtual void destroy(void) = 0;
+	virtual void destroy(IClient &client) = 0;
 
 	void recycle(void);
 	bool isWaitingForRecycle(void) const;

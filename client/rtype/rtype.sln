@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtype", "rtype\rtype.vcxproj", "{FE1D4BBA-C021-4E24-ACEB-1B9D6F258494}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "..\..\server\Server\Server.vcxproj", "{8307FF3E-F20A-48EF-887F-9FC713A56F2F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB91CE66-15F9-47C0-961D-CE56B0B7876E} = {AB91CE66-15F9-47C0-961D-CE56B0B7876E}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protocol", "..\..\protocol\protocol.vcxproj", "{AB91CE66-15F9-47C0-961D-CE56B0B7876E}"
 EndProject

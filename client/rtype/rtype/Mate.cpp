@@ -101,9 +101,9 @@ void Mate::update(float delta)
 	ANPC::update(delta);
 }
 
-void Mate::destroy(void)
+void Mate::destroy(IClient &client)
 {
-
+	(void)client;
 }
 
 void Mate::collision(IClient *client, AEntity *other)
