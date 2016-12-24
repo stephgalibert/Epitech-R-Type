@@ -7,6 +7,8 @@
 #include "MenuButton.hpp"
 #include "MenuServerBrowser.hpp"
 #include "MenuTextForm.hpp"
+#include "MenuConfirmPopup.hpp"
+#include "MenuTextInputPopup.hpp"
 #include "IClient.hpp"
 
 class MainMenuController : public AController
@@ -28,9 +30,15 @@ class MainMenuController : public AController
 	static const float SERVER_BROWSER_POS_Y;
 	static const float SERVER_BROWSER_WIDTH;
 	static const size_t SERVER_BROWSER_ITEMS_SHOWN;
+	static const std::string FORM_GAME_NAME;
+	static const std::string FORM_GAME_NAME_DEFAULT;
+	static const std::string FORM_PASSWORD;
+	static const std::string FORM_PASSWORD_DEFAULT;
+	static const std::string FORM_PLAYER_NAME;
+	static const std::string FORM_PLAYER_NAME_DEFAULT;
 
 public:
-	MainMenuController(IClient &_client);
+	MainMenuController(IClient &client);
 	virtual ~MainMenuController(void);
 
 public:
@@ -43,7 +51,9 @@ public:
 		ST_Splash4 = 4,
 		ST_Menu = 10,
 		ST_Selecting = 20,
-		ST_Creating = 30
+		ST_Username = 25,
+		ST_Creating = 30,
+		ST_ConfirmCreate = 35
 	};
 
 public:
@@ -58,6 +68,7 @@ public:
 	struct ConnectData {
 		std::string game;
 		std::string password;
+		std::string username;
 	};
 
 public:
@@ -71,6 +82,12 @@ public:
 	void unmute(void) const;
 	short pullAction(void);
 	ConnectData const &getConnectData(void) const;
+	bool handleCreatingInput(InputHandler &input);
+	bool handleCreateConfirmPopupInput(InputHandler &input);
+	bool handleSelectingInput(InputHandler &input);
+	bool handleUsernamePopupInput(InputHandler &input);
+	bool handleMenuInput(InputHandler &input);
+	bool handleSplashInput(InputHandler &input);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));
@@ -84,7 +101,9 @@ private:
 
 private:
 	bool keyUp(void);
+	bool keyPageUp(void);
 	bool keyDown(void);
+	bool keyPageDown(void);
 	bool keyReturn(void);
 
 private:
@@ -103,6 +122,8 @@ private:
 	std::vector<MenuButton> _buttons;
 	MenuServerBrowser _browser;
 	MenuTextForm _form;
+	MenuConfirmPopup _confirmPopup;
+	MenuTextInputPopup _inputPopup;
 
 	/* TEST ONLY */
 private:

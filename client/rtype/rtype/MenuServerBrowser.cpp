@@ -106,6 +106,10 @@ void MenuServerBrowser::setSelected(const int selected) {
 	_selected = selected;
 }
 
+void MenuServerBrowser::addEntry(std::string const &entry) {
+	_content.push_back(entry);
+}
+
 sf::Vector2f const &MenuServerBrowser::getSize(void) const {
 	return _frame.getSize();
 }

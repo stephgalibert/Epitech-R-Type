@@ -14,7 +14,7 @@ class MenuTextField : public sf::Drawable {
 	static const float CURSOR_BAR_WIDTH;
 
 public:
-	MenuTextField();
+	MenuTextField(std::string const &content = "");
 	MenuTextField(sf::Vector2f const &position, sf::Vector2f const &size, const uint32_t fontSize = FONT_CHAR_SIZE);
 	virtual ~MenuTextField();
 
