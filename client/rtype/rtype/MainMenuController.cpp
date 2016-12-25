@@ -62,6 +62,7 @@ void MainMenuController::init()
 		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), menuFont));
 		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), menuFont));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), menuFont));
+		_buttons.push_back(MenuButton("Credits", static_cast<short>(SelectedAction::CREDITS), menuFont));
 		
 		for (int i = 0; i < 21; i++) {
 			_browserContent.push_back("Test #" + std::to_string(i));
@@ -84,10 +85,13 @@ void MainMenuController::init()
 		_confirmPopup.setMessage("Confirm ?");
 		_confirmPopup.centerOnScreen();
 
+		_creditsScreen.init(menuFont);
+		_creditsScreen.setPosition(_browser.getPosition());
+
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
 
-		//unmute();
+		unmute();
 	}
 	catch (std::exception const& e) {
 		//throw (std::runtime_error(e.what()));
@@ -126,6 +130,8 @@ bool MainMenuController::input(InputHandler &input)
 		return handleCreatingInput(input);
 	case State::ST_ConfirmCreate:
 		return handleCreateConfirmPopupInput(input);
+	case State::ST_Credits:
+		return handleCreditsInput(input);
 	case State::ST_None:
 	default:
 		break;
@@ -175,6 +181,10 @@ bool MainMenuController::keyReturn(void) {
 		_fsm = State::ST_Creating;
 		break;
 	}
+	case SelectedAction::CREDITS: {
+		_fsm = State::ST_Credits;
+		break;
+	}
 	case SelectedAction::NONE:
 	default:
 		break;
@@ -202,6 +212,7 @@ void MainMenuController::update(float delta)
 	case State::ST_Username:
 	case State::ST_Creating:
 	case State::ST_ConfirmCreate:
+	case State::ST_Credits:
 		updateMenu(delta);
 		break;
 	case State::ST_None:
@@ -248,8 +259,9 @@ void MainMenuController::updateSplashThirdPhase(const float delta) {
 }
 
 void MainMenuController::updateSplashFourthPhase(const float delta) {
-  (void)delta;
+	(void)delta;
 	_fsm = State::ST_Menu;
+	updateMenu(delta);
 }
 
 void MainMenuController::updateMenu(const float delta) {
@@ -292,18 +304,21 @@ void MainMenuController::draw(sf::RenderWindow &window)
 		for (auto &button : _buttons) {
 			window.draw(button);
 		}
-	}
-	if (_fsm == State::ST_Selecting || _fsm == State::ST_Username) {
-		window.draw(_browser);
-	}
-	else if (_fsm == State::ST_Creating || _fsm == State::ST_ConfirmCreate) {
-		window.draw(_form);
-	}
-	if (_fsm == State::ST_ConfirmCreate) {
-		window.draw(_confirmPopup);
-	}
-	else if (_fsm == State::ST_Username) {
-		window.draw(_inputPopup);
+		if (_fsm == State::ST_Selecting || _fsm == State::ST_Username) {
+			window.draw(_browser);
+		}
+		else if (_fsm == State::ST_Creating || _fsm == State::ST_ConfirmCreate) {
+			window.draw(_form);
+		}
+		else if (_fsm == State::ST_Credits) {
+			window.draw(_creditsScreen);
+		}
+		if (_fsm == State::ST_ConfirmCreate) {
+			window.draw(_confirmPopup);
+		}
+		else if (_fsm == State::ST_Username) {
+			window.draw(_inputPopup);
+		}
 	}
 }
 
@@ -453,6 +468,17 @@ bool MainMenuController::handleSplashInput(InputHandler &input) {
 	if (input.isKeyDown(sf::Keyboard::Space) || input.isKeyDown(sf::Keyboard::Return)) {
 		abortSplash();
 		return true;
+	}
+	return false;
+}
+
+bool MainMenuController::handleCreditsInput(InputHandler & input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Return) || input.isKeyDown(sf::Keyboard::Right)) {
+			_fsm = State::ST_Menu;
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
 	}
 	return false;
 }

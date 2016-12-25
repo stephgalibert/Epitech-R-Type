@@ -300,6 +300,9 @@
     <ClCompile Include="GameWinController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="MenuCredits.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -565,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="GameWinController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuCredits.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

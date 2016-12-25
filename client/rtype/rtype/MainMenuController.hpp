@@ -9,6 +9,7 @@
 #include "MenuTextForm.hpp"
 #include "MenuConfirmPopup.hpp"
 #include "MenuTextInputPopup.hpp"
+#include "MenuCredits.hpp"
 #include "IClient.hpp"
 
 class MainMenuController : public AController
@@ -53,7 +54,8 @@ public:
 		ST_Selecting = 20,
 		ST_Username = 25,
 		ST_Creating = 30,
-		ST_ConfirmCreate = 35
+		ST_ConfirmCreate = 35,
+		ST_Credits = 40
 	};
 
 public:
@@ -61,6 +63,7 @@ public:
 		PLAY = 0,
 		CREATE = 1,
 		QUIT = 2,
+		CREDITS = 3,
 		NONE = -1
 	};
 
@@ -88,6 +91,7 @@ public:
 	bool handleUsernamePopupInput(InputHandler &input);
 	bool handleMenuInput(InputHandler &input);
 	bool handleSplashInput(InputHandler &input);
+	bool handleCreditsInput(InputHandler &input);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));
@@ -124,6 +128,7 @@ private:
 	MenuTextForm _form;
 	MenuConfirmPopup _confirmPopup;
 	MenuTextInputPopup _inputPopup;
+	MenuCredits _creditsScreen;
 
 	/* TEST ONLY */
 private:
