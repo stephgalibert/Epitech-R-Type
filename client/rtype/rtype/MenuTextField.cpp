@@ -9,7 +9,7 @@ const float MenuTextField::TEXT_LEFT_PADDING = 3.f;
 const float MenuTextField::TEXT_TOP_PADDING = 3.f;
 const float MenuTextField::CURSOR_BAR_WIDTH = 1.f;
 
-MenuTextField::MenuTextField() : _cursor(0u), _textDisplayOffset(0u), _cursorVisible(true) {
+MenuTextField::MenuTextField(std::string const &content) : _content(content), _cursor(0u), _textDisplayOffset(0u), _cursorVisible(true) {
 	try {
 		_frame.setFillColor(DEFAULT_BACKFROUND_COLOR);
 		_frame.setOutlineThickness(FRAME_OUTILINE_THICKNESS);

@@ -28,6 +28,7 @@ public:
 	void clearContent(void);
 	void setContent(std::vector<std::string> const &content);
 	void setSelected(const int index);
+	void addEntry(std::string const &entry);
 
 public:
 	sf::Vector2f const &getSize(void) const;

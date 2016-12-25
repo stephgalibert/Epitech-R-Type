@@ -34,6 +34,7 @@ public:
 	short getId(void) const;
 	State getState(void) const;
 	sf::Vector2f const &getPosition(void) const;
+	sf::FloatRect getGlobalBounds(void) const;
 
 private:
 	State _state;

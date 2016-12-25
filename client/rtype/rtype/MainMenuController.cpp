@@ -19,7 +19,13 @@ const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
 const float MainMenuController::SERVER_BROWSER_POS_X = 75.f;
 const float MainMenuController::SERVER_BROWSER_POS_Y = 60.f;
 const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolution().first / 2.f + 10.f;
-const size_t MainMenuController::SERVER_BROWSER_ITEMS_SHOWN = 13u;
+const size_t MainMenuController::SERVER_BROWSER_ITEMS_SHOWN = 15u;
+const std::string MainMenuController::FORM_GAME_NAME = "Game Name";
+const std::string MainMenuController::FORM_GAME_NAME_DEFAULT = "room1";
+const std::string MainMenuController::FORM_PASSWORD = "Password";
+const std::string MainMenuController::FORM_PASSWORD_DEFAULT = "pwd1";
+const std::string MainMenuController::FORM_PLAYER_NAME = "Player Name";
+const std::string MainMenuController::FORM_PLAYER_NAME_DEFAULT = "Player";
 
 MainMenuController::MainMenuController(IClient &client)
 	: _client(client),
@@ -40,6 +46,7 @@ void MainMenuController::init()
 {
 	try {
 		MainMenuResource::menuResourceManager.load();
+		sf::Font *menuFont = &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT);
 
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_R)));
 		_titleSprites.push_back(sf::Sprite(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOGO_DOT)));
@@ -52,9 +59,9 @@ void MainMenuController::init()
 			sprite.setPosition(static_cast<float>(SPLASH_INIT_POS), static_cast<float>(TITLE_BASE_Y_POS));
 		}
 
-		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
-		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
-		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), &ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT)));
+		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), menuFont));
+		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), menuFont));
+		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), menuFont));
 		
 		for (int i = 0; i < 21; i++) {
 			_browserContent.push_back("Test #" + std::to_string(i));
@@ -65,9 +72,17 @@ void MainMenuController::init()
 		_browser.setContent(_browserContent);
 
 		_form.setPosition(_browser.getPosition());
-		_form.addField("Game Name", "name");
-		_form.addField("Password", "pass");
+		_form.addField(FORM_GAME_NAME, FORM_GAME_NAME_DEFAULT);
+		_form.addField(FORM_PASSWORD, FORM_PASSWORD_DEFAULT);
+		_form.addField(FORM_PLAYER_NAME, FORM_PLAYER_NAME_DEFAULT);
 		_form.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, _form.getIdealHeight()));
+
+		_inputPopup.setFont(menuFont);
+		_inputPopup.centerOnScreen();
+
+		_confirmPopup.setFont(menuFont);
+		_confirmPopup.setMessage("Confirm ?");
+		_confirmPopup.centerOnScreen();
 
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
@@ -87,86 +102,35 @@ void MainMenuController::addKeyAction(const sf::Keyboard::Key key, bool (MainMen
 
 void MainMenuController::buildKeyActionsMap(void) {
 	addKeyAction(sf::Keyboard::Up, &MainMenuController::keyUp);
+	addKeyAction(sf::Keyboard::PageUp, &MainMenuController::keyPageUp);
 	addKeyAction(sf::Keyboard::Down, &MainMenuController::keyDown);
+	addKeyAction(sf::Keyboard::PageDown, &MainMenuController::keyPageDown);
 	addKeyAction(sf::Keyboard::Return, &MainMenuController::keyReturn);
 }
 
 bool MainMenuController::input(InputHandler &input)
 {
-	if (_fsm == State::ST_Splash1 || _fsm == State::ST_Splash2 || _fsm == State::ST_Splash3) {
-		if (input.isKeyDown(sf::Keyboard::Space) || input.isKeyDown(sf::Keyboard::Return)) {
-			abortSplash();
-			return true;
-		}
+	switch (_fsm) {
+	case State::ST_Splash1:
+	case State::ST_Splash2:
+	case State::ST_Splash3:
+	case State::ST_Splash4:
+		return handleSplashInput(input);
+	case State::ST_Menu:
+		return handleMenuInput(input);
+	case State::ST_Selecting:
+		return handleSelectingInput(input);
+	case State::ST_Username:
+		return handleUsernamePopupInput(input);
+	case State::ST_Creating:
+		return handleCreatingInput(input);
+	case State::ST_ConfirmCreate:
+		return handleCreateConfirmPopupInput(input);
+	case State::ST_None:
+	default:
+		break;
 	}
-	else if (_fsm == State::ST_Menu) {
-		if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-			for (auto &keyAction : _keyActions) {
-				if (input.isKeyDown(static_cast<sf::Keyboard::Key>(keyAction.first))) {
-					_keyboardEventDelta = 0.f;
-					return keyAction.second();
-				}
-			}
-		}
-	}
-	else if (_fsm == State::ST_Selecting) {
-		if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-			if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Right)) {
-				_fsm = State::ST_Menu;
-				_keyboardEventDelta = 0.f;
-				return true;
-			}
-			else if (input.isKeyDown(sf::Keyboard::Return)) {
-				_selectedServer = _browser.getSelected();
-				//Connect to server
-				//_client.write(std::make_shared<CMDConnect>(gameName, password));
-				_fsm = State::ST_Menu;
-				_keyboardEventDelta = 0.f;
-				return true;
-			}
-			else if (_browser.input(input)) {
-				_keyboardEventDelta = 0.f;
-				return true;
-			}
-		}
-	}
-	else if (_fsm == State::ST_Creating) {
-		if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-			if (input.isKeyDown(sf::Keyboard::Escape)) {
-				_fsm = State::ST_Menu;
-				_keyboardEventDelta = 0.f;
-				return true;
-			}
-			else if (input.isKeyDown(sf::Keyboard::Return) && _form.getFocusedField() + 1 == _form.getFieldCount()) {
-				try {
-					std::string gameName, password;
-
-					gameName = _form.getFieldContent("Game Name");
-					password = _form.getFieldContent("Password");
-
-					std::cout << "Creating game \"" << gameName << "\"; password is \"" << password << "\"" << std::endl;
-
-					_client.write(std::make_shared<CMDCreateParty>(gameName, password));
-					_connectData.game = gameName;
-					_connectData.password = password;
-					//_client.write(std::make_shared<CMDConnect>(gameName, password));
-					_pushAction = SelectedAction::PLAY;
-				}
-				catch (std::runtime_error const &e) {
-					std::cout << e.what() << std::endl;
-				}
-				_fsm = State::ST_Menu;
-				_keyboardEventDelta = 0.f;
-				_form.setFocusedField(0);
-				return true;
-			}
-			else if (_form.input(input)) {
-				_keyboardEventDelta = 0.f;
-				return true;
-			}
-		}
-	}
-	return (false);
+	return false;
 }
 
 bool MainMenuController::keyUp(void) {
@@ -174,6 +138,11 @@ bool MainMenuController::keyUp(void) {
 		_action = (--_buttons.end())->getId();
 	else
 		_action--;
+	return true;
+}
+
+bool MainMenuController::keyPageUp(void) {
+	_action = _buttons.begin()->getId();
 	return true;
 }
 
@@ -185,10 +154,16 @@ bool MainMenuController::keyDown(void) {
 	return true;
 }
 
+bool MainMenuController::keyPageDown(void) {
+	_action = _buttons.rbegin()->getId();
+	return true;
+}
+
 bool MainMenuController::keyReturn(void) {
 	switch (_action) {
 	case SelectedAction::PLAY: {
-		//reload servers here
+		_browser.clearContent();
+		_browser.setContent(_browserContent); //TODO Replace by GetParty request
 		_fsm = State::ST_Selecting;
 		break;
 	}
@@ -224,7 +199,9 @@ void MainMenuController::update(float delta)
 		break;
 	case State::ST_Menu:
 	case State::ST_Selecting:
+	case State::ST_Username:
 	case State::ST_Creating:
+	case State::ST_ConfirmCreate:
 		updateMenu(delta);
 		break;
 	case State::ST_None:
@@ -316,11 +293,17 @@ void MainMenuController::draw(sf::RenderWindow &window)
 			window.draw(button);
 		}
 	}
-	if (_fsm == State::ST_Selecting) {
+	if (_fsm == State::ST_Selecting || _fsm == State::ST_Username) {
 		window.draw(_browser);
 	}
-	else if (_fsm == State::ST_Creating) {
+	else if (_fsm == State::ST_Creating || _fsm == State::ST_ConfirmCreate) {
 		window.draw(_form);
+	}
+	if (_fsm == State::ST_ConfirmCreate) {
+		window.draw(_confirmPopup);
+	}
+	else if (_fsm == State::ST_Username) {
+		window.draw(_inputPopup);
 	}
 }
 
@@ -346,4 +329,130 @@ short MainMenuController::pullAction(void)
 
 MainMenuController::ConnectData const &MainMenuController::getConnectData(void) const {
 	return _connectData;
+}
+
+bool MainMenuController::handleCreatingInput(InputHandler &input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		if (input.isKeyDown(sf::Keyboard::Escape)) {
+			_fsm = State::ST_Menu;
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::Return) && _form.getFocusedField() + 1 == _form.getFieldCount()) {
+			try {
+				_connectData.game = _form.getFieldContent(FORM_GAME_NAME);
+				_connectData.password = _form.getFieldContent(FORM_PASSWORD);
+				_connectData.username = _form.getFieldContent(FORM_PLAYER_NAME);
+				_fsm = State::ST_ConfirmCreate;
+				_confirmPopup.setConfirmed(true);
+			}
+			catch (std::runtime_error const &e) {
+				std::cout << e.what() << std::endl;
+			}
+			_keyboardEventDelta = 0.f;
+			_form.setFocusedField(0);
+			return true;
+		}
+		else if (_form.input(input)) {
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool MainMenuController::handleCreateConfirmPopupInput(InputHandler &input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		if (input.isKeyDown(sf::Keyboard::Return)) {
+			_keyboardEventDelta = 0.f;
+			if (_confirmPopup.isConfirmed()) {
+				_client.write(std::make_shared<CMDCreateParty>(_connectData.game, _connectData.password));
+				std::cout << "Creating game \"" << _connectData.game << "\"; password is \"" << _connectData.password << "\"; user is \"" << _connectData.username << "\"" << std::endl;
+				_pushAction = SelectedAction::CREATE;
+				_fsm = State::ST_Menu;
+			}
+			else {
+				_fsm = State::ST_Creating;
+			}
+			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::Escape)) {
+			_keyboardEventDelta = 0.f;
+			_fsm = State::ST_Creating;
+			return true;
+		}
+		if (_confirmPopup.input(input)) {
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool MainMenuController::handleSelectingInput(InputHandler &input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Right)) {
+			_fsm = State::ST_Menu;
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::Return)) {
+			_selectedServer = _browser.getSelected();
+			_fsm = State::ST_Username;
+			_inputPopup.clearTextFieldContent();
+			_inputPopup.setLabel("Username:");
+			_inputPopup.setTextFieldContent(_connectData.username);
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+		else if (_browser.input(input)) {
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool MainMenuController::handleUsernamePopupInput(InputHandler &input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		if (input.isKeyDown(sf::Keyboard::Return)) {
+			_keyboardEventDelta = 0.f;
+			_connectData.username = _inputPopup.getTextFieldContent();
+			if (_connectData.username.empty())
+				_connectData.username = FORM_PLAYER_NAME_DEFAULT;
+			_pushAction = SelectedAction::PLAY;
+			_fsm = State::ST_Menu;
+			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::Escape)) {
+			_keyboardEventDelta = 0.f;
+			_fsm = State::ST_Selecting;
+			return true;
+		}
+		if (_inputPopup.input(input)) {
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool MainMenuController::handleMenuInput(InputHandler &input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		for (auto &keyAction : _keyActions) {
+			if (input.isKeyDown(static_cast<sf::Keyboard::Key>(keyAction.first))) {
+				_keyboardEventDelta = 0.f;
+				return keyAction.second();
+			}
+		}
+	}
+	return false;
+}
+
+bool MainMenuController::handleSplashInput(InputHandler &input) {
+	if (input.isKeyDown(sf::Keyboard::Space) || input.isKeyDown(sf::Keyboard::Return)) {
+		abortSplash();
+		return true;
+	}
+	return false;
 }

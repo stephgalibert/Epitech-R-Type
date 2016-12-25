@@ -196,6 +196,7 @@
     <ClCompile Include="MainMenuResource.cpp" />
     <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="MenuButton.cpp" />
+    <ClCompile Include="MenuConfirmPopup.cpp" />
     <ClCompile Include="MenuPopup.cpp" />
     <ClCompile Include="MenuServerBrowser.cpp" />
     <ClCompile Include="MenuTextField.cpp" />
@@ -226,6 +227,7 @@
     <ClCompile Include="ScoreController.cpp" />
     <ClCompile Include="SoundBox.cpp" />
     <ClCompile Include="TCPClient.cpp" />
+    <ClCompile Include="MenuTextInputPopup.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UDPClient.cpp" />
     <ClCompile Include="UnloadArea.cpp" />
@@ -283,6 +285,7 @@
     <ClInclude Include="MainMenuResource.hpp" />
     <ClInclude Include="MemoryFile.hpp" />
     <ClInclude Include="MenuButton.hpp" />
+    <ClInclude Include="MenuConfirmPopup.hpp" />
     <ClInclude Include="MenuPopup.hpp" />
     <ClInclude Include="MenuServerBrowser.hpp" />
     <ClInclude Include="MenuTextField.hpp" />
@@ -313,6 +316,7 @@
     <ClInclude Include="ScoreController.hpp" />
     <ClInclude Include="SoundBox.hpp" />
     <ClInclude Include="TCPClient.hpp" />
+    <ClInclude Include="MenuTextInputPopup.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="UDPClient.hpp" />
     <ClInclude Include="UnloadArea.hpp" />

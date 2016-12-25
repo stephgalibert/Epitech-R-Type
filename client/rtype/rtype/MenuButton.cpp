@@ -1,7 +1,7 @@
 #include "MenuButton.hpp"
 
-MenuButton::MenuButton() {
-
+MenuButton::MenuButton() : _state(State::INACTIVE) {
+	_label.setStyle(sf::Text::Bold);
 }
 
 MenuButton::MenuButton(std::string const &label, const short id, const sf::Font *font,
@@ -83,4 +83,8 @@ MenuButton::State MenuButton::getState(void) const {
 
 sf::Vector2f const &MenuButton::getPosition(void) const {
 	return _label.getPosition();
+}
+
+sf::FloatRect MenuButton::getGlobalBounds(void) const {
+	return _label.getGlobalBounds();
 }

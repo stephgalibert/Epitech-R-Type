@@ -291,6 +291,12 @@
     <ClCompile Include="RequestSpawnMonster.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
+    <ClCompile Include="MenuTextInputPopup.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuConfirmPopup.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -547,6 +553,12 @@
     </ClInclude>
     <ClInclude Include="LoadedShotLayout.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuTextInputPopup.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuConfirmPopup.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
