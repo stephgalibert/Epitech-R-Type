@@ -30,6 +30,7 @@ public:
 	void broadcast(std::shared_ptr<ICommand> data);
 	void fire(std::shared_ptr<ICommand> cmd);
 	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd);
+	void collision(std::shared_ptr<AConnection> owner, std::shared_ptr<ICommand> cmd);
 	void loop(void);
 
 	bool isReady(void);
@@ -65,5 +66,8 @@ private:
 
 	MonsterManager _mm;
 	std::set<uint16_t> _powerups;
+
+	std::unordered_map<uint16_t, std::shared_ptr<ICommand> > _fires;
+	std::mutex _fireMutex;
 };
 

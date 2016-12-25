@@ -14,6 +14,8 @@
 template<typename T>
 class DLManager;
 
+class AConnection;
+
 class MonsterManager
 {
 public:
@@ -23,6 +25,7 @@ public:
 	void init(void);
 	void update(double delta);
 
+	void addPlayerScore(std::shared_ptr<AConnection> player, uint16_t monsterID);
 	bool destroyed(uint16_t id);
 
 private:

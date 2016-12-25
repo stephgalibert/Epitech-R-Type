@@ -2,6 +2,7 @@
 #include "DLManager.hpp"
 #include "CMDSpawnMonster.hpp"
 #include "CMDDestroyed.hpp"
+#include "AConnection.hpp"
 
 MonsterManager::MonsterManager(ConnectionManager &cm, LevelManager &lm)
 	: _cm(cm), _lm(lm)
@@ -59,6 +60,20 @@ void MonsterManager::update(double delta)
 	for (auto &it : _monsters) {
 		it->update(delta);
 		// ...
+	}
+}
+
+void MonsterManager::addPlayerScore(std::shared_ptr<AConnection> player, uint16_t monsterID)
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	std::list<IMonster *>::iterator it = _monsters.begin();
+	while (it != _monsters.cend()) {
+		if ((*it)->getID() == monsterID) {
+			player->setScore(player->getScore() + (*it)->getScoreValue());
+			return;
+		}
+		++it;
 	}
 }
 

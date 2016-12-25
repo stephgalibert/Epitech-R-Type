@@ -51,8 +51,9 @@ void Laser::update(float delta)
 
 void Laser::destroy(IClient &client)
 {
-	(void)client;
-	recycle();
+	//(void)client;
+	//recycle();
+	client.write(std::make_shared<CMDDestroyed>(getID()));
 }
 
 void Laser::collision(IClient *client, AEntity *other)
@@ -60,7 +61,10 @@ void Laser::collision(IClient *client, AEntity *other)
 	if (!other->isInvincible() && !hasCollisioned() && other->getID() > 4
 			&& other->getCollisionType() == COLLISION_FATAL) {
 		setCollisioned(true);
-		client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+
+		if (getOwnerID() == World::GetPlayer()->getID()) {
+			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
+		}
 	}
 }
 

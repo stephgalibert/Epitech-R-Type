@@ -108,12 +108,15 @@ void Party::fire(std::shared_ptr<ICommand> cmd)
 	Fire *fire = reinterpret_cast<Fire *>(cmd->getData());
 	fire->id = _nextID;
 	broadcast(cmd);
+	std::lock_guard<std::mutex> lock(_fireMutex);
+	_fires.insert(std::make_pair(fire->id, cmd));
+	std::cout << "adding " << fire->id << std::endl;
 	++_nextID;
 }
 
 void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd)
 {
-	Destroyed *destroyed = reinterpret_cast<Destroyed *>(cmd->getData());
+	Destroyed const *destroyed = reinterpret_cast<Destroyed const *>(cmd->getData());
 
 	if (!_mm.destroyed(destroyed->id)) {
 		if (connection->getID() == destroyed->id) {
@@ -127,7 +130,25 @@ void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 				broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " is dead"));
 			}
 		}
+		else {
+			std::lock_guard<std::mutex> lock(_fireMutex);
+			if (_fires.find(destroyed->id) != _fires.cend()) {
+				//std::cout << "destroy shot" << std::endl;
+				_fires.erase(destroyed->id);
+			}
+		}
 	}
+}
+
+void Party::collision(std::shared_ptr<AConnection> owner, std::shared_ptr<ICommand> cmd)
+{
+	Collision const *collision = reinterpret_cast<Collision const *>(cmd->getData());
+
+	if (_fires.find(collision->id_first) != _fires.cend()) {
+		_mm.addPlayerScore(owner, collision->id_second);
+		broadcast(std::make_shared<CMDScore>(owner->getID(), owner->getScore()));
+	}
+	broadcast(cmd);
 }
 
 void Party::loop(void)
