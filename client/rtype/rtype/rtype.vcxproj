@@ -181,6 +181,7 @@
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameOverController.cpp" />
+    <ClCompile Include="GameWinController.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
     <ClCompile Include="IncreaseNumberOfCanon.cpp" />
@@ -265,6 +266,7 @@
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="GameController.hpp" />
     <ClInclude Include="GameOverController.hpp" />
+    <ClInclude Include="GameWinController.hpp" />
     <ClInclude Include="Health.hpp" />
     <ClInclude Include="HUDController.hpp" />
     <ClInclude Include="IClient.hpp" />

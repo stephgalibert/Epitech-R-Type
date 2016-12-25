@@ -297,6 +297,9 @@
     <ClCompile Include="MenuConfirmPopup.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
+    <ClCompile Include="GameWinController.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -559,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="MenuConfirmPopup.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWinController.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

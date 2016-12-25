@@ -28,6 +28,8 @@ public:
 	void addPlayerScore(std::shared_ptr<AConnection> player, uint16_t monsterID);
 	bool destroyed(uint16_t id);
 
+	bool noMoreIncoming(void) const;
+
 private:
 	void spawnMonster(MonsterInformation const& info);
 

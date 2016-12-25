@@ -20,6 +20,7 @@ void ConnectionManager::leave(std::shared_ptr<AConnection> connection)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
+	connection->setCurrentParty(NULL);
 	_connections.erase(connection);
 }
 

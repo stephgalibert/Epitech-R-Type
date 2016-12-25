@@ -2,14 +2,14 @@
 
 #include "AController.hpp"
 
-class GameOverController : public AController
+class GameWinController : public AController
 {
 public:
-	static const int DELAY_RESTARTING = 8;
+	static const int DELAY_RESTARTING = 10;
 
 public:
-	GameOverController(void);
-	virtual ~GameOverController(void);
+	GameWinController(void);
+	virtual ~GameWinController(void);
 
 	virtual void init(void);
 	virtual bool input(InputHandler &input);

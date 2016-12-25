@@ -51,8 +51,6 @@ void Laser::update(float delta)
 
 void Laser::destroy(IClient &client)
 {
-	//(void)client;
-	//recycle();
 	client.write(std::make_shared<CMDDestroyed>(getID()));
 }
 

@@ -12,6 +12,7 @@ GameController::GameController(IClient &network)
 	}
 	_state = GameStatusType::Waiting;
 	_gameFinished = false;
+	_prevState = GameStatusType::None;
 }
 
 GameController::~GameController(void)
@@ -23,8 +24,6 @@ void GameController::init(void)
 {
 	World::init(&_player, &_network);
 
-	//LevelResource::TheLevelResource.getMusicByKey("stage_01").play();
-
 	try {
 		_loading.init();
 		_loading.setBaseText("Waiting for players");
@@ -33,6 +32,7 @@ void GameController::init(void)
 		_connectionLost.setBaseText("Connection lost :/");
 
 		_gameOver.init();
+		_gameWin.init();
 		_hud.init();
 		_scoreController.init();
 		_back.init();
@@ -114,6 +114,7 @@ void GameController::draw(sf::RenderWindow &window)
 void GameController::recycle(void)
 {
 	World::recycle();
+	ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
 }
 
 void GameController::connectToParty(std::string const& username, std::string const& partyName, std::string const& pwd)
@@ -207,14 +208,12 @@ bool GameController::inputPlaying(InputHandler &input)
 bool GameController::inputGameOver(InputHandler &input)
 {
 	_messageLayout.input(input);
-	_escapeLayout.input(input);
 	return (false);
 }
 
 bool GameController::inputGameWin(InputHandler &input)
 {
 	_messageLayout.input(input);
-	_escapeLayout.input(input);
 	return (false);
 }
 
@@ -233,10 +232,17 @@ void GameController::updateWaiting(float delta)
 
 void GameController::updatePlaying(float delta)
 {
+	if (_prevState != _state) {
+		ProjectResource::TheProjectResource.getMusicByKey("stage_01").setLoop(true);
+		ProjectResource::TheProjectResource.getMusicByKey("stage_01").play();
+		_prevState = _state;
+	}
+
 	_back.update(delta);
 	_front.update(delta);
 
 	World::update(delta);
+
 	if (!_network.isConnected()) {
 		_connectionLost.update(delta);
 	}
@@ -257,6 +263,11 @@ void GameController::updatePlaying(float delta)
 
 void GameController::updateGameOver(float delta)
 {
+	if (_prevState != _state) {
+		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		_prevState = _state;
+	}
+
 	_back.update(delta);
 	_front.update(delta);
 
@@ -264,24 +275,24 @@ void GameController::updateGameOver(float delta)
 	if (_gameOver.hasFinished()) {
 		_gameFinished = true;
 	}
-	_escapeLayout.update(delta);
-	if (_escapeLayout.exit()) {
-		_network.write(std::make_shared<CMDDisconnect>());
-		_gameFinished = true;
-	}
 	_messageLayout.update(delta);
 }
 
 void GameController::updateGameWin(float delta)
 {
+	if (_prevState != _state) {
+		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		_prevState = _state;
+	}
+
 	_back.update(delta);
 	_front.update(delta);
-	_escapeLayout.update(delta);
-	if (_escapeLayout.exit()) {
-		_network.write(std::make_shared<CMDDisconnect>());
+
+	// todo win msg
+	_gameWin.update(delta);
+	if (_gameWin.hasFinished()) {
 		_gameFinished = true;
 	}
-	// todo win msg
 	_messageLayout.update(delta);
 }
 
@@ -328,7 +339,6 @@ void GameController::drawGameOver(sf::RenderWindow &window)
 
 	window.draw(_messageLayout);
 	_gameOver.draw(window);
-	window.draw(_escapeLayout);
 }
 
 void GameController::drawGameWin(sf::RenderWindow &window)
@@ -336,21 +346,12 @@ void GameController::drawGameWin(sf::RenderWindow &window)
 	_back.draw(window);
 	_front.draw(window);
 
-	_loading.draw(window);
+	World::display(window);
 
-	if (_player) {
+	if(_player) {
 		_hud.draw(window);
 	}
-	window.draw(_messageLayout);
-	// draw game win
-	window.draw(_escapeLayout);
-}
 
-void GameController::reset(void)
-{
-	_player = NULL;
-	for (size_t i = 0; i < 3; ++i) {
-		_mates[i] = NULL;
-	}
-	World::recycle();
+	window.draw(_messageLayout);
+	_gameWin.draw(window);
 }

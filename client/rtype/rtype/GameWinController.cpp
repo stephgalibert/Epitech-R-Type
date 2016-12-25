@@ -1,21 +1,21 @@
-#include "GameOverController.hpp"
+#include "GameWinController.hpp"
 
-GameOverController::GameOverController(void)
+GameWinController::GameWinController(void)
 {
 	_delta = 0;
 	_resolution = StaticTools::GetResolution();
-	_string = "Game Over !";
+	_string = "Game Win !";
 	_color = sf::Color(0, 0, 0, 0);
 	_finished = false;
 	_started = false;
 }
 
-GameOverController::~GameOverController(void)
+GameWinController::~GameWinController(void)
 {
-	ProjectResource::TheProjectResource.getMusicByKey("game_over").stop();
+	ProjectResource::TheProjectResource.getMusicByKey("game_win").stop();
 }
 
-void GameOverController::init(void)
+void GameWinController::init(void)
 {
 	try {
 		_text.setFont(ProjectResource::TheProjectResource.getFontByKey("font_state"));
@@ -33,23 +33,22 @@ void GameOverController::init(void)
 		_text.setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f));
 	}
 	catch (std::exception const& e) {
-		StaticTools::Log << "GameOverController: " << e.what() << std::endl;
+		StaticTools::Log << "GameWinController: " << e.what() << std::endl;
 	}
 }
 
-bool GameOverController::input(InputHandler &input)
+bool GameWinController::input(InputHandler &input)
 {
 	(void)input;
 	return (false);
 }
 
-void GameOverController::update(float delta)
+void GameWinController::update(float delta)
 {
 	_delta += delta;
 
 	if (!_started) {
-		ProjectResource::TheProjectResource.getMusicByKey("game_over").play();
-
+		ProjectResource::TheProjectResource.getMusicByKey("game_win").play();
 		_started = true;
 	}
 	if (_delta < DELAY_RESTARTING) {
@@ -63,17 +62,17 @@ void GameOverController::update(float delta)
 	}
 }
 
-void GameOverController::draw(sf::RenderWindow &window)
+void GameWinController::draw(sf::RenderWindow &window)
 {
 	window.draw(_shape);
 	window.draw(_text);
 }
 
-void GameOverController::recycle(void)
+void GameWinController::recycle(void)
 {
 }
 
-bool GameOverController::hasFinished(void) const
+bool GameWinController::hasFinished(void) const
 {
 	return (_finished);
 }

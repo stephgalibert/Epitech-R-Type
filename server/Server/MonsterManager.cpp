@@ -98,6 +98,11 @@ bool MonsterManager::destroyed(uint16_t id)
 	return (false);
 }
 
+bool MonsterManager::noMoreIncoming(void) const
+{
+	return (_monsters.empty() && _monstersInfo.empty());
+}
+
 void MonsterManager::spawnMonster(MonsterInformation const& info)
 {
 	IMonster *monster = _dlManager->retrieveObject(info.type);
@@ -111,8 +116,6 @@ void MonsterManager::spawnMonster(MonsterInformation const& info)
 
 	monster->setPosition(y);
 	monster->setID(id);
-
-	std::cout << _delta << ": " << "spawning " << type << std::endl;
 
 	_cm.broadcast(std::make_shared<CMDSpawnMonster>(id, 0, y, health, velocity, angle, type));
 	_monsters.push_back(monster);

@@ -94,7 +94,6 @@ void TCPClient::write(void)
 {
 	_mutex.lock();
 	std::shared_ptr<ICommand> packet = _toWrites.front();
-	std::cout << "writing " << (int)packet->getCommandType() << std::endl;
 	_mutex.unlock();
 	boost::asio::async_write(_socket, boost::asio::buffer(packet->getData(), packet->getSize()),
 	boost::bind(&TCPClient::do_write, this,
@@ -117,7 +116,6 @@ void TCPClient::do_connect(boost::system::error_code const& ec, boost::asio::ip:
 
 void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 {
-	StaticTools::Log << "read size: " << len <<  " buffer size: " << _read.size() << std::endl;
 	if (!ec) {
 		char const* packet = boost::asio::buffer_cast<char const *>(_read.data());
 		

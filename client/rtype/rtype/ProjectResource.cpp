@@ -25,6 +25,7 @@ void ProjectResource::load(void)
 		addMusic(MAIN_THEME, "./rsrc/music/main_theme.wav");
 		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
 		addMusic("game_over", "./rsrc/music/game_over.ogg");
+		addMusic("game_win", "./rsrc/music/game_win.ogg");
 		addSound("explosions", "./rsrc/music/explosion.ogg");
 		addSound("shot", "./rsrc/music/shot.wav");
 

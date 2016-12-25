@@ -11,7 +11,6 @@ Zork::Zork(void)
 
 Zork::~Zork(void)
 {
-	std::cout << "destroy zork" << std::endl;
 }
 
 void Zork::init(void)
@@ -95,15 +94,12 @@ void Zork::move(float delta)
 void Zork::shoot(Fire const& param)
 {
 	//ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
-
-	//MissileType type = param.type;
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
 	uint8_t angle = param.angle;
-	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 

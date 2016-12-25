@@ -41,10 +41,11 @@ enum class ObstacleType : uint8_t
 
 enum class GameStatusType : uint8_t
 {
-	Waiting = 0,
-	Playing = 1,
-	GameOver = 2,
-	GameWin = 3
+	None = 0,
+	Waiting = 1,
+	Playing = 2,
+	GameOver = 3,
+	GameWin = 4
 };
 
 enum class PowderType : uint8_t

@@ -110,7 +110,6 @@ void Party::fire(std::shared_ptr<ICommand> cmd)
 	broadcast(cmd);
 	std::lock_guard<std::mutex> lock(_fireMutex);
 	_fires.insert(std::make_pair(fire->id, cmd));
-	std::cout << "adding " << fire->id << std::endl;
 	++_nextID;
 }
 
@@ -239,6 +238,14 @@ void Party::playing(double delta)
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
 	}
+
+	if (_mm.noMoreIncoming()) {
+		std::cout << "game win" << std::endl;
+		broadcast(std::make_shared<CMDMessage>("No ennemy left, congratulation !"));
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
+		_state = GameStatusType::GameWin;
+		_delta = 0.f;
+	}
 	//else if (_delta > 3.f && test) {
 	//	std::cout << "sending span powerup" << std::endl;
 	//	broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::IncreaseNumberOfCanon, _nextID, 200, 200));
@@ -270,17 +277,19 @@ void Party::gameOver(double delta)
 
 void Party::gameWin(double delta)
 {
-	_delta += delta;
-	if (_delta > 10.0000) {
-		_launched = false;
-		std::cout << "restarting" << std::endl;
-		//_cm.broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
-		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
-		_state = GameStatusType::Waiting;
-		_delta = 0;
-		//reset();
-	}
-	else {
-		std::cout << "game win" << std::endl;
-	}
+	(void)delta;
+	//_delta += delta;
+	//if (_delta > 10.0000) {
+	//	_launched = false;
+	//	std::cout << "restarting" << std::endl;
+	//	//_cm.broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
+	//	broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
+	//	_state = GameStatusType::Waiting;
+	//	_delta = 0;
+	//	//reset();
+	//}
+	//else {
+	//	std::cout << "game win" << std::endl;
+	//}
+	_cm.closeAll();
 }

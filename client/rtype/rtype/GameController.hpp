@@ -17,6 +17,7 @@
 #include "LoadingController.hpp"
 #include "ConnectionLostController.hpp"
 #include "GameOverController.hpp"
+#include "GameWinController.hpp"
 #include "ScoreController.hpp"
 
 #include "MessageLayout.hpp"
@@ -24,14 +25,14 @@
 
 class GameController : public AController
 {
-private:
-	enum class State : uint8_t
-	{
-		Waiting = 0,
-		Playing = 1,
-		GameOver = 2,
-		GameWin = 3
-	};
+//private:
+//	enum class State : uint8_t
+//	{
+//		Waiting = 0,
+//		Playing = 1,
+//		GameOver = 2,
+//		GameWin = 3
+//	};
 
 public:
 	GameController(IClient &network);
@@ -73,11 +74,12 @@ private:
 	void drawGameOver(sf::RenderWindow &window);
 	void drawGameWin(sf::RenderWindow &window);
 
-	void reset(void);
+	//void reset(void);
 
 	LoadingController _loading;
 	ConnectionLostController _connectionLost;
 	GameOverController _gameOver;
+	GameWinController _gameWin;
 	HUDController _hud;
 	ScoreController _scoreController;
 	MessageLayout _messageLayout;
@@ -94,5 +96,9 @@ private:
 	bool _ready;
 	bool _gameFinished;
 	GameStatusType _state;
+
+	//bool _gameStarted;
+	//bool _gameStateChanged;
+	GameStatusType _prevState;
 };
 
