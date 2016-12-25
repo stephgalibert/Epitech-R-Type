@@ -43,6 +43,10 @@ void Application::init(std::string const& username, std::string const& host, std
 		_inputHandler.init();
 		
 		_menu.init();
+
+		if (!_username.empty()) {
+			play();
+		}
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "application: " << e.what() << std::endl;
@@ -86,6 +90,26 @@ void Application::initIcon(void)
 	_window.setIcon(128, 128, image.getPixelsPtr());
 }
 
+void Application::createGame(void)
+{
+	MainMenuController::ConnectData const& data = _menu.getConnectData();
+
+	_username = data.username;
+	_host = data.game;
+	_pwd = data.password;
+
+	while (!_client.isConnected());
+	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
+}
+
+void Application::play(void)
+{
+	_state = ApplicationState::AS_Game;
+	_game = new GameController(_client);
+	_game->init();
+	_game->connectToParty(_username, _host, _pwd);
+}
+
 void Application::initNetwork(void)
 {
 	_client.connect();
@@ -109,11 +133,9 @@ void Application::updateMenu(float delta)
 	switch (_menu.pullAction())
 	{
 	case MainMenuController::SelectedAction::CREATE:
+		createGame();
 	case MainMenuController::SelectedAction::PLAY:
-		_state = ApplicationState::AS_Game;
-		_game = new GameController(_client);
-		_game->init();
-		_game->connectToParty(_username, _host, _pwd);
+		play();
 		break;
 	case MainMenuController::SelectedAction::QUIT:
 		_quit = true;
@@ -121,6 +143,15 @@ void Application::updateMenu(float delta)
 	default:
 		break;
 	}
+
+	// TEST:
+	//while (!_client.isConnected());
+	//_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
+
+	//_state = ApplicationState::AS_Game;
+	//_game = new GameController(_client);
+	//_game->init();
+	//_game->connectToParty(_username, _host, _pwd);
 }
 void Application::updateGame(float delta)
 {

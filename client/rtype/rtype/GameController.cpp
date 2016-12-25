@@ -121,10 +121,6 @@ void GameController::connectToParty(std::string const& username, std::string con
 	_username = username;
 	_partyName = partyName;
 	_partyPwd = pwd;
-
-	while (!_network.isConnected());
-	_network.write(std::make_shared<CMDCreateParty>(_partyName, _partyPwd));
-	//StaticTools::sleep(1000);
 	_network.write(std::make_shared<CMDConnect>(_username, _partyName, _partyPwd));
 }
 
@@ -228,6 +224,10 @@ void GameController::updateWaiting(float delta)
 	_front.update(delta);
 	_loading.update(delta);
 	_escapeLayout.update(delta);
+	if (_escapeLayout.exit()) {
+		_network.write(std::make_shared<CMDDisconnect>());
+		_gameFinished = true;
+	}
 	_messageLayout.update(delta);
 }
 
@@ -265,6 +265,10 @@ void GameController::updateGameOver(float delta)
 		_gameFinished = true;
 	}
 	_escapeLayout.update(delta);
+	if (_escapeLayout.exit()) {
+		_network.write(std::make_shared<CMDDisconnect>());
+		_gameFinished = true;
+	}
 	_messageLayout.update(delta);
 }
 
@@ -273,6 +277,10 @@ void GameController::updateGameWin(float delta)
 	_back.update(delta);
 	_front.update(delta);
 	_escapeLayout.update(delta);
+	if (_escapeLayout.exit()) {
+		_network.write(std::make_shared<CMDDisconnect>());
+		_gameFinished = true;
+	}
 	// todo win msg
 	_messageLayout.update(delta);
 }

@@ -27,11 +27,11 @@ int main(int ac, char **av)
 			pwd = av[4];
 		}
 	}
-	else {
-		username = "test";
-		host = "host";
-		pwd = "pwd";
-	}
+	//else { // TEST:
+	//	username = "test";
+	//	host = "host";
+	//	pwd = "pwd";
+	//}
 
 	try {
 		config.readFromFile("config.xml");

@@ -133,7 +133,6 @@ void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 		else {
 			std::lock_guard<std::mutex> lock(_fireMutex);
 			if (_fires.find(destroyed->id) != _fires.cend()) {
-				//std::cout << "destroy shot" << std::endl;
 				_fires.erase(destroyed->id);
 			}
 		}

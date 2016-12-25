@@ -34,6 +34,9 @@ private:
 	void initNetwork(void);
 	void initIcon(void);
 
+	void createGame(void);
+	void play(void);
+
 	void inputMenu(InputHandler &input);
 	void inputGame(InputHandler &input);
 
