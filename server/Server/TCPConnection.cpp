@@ -39,10 +39,10 @@ void TCPConnection::close(void)
 
 void TCPConnection::write(std::shared_ptr<ICommand> command)
 {
-	_mutex.lock();
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	bool writeInProgress = !_toWrites.empty();
 	_toWrites.push(command);
-	_mutex.unlock();
 
 	if (!writeInProgress) {
 		write();
@@ -99,9 +99,7 @@ void TCPConnection::do_read(bool error)
 
 void TCPConnection::write(void)
 {
-	_mutex.lock();
 	std::shared_ptr<ICommand> packet = _toWrites.front();
-	_mutex.unlock();
 
 	AsyncWrite(_socket, packet->getData(), packet->getSize(),
 		std::bind(&AConnection::do_write, shared_from_this()));
@@ -109,9 +107,8 @@ void TCPConnection::write(void)
 
 void TCPConnection::do_write(void)
 {
-	_mutex.lock();
+	std::lock_guard<std::mutex> lock(_mutex);
 	_toWrites.pop();
-	_mutex.unlock();
 
 	if (!_toWrites.empty()) {
 		write();

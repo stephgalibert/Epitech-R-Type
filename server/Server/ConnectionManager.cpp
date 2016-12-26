@@ -20,7 +20,7 @@ void ConnectionManager::leave(std::shared_ptr<AConnection> connection)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
-	connection->setCurrentParty(NULL);
+	//connection->setCurrentParty(NULL);
 	_connections.erase(connection);
 }
 
@@ -41,6 +41,15 @@ void ConnectionManager::broadcast(std::shared_ptr<ICommand> command)
 
 	for (auto &it : _connections) {
 		it->sync_write(command);
+	}
+}
+
+void ConnectionManager::asyncBroadcast(std::shared_ptr<ICommand> command)
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	for (auto &it : _connections) {
+		it->write(command);
 	}
 }
 

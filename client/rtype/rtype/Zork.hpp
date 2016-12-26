@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ANPC.hpp"
+#include "FireBall.hpp"
 
 class Zork : public ANPC
 {

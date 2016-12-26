@@ -209,12 +209,6 @@ uint8_t Party::getNbPlayer(void)
 	return (_cm.getPlayerNumber());
 }
 
-//void Party::reset(void)
-//{
-//	_nextID = 5;
-//	_cm.reset();
-//}
-
 void Party::waiting(double delta)
 {
 	_delta += delta;
@@ -238,9 +232,7 @@ void Party::playing(double delta)
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
 	}
-
-	if (_mm.noMoreIncoming()) {
-		std::cout << "game win" << std::endl;
+	else if (_mm.noMoreIncoming()) {
 		broadcast(std::make_shared<CMDMessage>("No ennemy left, congratulation !"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
 		_state = GameStatusType::GameWin;
@@ -259,37 +251,12 @@ void Party::playing(double delta)
 
 void Party::gameOver(double delta)
 {
-  (void)delta;
-	/*_delta += delta;
-	if (_delta > 10.f) {
-		_launched = false;
-		//broadcast(std::make_shared<CMDMessage>("restarting ..."));
-		std::cout << "restarting" << std::endl;
-		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
-		_state = GameStatusType::Waiting;
-		_delta = 0;
-		reset();
-		_cm.distributeShipID();
-		_cm.sendSpawnedShip();
-	}*/
+	(void)delta;
 	_cm.closeAll();
 }
 
 void Party::gameWin(double delta)
 {
 	(void)delta;
-	//_delta += delta;
-	//if (_delta > 10.0000) {
-	//	_launched = false;
-	//	std::cout << "restarting" << std::endl;
-	//	//_cm.broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
-	//	broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Waiting));
-	//	_state = GameStatusType::Waiting;
-	//	_delta = 0;
-	//	//reset();
-	//}
-	//else {
-	//	std::cout << "game win" << std::endl;
-	//}
 	_cm.closeAll();
 }

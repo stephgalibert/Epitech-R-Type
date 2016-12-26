@@ -300,6 +300,9 @@
     <ClCompile Include="GameWinController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
     <ClCompile Include="MenuCredits.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
@@ -568,6 +571,9 @@
     </ClInclude>
     <ClInclude Include="GameWinController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="MenuCredits.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>

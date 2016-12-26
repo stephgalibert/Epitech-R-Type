@@ -7,8 +7,6 @@ const uint8_t Player::FRAME_MID = 1;
 const uint8_t Player::FRAME_BOT = 2;
 const uint8_t Player::FRAME_EXP = 3;
 
-#include "Zork.hpp"
-
 Player::Player()
 	: _delta(0.f),
 	_deltaLastShoot(0),
@@ -394,11 +392,15 @@ void Player::keyboard(InputHandler &input)
 	//static bool t = false;
 	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
 	//	t = true;
-	//	Zork *zork = World::spawnEntity<Zork>();
-	//	zork->setPosition(getPosition());
-	//	zork->setVelocity(150);
-	//	zork->setAngle(180);
-	//	zork->setReadyForInit(true);
+	//	FireBall *ball = World::spawnEntity<FireBall>();
+	//	ball->setCollisionType(COLLISION_NONE);
+	//	ball->setPosition(getPosition());
+	//	ball->setReadyForInit(true);
+	//	//Zork *zork = World::spawnEntity<Zork>();
+	//	//zork->setPosition(getPosition());
+	//	//zork->setVelocity(150);
+	//	//zork->setAngle(180);
+	//	//zork->setReadyForInit(true);
 	//}
 }
 
