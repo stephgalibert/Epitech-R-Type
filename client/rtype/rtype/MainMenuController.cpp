@@ -64,13 +64,8 @@ void MainMenuController::init()
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), menuFont));
 		_buttons.push_back(MenuButton("Credits", static_cast<short>(SelectedAction::CREDITS), menuFont));
 		
-		for (int i = 0; i < 21; i++) {
-			_browserContent.push_back("Test #" + std::to_string(i));
-		}
-
 		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
-		_browser.setContent(_browserContent);
 
 		_form.setPosition(_browser.getPosition());
 		_form.addField(FORM_GAME_NAME, FORM_GAME_NAME_DEFAULT);
@@ -174,7 +169,7 @@ bool MainMenuController::keyReturn(void) {
 	case SelectedAction::PLAY: {
 		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
 		_browser.clearContent();
-		_browser.setContent(_browserContent); //TODO Replace by GetParty request
+		_client.write(std::make_shared<CMDGetParty>());
 		_fsm = State::ST_Selecting;
 		break;
 	}
@@ -291,6 +286,10 @@ void MainMenuController::updateMenu(const float delta) {
 
 void MainMenuController::abortSplash(void) {
 	_fsm = State::ST_Menu;
+}
+
+void MainMenuController::addBrowserEntry(GetParty const &data) {
+	_browser.addEntry(data);
 }
 
 void MainMenuController::mute(void) const {
@@ -419,8 +418,9 @@ bool MainMenuController::handleSelectingInput(InputHandler &input) {
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Return)) {
+		else if (input.isKeyDown(sf::Keyboard::Return) && _browser.getContent().size() > 0) {
 			_selectedServer = _browser.getSelected();
+			_connectData.game = _browser.getContent().at(_selectedServer).name;
 			_fsm = State::ST_Username;
 			_inputPopup.clearTextFieldContent();
 			_inputPopup.setLabel("Username:");

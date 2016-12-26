@@ -53,7 +53,7 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 
 			target.draw(itemBackground, states);
 
-			itemLabel.setString(_content.at(i));
+			itemLabel.setString(_content.at(i).name);
 			itemLabel.setPosition(sf::Vector2f(itemPos.x + TEXT_LEFT_PADDING, itemPos.y + TEXT_TOP_PADDING));
 
 			target.draw(itemLabel, states);
@@ -68,14 +68,16 @@ bool MenuServerBrowser::input(InputHandler &input) {
 		_selected--;
 		if (_selected < 0)
 			_selected = (_content.size() ? _content.size() - 1 : 0);
-		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
+		if (!_content.empty())
+			MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
 	else if (input.isKeyDown(sf::Keyboard::Down)) {
 		_selected++;
 		if (static_cast<size_t>(_selected) >= _content.size())
 			_selected = 0;
-		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
+		if (!_content.empty())
+			MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
 	else if (input.isKeyDown(sf::Keyboard::PageDown)) {
@@ -103,7 +105,7 @@ void MenuServerBrowser::clearContent(void) {
 	_content.clear();
 }
 
-void MenuServerBrowser::setContent(std::vector<std::string> const &content) {
+void MenuServerBrowser::setContent(std::vector<MenuServerBrowser::PartyData> const &content) {
 	_content = content;
 }
 
@@ -111,8 +113,19 @@ void MenuServerBrowser::setSelected(const int selected) {
 	_selected = selected;
 }
 
-void MenuServerBrowser::addEntry(std::string const &entry) {
+void MenuServerBrowser::addEntry(MenuServerBrowser::PartyData const &entry) {
 	_content.push_back(entry);
+}
+
+void MenuServerBrowser::addEntry(GetParty const &entry) {
+	PartyData data;
+
+	data.hasPassword = entry.pwdPresent;
+	data.name = std::string(entry.data, entry.size);
+	data.playersCount = entry.nbPlayer;
+	data.running = entry.running;
+
+	_content.push_back(data);
 }
 
 sf::Vector2f const &MenuServerBrowser::getSize(void) const {
@@ -123,7 +136,7 @@ sf::Vector2f const &MenuServerBrowser::getPosition(void) const {
 	return _frame.getPosition();
 }
 
-std::vector<std::string> const &MenuServerBrowser::getContent(void) const {
+std::vector<MenuServerBrowser::PartyData> const &MenuServerBrowser::getContent(void) const {
 	return _content;
 }
 

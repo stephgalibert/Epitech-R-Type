@@ -1,4 +1,5 @@
 #include "RequestGetParty.hpp"
+#include "MainMenuController.hpp"
 
 RequestGetParty::RequestGetParty(void)
 {
@@ -11,7 +12,6 @@ RequestGetParty::~RequestGetParty(void)
 void RequestGetParty::execute(IClient &client, std::shared_ptr<ICommand> data,
 								std::shared_ptr<ICommand> &toSend)
 {
-	(void)client;
 	(void)toSend;
 	GetParty const *getParty = reinterpret_cast<GetParty const *>(data->getData());
 	
@@ -25,4 +25,6 @@ void RequestGetParty::execute(IClient &client, std::shared_ptr<ICommand> data,
 		<< "\tnbPlayer: " << (int)nbPlayer << std::endl
 		<< "\tisRunning: " << isRunning << std::endl
 		<< "\tpwdPresent: " << pwdPresent << std::endl;
+
+	 client.getMainMenuController().addBrowserEntry(*getParty);
 }

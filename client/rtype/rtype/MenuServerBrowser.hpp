@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "protocol.hpp"
 #include "InputHandler.hpp"
 
 class MenuServerBrowser : public sf::Drawable {
@@ -15,6 +16,14 @@ class MenuServerBrowser : public sf::Drawable {
 	static const float TEXT_LEFT_PADDING;
 
 public:
+	struct PartyData {
+		std::string name;
+		uint8_t playersCount;
+		bool hasPassword;
+		bool running;
+	};
+
+public:
 	MenuServerBrowser();
 	virtual ~MenuServerBrowser();
 
@@ -26,14 +35,15 @@ public:
 	void setSize(sf::Vector2f const &size);
 	void setPosition(sf::Vector2f const &pos);
 	void clearContent(void);
-	void setContent(std::vector<std::string> const &content);
+	void setContent(std::vector<PartyData> const &content);
 	void setSelected(const int index);
-	void addEntry(std::string const &entry);
+	void addEntry(PartyData const &entry);
+	void addEntry(GetParty const &entry);
 
 public:
 	sf::Vector2f const &getSize(void) const;
 	sf::Vector2f const &getPosition(void) const;
-	std::vector<std::string> const &getContent(void) const;
+	std::vector<PartyData> const &getContent(void) const;
 	int getSelected(void) const;
 	size_t getDisplayedItemsMax(void) const;
 	size_t getDisplayedItemsCount(void) const;
@@ -42,7 +52,7 @@ public:
 	static float getHeightForItems(const size_t items);
 
 private:
-	std::vector<std::string> _content;
+	std::vector<PartyData> _content;
 	int _selected;
 
 private:

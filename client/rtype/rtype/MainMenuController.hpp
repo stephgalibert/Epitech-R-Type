@@ -85,13 +85,7 @@ public:
 	void unmute(void) const;
 	short pullAction(void);
 	ConnectData const &getConnectData(void) const;
-	bool handleCreatingInput(InputHandler &input);
-	bool handleCreateConfirmPopupInput(InputHandler &input);
-	bool handleSelectingInput(InputHandler &input);
-	bool handleUsernamePopupInput(InputHandler &input);
-	bool handleMenuInput(InputHandler &input);
-	bool handleSplashInput(InputHandler &input);
-	bool handleCreditsInput(InputHandler &input);
+	void addBrowserEntry(GetParty const &data);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));
@@ -102,6 +96,14 @@ private:
 	void updateSplashFourthPhase(const float delta);
 	void updateMenu(const float delta);
 	void abortSplash(void);
+	bool handleCreatingInput(InputHandler &input);
+	bool handleCreateConfirmPopupInput(InputHandler &input);
+	bool handleSelectingInput(InputHandler &input);
+	bool handleUsernamePopupInput(InputHandler &input);
+	bool handleMenuInput(InputHandler &input);
+	bool handleSplashInput(InputHandler &input);
+	bool handleCreditsInput(InputHandler &input);
+
 
 private:
 	bool keyUp(void);
@@ -129,8 +131,4 @@ private:
 	MenuConfirmPopup _confirmPopup;
 	MenuTextInputPopup _inputPopup;
 	MenuCredits _creditsScreen;
-
-	/* TEST ONLY */
-private:
-	std::vector<std::string> _browserContent;
 };

@@ -133,8 +133,14 @@ void Application::updateMenu(float delta)
 	switch (_menu.pullAction())
 	{
 	case MainMenuController::SelectedAction::CREATE:
+		_host = _menu.getConnectData().game;
+		_pwd = _menu.getConnectData().password;
+		_username = _menu.getConnectData().username;
 		createGame();
 	case MainMenuController::SelectedAction::PLAY:
+		_host = _menu.getConnectData().game;
+		_pwd = _menu.getConnectData().password;
+		_username = _menu.getConnectData().username;
 		play();
 		break;
 	case MainMenuController::SelectedAction::QUIT:
