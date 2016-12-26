@@ -92,11 +92,11 @@ void Application::initIcon(void)
 
 void Application::createGame(void)
 {
-	MainMenuController::ConnectData const& data = _menu.getConnectData();
+	//MainMenuController::ConnectData const& data = _menu.getConnectData();
 
-	_username = data.username;
-	_host = data.game;
-	_pwd = data.password;
+	//_username = data.username;
+	//_host = data.game;
+	//_pwd = data.password;
 
 	while (!_client.isConnected());
 	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
@@ -104,6 +104,7 @@ void Application::createGame(void)
 
 void Application::play(void)
 {
+	_menu.mute();
 	_state = ApplicationState::AS_Game;
 	_game = new GameController(_client);
 	_game->init();
@@ -166,6 +167,7 @@ void Application::updateGame(float delta)
 
 	if (_game->gameFinished()) {
 		_state = ApplicationState::AS_MainMenu;
+		_menu.unmute();
 		delete (_game);
 		_game = NULL;
 	}

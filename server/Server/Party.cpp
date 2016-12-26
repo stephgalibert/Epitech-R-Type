@@ -52,7 +52,7 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	if (_playersIdAvailable.cbegin() == _playersIdAvailable.cend()
-		|| _launched == true) {
+		|| _state != GameStatusType::Waiting) {
 		std::cout << "rejected" << std::endl;
 		return;
 	}
@@ -211,9 +211,12 @@ uint8_t Party::getNbPlayer(void)
 
 void Party::waiting(double delta)
 {
-	_delta += delta;
-	if (_delta > 10.f || isReady()) {
+	//_delta += delta;
+	if (_cm.getPlayerNumber() > 0) {
 		_launched = true;
+	}
+	if (/*_delta > 10.f || */isReady()) {
+		//_launched = true;
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Playing));
 		std::cout << "ready" << std::endl;
 		_state = GameStatusType::Playing;
