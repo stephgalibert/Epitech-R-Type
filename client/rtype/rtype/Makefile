@@ -10,7 +10,7 @@ CXX		=	g++-4.9
 RM		=	rm -f
 
 CXXFLAGS	+=	-Wall -Werror -Wextra
-CXXFLAGS	+=	-g -std=c++11
+CXXFLAGS	+=	-g -std=c++11 -g3 -ggdb
 
 CXXFLAGS	+=	-I./
 CXXFLAGS	+=	-I../../../common/
