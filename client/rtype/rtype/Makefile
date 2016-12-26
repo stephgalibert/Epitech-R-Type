@@ -99,6 +99,7 @@ SRCS		+=	MenuTextForm.cpp
 SRCS		+=	MenuPopup.cpp
 SRCS		+=	MenuConfirmPopup.cpp
 SRCS		+=	MenuTextInputPopup.cpp
+SRCS		+=	MenuCredits.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp

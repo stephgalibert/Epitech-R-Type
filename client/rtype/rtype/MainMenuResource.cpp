@@ -8,6 +8,10 @@ const std::string MainMenuResource::LOGO_T = "T.png";
 const std::string MainMenuResource::LOGO_Y = "Y.png";
 const std::string MainMenuResource::LOGO_P = "P.png";
 const std::string MainMenuResource::LOGO_E = "E.png";
+const std::string MainMenuResource::NAV_SOUND_0 = "menu_sound0.wav";
+const std::string MainMenuResource::NAV_SOUND_1 = "menu_sound1.wav";
+const std::string MainMenuResource::NAV_SOUND_2 = "menu_sound2.wav";
+const std::string MainMenuResource::NAV_SOUND_3 = "menu_sound3.wav";
 
 MainMenuResource MainMenuResource::menuResourceManager;
 
@@ -29,9 +33,13 @@ void MainMenuResource::load(void) {
 		addTexture(LOGO_Y, MENU_RESOURCE_PATH + LOGO_Y);
 		addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
 		addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
+		addSound(NAV_SOUND_0, MENU_RESOURCE_PATH + NAV_SOUND_0);
+		addSound(NAV_SOUND_1, MENU_RESOURCE_PATH + NAV_SOUND_1);
+		addSound(NAV_SOUND_2, MENU_RESOURCE_PATH + NAV_SOUND_2);
+		addSound(NAV_SOUND_3, MENU_RESOURCE_PATH + NAV_SOUND_3);
 	}
-	catch (std::runtime_error const& e) {
-		throw e;
+	catch (std::runtime_error const &) {
+		throw;
 	}
 }
 
@@ -42,10 +50,37 @@ sf::Texture *MainMenuResource::getTextureByKey(std::string const &key) {
 	throw std::runtime_error("Texture " + key + " not found");
 }
 
+sf::Sound *MainMenuResource::getSoundByKey(std::string const &key) {
+	try {
+		return _sounds.getSound(key);
+	}
+	catch (std::exception const &e) {
+		throw std::runtime_error(e.what());
+	}
+}
+
+void MainMenuResource::playSound(std::string const &key) {
+	try {
+		getSoundByKey(key)->play();
+	}
+	catch (std::runtime_error const &e) {
+		std::cout << e.what() << std::endl;
+	}
+}
+
 void MainMenuResource::addTexture(std::string const &key, std::string const &file) {
 	sf::Texture *texture = new sf::Texture();
 	if (!texture->loadFromFile(file)) {
 		throw (std::runtime_error("Texture " + file + " not found"));
 	}
 	_textures.insert(std::make_pair(key, texture));
+}
+
+void MainMenuResource::addSound(std::string const &key, std::string const &file) {
+	try {
+		_sounds.addSample(key, file);
+	}
+	catch (std::runtime_error const &) {
+		throw;
+	}
 }

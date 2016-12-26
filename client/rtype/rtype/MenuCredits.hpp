@@ -18,7 +18,7 @@ public:
 
 public:
 	void setPosition(sf::Vector2f const &position);
-	void addLine(std::string const &line = " ", const uint32_t fontSize = FONT_CHAR_SIZE);
+	void addLine(std::string const &line = "", const uint32_t fontSize = FONT_CHAR_SIZE);
 
 public:
 	sf::Vector2f const &getPosition(void) const;

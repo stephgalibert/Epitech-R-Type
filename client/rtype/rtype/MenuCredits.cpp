@@ -23,7 +23,10 @@ void MenuCredits::setPosition(sf::Vector2f const &position) {
 	sf::Vector2f pos(_position);
 	for (auto &text : _text) {
 		text.setPosition(pos);
-		pos.y += text.getGlobalBounds().height + LINES_SPACING;
+		if (text.getString().isEmpty())
+			pos.y += LINES_SPACING * 2.5f;
+		else
+			pos.y += text.getGlobalBounds().height + LINES_SPACING;
 	}
 }
 
@@ -32,6 +35,7 @@ void MenuCredits::addLine(std::string const &line, const uint32_t fontSize) {
 }
 
 void MenuCredits::init(sf::Font const *font) {
+	_text.clear();
 	_font = font;
 	addLine("CREDITS", 30u);
 	addLine();

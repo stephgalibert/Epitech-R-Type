@@ -144,11 +144,13 @@ bool MainMenuController::keyUp(void) {
 		_action = (--_buttons.end())->getId();
 	else
 		_action--;
+	MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_1);
 	return true;
 }
 
 bool MainMenuController::keyPageUp(void) {
 	_action = _buttons.begin()->getId();
+	MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_1);
 	return true;
 }
 
@@ -157,17 +159,20 @@ bool MainMenuController::keyDown(void) {
 		_action = _buttons.begin()->getId();
 	else
 		_action++;
+	MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_1);
 	return true;
 }
 
 bool MainMenuController::keyPageDown(void) {
 	_action = _buttons.rbegin()->getId();
+	MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_1);
 	return true;
 }
 
 bool MainMenuController::keyReturn(void) {
 	switch (_action) {
 	case SelectedAction::PLAY: {
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
 		_browser.clearContent();
 		_browser.setContent(_browserContent); //TODO Replace by GetParty request
 		_fsm = State::ST_Selecting;
@@ -178,10 +183,12 @@ bool MainMenuController::keyReturn(void) {
 		break;
 	}
 	case SelectedAction::CREATE: {
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
 		_fsm = State::ST_Creating;
 		break;
 	}
 	case SelectedAction::CREDITS: {
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
 		_fsm = State::ST_Credits;
 		break;
 	}
@@ -291,6 +298,7 @@ void MainMenuController::mute(void) const {
 }
 
 void MainMenuController::unmute(void) const {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).setLoop(true);
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
 }
 
@@ -474,10 +482,16 @@ bool MainMenuController::handleSplashInput(InputHandler &input) {
 
 bool MainMenuController::handleCreditsInput(InputHandler & input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Return) || input.isKeyDown(sf::Keyboard::Right)) {
+		if (input.isKeyDown(sf::Keyboard::Escape) ||
+			input.isKeyDown(sf::Keyboard::Return) ||
+			input.isKeyDown(sf::Keyboard::Right)) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::Up) || input.isKeyDown(sf::Keyboard::Down)) {
+			_fsm = State::ST_Menu;
+			return handleMenuInput(input);
 		}
 	}
 	return false;

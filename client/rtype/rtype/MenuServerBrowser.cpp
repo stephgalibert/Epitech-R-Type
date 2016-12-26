@@ -1,4 +1,5 @@
 #include "ProjectResource.hpp"
+#include "MainMenuResource.hpp"
 
 #include "MenuServerBrowser.hpp"
 
@@ -67,20 +68,24 @@ bool MenuServerBrowser::input(InputHandler &input) {
 		_selected--;
 		if (_selected < 0)
 			_selected = (_content.size() ? _content.size() - 1 : 0);
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
 	else if (input.isKeyDown(sf::Keyboard::Down)) {
 		_selected++;
 		if (static_cast<size_t>(_selected) >= _content.size())
 			_selected = 0;
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
 	else if (input.isKeyDown(sf::Keyboard::PageDown)) {
 		_selected = _content.empty() ? 0 : _content.size() - 1;
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
 	else if (input.isKeyDown(sf::Keyboard::PageUp)) {
 		_selected = 0;
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
 	return false;
