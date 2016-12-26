@@ -29,6 +29,7 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelParser.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
+    <ClCompile Include="PowerupManager.cpp" />
     <ClCompile Include="ReceiveFromAsyncTask.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
@@ -100,6 +101,8 @@
     <ClInclude Include="LevelParser.hpp" />
     <ClInclude Include="MonsterInformation.hpp" />
     <ClInclude Include="MonsterManager.hpp" />
+    <ClInclude Include="PowerupInformation.hpp" />
+    <ClInclude Include="PowerupManager.hpp" />
     <ClInclude Include="ReceiveFromAsyncTask.hpp" />
     <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="ConnectionManager.hpp" />

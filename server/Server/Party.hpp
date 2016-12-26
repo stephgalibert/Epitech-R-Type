@@ -11,6 +11,7 @@
 #include "Timer.hpp"
 #include "Generator.hpp"
 #include "MonsterManager.hpp"
+#include "PowerupManager.hpp"
 #include "LevelManager.hpp"
 
 class Party : public std::enable_shared_from_this<Party>
@@ -65,6 +66,7 @@ private:
 	std::mutex _mutex;
 
 	MonsterManager _mm;
+	PowerupManager _pm;
 	std::set<uint16_t> _powerups;
 
 	std::unordered_map<uint16_t, std::shared_ptr<ICommand> > _fires;

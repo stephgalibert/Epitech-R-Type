@@ -5,6 +5,7 @@
 
 #define COLLISION_FATAL 1
 #define COLLISION_PUP 2
+#define COLLISION_MISSILE 3
 #define COLLISION_NONE 5
 
 class IClient;

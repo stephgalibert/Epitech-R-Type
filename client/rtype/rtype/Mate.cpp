@@ -115,7 +115,7 @@ void Mate::collision(IClient *client, AEntity *other)
 		}
 		else if (!isInvincible() && !other->isInvincible()) {
 			if (getCollisionType() != COLLISION_NONE
-				&& other->getCollisionType() == COLLISION_FATAL) {
+				&& (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
 				setCollisioned(true);
 

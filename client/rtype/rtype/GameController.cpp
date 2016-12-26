@@ -39,6 +39,8 @@ void GameController::init(void)
 		_front.init();
 		_messageLayout.init();
 		_escapeLayout.init();
+
+		_scoreController.setColor(sf::Color(255, 255, 224));
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
@@ -265,16 +267,16 @@ void GameController::updateGameOver(float delta)
 {
 	if (_prevState != _state) {
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		_scoreController.setVisible(true);
+		_scoreController.setMarginTop(80);
 		_prevState = _state;
 	}
-
-	_back.update(delta);
-	_front.update(delta);
 
 	_gameOver.update(delta);
 	if (_gameOver.hasFinished()) {
 		_gameFinished = true;
 	}
+	_scoreController.update(delta);
 	_messageLayout.update(delta);
 }
 
@@ -282,17 +284,16 @@ void GameController::updateGameWin(float delta)
 {
 	if (_prevState != _state) {
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		_scoreController.setVisible(true);
+		_scoreController.setMarginTop(80);
 		_prevState = _state;
 	}
 
-	_back.update(delta);
-	_front.update(delta);
-
-	// todo win msg
 	_gameWin.update(delta);
 	if (_gameWin.hasFinished()) {
 		_gameFinished = true;
 	}
+	_scoreController.update(delta);
 	_messageLayout.update(delta);
 }
 
@@ -339,6 +340,7 @@ void GameController::drawGameOver(sf::RenderWindow &window)
 
 	window.draw(_messageLayout);
 	_gameOver.draw(window);
+	_scoreController.draw(window);
 }
 
 void GameController::drawGameWin(sf::RenderWindow &window)
@@ -354,4 +356,5 @@ void GameController::drawGameWin(sf::RenderWindow &window)
 
 	window.draw(_messageLayout);
 	_gameWin.draw(window);
+	_scoreController.draw(window);
 }

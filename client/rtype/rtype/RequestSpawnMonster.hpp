@@ -3,7 +3,8 @@
 #include "IRequest.hpp"
 #include "StaticTools.hpp"
 #include "World.hpp"
-#include "Mate.hpp"
+#include "Zork.hpp"
+#include "Dop.hpp"
 
 class RequestSpawnMonster : public IRequest
 {

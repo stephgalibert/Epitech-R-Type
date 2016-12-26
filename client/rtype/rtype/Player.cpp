@@ -111,7 +111,7 @@ void Player::collision(IClient *client, AEntity *other)
 	  }
 	  else if (!isInvincible() && !other->isInvincible() && other->getID() > 29999) {
 		  if (getCollisionType() != COLLISION_NONE
-			  && other->getCollisionType() == COLLISION_FATAL) {
+			  && (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
 			setCollisioned(true);
 			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
@@ -560,7 +560,6 @@ void Player::sendRespawnRequest(void)
 		_client->write(std::make_shared<CMDDestroyed>(getID()));
 	}
 }
-
 
 void Player::refreshInvincibility(float delta)
 {

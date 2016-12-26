@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protocol", "..\..\protocol\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zorg", "..\..\monsters\Zorg\Zorg.vcxproj", "{F1B3F66A-BB5B-4A95-AFFB-8B58D120E535}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dop", "..\..\monsters\Dop\Dop.vcxproj", "{05D0944F-123B-4B61-B530-385891AFEB1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -54,6 +56,14 @@ Global
 		{F1B3F66A-BB5B-4A95-AFFB-8B58D120E535}.Release|x64.Build.0 = Release|x64
 		{F1B3F66A-BB5B-4A95-AFFB-8B58D120E535}.Release|x86.ActiveCfg = Release|Win32
 		{F1B3F66A-BB5B-4A95-AFFB-8B58D120E535}.Release|x86.Build.0 = Release|Win32
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Debug|x64.ActiveCfg = Debug|x64
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Debug|x64.Build.0 = Debug|x64
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Debug|x86.ActiveCfg = Debug|Win32
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Debug|x86.Build.0 = Debug|Win32
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Release|x64.ActiveCfg = Release|x64
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Release|x64.Build.0 = Release|x64
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Release|x86.ActiveCfg = Release|Win32
+		{05D0944F-123B-4B61-B530-385891AFEB1E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

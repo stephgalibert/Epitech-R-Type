@@ -176,6 +176,7 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="ConnectionLostController.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
+    <ClCompile Include="Dop.cpp" />
     <ClCompile Include="EscapeLayout.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FireBall.cpp" />
@@ -263,6 +264,7 @@
     <ClInclude Include="CacheManager.hpp" />
     <ClInclude Include="ConnectionLostController.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
+    <ClInclude Include="Dop.hpp" />
     <ClInclude Include="EscapeLayout.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FireBall.hpp" />

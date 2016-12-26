@@ -19,6 +19,8 @@ public:
 	virtual void recycle(void);
 
 	void setVisible(bool value);
+	void setMarginTop(int value);
+	void setColor(sf::Color const& color);
 
 private:
 	double _delta;
@@ -28,5 +30,7 @@ private:
 	std::pair<short, short> _resolution;
 	Player **_player;
 	Mate **_mates;
+	int _marginTop;
+	sf::Color _color;
 };
 

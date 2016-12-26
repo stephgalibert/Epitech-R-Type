@@ -1,6 +1,4 @@
 #include "RequestSpawnMonster.hpp"
-#include "World.hpp"
-#include "Zork.hpp"
 
 RequestSpawnMonster::RequestSpawnMonster(void)
 {
@@ -29,13 +27,22 @@ void RequestSpawnMonster::execute(IClient &client, std::shared_ptr<ICommand> dat
 
 	x = StaticTools::GetResolution().first;
 
+	AEntity *entity = NULL;
 	if (type == "Zork") {
 		Zork *zork = World::spawnEntity<Zork>();
-		zork->setID(id);
-		zork->setPosition(sf::Vector2f(x, y));
-		zork->setHealth(health);
-		zork->setVelocity(velocity);
-		zork->setAngle(static_cast<float>(angle));
-		zork->setReadyForInit(true);
+		entity = zork;
+	}
+	else if (type == "Dop") {
+		Dop *dop = World::spawnEntity<Dop>();
+		entity = dop;
+	}
+
+	if (entity) {
+		entity->setID(id);
+		entity->setPosition(sf::Vector2f(x, y));
+		entity->setHealth(health);
+		entity->setVelocity(velocity);
+		entity->setAngle(static_cast<float>(angle));
+		entity->setReadyForInit(true);
 	}
 }

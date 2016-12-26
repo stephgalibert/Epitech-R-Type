@@ -7,7 +7,7 @@ Laser::Laser(void)
 	_currentFrame(0),
 	_color(1)
 {
-	setCollisionType(COLLISION_FATAL);
+	setCollisionType(COLLISION_MISSILE);
 	setVelocity(230.f);
 	initFrame();
 	_toRecycle = false;

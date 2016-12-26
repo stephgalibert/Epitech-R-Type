@@ -8,6 +8,7 @@
 
 #include "LevelParser.hpp"
 #include "MonsterInformation.hpp"
+#include "PowerupInformation.hpp"
 
 class LevelManager
 {
@@ -21,6 +22,7 @@ public:
 	uint8_t getLevel(void) const;
 
 	std::vector<MonsterInformation> const& getMonsterInformation(void) const;
+	std::vector<PowerupInformation> const& getPowerupInformation(void) const;
 
 private:
 	void parseLevel(void);
@@ -28,5 +30,6 @@ private:
 private:
 	uint8_t _currentLevel;
 	std::vector<MonsterInformation> _monsters;
+	std::vector<PowerupInformation> _powerups;
 };
 

@@ -1,28 +1,28 @@
-#include "Zork.hpp"
-#include "Explosion.hpp"
+#include "Dop.hpp"
 
-const float Zork::COEF_RESIZE = 1.5f;
+const float Dop::COEF_RESIZE = 1.3f;
 
-Zork::Zork(void)
+Dop::Dop(void)
 {
 	_delta = 0;
-	_currentFrame = 4;
+	_currentFrame = 0;
+	_deltaInvincibleAnim = 0.f;
+	_invincibleAnimState = false;
 	initFrame();
-	_state = State::Increase;
 }
 
-Zork::~Zork(void)
+Dop::~Dop(void)
 {
 }
 
-void Zork::init(void)
+void Dop::init(void)
 {
 	_shape = new sf::RectangleShape;
-	_shape->setSize(sf::Vector2f(23 * COEF_RESIZE, 26 * COEF_RESIZE));
-	setOrigin((23 * COEF_RESIZE) / 2.f, (26 * COEF_RESIZE) / 2.f);
+	_shape->setSize(sf::Vector2f(65 * COEF_RESIZE, 50 * COEF_RESIZE));
+	setOrigin((33 * COEF_RESIZE) / 2.f, (25 * COEF_RESIZE) / 2.f);
 
 	try {
-		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("zorg");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("dop");
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -36,40 +36,26 @@ void Zork::init(void)
 	}
 }
 
-void Zork::update(float delta)
+void Dop::update(float delta)
 {
 	_delta += delta;
 
-	if (_state == State::Increase) {
-		if (getAngle() < 230) {
-			setAngle(getAngle() + (delta * 70));
-		}
-		else {
-			_state = State::Decrease;
-		}
-	}
-	else {
-		if (getAngle() > 130) {
-			setAngle(getAngle() - (delta * 70));
-		}
-		else {
-			_state = State::Increase;
-		}
-	}
-
 	updateFrame();
+	refreshInvincibility(delta);
 	ANPC::update(delta);
 }
 
-void Zork::destroy(IClient &client)
+void Dop::destroy(IClient &client)
 {
 	client.write(std::make_shared<CMDDestroyed>(getID()));
 }
 
-void Zork::collision(IClient *client, AEntity *other)
+void Dop::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (!hasCollisioned() && !other->isInvincible() && other->getID() < 29999) {
+	if (!isInvincible() && !hasCollisioned() && !other->isInvincible()
+		&& other->getID() < 29999) {
+
 		if (getCollisionType() != COLLISION_NONE
 			&& (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
@@ -80,9 +66,9 @@ void Zork::collision(IClient *client, AEntity *other)
 	}
 }
 
-void Zork::applyCollision(CollisionType type, AEntity *other)
+void Dop::applyCollision(CollisionType type, AEntity *other)
 {
-  (void)other;
+	(void)other;
 	switch (type)
 	{
 	case CollisionType::None:
@@ -97,7 +83,7 @@ void Zork::applyCollision(CollisionType type, AEntity *other)
 	}
 }
 
-void Zork::move(float delta)
+void Dop::move(float delta)
 {
 	if (getAngle() != -1) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
@@ -107,11 +93,10 @@ void Zork::move(float delta)
 	}
 }
 
-void Zork::shoot(Fire const& param)
+void Dop::shoot(Fire const& param)
 {
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
-	sf::Vector2f const& pos = getPosition();
-	
+
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
@@ -124,41 +109,35 @@ void Zork::shoot(Fire const& param)
 	FireBall *laser = World::spawnEntity<FireBall>();
 	laser->setID(id);
 	laser->setLevel(param.level);
-	laser->setPosition(pos.x - 20, pos.y);
-	//laser->setPosition(x, y);
+	laser->setPosition(x, y);
 	laser->setOwnerID(id_launcher);
 	laser->setAngle(angle);
 	laser->setVelocity(velocity);
 	laser->setReadyForInit(true);
 }
 
-void Zork::respawn(void)
+void Dop::respawn(void)
 {
 }
 
-sf::IntRect const& Zork::getFrame(size_t idx) const
+sf::IntRect const& Dop::getFrame(size_t idx) const
 {
 	return (_frames.at(idx));
 }
 
-void Zork::setPowder(PowderType powderType)
+void Dop::setPowder(PowderType powderType)
 {
 	(void)powderType;
 }
 
-void Zork::initFrame(void)
+void Dop::initFrame(void)
 {
-	_frames.emplace_back(4, 5, 23, 26);
-	_frames.emplace_back(37, 11, 23, 16);
-	_frames.emplace_back(70, 15, 23, 9);
-	_frames.emplace_back(103, 9, 23, 16);
-	_frames.emplace_back(136, 5, 23, 26);
-	_frames.emplace_back(169, 10, 23, 16);
-	_frames.emplace_back(202, 12, 23, 9);
-	_frames.emplace_back(235, 9, 23, 16);
+	_frames.emplace_back(0, 0, 65, 50);
+	_frames.emplace_back(65, 0, 65, 50);
+	_frames.emplace_back(130, 0, 65, 50);
 }
 
-void Zork::updateFrame(void)
+void Dop::updateFrame(void)
 {
 	if (_delta > 0.15f) {
 
@@ -175,7 +154,7 @@ void Zork::updateFrame(void)
 	}
 }
 
-void Zork::collisionDestruction(void)
+void Dop::collisionDestruction(void)
 {
 	setCollisioned(true);
 	setCollisionType(COLLISION_NONE);
@@ -184,5 +163,37 @@ void Zork::collisionDestruction(void)
 	explosion->setPosition(getPosition());
 	explosion->setReadyForInit(true);
 
-	recycle();
+	if (getHealth() == 1) {
+		recycle();
+	}
+	else {
+		setHealth(getHealth() - 1);
+		setCollisioned(false);
+		setCollisionType(COLLISION_FATAL);
+		_invincibleDelay = 2;
+	}
+}
+
+void Dop::refreshInvincibility(float delta)
+{
+	sf::Color const& color = getShape()->getFillColor();
+
+	if (isInvincible()) {
+		_invincibleDelay -= delta;
+		_deltaInvincibleAnim += delta;
+		if (_deltaInvincibleAnim > 0.1f) {
+			if (_invincibleAnimState) {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+				_invincibleAnimState = false;
+			}
+			else {
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 64));
+				_invincibleAnimState = true;
+			}
+			_deltaInvincibleAnim = 0.f;
+		}
+	}
+	else {
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+	}
 }

@@ -2,21 +2,16 @@
 
 #include "ANPC.hpp"
 #include "FireBall.hpp"
+#include "Explosion.hpp"
 
-class Zork : public ANPC
+class Dop : public ANPC
 {
-private:
+public:
 	static const float COEF_RESIZE;
 
-	enum class State : uint8_t
-	{
-		Increase = 0,
-		Decrease = 1
-	};
-
 public:
-	Zork(void);
-	virtual ~Zork(void);
+	Dop(void);
+	virtual ~Dop(void);
 
 	virtual void init(void);
 	virtual void update(float delta);
@@ -39,11 +34,14 @@ private:
 
 	void collisionDestruction(void);
 
+	void refreshInvincibility(float delta);
+
 private:
 	float _delta;
 	uint8_t _currentFrame;
 	sf::RectangleShape *_shape;
 	std::vector<sf::IntRect> _frames;
-	State _state;
+	float _deltaInvincibleAnim;
+	bool _invincibleAnimState;
 };
 

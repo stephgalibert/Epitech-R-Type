@@ -35,6 +35,11 @@ std::vector<MonsterInformation> const& LevelManager::getMonsterInformation(void)
 	return (_monsters);
 }
 
+std::vector<PowerupInformation> const& LevelManager::getPowerupInformation(void) const
+{
+	return (_powerups);
+}
+
 void LevelManager::parseLevel(void)
 {
 	LevelParser parser;
@@ -44,8 +49,11 @@ void LevelManager::parseLevel(void)
 		std::vector<std::vector<std::string> > const& data = parser.getData();
 
 		for (auto &it : data) {
-			if (it[0] == "MONSTER") {
+			if (it.size() > 3 && it[0] == "MONSTER") {
 				_monsters.emplace_back(it[1], std::atof(it[2].c_str()), std::atoi(it[3].c_str()));
+			}
+			else if (it.size() > 4 && it[0] == "POWERUP") {
+				_powerups.emplace_back(it[1], std::atof(it[2].c_str()), std::atoi(it[3].c_str()), std::atoi(it[4].c_str()));
 			}
 		}
 	}

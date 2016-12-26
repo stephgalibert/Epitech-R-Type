@@ -41,6 +41,8 @@ void MonsterManager::init(void)
 
 void MonsterManager::update(double delta)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	_delta += delta;
 
 	if (!_monstersInfo.empty()) {
@@ -62,7 +64,6 @@ void MonsterManager::update(double delta)
 		if (it->wantToFire()) {
 			shoot(it);
 		}
-		// ...
 	}
 }
 
@@ -77,6 +78,18 @@ void MonsterManager::addPlayerScore(std::shared_ptr<AConnection> player, uint16_
 			return;
 		}
 		++it;
+	}
+}
+
+void MonsterManager::takeDamage(uint16_t monsterID)
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	for (auto it : _monsters) {
+		if (it->getID() == monsterID) {
+			it->takeDamage(1);
+			return;
+		}
 	}
 }
 
@@ -142,7 +155,8 @@ void MonsterManager::shoot(IMonster *monster)
 		uint16_t x = static_cast<uint16_t>(monster->getPosition().first) + canons[i].first;
 		uint16_t y = static_cast<uint16_t>(monster->getPosition().second) + canons[i].second;
 		uint8_t velocity = 230; // canon dependant
-		uint8_t angle = static_cast<uint8_t>(canonDegrees[i]);
+		//uint8_t angle = static_cast<uint8_t>(canonDegrees[i]);
+		uint8_t angle = _generator(120, 195);
 		uint8_t effect = 0;
 		uint8_t level = 0;
 
