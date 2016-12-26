@@ -32,25 +32,39 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 		sf::Vector2f itemSize(_frame.getSize().x, ITEMS_HEIGHT);
 		sf::Vector2f itemPos(_frame.getPosition().x, _frame.getPosition().y);
 		sf::RectangleShape itemBackground;
-		sf::Text itemLabel;
+		sf::Text itemLabel, itemPlayers;
+		sf::Sprite locked;
 		size_t firstItemDisplayed = 0;
 
 		if (_selected > static_cast<int>(getDisplayedItemsMax() - 1)) {
 			firstItemDisplayed = _selected - (getDisplayedItemsMax() - 1);
 		}
 
+		try {
+			locked.setTexture(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOCKED_SERVER));
+		}
+		catch (std::runtime_error const &) {
+
+		}
+
 		itemLabel.setFont(*_font);
 		itemLabel.setCharacterSize(FONT_CHAR_SIZE);
+		itemPlayers.setFont(*_font);
+		itemPlayers.setCharacterSize(FONT_CHAR_SIZE);
 		itemBackground.setSize(itemSize);
 
 		for (size_t i = firstItemDisplayed; i < (firstItemDisplayed + getDisplayedItemsCount()); i++) {
 			if (i == static_cast<size_t>(_selected)) {
 				itemBackground.setFillColor(ITEM_SECOND_COLOR);
 				itemLabel.setFillColor(ITEM_BASE_COLOR);
+				itemPlayers.setFillColor(ITEM_BASE_COLOR);
+				locked.setColor(ITEM_BASE_COLOR);
 			}
 			else {
 				itemBackground.setFillColor(ITEM_BASE_COLOR);
 				itemLabel.setFillColor(ITEM_SECOND_COLOR);
+				locked.setColor(ITEM_SECOND_COLOR);
+				itemPlayers.setFillColor(ITEM_SECOND_COLOR);
 			}
 
 			itemBackground.setPosition(itemPos);
@@ -59,8 +73,14 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 
 			itemLabel.setString(_content.at(i).name);
 			itemLabel.setPosition(sf::Vector2f(itemPos.x + TEXT_LEFT_PADDING, itemPos.y + TEXT_TOP_PADDING));
+			locked.setPosition(sf::Vector2f(itemLabel.getPosition().x + itemLabel.getGlobalBounds().width + TEXT_LEFT_PADDING, itemLabel.getPosition().y + 2.f));
+			itemPlayers.setString(std::to_string(_content.at(i).playersCount) + " / 4");
+			itemPlayers.setPosition(sf::Vector2f(getPosition().x + getSize().x - itemPlayers.getGlobalBounds().width - TEXT_LEFT_PADDING - 2.f, itemLabel.getPosition().y));
 
 			target.draw(itemLabel, states);
+			if (_content.at(i).hasPassword)
+				target.draw(locked);
+			target.draw(itemPlayers, states);
 
 			itemPos.y += itemBackground.getSize().y;
 		}

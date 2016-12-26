@@ -40,6 +40,7 @@ MainMenuController::MainMenuController(IClient &client)
 
 MainMenuController::~MainMenuController(void)
 {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).stop();
 }
 
 void MainMenuController::init()
@@ -300,6 +301,11 @@ void MainMenuController::mute(void) const {
 void MainMenuController::unmute(void) const {
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).setLoop(true);
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
+}
+
+void MainMenuController::restartMusic(void) const {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).stop();
+	unmute();
 }
 
 void MainMenuController::draw(sf::RenderWindow &window)

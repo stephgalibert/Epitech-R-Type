@@ -20,6 +20,7 @@ public:
 	static const std::string NAV_SOUND_1;
 	static const std::string NAV_SOUND_2;
 	static const std::string NAV_SOUND_3;
+	static const std::string LOCKED_SERVER;
 	static MainMenuResource menuResourceManager;
 
 public:

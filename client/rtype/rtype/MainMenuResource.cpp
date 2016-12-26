@@ -12,6 +12,7 @@ const std::string MainMenuResource::NAV_SOUND_0 = "menu_sound0.wav";
 const std::string MainMenuResource::NAV_SOUND_1 = "menu_sound1.wav";
 const std::string MainMenuResource::NAV_SOUND_2 = "menu_sound2.wav";
 const std::string MainMenuResource::NAV_SOUND_3 = "menu_sound3.wav";
+const std::string MainMenuResource::LOCKED_SERVER = "locked_server.png";
 
 MainMenuResource MainMenuResource::menuResourceManager;
 
@@ -33,6 +34,7 @@ void MainMenuResource::load(void) {
 		addTexture(LOGO_Y, MENU_RESOURCE_PATH + LOGO_Y);
 		addTexture(LOGO_P, MENU_RESOURCE_PATH + LOGO_P);
 		addTexture(LOGO_E, MENU_RESOURCE_PATH + LOGO_E);
+		addTexture(LOCKED_SERVER, MENU_RESOURCE_PATH + LOCKED_SERVER);
 		addSound(NAV_SOUND_0, MENU_RESOURCE_PATH + NAV_SOUND_0);
 		addSound(NAV_SOUND_1, MENU_RESOURCE_PATH + NAV_SOUND_1);
 		addSound(NAV_SOUND_2, MENU_RESOURCE_PATH + NAV_SOUND_2);
