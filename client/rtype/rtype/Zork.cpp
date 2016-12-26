@@ -65,6 +65,7 @@ void Zork::collision(IClient *client, AEntity *other)
 
 void Zork::applyCollision(CollisionType type, AEntity *other)
 {
+  (void)other;
 	switch (type)
 	{
 	case CollisionType::None:
@@ -82,8 +83,6 @@ void Zork::applyCollision(CollisionType type, AEntity *other)
 void Zork::move(float delta)
 {
 	if (getAngle() != -1) {
-		sf::Vector2f const& pos = getPosition();
-
 		float x = std::cos(getRadians()) * getVelocity() * delta;
 		float y = std::sin(getRadians()) * getVelocity() * delta;
 

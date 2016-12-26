@@ -113,9 +113,6 @@ void Player::collision(IClient *client, AEntity *other)
 		  if (getCollisionType() != COLLISION_NONE
 			  && other->getCollisionType() == COLLISION_FATAL) {
 
-			sf::FloatRect const& r0 = getBoundingBox();
-			sf::FloatRect const& r1 = other->getBoundingBox();
-
 			setCollisioned(true);
 			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 			setCollisionType(COLLISION_NONE);

@@ -12,7 +12,8 @@ MenuCredits::~MenuCredits() {
 }
 
 void MenuCredits::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-	for (auto const &text : _text) {
+  (void)states;
+  for (auto const &text : _text) {
 		target.draw(text);
 	}
 }

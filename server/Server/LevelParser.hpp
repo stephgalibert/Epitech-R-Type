@@ -5,6 +5,7 @@
 #include <fstream>
 #include <stdint.h>
 #include <vector>
+#include <stdexcept>
 
 #include "StaticTools.hpp"
 

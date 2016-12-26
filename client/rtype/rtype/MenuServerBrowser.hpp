@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "protocol.hpp"
+#include "Protocol.hpp"
 #include "InputHandler.hpp"
 
 class MenuServerBrowser : public sf::Drawable {

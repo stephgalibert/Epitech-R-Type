@@ -28,7 +28,6 @@ SRCS		+=	RequestFire.cpp
 SRCS		+=	RequestLoadedPowder.cpp
 SRCS		+=	RequestRespawn.cpp
 SRCS		+=	RequestGetParty.cpp
-SRCS		+=	ScheduledMonster.cpp
 SRCS		+=	SendToAsyncTask.cpp
 SRCS		+=	Timer.cpp
 SRCS		+=	main.cpp
@@ -53,6 +52,8 @@ SRCS		+=	ReadAsyncTask.cpp
 SRCS		+=	WriteAsyncTask.cpp
 SRCS		+=	UnixDirectoryParser.cpp
 SRCS		+=	ADirectoryParser.cpp
+SRCS		+=	LevelManager.cpp
+SRCS		+=	LevelParser.cpp
 
 SRCS		+=	../../common/StaticTools.cpp
 SRCS		+=	../../common/Generator.cpp
@@ -73,9 +74,9 @@ SRCS		+=	../../protocol/CMDError.cpp
 SRCS		+=	../../protocol/CMDFire.cpp
 SRCS		+=	../../protocol/CMDMove.cpp
 SRCS		+=	../../protocol/CMDPing.cpp
-SRCS		+=	../../protocol/CMDSpawn.cpp
 SRCS		+=	../../protocol/CMDMessage.cpp
 SRCS		+=	../../protocol/CMDSpawnPowerUp.cpp
+SRCS		+=	../../protocol/CMDSpawnMonster.cpp
 SRCS		+=	../../protocol/CommandFactory.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
@@ -85,11 +86,14 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 		$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
+		make -C ../../monsters/Zorg/
 
 re:		fclean all
 
 clean:
 		$(RM) $(OBJS)
+		make clean -C ../../monsters/Zorg/
 
 fclean: 	clean
 		$(RM) $(NAME)
+		make fclean -C ../../monsters/Zorg/

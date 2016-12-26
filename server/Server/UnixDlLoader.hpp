@@ -13,9 +13,11 @@ public:
 	UnixDlLoader(void);
 	virtual ~UnixDlLoader(void);
 
-	virtual void load(std::string const& dlname);
-	virtual T *getInstance(void) const;
 
+        virtual void load(std::string const& dlpath, std::string const& dlname);
+	virtual T *getInstance(void) const;
+	virtual std::string getType(void) const;
+  
 private:
 	void *_handle;
 };
@@ -38,13 +40,15 @@ UnixDlLoader<T>::~UnixDlLoader(void)
 }
 
 template <typename T>
-void UnixDlLoader<T>::load(std::string const& dlname)
+void UnixDlLoader<T>::load(std::string const& dlpath, std::string const& dlname)
 {
-	_handle = dlopen(dlname.c_str(), RTLD_NOW);
+  std::string path = dlpath + dlname;
+  std::cout << "loading '" << path << "'" << std::endl;
+	_handle = dlopen(path.c_str(), RTLD_NOW);
 	if (!_handle) {
 		throw (std::runtime_error("can not load " + dlname));
 	}
-	this->_dlname = dlname;
+	ADlLoader<T>::_dlname = dlname;
 }
 
 template<typename T>
@@ -59,6 +63,22 @@ T *UnixDlLoader<T>::getInstance(void) const
 			throw (std::runtime_error("entry name function not defined in " + this->_dlname));
 		}
 		return (((T *(*)(void))(addr))());
+	}
+	throw (std::runtime_error("no .so loaded"));
+}
+
+template<typename T>
+std::string UnixDlLoader<T>::getType(void) const
+{
+  if (ADlLoader<T>::_entryType.empty()) {
+		throw (std::runtime_error("Entry type not defined"));
+	}
+	else if (_handle) {
+	  void *addr = dlsym(_handle, ADlLoader<T>::_entryType.c_str());
+		if (!addr) {
+		  throw (std::runtime_error("entry type function not defined in " + ADlLoader<T>::_dlname));
+		}
+		return (((const char *(*)(void))(addr))());
 	}
 	throw (std::runtime_error("no .so loaded"));
 }

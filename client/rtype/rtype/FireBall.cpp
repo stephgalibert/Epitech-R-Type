@@ -46,6 +46,7 @@ void FireBall::destroy(IClient &client)
 
 void FireBall::collision(IClient *client, AEntity *other)
 {
+  (void)client;
 	if (!other->isInvincible() && !hasCollisioned()
 		&& other->getID() > 0 && other->getID() < 29999
 		&& other->getCollisionType() == COLLISION_FATAL) {

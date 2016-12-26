@@ -4,6 +4,7 @@
 #include <string>
 #include <stdint.h>
 #include <queue>
+#include <stdexcept>
 
 #include "LevelParser.hpp"
 #include "MonsterInformation.hpp"

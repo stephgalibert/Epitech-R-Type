@@ -181,7 +181,7 @@ void Party::loop(void)
 
 bool Party::isReady(void)
 {
-	return (_cm.getPlayerNumber() > 3);
+	return (_cm.getPlayerNumber() > 1);
 }
 
 bool Party::isFinished(void)
@@ -211,6 +211,7 @@ uint8_t Party::getNbPlayer(void)
 
 void Party::waiting(double delta)
 {
+  (void)delta;
 	//_delta += delta;
 	if (_cm.getPlayerNumber() > 0) {
 		_launched = true;

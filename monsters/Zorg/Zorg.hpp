@@ -3,11 +3,12 @@
 #ifdef WIN32
 # define MONSTER_API __declspec(dllexport)
 #else
-# define MONSTERAPI
+# define MONSTER_API
 #endif
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 #include "IMonster.hpp"
 

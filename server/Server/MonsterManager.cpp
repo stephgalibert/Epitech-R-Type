@@ -146,7 +146,7 @@ void MonsterManager::shoot(IMonster *monster)
 		uint8_t effect = 0;
 		uint8_t level = 0;
 
-		std::shared_ptr<CMDFire> fire = std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, id, id_owner, x, y,
+		std::shared_ptr<CMDFire> fire = std::make_shared<CMDFire>(type, id, id_owner, x, y,
 			velocity, angle, effect, level);
 
 		_fires.insert(std::make_pair(id, fire));

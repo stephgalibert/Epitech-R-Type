@@ -13,6 +13,7 @@ RequestSpawnMonster::~RequestSpawnMonster(void)
 void RequestSpawnMonster::execute(IClient &client, std::shared_ptr<ICommand> data,
 								  std::shared_ptr<ICommand> &toSend)
 {
+  (void)client;
 	(void)toSend;
 	SpawnMonster const *spawn = reinterpret_cast<SpawnMonster const *>(data->getData());
 
