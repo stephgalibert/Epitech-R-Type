@@ -1,5 +1,5 @@
 #include "Zork.hpp"
-#include "Laser.hpp"
+#include "Explosion.hpp"
 
 const float Zork::COEF_RESIZE = 1.5f;
 
@@ -52,7 +52,7 @@ void Zork::destroy(IClient &client)
 void Zork::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (!hasCollisioned() && !other->isInvincible()) {
+	if (!hasCollisioned() && !other->isInvincible() && other->getID() < 29999) {
 		if (getCollisionType() != COLLISION_NONE
 			&& other->getCollisionType() == COLLISION_FATAL) {
 
@@ -93,7 +93,8 @@ void Zork::move(float delta)
 
 void Zork::shoot(Fire const& param)
 {
-	//ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
+	
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
@@ -103,14 +104,13 @@ void Zork::shoot(Fire const& param)
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	Laser *laser = World::spawnEntity<Laser>();
+	FireBall *laser = World::spawnEntity<FireBall>();
 	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
 	laser->setOwnerID(id_launcher);
 	laser->setAngle(angle);
 	laser->setVelocity(velocity);
-	laser->setColor(id_launcher);
 	laser->setReadyForInit(true);
 }
 

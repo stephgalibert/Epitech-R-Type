@@ -24,8 +24,10 @@ void World::update(float delta)
 
 	Region->clear();
 	while (it != std::end(Entities)) {
+		sf::Vector2f const& pos = (*it)->getPosition();
 		if ((*it)->isWaitingForRecycle() ||
-				(*it)->getPosition().x < 0 || (*it)->getPosition().x > StaticTools::GetResolution().first) {
+				pos.x < 0 || pos.x > StaticTools::GetResolution().first ||
+				pos.y < 0 || pos.y > StaticTools::GetResolution().second) {
 			(*it)->destroy(*Client);
 			delete (*it);
 			it = Entities.erase(it);

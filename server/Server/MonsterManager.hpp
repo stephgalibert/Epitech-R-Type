@@ -4,6 +4,7 @@
 #include <queue>
 #include <list>
 #include <memory>
+#include <unordered_map>
 
 #include "ConnectionManager.hpp"
 #include "StaticTools.hpp"
@@ -13,7 +14,6 @@
 
 template<typename T>
 class DLManager;
-
 class AConnection;
 
 class MonsterManager
@@ -32,6 +32,7 @@ public:
 
 private:
 	void spawnMonster(MonsterInformation const& info);
+	void shoot(IMonster *monster);
 
 private:
 	ConnectionManager &_cm;
@@ -42,5 +43,7 @@ private:
 	std::list<IMonster *> _monsters;
 	uint16_t _nextID;
 	std::mutex _mutex;
+
+	std::unordered_map<uint16_t, std::shared_ptr<ICommand> > _fires;
 };
 

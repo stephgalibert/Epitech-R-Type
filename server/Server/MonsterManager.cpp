@@ -59,6 +59,9 @@ void MonsterManager::update(double delta)
 
 	for (auto &it : _monsters) {
 		it->update(delta);
+		if (it->wantToFire()) {
+			shoot(it);
+		}
 		// ...
 	}
 }
@@ -95,6 +98,12 @@ bool MonsterManager::destroyed(uint16_t id)
 			++it;
 		}
 	}
+
+	if (_fires.find(id) != _fires.cend()) {
+		_fires.erase(id);
+		return (true);
+	}
+
 	return (false);
 }
 
@@ -114,9 +123,33 @@ void MonsterManager::spawnMonster(MonsterInformation const& info)
 	uint8_t angle = monster->getAngle();
 	std::string type = monster->getType();
 
-	monster->setPosition(y);
+	monster->setPosition(std::make_pair(StaticTools::GetResolution().first, y));
 	monster->setID(id);
 
 	_cm.broadcast(std::make_shared<CMDSpawnMonster>(id, 0, y, health, velocity, angle, type));
 	_monsters.push_back(monster);
+}
+
+void MonsterManager::shoot(IMonster *monster)
+{
+	std::vector<std::pair<uint16_t, uint16_t> > const& canons = monster->getCanonRelativePosition();
+	std::vector<float> const& canonDegrees = monster->getCanonDegrees();
+
+	for (size_t i = 0; i < canons.size(); ++i) {
+		MissileType type = MissileType::MT_FriendFire_Lv1;
+		uint16_t id = _nextID++;
+		uint16_t id_owner = monster->getID();
+		uint16_t x = static_cast<uint16_t>(monster->getPosition().first) + canons[i].first;
+		uint16_t y = static_cast<uint16_t>(monster->getPosition().second) + canons[i].second;
+		uint8_t velocity = 230; // canon dependant
+		uint8_t angle = static_cast<uint8_t>(canonDegrees[i]);
+		uint8_t effect = 0;
+		uint8_t level = 0;
+
+		std::shared_ptr<CMDFire> fire = std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, id, id_owner, x, y,
+			velocity, angle, effect, level);
+
+		_fires.insert(std::make_pair(id, fire));
+		_cm.broadcast(fire);
+	}
 }
