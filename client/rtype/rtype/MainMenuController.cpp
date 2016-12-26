@@ -66,6 +66,7 @@ void MainMenuController::init()
 		
 		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
+		_browser.setFont(menuFont);
 
 		_form.setPosition(_browser.getPosition());
 		_form.addField(FORM_GAME_NAME, FORM_GAME_NAME_DEFAULT);

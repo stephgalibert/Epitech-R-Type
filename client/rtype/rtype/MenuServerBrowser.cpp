@@ -11,11 +11,15 @@ const float MenuServerBrowser::ITEMS_SPACING = 0.f;
 const uint32_t MenuServerBrowser::FONT_CHAR_SIZE = 16u;
 const float MenuServerBrowser::TEXT_TOP_PADDING = 2.f;
 const float MenuServerBrowser::TEXT_LEFT_PADDING = 2.f;
+const std::string MenuServerBrowser::EMPTY_MESSAGE = "No games found";
 
 MenuServerBrowser::MenuServerBrowser() : _selected(0) {
 	_frame.setFillColor(sf::Color::Black);
 	_frame.setOutlineColor(sf::Color::White);
 	_frame.setOutlineThickness(FRAME_OUTLINE_THICKNESS);
+
+	_emptyMessage.setString(EMPTY_MESSAGE);
+	_emptyMessage.setCharacterSize(30u);
 }
 
 MenuServerBrowser::~MenuServerBrowser() {
@@ -35,7 +39,7 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 			firstItemDisplayed = _selected - (getDisplayedItemsMax() - 1);
 		}
 
-		itemLabel.setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
+		itemLabel.setFont(*_font);
 		itemLabel.setCharacterSize(FONT_CHAR_SIZE);
 		itemBackground.setSize(itemSize);
 
@@ -60,6 +64,9 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 
 			itemPos.y += itemBackground.getSize().y;
 		}
+	}
+	else {
+		target.draw(_emptyMessage);
 	}
 }
 
@@ -95,10 +102,18 @@ bool MenuServerBrowser::input(InputHandler &input) {
 
 void MenuServerBrowser::setSize(sf::Vector2f const &size) {
 	_frame.setSize(size);
+	_emptyMessage.setPosition(getPosition().x + getSize().x / 2 - _emptyMessage.getGlobalBounds().width / 2, getPosition().y + getSize().y / 2 - _emptyMessage.getGlobalBounds().height / 2);
 }
 
 void MenuServerBrowser::setPosition(sf::Vector2f const &pos) {
 	_frame.setPosition(pos);
+	_emptyMessage.setPosition(getPosition().x + getSize().x / 2 - _emptyMessage.getGlobalBounds().width / 2, getPosition().y + getSize().y / 2 - _emptyMessage.getGlobalBounds().height / 2);
+}
+
+void MenuServerBrowser::setFont(sf::Font const *font) {
+	_font = font;
+	_emptyMessage.setFont(*font);
+	_emptyMessage.setPosition(getPosition().x + getSize().x / 2 - _emptyMessage.getGlobalBounds().width / 2, getPosition().y + getSize().y / 2 - _emptyMessage.getGlobalBounds().height / 2);
 }
 
 void MenuServerBrowser::clearContent(void) {

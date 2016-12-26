@@ -14,6 +14,7 @@ class MenuServerBrowser : public sf::Drawable {
 	static const uint32_t FONT_CHAR_SIZE;
 	static const float TEXT_TOP_PADDING;
 	static const float TEXT_LEFT_PADDING;
+	static const std::string EMPTY_MESSAGE;
 
 public:
 	struct PartyData {
@@ -34,6 +35,7 @@ public:
 public:
 	void setSize(sf::Vector2f const &size);
 	void setPosition(sf::Vector2f const &pos);
+	void setFont(sf::Font const *font);
 	void clearContent(void);
 	void setContent(std::vector<PartyData> const &content);
 	void setSelected(const int index);
@@ -56,6 +58,8 @@ private:
 	int _selected;
 
 private:
+	sf::Font const *_font;
 	sf::RectangleShape _frame;
+	sf::Text _emptyMessage;
 };
 
