@@ -254,8 +254,8 @@ struct SpawnMonster
 		uint8_t nbPlayer;
 		bool pwdPresent;
 		bool running;
-		char data[0];
 		uint8_t size;
+	  	char data[0];
 	} __attribute__((packed));
 
 	struct Message
