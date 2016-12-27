@@ -11,13 +11,11 @@ const uint32_t MenuTextInputPopup::TEXT_FONT_SIZE = 16u;
 const sf::Color MenuTextInputPopup::LABEL_COLOR = sf::Color::White;
 
 MenuTextInputPopup::MenuTextInputPopup(const bool screenCover) : MenuPopup(screenCover) {
-	_label.setCharacterSize(TEXT_FONT_SIZE);
-	_label.setFillColor(LABEL_COLOR);
+	_form.setSize(getSize());
 }
 
 MenuTextInputPopup::MenuTextInputPopup(std::string const &label, std::string const &content, const bool screenCover) : MenuTextInputPopup(screenCover) {
-	_label.setString(label);
-	_textField.setContent(content);
+	addField(label, content);
 }
 
 MenuTextInputPopup::~MenuTextInputPopup() {
@@ -26,12 +24,11 @@ MenuTextInputPopup::~MenuTextInputPopup() {
 
 void MenuTextInputPopup::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	MenuPopup::draw(target, states);
-	target.draw(_label, states);
-	target.draw(_textField, states);
+	target.draw(_form, states);
 }
 
 bool MenuTextInputPopup::input(InputHandler &input) {
-	return _textField.input(input);
+	return _form.input(input);
 }
 
 void MenuTextInputPopup::updateDisplay(void) {
@@ -46,33 +43,40 @@ void MenuTextInputPopup::updateDisplay(void) {
 
 void MenuTextInputPopup::setPosition(sf::Vector2f const &position) {
 	MenuPopup::setPosition(position);
-	_label.setPosition(sf::Vector2f(getPosition().x + LABEL_LATERAL_PADDING, getPosition().y + LABEL_VERTICAL_PADDING));
-	_textField.setPosition(sf::Vector2f(_label.getPosition().x, _label.getPosition().y + _label.getGlobalBounds().height + LABEL_VERTICAL_PADDING * 2));
+	_form.setPosition(position);
 }
 
 void MenuTextInputPopup::setSize(sf::Vector2f const &size) {
 	MenuPopup::setSize(size);
-	_textField.setSize(sf::Vector2f(size.x - (2 * LABEL_LATERAL_PADDING), TEXT_FIELD_HEIGHT));
+	_form.setSize(size);
 }
 
-void MenuTextInputPopup::setLabel(std::string const &label) {
-	_label.setString(label);
-	updateDisplay();
+void MenuTextInputPopup::resizeAndCenter(void) {
+	_form.setSize(sf::Vector2f(getSize().x, _form.getIdealHeight()));
+	setSize(sf::Vector2f(getSize().x, _form.getSize().y));
+	centerOnScreen();
 }
 
-void MenuTextInputPopup::setTextFieldContent(std::string const &content) {
-	_textField.setContent(content);
+void MenuTextInputPopup::setTextFieldContent(std::string const &field, std::string const &content) {
+	_form.setFieldContent(field, content);
 }
 
-void MenuTextInputPopup::clearTextFieldContent(void) {
-	_textField.clear();
+void MenuTextInputPopup::clearContents(void) {
+	_form.clearFieldsContent();
 }
 
-void MenuTextInputPopup::setFont(sf::Font const *font) {
-	_label.setFont(*font);
-	updateDisplay();
+void MenuTextInputPopup::removeFields(void) {
+	_form.removeFields();
 }
 
-std::string const &MenuTextInputPopup::getTextFieldContent(void) const {
-	return _textField.getContent();
+void MenuTextInputPopup::addField(std::string const &name, std::string const &content) {
+	_form.addField(name, content);
+}
+
+std::string const &MenuTextInputPopup::getTextFieldContent(std::string const &field) const {
+	return _form.getFieldContent(field);
+}
+
+MenuTextForm const &MenuTextInputPopup::getForm(void) const {
+	return _form;
 }
