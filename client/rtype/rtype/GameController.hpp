@@ -19,21 +19,13 @@
 #include "GameOverController.hpp"
 #include "GameWinController.hpp"
 #include "ScoreController.hpp"
+#include "BossIncomingController.hpp"
 
 #include "MessageLayout.hpp"
 #include "EscapeLayout.hpp"
 
 class GameController : public AController
 {
-//private:
-//	enum class State : uint8_t
-//	{
-//		Waiting = 0,
-//		Playing = 1,
-//		GameOver = 2,
-//		GameWin = 3
-//	};
-
 public:
 	GameController(IClient &network);
 	virtual ~GameController(void);
@@ -68,11 +60,13 @@ private:
 	void updatePlaying(float delta);
 	void updateGameOver(float delta);
 	void updateGameWin(float delta);
+	void updateBossIncoming(float delta);
 
 	void drawWaiting(sf::RenderWindow &window);
 	void drawPlaying(sf::RenderWindow &window);
 	void drawGameOver(sf::RenderWindow &window);
 	void drawGameWin(sf::RenderWindow &window);
+	void drawBossIncoming(sf::RenderWindow &window);
 
 	//void reset(void);
 
@@ -82,6 +76,7 @@ private:
 	GameWinController _gameWin;
 	HUDController _hud;
 	ScoreController _scoreController;
+	BossIncomingController _bossIncoming;
 	MessageLayout _messageLayout;
 	EscapeLayout _escapeLayout;
 

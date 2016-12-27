@@ -51,11 +51,12 @@ void AEntity::setDirection(uint8_t direction)
 	}
 
 	if (direction & EAST) {
-		setAngle(getAngle() / 2.f);
+		setAngle(std::ceil(getAngle() / 2.f));
 	}
 	else if (direction & WEAST) {
-		setAngle(-180.f - getAngle() / 2.f);
+		setAngle(std::floor(-180.f - getAngle() / 2.f));
 	}
+
 	_direction = direction;
 }
 

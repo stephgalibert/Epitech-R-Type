@@ -39,6 +39,7 @@ void GameController::init(void)
 		_front.init();
 		_messageLayout.init();
 		_escapeLayout.init();
+		_bossIncoming.init();
 
 		_scoreController.setColor(sf::Color(255, 255, 224));
 	}
@@ -56,6 +57,7 @@ bool GameController::input(InputHandler &input)
 	case GameStatusType::Waiting:
 		ret = inputWaiting(input);
 		break;
+	case GameStatusType::BossIncoming:
 	case GameStatusType::Playing:
 		ret = inputPlaying(input);
 		break;
@@ -78,6 +80,8 @@ void GameController::update(float delta)
 	case GameStatusType::Waiting:
 		updateWaiting(delta);
 		break;
+	case GameStatusType::BossIncoming:
+		updateBossIncoming(delta);
 	case GameStatusType::Playing:
 		updatePlaying(delta);
 		break;
@@ -99,6 +103,7 @@ void GameController::draw(sf::RenderWindow &window)
 	case GameStatusType::Waiting:
 		drawWaiting(window);
 		break;
+	case GameStatusType::BossIncoming:
 	case GameStatusType::Playing:
 		drawPlaying(window);
 		break;
@@ -234,7 +239,7 @@ void GameController::updateWaiting(float delta)
 
 void GameController::updatePlaying(float delta)
 {
-	if (_prevState != _state) {
+	if (_prevState != _state && _state != GameStatusType::BossIncoming) {
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").setLoop(true);
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").play();
 		_prevState = _state;
@@ -267,6 +272,7 @@ void GameController::updateGameOver(float delta)
 {
 	if (_prevState != _state) {
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").stop();
 		_scoreController.setVisible(true);
 		_scoreController.setMarginTop(80);
 		_prevState = _state;
@@ -284,6 +290,7 @@ void GameController::updateGameWin(float delta)
 {
 	if (_prevState != _state) {
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").stop();
 		_scoreController.setVisible(true);
 		_scoreController.setMarginTop(80);
 		_prevState = _state;
@@ -295,6 +302,14 @@ void GameController::updateGameWin(float delta)
 	}
 	_scoreController.update(delta);
 	_messageLayout.update(delta);
+}
+
+void GameController::updateBossIncoming(float delta)
+{
+	_bossIncoming.update(delta);
+	if (_bossIncoming.hasFinished()) {
+		setGameStatus(GameStatusType::Playing);
+	}
 }
 
 void GameController::drawWaiting(sf::RenderWindow &window)
@@ -327,6 +342,10 @@ void GameController::drawPlaying(sf::RenderWindow &window)
 	_scoreController.draw(window);
 	window.draw(_messageLayout);
 	window.draw(_escapeLayout);
+
+	if (_state == GameStatusType::BossIncoming) {
+		drawBossIncoming(window);
+	}
 }
 
 void GameController::drawGameOver(sf::RenderWindow &window)
@@ -357,4 +376,9 @@ void GameController::drawGameWin(sf::RenderWindow &window)
 	window.draw(_messageLayout);
 	_gameWin.draw(window);
 	_scoreController.draw(window);
+}
+
+void GameController::drawBossIncoming(sf::RenderWindow &window)
+{
+	_bossIncoming.draw(window);
 }

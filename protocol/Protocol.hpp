@@ -25,7 +25,8 @@ enum class ShipType : uint8_t
 enum class MissileType : uint8_t
 {
 	Standard = 0,
-	MT_FriendFire_Lv1 = 1
+	MT_FriendFire_Lv1 = 1,
+	FireBall = 2
 };
 
 enum class PowerUPsType : uint8_t
@@ -45,7 +46,8 @@ enum class GameStatusType : uint8_t
 	Waiting = 1,
 	Playing = 2,
 	GameOver = 3,
-	GameWin = 4
+	GameWin = 4,
+	BossIncoming = 5
 };
 
 enum class PowderType : uint8_t
@@ -104,7 +106,7 @@ struct Fire
 	uint16_t id_launcher;
 	uint32_t position;
 	uint8_t velocity;
-	uint8_t angle;
+	float angle;
 	uint8_t effect;
 	uint8_t level;
 };

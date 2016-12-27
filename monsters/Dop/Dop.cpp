@@ -9,13 +9,14 @@ Dop::Dop(void)
 	_velocity = 75;
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-40, -10));
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-40, 10));
-	_angle = 180;
+	setAngle(180);
 	_state = State::None;
 
 	// à l'ia de changer ça :
 	_canonsDegrees.emplace_back<float>(180);
 	_canonsDegrees.emplace_back<float>(180);
-	_radians = _angle * (2.f * 3.14159265f) / 360.f;
+
+
 }
 
 Dop::~Dop(void)
@@ -59,22 +60,33 @@ void Dop::setPosition(std::pair<double, double> const& pos)
 	_position = pos;
 }
 
+void Dop::setAngle(double angle)
+{
+	_angle = angle;
+	_radians = _angle * (2.f * 3.14159265f) / 360.f;
+}
+
 void Dop::move(double x, double y)
 {
 	_position.first += x;
 	_position.second += y;
 }
 
-bool Dop::wantToFire(void)
+IMonster::State Dop::popAction(void)
 {
-	bool ret = _state == State::Fire;
+	State tmp = _state;
 	_state = State::None;
-	return (ret);
+	return (tmp);
 }
 
 uint16_t Dop::getID(void) const
 {
 	return (_id);
+}
+
+int Dop::getDirection(void) const
+{
+	return (0);
 }
 
 uint16_t Dop::getScoreValue(void) const
@@ -99,7 +111,7 @@ uint16_t Dop::getVelocity(void) const
 
 uint8_t Dop::getAngle(void) const
 {
-	return (_angle);
+	return (static_cast<uint8_t>(_angle));
 }
 
 std::string Dop::getType(void) const

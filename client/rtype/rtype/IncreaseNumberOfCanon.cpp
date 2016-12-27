@@ -50,7 +50,7 @@ void IncreaseNumberOfCanon::attachToEntity(AEntity *entity)
 	setPosition(pos.x + 50, pos.y + 2);
 }
 
-bool IncreaseNumberOfCanon::fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos, uint8_t velocity, uint8_t angle, uint8_t level)
+bool IncreaseNumberOfCanon::fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos, uint8_t velocity, float angle, uint8_t level)
 {
 	client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, playerID, pos.x + 10, pos.y, velocity, angle, 0, level));
 	client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, playerID, pos.x + 10, pos.y - 20, velocity, angle, 0, level));

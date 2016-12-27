@@ -312,6 +312,12 @@
     <ClCompile Include="Ravid.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Gomander.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BossIncomingController.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -589,6 +595,12 @@
     </ClInclude>
     <ClInclude Include="Ravid.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Gomander.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BossIncomingController.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

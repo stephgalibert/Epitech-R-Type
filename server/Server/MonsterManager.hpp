@@ -35,6 +35,7 @@ public:
 private:
 	void spawnMonster(MonsterInformation const& info);
 	void shoot(IMonster *monster);
+	void move(IMonster *monster);
 
 private:
 	ConnectionManager &_cm;

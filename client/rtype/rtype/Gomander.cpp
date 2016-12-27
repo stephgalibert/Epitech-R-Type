@@ -1,8 +1,8 @@
-#include "Dop.hpp"
+#include "Gomander.hpp"
 
-const float Dop::COEF_RESIZE = 1.3f;
+const float Gomander::COEF_RESIZE = 2.f;
 
-Dop::Dop(void)
+Gomander::Gomander(void)
 {
 	_delta = 0;
 	_currentFrame = 0;
@@ -11,18 +11,18 @@ Dop::Dop(void)
 	initFrame();
 }
 
-Dop::~Dop(void)
+Gomander::~Gomander(void)
 {
 }
 
-void Dop::init(void)
+void Gomander::init(void)
 {
 	_shape = new sf::RectangleShape;
-	_shape->setSize(sf::Vector2f(65 * COEF_RESIZE, 50 * COEF_RESIZE));
-	setOrigin((65 * COEF_RESIZE) / 2.f, (50 * COEF_RESIZE) / 2.f);
+	_shape->setSize(sf::Vector2f(258 * COEF_RESIZE, 142 * COEF_RESIZE));
+	setOrigin((258 * COEF_RESIZE) / 2.f, (142 * COEF_RESIZE) / 2.f);
 
 	try {
-		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("dop");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("gomander");
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -36,7 +36,7 @@ void Dop::init(void)
 	}
 }
 
-void Dop::update(float delta)
+void Gomander::update(float delta)
 {
 	_delta += delta;
 
@@ -45,12 +45,12 @@ void Dop::update(float delta)
 	ANPC::update(delta);
 }
 
-void Dop::destroy(IClient &client)
+void Gomander::destroy(IClient &client)
 {
 	client.write(std::make_shared<CMDDestroyed>(getID()));
 }
 
-void Dop::collision(IClient *client, AEntity *other)
+void Gomander::collision(IClient *client, AEntity *other)
 {
 	(void)client;
 	if (!isInvincible() && !hasCollisioned() && !other->isInvincible()
@@ -66,7 +66,7 @@ void Dop::collision(IClient *client, AEntity *other)
 	}
 }
 
-void Dop::applyCollision(CollisionType type, AEntity *other)
+void Gomander::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)other;
 	switch (type)
@@ -83,7 +83,7 @@ void Dop::applyCollision(CollisionType type, AEntity *other)
 	}
 }
 
-void Dop::move(float delta)
+void Gomander::move(float delta)
 {
 	if (getAngle() != -1) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
@@ -93,7 +93,7 @@ void Dop::move(float delta)
 	}
 }
 
-void Dop::shoot(Fire const& param)
+void Gomander::shoot(Fire const& param)
 {
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
@@ -116,30 +116,35 @@ void Dop::shoot(Fire const& param)
 	laser->setReadyForInit(true);
 }
 
-void Dop::respawn(void)
+void Gomander::respawn(void)
 {
 }
 
-sf::IntRect const& Dop::getFrame(size_t idx) const
+sf::IntRect const& Gomander::getFrame(size_t idx) const
 {
 	return (_frames.at(idx));
 }
 
-void Dop::setPowder(PowderType powderType)
+void Gomander::setPowder(PowderType powderType)
 {
 	(void)powderType;
 }
 
-void Dop::initFrame(void)
+void Gomander::initFrame(void)
 {
-	_frames.emplace_back(0, 0, 65, 50);
-	_frames.emplace_back(65, 0, 65, 50);
-	_frames.emplace_back(130, 0, 65, 50);
+	_frames.emplace_back(261, 1, 258, 142);
+	_frames.emplace_back(1, 1, 258, 142);
+	_frames.emplace_back(261, 144, 258, 142);
+	_frames.emplace_back(1, 144, 258, 142);
+	_frames.emplace_back(261, 287, 258, 142);
+	_frames.emplace_back(1, 287, 258, 142);
+	_frames.emplace_back(261, 430, 258, 142);
+	_frames.emplace_back(1, 430, 258, 142);
 }
 
-void Dop::updateFrame(void)
+void Gomander::updateFrame(void)
 {
-	if (_delta > 0.15f) {
+	if (_delta > 0.5f) {
 
 		++_currentFrame;
 		if (_currentFrame == _frames.size()) {
@@ -147,21 +152,21 @@ void Dop::updateFrame(void)
 		}
 
 		sf::IntRect const& r = _frames.at(_currentFrame);
-		_shape->setSize(sf::Vector2f(r.width * COEF_RESIZE, r.height * COEF_RESIZE));
-		setOrigin((r.width * COEF_RESIZE) / 2.f, (r.height * COEF_RESIZE) / 2.f);
+		//_shape->setSize(sf::Vector2f(r.width * COEF_RESIZE, r.height * COEF_RESIZE));
+		//setOrigin((r.width * COEF_RESIZE) / 2.f, (r.height * COEF_RESIZE) / 2.f);
 		getShape()->setTextureRect(sf::IntRect(r.left, r.top, r.width, r.height));
 		_delta = 0.f;
 	}
 }
 
-void Dop::collisionDestruction(void)
+void Gomander::collisionDestruction(void)
 {
 	setCollisioned(true);
 	setCollisionType(COLLISION_NONE);
 
-	Explosion *explosion = World::spawnEntity<Explosion>();
-	explosion->setPosition(getPosition());
-	explosion->setReadyForInit(true);
+	//Explosion *explosion = World::spawnEntity<Explosion>();
+	//explosion->setPosition(getPosition());
+	//explosion->setReadyForInit(true);
 
 	if (getHealth() == 1) {
 		recycle();
@@ -170,24 +175,24 @@ void Dop::collisionDestruction(void)
 		setHealth(getHealth() - 1);
 		setCollisioned(false);
 		setCollisionType(COLLISION_FATAL);
-		_invincibleDelay = 2;
+		_invincibleDelay = 2.f;
 	}
 }
 
-void Dop::refreshInvincibility(float delta)
+void Gomander::refreshInvincibility(float delta)
 {
 	sf::Color const& color = getShape()->getFillColor();
 
 	if (isInvincible()) {
 		_invincibleDelay -= delta;
 		_deltaInvincibleAnim += delta;
-		if (_deltaInvincibleAnim > 0.1f) {
+		if (_deltaInvincibleAnim > 0.08f) {
 			if (_invincibleAnimState) {
 				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
 				_invincibleAnimState = false;
 			}
 			else {
-				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 64));
+				getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 0));
 				_invincibleAnimState = true;
 			}
 			_deltaInvincibleAnim = 0.f;

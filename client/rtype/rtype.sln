@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dop", "..\..\monsters\Dop\D
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ravid", "..\..\monsters\Ravid\Ravid.vcxproj", "{02DF9AC4-58D7-4258-B698-4E985EC14020}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gomander", "..\..\monsters\Gomander\Gomander.vcxproj", "{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -74,6 +76,14 @@ Global
 		{02DF9AC4-58D7-4258-B698-4E985EC14020}.Release|x64.Build.0 = Release|x64
 		{02DF9AC4-58D7-4258-B698-4E985EC14020}.Release|x86.ActiveCfg = Release|Win32
 		{02DF9AC4-58D7-4258-B698-4E985EC14020}.Release|x86.Build.0 = Release|Win32
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Debug|x64.ActiveCfg = Debug|x64
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Debug|x64.Build.0 = Debug|x64
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Debug|x86.ActiveCfg = Debug|Win32
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Debug|x86.Build.0 = Debug|Win32
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Release|x64.ActiveCfg = Release|x64
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Release|x64.Build.0 = Release|x64
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Release|x86.ActiveCfg = Release|Win32
+		{AF732B8C-AC6F-4682-B3FE-A7580C55E7D2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

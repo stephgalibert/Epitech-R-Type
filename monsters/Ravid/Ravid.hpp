@@ -23,11 +23,13 @@ public:
 
 	virtual void setID(uint16_t value);
 	virtual void setPosition(std::pair<double, double> const& pos);
+	virtual void setAngle(double angle);
 	virtual void move(double x, double y);
 
-	virtual bool wantToFire(void);
+	virtual State popAction(void);
 
 	virtual uint16_t getID(void) const;
+	virtual int getDirection(void) const;
 	virtual uint16_t getScoreValue(void) const;
 	virtual uint8_t getHP(void) const;
 	virtual double getFireRate(void) const;
@@ -45,7 +47,7 @@ private:
 	double _fireRate; // en seconde
 	uint16_t _velocity;
 	std::pair<double, double> _position;
-	uint8_t _angle; // angle de l'entité
+	double _angle; // angle de l'entité
 	double _radians;
 	std::vector<std::pair<uint16_t, uint16_t> > _canonsRelativePosition; // positions des canons en relatif à l'entité
 	std::vector<float> _canonsDegrees; // en degrée (ou radian ?)

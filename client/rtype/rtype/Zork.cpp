@@ -117,7 +117,7 @@ void Zork::shoot(Fire const& param)
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
-	uint8_t angle = param.angle;
+	float angle = param.angle;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 

@@ -18,7 +18,7 @@ public:
 
 	virtual void attachToEntity(AEntity *entity) = 0;
 
-	virtual bool fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos, uint8_t velocity, uint8_t angle, uint8_t level) = 0;
+	virtual bool fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos, uint8_t velocity, float angle, uint8_t level) = 0;
 
 private:
 	PowerUPsType _type;

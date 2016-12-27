@@ -10,20 +10,14 @@
 #include <vector>
 #include <cmath>
 
+#include "StaticTools.hpp"
 #include "IMonster.hpp"
 
-class Zorg : public IMonster
+class Gomander : public IMonster
 {
-private:
-	enum class AngleState : uint8_t
-	{
-		Increase = 0,
-		Decrease = 1
-	};
-
 public:
-	Zorg(void);
-	virtual ~Zorg(void);
+	Gomander(void);
+	virtual ~Gomander(void);
 
 	virtual void update(double delta);
 	virtual void takeDamage(uint8_t damage);
@@ -59,15 +53,15 @@ private:
 	std::vector<std::pair<uint16_t, uint16_t> > _canonsRelativePosition; // positions des canons en relatif à l'entité
 	std::vector<float> _canonsDegrees; // en degrée (ou radian ?)
 	State _state;
-	AngleState _angleState;
+	int _direction;
 };
 
 extern "C" MONSTER_API IMonster *entry(void)
 {
-	return (new Zorg);
+	return (new Gomander);
 }
 
 extern "C" MONSTER_API const char *type(void)
 {
-	return ("Zork");
+	return ("Gomander");
 }

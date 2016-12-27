@@ -236,14 +236,10 @@ void Party::playing(double delta)
 	_pm.update(delta, _nextID);
 
 	if (!_cm.isPlayersAlive()) {
-		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
-		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
 	}
 	else if (_mm.noMoreIncoming()) {
-		broadcast(std::make_shared<CMDMessage>("No more ennemy left, congratulation !!!"));
-		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
 		_state = GameStatusType::GameWin;
 		_delta = 0.f;
 	}
@@ -251,12 +247,24 @@ void Party::playing(double delta)
 
 void Party::gameOver(double delta)
 {
-	(void)delta;
-	_cm.closeAll();
+	_delta += delta;
+
+	if (_delta > 1.f) {
+		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
+		_delta = 0.f;
+		_cm.closeAll();
+	}
 }
 
 void Party::gameWin(double delta)
 {
-	(void)delta;
-	_cm.closeAll();
+	_delta += delta;
+
+	if (_delta > 5.f) {
+		broadcast(std::make_shared<CMDMessage>("No more ennemy left, congratulation !!!"));
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
+		_delta = 0.f;
+		_cm.closeAll();
+	}
 }

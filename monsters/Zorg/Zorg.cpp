@@ -71,22 +71,33 @@ void Zorg::setPosition(std::pair<double, double> const& pos)
 	_position = pos;
 }
 
+void Zorg::setAngle(double angle)
+{
+	_angle = angle;
+	_radians = _angle * (2.f * 3.14159265f) / 360.f;
+}
+
 void Zorg::move(double x, double y)
 {
 	_position.first += x;
 	_position.second += y;
 }
 
-bool Zorg::wantToFire(void)
+IMonster::State Zorg::popAction(void)
 {
-	bool ret = _state == State::Fire;
+	State tmp = _state;
 	_state = State::None;
-	return (ret);
+	return (tmp);
 }
 
 uint16_t Zorg::getID(void) const
 {
 	return (_id);
+}
+
+int Zorg::getDirection(void) const
+{
+	return (0);
 }
 
 uint16_t Zorg::getScoreValue(void) const
@@ -132,10 +143,4 @@ std::vector<std::pair<uint16_t, uint16_t> > const& Zorg::getCanonRelativePositio
 std::vector<float> const& Zorg::getCanonDegrees(void) const
 {
 	return (_canonsDegrees);
-}
-
-void Zorg::setAngle(double angle)
-{
-	_angle = angle;
-	_radians = _angle * (2.f * 3.14159265f) / 360.f;
 }

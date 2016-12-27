@@ -1,7 +1,7 @@
 #include "CMDFire.hpp"
 
 CMDFire::CMDFire(MissileType type, uint16_t id, uint16_t id_launcher, uint16_t x, uint16_t y,
-	uint8_t velocity, uint8_t angle, uint8_t effect, uint8_t level)
+	uint8_t velocity, float angle, uint8_t effect, uint8_t level)
 {
 	_data = new Fire;
 	_data->cmdType = getCommandType();
