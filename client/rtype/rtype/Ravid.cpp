@@ -1,28 +1,29 @@
-#include "Dop.hpp"
+#include "Ravid.hpp"
 
-const float Dop::COEF_RESIZE = 1.3f;
+const float Ravid::COEF_RESIZE = 1.3f;
 
-Dop::Dop(void)
+Ravid::Ravid(void)
 {
 	_delta = 0;
 	_currentFrame = 0;
 	_deltaInvincibleAnim = 0.f;
 	_invincibleAnimState = false;
 	initFrame();
+	_animState = AnimationState::Forward;
 }
 
-Dop::~Dop(void)
+Ravid::~Ravid(void)
 {
 }
 
-void Dop::init(void)
+void Ravid::init(void)
 {
 	_shape = new sf::RectangleShape;
-	_shape->setSize(sf::Vector2f(65 * COEF_RESIZE, 50 * COEF_RESIZE));
-	setOrigin((65 * COEF_RESIZE) / 2.f, (50 * COEF_RESIZE) / 2.f);
+	_shape->setSize(sf::Vector2f(66 * COEF_RESIZE, 98 * COEF_RESIZE));
+	setOrigin((66 * COEF_RESIZE) / 2.f, (98 * COEF_RESIZE) / 2.f);
 
 	try {
-		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("dop");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("ravid");
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -33,10 +34,11 @@ void Dop::init(void)
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 }
 
-void Dop::update(float delta)
+void Ravid::update(float delta)
 {
 	_delta += delta;
 
@@ -45,12 +47,12 @@ void Dop::update(float delta)
 	ANPC::update(delta);
 }
 
-void Dop::destroy(IClient &client)
+void Ravid::destroy(IClient &client)
 {
 	client.write(std::make_shared<CMDDestroyed>(getID()));
 }
 
-void Dop::collision(IClient *client, AEntity *other)
+void Ravid::collision(IClient *client, AEntity *other)
 {
 	(void)client;
 	if (!isInvincible() && !hasCollisioned() && !other->isInvincible()
@@ -66,7 +68,7 @@ void Dop::collision(IClient *client, AEntity *other)
 	}
 }
 
-void Dop::applyCollision(CollisionType type, AEntity *other)
+void Ravid::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)other;
 	switch (type)
@@ -83,7 +85,7 @@ void Dop::applyCollision(CollisionType type, AEntity *other)
 	}
 }
 
-void Dop::move(float delta)
+void Ravid::move(float delta)
 {
 	if (getAngle() != -1) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
@@ -93,7 +95,7 @@ void Dop::move(float delta)
 	}
 }
 
-void Dop::shoot(Fire const& param)
+void Ravid::shoot(Fire const& param)
 {
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
@@ -116,34 +118,47 @@ void Dop::shoot(Fire const& param)
 	laser->setReadyForInit(true);
 }
 
-void Dop::respawn(void)
+void Ravid::respawn(void)
 {
 }
 
-sf::IntRect const& Dop::getFrame(size_t idx) const
+sf::IntRect const& Ravid::getFrame(size_t idx) const
 {
 	return (_frames.at(idx));
 }
 
-void Dop::setPowder(PowderType powderType)
+void Ravid::setPowder(PowderType powderType)
 {
 	(void)powderType;
 }
 
-void Dop::initFrame(void)
+void Ravid::initFrame(void)
 {
-	_frames.emplace_back(0, 0, 65, 50);
-	_frames.emplace_back(65, 0, 65, 50);
-	_frames.emplace_back(130, 0, 65, 50);
+	_frames.emplace_back(0, 17, 66, 98);
+	_frames.emplace_back(69, 10, 58, 112);
+	_frames.emplace_back(136, 3, 54, 126);
+	_frames.emplace_back(195, 0, 66, 132);
 }
 
-void Dop::updateFrame(void)
+void Ravid::updateFrame(void)
 {
-	if (_delta > 0.15f) {
+	if (_delta > 0.1f) {
 
-		++_currentFrame;
-		if (_currentFrame == _frames.size()) {
-			_currentFrame = 0;
+		if (_animState == AnimationState::Forward) {
+			++_currentFrame;
+			if (_currentFrame == _frames.size()) {
+				_currentFrame = _frames.size() - 2;
+				_animState = AnimationState::Backward;
+			}
+		}
+		else {
+			if (_currentFrame > 0) {
+				--_currentFrame;
+			}
+			else {
+				_currentFrame = 1;
+				_animState = AnimationState::Forward;
+			}
 		}
 
 		sf::IntRect const& r = _frames.at(_currentFrame);
@@ -154,19 +169,34 @@ void Dop::updateFrame(void)
 	}
 }
 
-void Dop::collisionDestruction(void)
+void Ravid::collisionDestruction(void)
 {
+	sf::Vector2f const& pos = getPosition();
+
 	setCollisioned(true);
 	setCollisionType(COLLISION_NONE);
 
-	Explosion *explosion = World::spawnEntity<Explosion>();
-	explosion->setPosition(getPosition());
-	explosion->setReadyForInit(true);
-
 	if (getHealth() == 1) {
+
+		Explosion *explosion0 = World::spawnEntity<Explosion>();
+		explosion0->setPosition(pos.x - 10, pos.y - 20);
+		explosion0->setReadyForInit(true);
+
+		Explosion *explosion1 = World::spawnEntity<Explosion>();
+		explosion1->setPosition(pos.x + 5, pos.y);
+		explosion1->setReadyForInit(true);
+
+		Explosion *explosion2 = World::spawnEntity<Explosion>();
+		explosion2->setPosition(pos.x, pos.y + 20);
+		explosion2->setReadyForInit(true);
+
 		recycle();
 	}
 	else {
+		Explosion *explosion = World::spawnEntity<Explosion>();
+		explosion->setPosition(pos);
+		explosion->setReadyForInit(true);
+
 		setHealth(getHealth() - 1);
 		setCollisioned(false);
 		setCollisionType(COLLISION_FATAL);
@@ -174,7 +204,7 @@ void Dop::collisionDestruction(void)
 	}
 }
 
-void Dop::refreshInvincibility(float delta)
+void Ravid::refreshInvincibility(float delta)
 {
 	sf::Color const& color = getShape()->getFillColor();
 

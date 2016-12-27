@@ -11,6 +11,7 @@ Zorg::Zorg(void)
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-20, 0));
 	_canonsDegrees.emplace_back<float>(180);
 	_state = State::None;
+	_angleState = AngleState::Increase;
 }
 
 Zorg::~Zorg(void)
@@ -22,24 +23,24 @@ void Zorg::update(double delta)
 	(void)delta;
 
 	_delta += delta;
-	//if (_angleState == AngleState::Increase) {
-	//	if (getAngle() < 230) {
-	//		setAngle(_angle + (delta * 70.f));
-	//	}
-	//	else {
-	//		_angleState = AngleState::Decrease;
-	//	}
-	//}
-	//else {
-	//	if (getAngle() > 130) {
-	//		setAngle(_angle - (delta * 70.f));
-	//	}
-	//	else {
-	//		_angleState = AngleState::Increase;
-	//	}
-	//}
+	if (_angleState == AngleState::Increase) {
+		if (getAngle() < 230) {
+			setAngle(_angle + (delta * 70.f));
+		}
+		else {
+			_angleState = AngleState::Decrease;
+		}
+	}
+	else {
+		if (getAngle() > 130) {
+			setAngle(_angle - (delta * 70.f));
+		}
+		else {
+			_angleState = AngleState::Increase;
+		}
+	}
 
-	//move(std::cos(_radians) * _velocity * delta, std::sin(_radians) * getVelocity() * delta);
+	move(std::cos(_radians) * _velocity * delta, std::sin(_radians) * getVelocity() * delta);
 	//std::cout << "#" << getID() << " x: " << _position.first << std::endl;
 
 	if (_delta > getFireRate()) {

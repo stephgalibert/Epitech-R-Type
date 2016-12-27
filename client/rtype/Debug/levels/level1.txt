@@ -1,5 +1,5 @@
-# MONSTER seconds y
-# POWERUP seconds x y
+# MONSTER type seconds y
+# POWERUP type seconds x y
 
 POWERUP IncreaseNumberOfCanon 1 200 200
 
@@ -36,6 +36,12 @@ MONSTER Zork 6 50
 MONSTER Zork 6 300
 MONSTER Zork 6 550
 
-MONSTER Dop 8 100
-MONSTER Dop 8 350
-MONSTER Dop 8 600
+# vague 2
+MONSTER Dop 11 100
+MONSTER Dop 11 350
+MONSTER Dop 11 600
+
+# vague 3
+MONSTER Ravid 15 150
+MONSTER Ravid 15 350
+MONSTER Ravid 15 550

@@ -120,7 +120,6 @@ void TCPClient::do_read(boost::system::error_code const& ec, size_t len)
 		char const* packet = boost::asio::buffer_cast<char const *>(_read.data());
 		
 		CommandType type = (*(CommandType *)packet);
-		StaticTools::Log << "received packet type: " << (int)type << std::endl;
 		std::shared_ptr<ICommand> command = CommandFactory::Build(type);
 
 		if (!command) {

@@ -124,8 +124,8 @@ void Zork::shoot(Fire const& param)
 	FireBall *laser = World::spawnEntity<FireBall>();
 	laser->setID(id);
 	laser->setLevel(param.level);
-	laser->setPosition(pos.x - 20, pos.y);
-	//laser->setPosition(x, y);
+	//laser->setPosition(pos.x - 20, pos.y);
+	laser->setPosition(x, y);
 	laser->setOwnerID(id_launcher);
 	laser->setAngle(angle);
 	laser->setVelocity(velocity);

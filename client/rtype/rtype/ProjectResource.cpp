@@ -42,6 +42,7 @@ void ProjectResource::load(void)
 
 		addTexture("zorg", "./rsrc/sprites/zorg.png");
 		addTexture("dop", "./rsrc/sprites/dop.png");
+		addTexture("ravid", "./rsrc/sprites/ravid.png");
 		addTexture("e_shots1", "./rsrc/sprites/e_shots1.png");
 	}
 	catch (std::runtime_error const& e) {

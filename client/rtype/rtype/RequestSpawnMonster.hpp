@@ -5,6 +5,7 @@
 #include "World.hpp"
 #include "Zork.hpp"
 #include "Dop.hpp"
+#include "Ravid.hpp"
 
 class RequestSpawnMonster : public IRequest
 {

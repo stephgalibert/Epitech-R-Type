@@ -168,7 +168,7 @@ void Application::updateGame(float delta)
 
 	if (_game->gameFinished()) {
 		_state = ApplicationState::AS_MainMenu;
-		_menu.unmute();
+		_menu.restartMusic();
 		delete (_game);
 		_game = NULL;
 	}

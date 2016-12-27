@@ -211,6 +211,7 @@
     <ClCompile Include="Powdered.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="Ravid.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
     <ClCompile Include="RequestDestroyed.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="Powdered.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="QuadTree.hpp" />
+    <ClInclude Include="Ravid.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />
     <ClInclude Include="RequestDestroyed.hpp" />

@@ -36,6 +36,10 @@ void RequestSpawnMonster::execute(IClient &client, std::shared_ptr<ICommand> dat
 		Dop *dop = World::spawnEntity<Dop>();
 		entity = dop;
 	}
+	else if (type == "Ravid") {
+		Ravid *ravid = World::spawnEntity<Ravid>();
+		entity = ravid;
+	}
 
 	if (entity) {
 		entity->setID(id);

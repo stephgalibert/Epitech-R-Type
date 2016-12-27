@@ -12,18 +12,11 @@
 
 #include "IMonster.hpp"
 
-class Zorg : public IMonster
+class Ravid : public IMonster
 {
-private:
-	enum class AngleState : uint8_t
-	{
-		Increase = 0,
-		Decrease = 1
-	};
-
 public:
-	Zorg(void);
-	virtual ~Zorg(void);
+	Ravid();
+	virtual ~Ravid();
 
 	virtual void update(double delta);
 	virtual void takeDamage(uint8_t damage);
@@ -46,29 +39,25 @@ public:
 	virtual std::vector<float> const& getCanonDegrees(void) const;
 
 private:
-	void setAngle(double angle);
-
-private:
 	double _delta;
 	uint16_t _id;
 	uint8_t _life;
 	double _fireRate; // en seconde
 	uint16_t _velocity;
 	std::pair<double, double> _position;
-	double _angle; // angle de l'entité
+	uint8_t _angle; // angle de l'entité
 	double _radians;
 	std::vector<std::pair<uint16_t, uint16_t> > _canonsRelativePosition; // positions des canons en relatif à l'entité
 	std::vector<float> _canonsDegrees; // en degrée (ou radian ?)
 	State _state;
-	AngleState _angleState;
 };
 
 extern "C" MONSTER_API IMonster *entry(void)
 {
-	return (new Zorg);
+	return (new Ravid);
 }
 
 extern "C" MONSTER_API const char *type(void)
 {
-	return ("Zork");
+	return ("Ravid");
 }

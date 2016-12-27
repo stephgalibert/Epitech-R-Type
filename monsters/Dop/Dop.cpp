@@ -4,7 +4,7 @@ Dop::Dop(void)
 {
 	_delta = 0;
 	_id = 0;
-	_life = 3;
+	_life = 2;
 	_fireRate = 2.f;
 	_velocity = 75;
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-40, -10));
