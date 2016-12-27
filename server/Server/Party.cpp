@@ -2,7 +2,8 @@
 
 Party::Party(void)
 	: _launched(false),
-	  _mm(_cm, _lm)
+	  _mm(_cm, _lm),
+	  _pm(_cm, _lm)
 {
 	_nextID = 1;
 	_state = GameStatusType::Waiting;
@@ -27,8 +28,10 @@ void Party::init(std::string const& name, std::string const& pwd)
 
 		_lm.initialize();
 		_mm.init();
+		_pm.init();
 	}
 	catch (std::exception const& e) {
+	  std::cout << e.what() << std::endl;
 		StaticTools::Log << e.what() << std::endl;
 	}
 }
@@ -143,6 +146,7 @@ void Party::collision(std::shared_ptr<AConnection> owner, std::shared_ptr<IComma
 	Collision const *collision = reinterpret_cast<Collision const *>(cmd->getData());
 
 	if (_fires.find(collision->id_first) != _fires.cend()) {
+		_mm.takeDamage(collision->id_second);
 		_mm.addPlayerScore(owner, collision->id_second);
 		broadcast(std::make_shared<CMDScore>(owner->getID(), owner->getScore()));
 	}
@@ -181,7 +185,7 @@ void Party::loop(void)
 
 bool Party::isReady(void)
 {
-	return (_cm.getPlayerNumber() > 1);
+	return (_cm.getPlayerNumber() > 0);
 }
 
 bool Party::isFinished(void)
@@ -211,13 +215,12 @@ uint8_t Party::getNbPlayer(void)
 
 void Party::waiting(double delta)
 {
-  (void)delta;
+	(void)delta;
 	//_delta += delta;
 	if (_cm.getPlayerNumber() > 0) {
 		_launched = true;
 	}
-	if (/*_delta > 10.f || */isReady()) {
-		//_launched = true;
+	if (isReady()) {
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::Playing));
 		std::cout << "ready" << std::endl;
 		_state = GameStatusType::Playing;
@@ -227,40 +230,41 @@ void Party::waiting(double delta)
 
 void Party::playing(double delta)
 {
-	//static bool test = true; // todel
-
 	_delta += delta;
+
+	_mm.update(delta);
+	_pm.update(delta, _nextID);
+
 	if (!_cm.isPlayersAlive()) {
-		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
-		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
 		_state = GameStatusType::GameOver;
 		_delta = 0.f;
 	}
 	else if (_mm.noMoreIncoming()) {
-		broadcast(std::make_shared<CMDMessage>("No ennemy left, congratulation !"));
-		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
 		_state = GameStatusType::GameWin;
 		_delta = 0.f;
 	}
-	//else if (_delta > 3.f && test) {
-	//	std::cout << "sending span powerup" << std::endl;
-	//	broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::IncreaseNumberOfCanon, _nextID, 200, 200));
-	//	//_powerups.insert(_nextID);
-	//	++_nextID;
-	//	test = false;
-	//}
-
-	_mm.update(delta);
 }
 
 void Party::gameOver(double delta)
 {
-	(void)delta;
-	_cm.closeAll();
+	_delta += delta;
+
+	if (_delta > 1.f) {
+		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
+		_delta = 0.f;
+		_cm.closeAll();
+	}
 }
 
 void Party::gameWin(double delta)
 {
-	(void)delta;
-	_cm.closeAll();
+	_delta += delta;
+
+	if (_delta > 5.f) {
+		broadcast(std::make_shared<CMDMessage>("No more ennemy left, congratulation !!!"));
+		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
+		_delta = 0.f;
+		_cm.closeAll();
+	}
 }

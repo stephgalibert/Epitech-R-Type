@@ -30,6 +30,7 @@ void RequestConnect::execute(std::shared_ptr<AConnection> owner,
 		reply = std::make_shared<CMDError>(RT_ERROR_NOT_FOUND);
 	}
 	else {
+		owner->setScore(0);
 		owner->setCurrentParty(party);
 	}
 }

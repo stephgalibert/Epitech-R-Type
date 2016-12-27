@@ -201,6 +201,9 @@
     <ClCompile Include="LevelParser.cpp">
       <Filter>Fichiers sources\Party</Filter>
     </ClCompile>
+    <ClCompile Include="PowerupManager.cpp">
+      <Filter>Fichiers sources\Party</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -378,6 +381,12 @@
       <Filter>Fichiers d%27en-tête\Party</Filter>
     </ClInclude>
     <ClInclude Include="MonsterInformation.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerupInformation.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerupManager.hpp">
       <Filter>Fichiers d%27en-tête\Party</Filter>
     </ClInclude>
   </ItemGroup>

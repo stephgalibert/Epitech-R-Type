@@ -7,6 +7,8 @@ Zork::Zork(void)
 {
 	_delta = 0;
 	_currentFrame = 4;
+	initFrame();
+	_state = State::Increase;
 }
 
 Zork::~Zork(void)
@@ -20,9 +22,7 @@ void Zork::init(void)
 	setOrigin((23 * COEF_RESIZE) / 2.f, (26 * COEF_RESIZE) / 2.f);
 
 	try {
-		initFrame();
-
-		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("ennemy1");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("zorg");
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -40,6 +40,23 @@ void Zork::update(float delta)
 {
 	_delta += delta;
 
+	if (_state == State::Increase) {
+		if (getAngle() < 230) {
+			setAngle(getAngle() + (delta * 70));
+		}
+		else {
+			_state = State::Decrease;
+		}
+	}
+	else {
+		if (getAngle() > 130) {
+			setAngle(getAngle() - (delta * 70));
+		}
+		else {
+			_state = State::Increase;
+		}
+	}
+
 	updateFrame();
 	ANPC::update(delta);
 }
@@ -54,7 +71,7 @@ void Zork::collision(IClient *client, AEntity *other)
 	(void)client;
 	if (!hasCollisioned() && !other->isInvincible() && other->getID() < 29999) {
 		if (getCollisionType() != COLLISION_NONE
-			&& other->getCollisionType() == COLLISION_FATAL) {
+			&& (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
 			setCollisioned(true);
 			other->collision(client, this);
@@ -93,19 +110,21 @@ void Zork::move(float delta)
 void Zork::shoot(Fire const& param)
 {
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
+	sf::Vector2f const& pos = getPosition();
 	
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
-	uint8_t angle = param.angle;
+	float angle = param.angle;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
 	FireBall *laser = World::spawnEntity<FireBall>();
 	laser->setID(id);
 	laser->setLevel(param.level);
+	//laser->setPosition(pos.x - 20, pos.y);
 	laser->setPosition(x, y);
 	laser->setOwnerID(id_launcher);
 	laser->setAngle(angle);
@@ -115,6 +134,11 @@ void Zork::shoot(Fire const& param)
 
 void Zork::respawn(void)
 {
+}
+
+sf::IntRect const& Zork::getFrame(size_t idx) const
+{
+	return (_frames.at(idx));
 }
 
 void Zork::setPowder(PowderType powderType)

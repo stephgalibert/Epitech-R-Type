@@ -8,6 +8,12 @@ class Zork : public ANPC
 private:
 	static const float COEF_RESIZE;
 
+	enum class State : uint8_t
+	{
+		Increase = 0,
+		Decrease = 1
+	};
+
 public:
 	Zork(void);
 	virtual ~Zork(void);
@@ -25,6 +31,8 @@ public:
 
 	virtual void respawn(void);
 
+	sf::IntRect const& getFrame(size_t idx) const;
+
 private:
 	void initFrame(void);
 	void updateFrame(void);
@@ -34,9 +42,8 @@ private:
 private:
 	float _delta;
 	uint8_t _currentFrame;
-
 	sf::RectangleShape *_shape;
-
 	std::vector<sf::IntRect> _frames;
+	State _state;
 };
 

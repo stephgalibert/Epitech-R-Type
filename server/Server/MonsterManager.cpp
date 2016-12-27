@@ -41,11 +41,19 @@ void MonsterManager::init(void)
 
 void MonsterManager::update(double delta)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
+
 	_delta += delta;
 
 	if (!_monstersInfo.empty()) {
 		try {
-			MonsterInformation const& info = _monstersInfo.front();
+			MonsterInformation &info = _monstersInfo.front();
+
+			if (info.isBoss && _delta > info.time - 4) {
+				_cm.broadcast(std::make_shared<CMDGameStatus>(GameStatusType::BossIncoming));
+				info.isBoss = false;
+			}
+
 			if (_delta >= info.time) {
 				spawnMonster(info);
 				_monstersInfo.pop();
@@ -59,10 +67,17 @@ void MonsterManager::update(double delta)
 
 	for (auto &it : _monsters) {
 		it->update(delta);
-		if (it->wantToFire()) {
+		switch (it->popAction())
+		{
+		case IMonster::State::Fire:
 			shoot(it);
+			break;
+		case IMonster::State::Move:
+			move(it);
+			break;
+		default:
+			break;
 		}
-		// ...
 	}
 }
 
@@ -77,6 +92,18 @@ void MonsterManager::addPlayerScore(std::shared_ptr<AConnection> player, uint16_
 			return;
 		}
 		++it;
+	}
+}
+
+void MonsterManager::takeDamage(uint16_t monsterID)
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	for (auto it : _monsters) {
+		if (it->getID() == monsterID) {
+			it->takeDamage(1);
+			return;
+		}
 	}
 }
 
@@ -142,7 +169,8 @@ void MonsterManager::shoot(IMonster *monster)
 		uint16_t x = static_cast<uint16_t>(monster->getPosition().first) + canons[i].first;
 		uint16_t y = static_cast<uint16_t>(monster->getPosition().second) + canons[i].second;
 		uint8_t velocity = 230; // canon dependant
-		uint8_t angle = static_cast<uint8_t>(canonDegrees[i]);
+		float angle = canonDegrees[i];
+		//uint8_t angle = _generator(120, 195);
 		uint8_t effect = 0;
 		uint8_t level = 0;
 
@@ -152,4 +180,15 @@ void MonsterManager::shoot(IMonster *monster)
 		_fires.insert(std::make_pair(id, fire));
 		_cm.broadcast(fire);
 	}
+}
+
+void MonsterManager::move(IMonster *monster)
+{
+	uint16_t id = monster->getID();
+	uint8_t direction = monster->getDirection();
+	uint16_t x = static_cast<uint16_t>(monster->getPosition().first);
+	uint16_t y = static_cast<uint16_t>(monster->getPosition().second);
+	uint16_t velocity = monster->getVelocity();
+
+	_cm.broadcast(std::make_shared<CMDMove>(id, x, y, velocity, direction));
 }

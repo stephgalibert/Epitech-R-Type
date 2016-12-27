@@ -174,8 +174,10 @@
     <ClCompile Include="AProjectile.cpp" />
     <ClCompile Include="AStatic.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BossIncomingController.cpp" />
     <ClCompile Include="ConnectionLostController.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
+    <ClCompile Include="Dop.cpp" />
     <ClCompile Include="EscapeLayout.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FireBall.cpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="GameWinController.cpp" />
+    <ClCompile Include="Gomander.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
     <ClCompile Include="IncreaseNumberOfCanon.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="Powdered.cpp" />
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="Ravid.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
     <ClCompile Include="RequestDestroyed.cpp" />
@@ -260,9 +264,11 @@
     <ClInclude Include="AProjectile.hpp" />
     <ClInclude Include="AStatic.hpp" />
     <ClInclude Include="Background.hpp" />
+    <ClInclude Include="BossIncomingController.hpp" />
     <ClInclude Include="CacheManager.hpp" />
     <ClInclude Include="ConnectionLostController.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
+    <ClInclude Include="Dop.hpp" />
     <ClInclude Include="EscapeLayout.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FireBall.hpp" />
@@ -270,6 +276,7 @@
     <ClInclude Include="GameController.hpp" />
     <ClInclude Include="GameOverController.hpp" />
     <ClInclude Include="GameWinController.hpp" />
+    <ClInclude Include="Gomander.hpp" />
     <ClInclude Include="Health.hpp" />
     <ClInclude Include="HUDController.hpp" />
     <ClInclude Include="IClient.hpp" />
@@ -302,6 +309,7 @@
     <ClInclude Include="Powdered.hpp" />
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="QuadTree.hpp" />
+    <ClInclude Include="Ravid.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />
     <ClInclude Include="RequestDestroyed.hpp" />

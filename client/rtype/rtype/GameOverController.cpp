@@ -49,7 +49,6 @@ void GameOverController::update(float delta)
 
 	if (!_started) {
 		ProjectResource::TheProjectResource.getMusicByKey("game_over").play();
-
 		_started = true;
 	}
 	if (_delta < DELAY_RESTARTING) {

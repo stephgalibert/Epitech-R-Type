@@ -6,6 +6,7 @@ ScoreController::ScoreController(Player **player, Mate **mates)
 	_resolution = StaticTools::GetResolution();
 	_player = player;
 	_mates = mates;
+	_marginTop = 0;
 }
 
 ScoreController::~ScoreController(void)
@@ -64,13 +65,13 @@ void ScoreController::update(float delta)
 
 					sf::FloatRect textRect = _text[i].getLocalBounds();
 					_text[i].setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-					_text[i].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + ((i - 1) * 30)));
+					_text[i].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f + ((i - 1) * 30) + _marginTop));
 				}
 			}
 
 			sf::FloatRect textRect0 = _text[0].getLocalBounds();
 			_text[0].setOrigin(textRect0.left + textRect0.width / 2.0f, textRect0.top + textRect0.height / 2.0f);
-			_text[0].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f - 30));
+			_text[0].setPosition(sf::Vector2f(_resolution.first / 2.0f, _resolution.second / 2.0f - 30 + _marginTop));
 
 			_delta = 0;
 		}
@@ -94,4 +95,17 @@ void ScoreController::recycle(void)
 void ScoreController::setVisible(bool value)
 {
 	_visible = value;
+}
+
+void ScoreController::setMarginTop(int value)
+{
+	_marginTop = value;
+}
+
+void ScoreController::setColor(sf::Color const& color)
+{
+	_color = color;
+	for (size_t i = 0; i < 4; ++i) {
+		_text[i].setFillColor(color);
+	}
 }

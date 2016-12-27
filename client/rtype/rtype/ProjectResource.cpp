@@ -26,6 +26,7 @@ void ProjectResource::load(void)
 		addMusic("stage_01", "./rsrc/music/stage_01.ogg");
 		addMusic("game_over", "./rsrc/music/game_over.ogg");
 		addMusic("game_win", "./rsrc/music/game_win.ogg");
+		addMusic("boss_incoming", "./rsrc/music/boss_incoming.ogg");
 		addSound("explosions", "./rsrc/music/explosion.ogg");
 		addSound("shot", "./rsrc/music/shot.wav");
 
@@ -40,7 +41,10 @@ void ProjectResource::load(void)
 		addTexture("explosions", "./rsrc/sprites/explosions.png");
 		addTexture("powerups1", "./rsrc/sprites/powerups1.png");
 
-		addTexture("ennemy1", "./rsrc/sprites/ennemy1.png");
+		addTexture("zorg", "./rsrc/sprites/zorg.png");
+		addTexture("dop", "./rsrc/sprites/dop.png");
+		addTexture("ravid", "./rsrc/sprites/ravid.png");
+		addTexture("gomander", "./rsrc/sprites/gomander.png");
 		addTexture("e_shots1", "./rsrc/sprites/e_shots1.png");
 	}
 	catch (std::runtime_error const& e) {

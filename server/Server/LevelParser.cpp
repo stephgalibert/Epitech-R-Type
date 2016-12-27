@@ -37,9 +37,13 @@ void LevelParser::retrieveData(std::ifstream &ifs)
 	{
 		if (buffer.size() > 0 && buffer.at(0) != '#') {
 			StaticTools::SplitString(buffer, ' ', tokens);
-			if (tokens.size() > 3) {
-				_data.push_back({ tokens[0], tokens[1], tokens[2], tokens[3] });
+
+			std::vector<std::string> tmp;
+			for (size_t i = 0; i < tokens.size(); ++i) {
+				tmp.push_back(tokens[i]);
 			}
+			_data.push_back(tmp);
+
 			tokens.clear();
 		}
 	}

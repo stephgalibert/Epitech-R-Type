@@ -11,6 +11,7 @@
 
 #include "IMonster.hpp"
 #include "LevelManager.hpp"
+#include "Generator.hpp"
 
 template<typename T>
 class DLManager;
@@ -26,6 +27,7 @@ public:
 	void update(double delta);
 
 	void addPlayerScore(std::shared_ptr<AConnection> player, uint16_t monsterID);
+	void takeDamage(uint16_t monsterID);
 	bool destroyed(uint16_t id);
 
 	bool noMoreIncoming(void) const;
@@ -33,6 +35,7 @@ public:
 private:
 	void spawnMonster(MonsterInformation const& info);
 	void shoot(IMonster *monster);
+	void move(IMonster *monster);
 
 private:
 	ConnectionManager &_cm;
@@ -45,5 +48,6 @@ private:
 	std::mutex _mutex;
 
 	std::unordered_map<uint16_t, std::shared_ptr<ICommand> > _fires;
+	Generator _generator;
 };
 

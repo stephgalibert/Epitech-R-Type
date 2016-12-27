@@ -115,7 +115,7 @@ void Mate::collision(IClient *client, AEntity *other)
 		}
 		else if (!isInvincible() && !other->isInvincible()) {
 			if (getCollisionType() != COLLISION_NONE
-				&& other->getCollisionType() == COLLISION_FATAL) {
+				&& (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
 				setCollisioned(true);
 
@@ -186,7 +186,7 @@ void Mate::shoot(Fire const& param)
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
-	uint8_t angle = param.angle;
+	float angle = param.angle;
 	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);

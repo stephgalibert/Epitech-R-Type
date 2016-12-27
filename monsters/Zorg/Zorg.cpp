@@ -7,20 +7,11 @@ Zorg::Zorg(void)
 	_life = 1;
 	_fireRate = 3;
 	_velocity = 150;
-	_angle = 180;
-	_radians = _angle * (2.f * 3.14159265f) / 360.f;
-	//_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-20, -5));
-	//_canonsDegrees.emplace_back<float>(180);
-
-	//_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-20, 5));
-	//_canonsDegrees.emplace_back<float>(180);
-
-	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-20, -5));
-	_canonsDegrees.emplace_back<float>(225);
-
-	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-20, 5));
-	_canonsDegrees.emplace_back<float>(135);
+	setAngle(90);
+	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-20, 0));
+	_canonsDegrees.emplace_back<float>(180);
 	_state = State::None;
+	_angleState = AngleState::Increase;
 }
 
 Zorg::~Zorg(void)
@@ -32,8 +23,24 @@ void Zorg::update(double delta)
 	(void)delta;
 
 	_delta += delta;
+	if (_angleState == AngleState::Increase) {
+		if (getAngle() < 230) {
+			setAngle(_angle + (delta * 70.f));
+		}
+		else {
+			_angleState = AngleState::Decrease;
+		}
+	}
+	else {
+		if (getAngle() > 130) {
+			setAngle(_angle - (delta * 70.f));
+		}
+		else {
+			_angleState = AngleState::Increase;
+		}
+	}
 
-	move(std::cos(_radians) * _velocity * delta, 0);
+	move(std::cos(_radians) * _velocity * delta, std::sin(_radians) * getVelocity() * delta);
 	//std::cout << "#" << getID() << " x: " << _position.first << std::endl;
 
 	if (_delta > getFireRate()) {
@@ -44,7 +51,7 @@ void Zorg::update(double delta)
 
 void Zorg::takeDamage(uint8_t damage)
 {
-	std::cout << "zorg " << _id << " taking " << damage << " damages" << std::endl;
+	//std::cout << "zorg " << _id << " taking " << damage << " damages" << std::endl;
 
 	if (_life < _life - damage) {
 		_life = 0;
@@ -64,22 +71,33 @@ void Zorg::setPosition(std::pair<double, double> const& pos)
 	_position = pos;
 }
 
+void Zorg::setAngle(double angle)
+{
+	_angle = angle;
+	_radians = _angle * (2.f * 3.14159265f) / 360.f;
+}
+
 void Zorg::move(double x, double y)
 {
 	_position.first += x;
 	_position.second += y;
 }
 
-bool Zorg::wantToFire(void)
+IMonster::State Zorg::popAction(void)
 {
-	bool ret = _state == State::Fire;
+	State tmp = _state;
 	_state = State::None;
-	return (ret);
+	return (tmp);
 }
 
 uint16_t Zorg::getID(void) const
 {
 	return (_id);
+}
+
+int Zorg::getDirection(void) const
+{
+	return (0);
 }
 
 uint16_t Zorg::getScoreValue(void) const
@@ -104,7 +122,7 @@ uint16_t Zorg::getVelocity(void) const
 
 uint8_t Zorg::getAngle(void) const
 {
-	return (_angle);
+	return (static_cast<uint8_t>(_angle));
 }
 
 std::string Zorg::getType(void) const

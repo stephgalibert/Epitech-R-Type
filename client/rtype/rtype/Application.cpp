@@ -44,9 +44,9 @@ void Application::init(std::string const& username, std::string const& host, std
 		
 		_menu.init();
 
-		if (!_username.empty()) {
-			play();
-		}
+		//if (!_username.empty()) {
+		//	play();
+		//}
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "application: " << e.what() << std::endl;
@@ -131,34 +131,35 @@ void Application::updateMenu(float delta)
 {
 	_fps.update(delta);
 	_menu.update(delta);
-	switch (_menu.pullAction())
-	{
-	case MainMenuController::SelectedAction::CREATE:
-		_host = _menu.getConnectData().game;
-		_pwd = _menu.getConnectData().password;
-		_username = _menu.getConnectData().username;
-		createGame();
-	case MainMenuController::SelectedAction::PLAY:
-		_host = _menu.getConnectData().game;
-		_pwd = _menu.getConnectData().password;
-		_username = _menu.getConnectData().username;
-		play();
-		break;
-	case MainMenuController::SelectedAction::QUIT:
-		_quit = true;
-		break;
-	default:
-		break;
-	}
+	//switch (_menu.pullAction())
+	//{
+	//case MainMenuController::SelectedAction::CREATE:
+	//	_host = _menu.getConnectData().game;
+	//	_pwd = _menu.getConnectData().password;
+	//	_username = _menu.getConnectData().username;
+	//	createGame();
+	//case MainMenuController::SelectedAction::PLAY:
+	//	_host = _menu.getConnectData().game;
+	//	_pwd = _menu.getConnectData().password;
+	//	_username = _menu.getConnectData().username;
+	//	play();
+	//	break;
+	//case MainMenuController::SelectedAction::QUIT:
+	//	_quit = true;
+	//	break;
+	//default:
+	//	break;
+	//}
 
 	// TEST:
-	//while (!_client.isConnected());
-	//_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
+	while (!_client.isConnected());
+	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
 
-	//_state = ApplicationState::AS_Game;
-	//_game = new GameController(_client);
-	//_game->init();
-	//_game->connectToParty(_username, _host, _pwd);
+	_menu.mute();
+	_state = ApplicationState::AS_Game;
+	_game = new GameController(_client);
+	_game->init();
+	_game->connectToParty(_username, _host, _pwd);
 }
 void Application::updateGame(float delta)
 {
@@ -167,7 +168,7 @@ void Application::updateGame(float delta)
 
 	if (_game->gameFinished()) {
 		_state = ApplicationState::AS_MainMenu;
-		_menu.unmute();
+		_menu.restartMusic();
 		delete (_game);
 		_game = NULL;
 	}

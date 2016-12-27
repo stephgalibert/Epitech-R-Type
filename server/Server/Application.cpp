@@ -55,7 +55,6 @@ void Application::run(void)
 		it->open();
 	}
 
-	
 	while (true) {
 		_pm.update();
 	}

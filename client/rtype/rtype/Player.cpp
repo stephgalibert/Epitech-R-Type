@@ -111,7 +111,7 @@ void Player::collision(IClient *client, AEntity *other)
 	  }
 	  else if (!isInvincible() && !other->isInvincible() && other->getID() > 29999) {
 		  if (getCollisionType() != COLLISION_NONE
-			  && other->getCollisionType() == COLLISION_FATAL) {
+			  && (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
 			setCollisioned(true);
 			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
@@ -197,7 +197,7 @@ void Player::shoot(Fire const& param)
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
-	uint8_t angle = param.angle;
+	float angle = param.angle;
 	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);
@@ -494,11 +494,11 @@ void Player::prepareShot(void)
 		if (_client) {
 			bool fired = false;
 			for (auto it : _drawablePowerUps) {
-				fired = it->fire(_client, getID(), sf::Vector2i((int)shot->getPosition().x, (int)pos.y), (int)shot->getVelocity(), (int)shot->getAngle(), shot->getLevel());
+				fired = it->fire(_client, getID(), sf::Vector2i((int)shot->getPosition().x, (int)pos.y), (int)shot->getVelocity(), shot->getAngle(), shot->getLevel());
 			}
 			if (!fired) {
 				_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, getID(),
-					(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), (int)shot->getAngle(), 0, shot->getLevel()));
+					(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), shot->getAngle(), 0, shot->getLevel()));
 			}
 		}
 		delete (shot);
@@ -560,7 +560,6 @@ void Player::sendRespawnRequest(void)
 		_client->write(std::make_shared<CMDDestroyed>(getID()));
 	}
 }
-
 
 void Player::refreshInvincibility(float delta)
 {
