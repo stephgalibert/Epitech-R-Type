@@ -40,6 +40,7 @@ MainMenuController::MainMenuController(IClient &client)
 
 MainMenuController::~MainMenuController(void)
 {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).stop();
 }
 
 void MainMenuController::init()
@@ -66,6 +67,7 @@ void MainMenuController::init()
 		
 		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
+		_browser.setFont(menuFont);
 
 		_form.setPosition(_browser.getPosition());
 		_form.addField(FORM_GAME_NAME, FORM_GAME_NAME_DEFAULT);
@@ -299,6 +301,11 @@ void MainMenuController::mute(void) const {
 void MainMenuController::unmute(void) const {
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).setLoop(true);
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
+}
+
+void MainMenuController::restartMusic(void) const {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).stop();
+	unmute();
 }
 
 void MainMenuController::draw(sf::RenderWindow &window)

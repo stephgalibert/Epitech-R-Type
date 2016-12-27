@@ -88,6 +88,7 @@ void DLManager<T>::parseDirectory(std::string const& dirpath)
 		}
 	}
 	catch (std::exception const& e) {
+	  std::cout << e.what() << std::endl;
 		throw (e);
 	}
 

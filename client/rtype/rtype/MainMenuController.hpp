@@ -83,6 +83,7 @@ public:
 	void forceState(const State state);
 	void mute(void) const;
 	void unmute(void) const;
+	void restartMusic(void) const;
 	short pullAction(void);
 	ConnectData const &getConnectData(void) const;
 	void addBrowserEntry(GetParty const &data);

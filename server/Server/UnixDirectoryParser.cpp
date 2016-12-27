@@ -26,5 +26,7 @@ void UnixDirectoryParser::parse(void)
 	}
       }
     closedir(dir);
+  } else {
+    std::cout << "dir not found" << std::endl;
   }
 }

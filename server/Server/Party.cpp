@@ -31,6 +31,7 @@ void Party::init(std::string const& name, std::string const& pwd)
 		_pm.init();
 	}
 	catch (std::exception const& e) {
+	  std::cout << e.what() << std::endl;
 		StaticTools::Log << e.what() << std::endl;
 	}
 }

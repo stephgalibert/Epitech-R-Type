@@ -1,6 +1,7 @@
 #include "MenuButton.hpp"
 
 MenuButton::MenuButton() : _state(State::INACTIVE) {
+	setFontForAllStates(NULL);
 	_label.setStyle(sf::Text::Bold);
 }
 
@@ -22,7 +23,8 @@ void MenuButton::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void MenuButton::update(void) {
-	_label.setFont(*_stateFonts[static_cast<short>(_state)]);
+	if (_stateFonts[static_cast<short>(_state)])
+		_label.setFont(*_stateFonts[static_cast<short>(_state)]);
 	_label.setFillColor(_stateColors[static_cast<short>(_state)]);
 }
 

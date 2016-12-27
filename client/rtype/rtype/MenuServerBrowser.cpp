@@ -11,11 +11,15 @@ const float MenuServerBrowser::ITEMS_SPACING = 0.f;
 const uint32_t MenuServerBrowser::FONT_CHAR_SIZE = 16u;
 const float MenuServerBrowser::TEXT_TOP_PADDING = 2.f;
 const float MenuServerBrowser::TEXT_LEFT_PADDING = 2.f;
+const std::string MenuServerBrowser::EMPTY_MESSAGE = "No games found";
 
 MenuServerBrowser::MenuServerBrowser() : _selected(0) {
 	_frame.setFillColor(sf::Color::Black);
 	_frame.setOutlineColor(sf::Color::White);
 	_frame.setOutlineThickness(FRAME_OUTLINE_THICKNESS);
+
+	_emptyMessage.setString(EMPTY_MESSAGE);
+	_emptyMessage.setCharacterSize(30u);
 }
 
 MenuServerBrowser::~MenuServerBrowser() {
@@ -28,25 +32,39 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 		sf::Vector2f itemSize(_frame.getSize().x, ITEMS_HEIGHT);
 		sf::Vector2f itemPos(_frame.getPosition().x, _frame.getPosition().y);
 		sf::RectangleShape itemBackground;
-		sf::Text itemLabel;
+		sf::Text itemLabel, itemPlayers;
+		sf::Sprite locked;
 		size_t firstItemDisplayed = 0;
 
 		if (_selected > static_cast<int>(getDisplayedItemsMax() - 1)) {
 			firstItemDisplayed = _selected - (getDisplayedItemsMax() - 1);
 		}
 
-		itemLabel.setFont(ProjectResource::TheProjectResource.getFontByKey(ProjectResource::MAIN_FONT));
+		try {
+			locked.setTexture(*MainMenuResource::menuResourceManager.getTextureByKey(MainMenuResource::LOCKED_SERVER));
+		}
+		catch (std::runtime_error const &) {
+
+		}
+
+		itemLabel.setFont(*_font);
 		itemLabel.setCharacterSize(FONT_CHAR_SIZE);
+		itemPlayers.setFont(*_font);
+		itemPlayers.setCharacterSize(FONT_CHAR_SIZE);
 		itemBackground.setSize(itemSize);
 
 		for (size_t i = firstItemDisplayed; i < (firstItemDisplayed + getDisplayedItemsCount()); i++) {
 			if (i == static_cast<size_t>(_selected)) {
 				itemBackground.setFillColor(ITEM_SECOND_COLOR);
 				itemLabel.setFillColor(ITEM_BASE_COLOR);
+				itemPlayers.setFillColor(ITEM_BASE_COLOR);
+				locked.setColor(ITEM_BASE_COLOR);
 			}
 			else {
 				itemBackground.setFillColor(ITEM_BASE_COLOR);
 				itemLabel.setFillColor(ITEM_SECOND_COLOR);
+				locked.setColor(ITEM_SECOND_COLOR);
+				itemPlayers.setFillColor(ITEM_SECOND_COLOR);
 			}
 
 			itemBackground.setPosition(itemPos);
@@ -55,11 +73,20 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 
 			itemLabel.setString(_content.at(i).name);
 			itemLabel.setPosition(sf::Vector2f(itemPos.x + TEXT_LEFT_PADDING, itemPos.y + TEXT_TOP_PADDING));
+			locked.setPosition(sf::Vector2f(itemLabel.getPosition().x + itemLabel.getGlobalBounds().width + TEXT_LEFT_PADDING, itemLabel.getPosition().y + 2.f));
+			itemPlayers.setString(std::to_string(_content.at(i).playersCount) + " / 4");
+			itemPlayers.setPosition(sf::Vector2f(getPosition().x + getSize().x - itemPlayers.getGlobalBounds().width - TEXT_LEFT_PADDING - 2.f, itemLabel.getPosition().y));
 
 			target.draw(itemLabel, states);
+			if (_content.at(i).hasPassword)
+				target.draw(locked);
+			target.draw(itemPlayers, states);
 
 			itemPos.y += itemBackground.getSize().y;
 		}
+	}
+	else {
+		target.draw(_emptyMessage);
 	}
 }
 
@@ -95,10 +122,18 @@ bool MenuServerBrowser::input(InputHandler &input) {
 
 void MenuServerBrowser::setSize(sf::Vector2f const &size) {
 	_frame.setSize(size);
+	_emptyMessage.setPosition(getPosition().x + getSize().x / 2 - _emptyMessage.getGlobalBounds().width / 2, getPosition().y + getSize().y / 2 - _emptyMessage.getGlobalBounds().height / 2);
 }
 
 void MenuServerBrowser::setPosition(sf::Vector2f const &pos) {
 	_frame.setPosition(pos);
+	_emptyMessage.setPosition(getPosition().x + getSize().x / 2 - _emptyMessage.getGlobalBounds().width / 2, getPosition().y + getSize().y / 2 - _emptyMessage.getGlobalBounds().height / 2);
+}
+
+void MenuServerBrowser::setFont(sf::Font const *font) {
+	_font = font;
+	_emptyMessage.setFont(*font);
+	_emptyMessage.setPosition(getPosition().x + getSize().x / 2 - _emptyMessage.getGlobalBounds().width / 2, getPosition().y + getSize().y / 2 - _emptyMessage.getGlobalBounds().height / 2);
 }
 
 void MenuServerBrowser::clearContent(void) {
