@@ -87,6 +87,7 @@ public:
 	short pullAction(void);
 	ConnectData const &getConnectData(void) const;
 	void addBrowserEntry(GetParty const &data);
+	void clearConnectData(void);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));

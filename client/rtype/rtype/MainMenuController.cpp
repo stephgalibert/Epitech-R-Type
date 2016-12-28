@@ -291,6 +291,12 @@ void MainMenuController::addBrowserEntry(GetParty const &data) {
 	_browser.addEntry(data);
 }
 
+void MainMenuController::clearConnectData(void) {
+	_connectData.game = "";
+	_connectData.password = "";
+	_connectData.password = "";
+}
+
 void MainMenuController::mute(void) const {
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).pause();
 }
@@ -421,6 +427,10 @@ bool MainMenuController::handleSelectingInput(InputHandler &input) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::F5)) {
+			_browser.clearContent();
+			_client.write(std::make_shared<CMDGetParty>());
 		}
 		else if (input.isKeyDown(sf::Keyboard::Return) && _browser.getContent().size() > 0) {
 			_selectedServer = _browser.getSelected();
