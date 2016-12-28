@@ -38,12 +38,12 @@ void Gomander::update(double delta)
 
 	move(std::cos(_radians) * _velocity * delta, 0);
 
-	if (_direction != EAST && _position.first < 300) {
+	if (_direction != EAST && _position.first < 200) {
 		_state = State::Move;
 		_direction = EAST;
 		setAngle(0);
 	}
-	else if (_direction != WEAST && _position.first > StaticTools::GetResolution().first - 300) {
+	else if (_direction != WEAST && _position.first > StaticTools::GetResolution().first - 200) {
 		_state = State::Move;
 		_direction = WEAST;
 		setAngle(180);
