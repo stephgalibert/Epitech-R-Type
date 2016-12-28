@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\Generator.hpp" />
+    <ClInclude Include="..\..\common\PlayerData.hpp" />
     <ClInclude Include="..\..\common\StaticTools.hpp" />
     <ClInclude Include="AcceptAsyncTask.hpp" />
     <ClInclude Include="AConnection.hpp" />

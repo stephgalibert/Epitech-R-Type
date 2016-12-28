@@ -3,8 +3,10 @@
 #include <utility>
 #include <stdint.h>
 #include <vector>
+#include <set>
 
 #include "Protocol.hpp"
+#include "PlayerData.hpp"
 
 #define EAST 1
 #define WEAST 2
@@ -24,7 +26,7 @@ public:
 public:
 	virtual ~IMonster(void) {}
 
-	virtual void update(double delta) = 0;
+	virtual void update(double delta, std::vector<PlayerData> const& players) = 0;
 	virtual void takeDamage(uint8_t damage) = 0;
 
 	virtual void setID(uint16_t value) = 0;

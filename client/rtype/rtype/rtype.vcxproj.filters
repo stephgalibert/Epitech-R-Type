@@ -318,6 +318,9 @@
     <ClCompile Include="BossIncomingController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="MenuOptions.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -601,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="BossIncomingController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuOptions.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

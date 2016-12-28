@@ -2,7 +2,7 @@
 
 #include "ANPC.hpp"
 #include "FireBall.hpp"
-#include "Explosion.hpp"
+#include "Generator.hpp"
 
 class Gomander : public ANPC
 {
@@ -35,13 +35,17 @@ private:
 	void collisionDestruction(void);
 
 	void refreshInvincibility(float delta);
+	void refreshExplosion(float delta);
 
 private:
 	float _delta;
+	float _deltaExplosing;
 	uint8_t _currentFrame;
 	sf::RectangleShape *_shape;
 	std::vector<sf::IntRect> _frames;
 	float _deltaInvincibleAnim;
 	bool _invincibleAnimState;
+	int _nbExplosion;
+	Generator _generator;
 };
 

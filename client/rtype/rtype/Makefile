@@ -107,6 +107,7 @@ SRCS		+=	Ravid.cpp
 SRCS		+=	Gomander.cpp
 SRCS		+=	FireBall.cpp
 SRCS		+=	BossIncomingController.cpp
+SRCS		+=	MenuOptions.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp

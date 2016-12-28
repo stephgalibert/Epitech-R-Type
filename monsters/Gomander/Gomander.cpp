@@ -4,7 +4,7 @@ Gomander::Gomander(void)
 {
 	_delta = 0;
 	_id = 0;
-	_life = 20;
+	_life = 1;
 	_fireRate = 1.f;
 	_velocity = 250;
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-75, -55));
@@ -30,28 +30,30 @@ Gomander::~Gomander(void)
 {
 }
 
-void Gomander::update(double delta)
+void Gomander::update(double delta, std::vector<PlayerData> const& players)
 {
 	(void)delta;
 
 	_delta += delta;
 
-	move(std::cos(_radians) * _velocity * delta, 0);
+	if (_life > 0) {
+		move(std::cos(_radians) * _velocity * delta, 0);
 
-	if (_direction != EAST && _position.first < 200) {
-		_state = State::Move;
-		_direction = EAST;
-		setAngle(0);
-	}
-	else if (_direction != WEAST && _position.first > StaticTools::GetResolution().first - 200) {
-		_state = State::Move;
-		_direction = WEAST;
-		setAngle(180);
-	}
+		if (_direction != EAST && _position.first < 200) {
+			_state = State::Move;
+			_direction = EAST;
+			setAngle(0);
+		}
+		else if (_direction != WEAST && _position.first > StaticTools::GetResolution().first - 200) {
+			_state = State::Move;
+			_direction = WEAST;
+			setAngle(180);
+		}
 
-	else if (_delta > getFireRate()) {
-		_state = State::Fire;
-		_delta = 0;
+		else if (_delta > getFireRate()) {
+			_state = State::Fire;
+			_delta = 0;
+		}
 	}
 }
 
@@ -64,7 +66,7 @@ void Gomander::takeDamage(uint8_t damage)
 		_life -= damage;
 	}
 
-	//std::cout << "Gomander " << _id << " taking " << damage << " damages. Life remaining: " << _life << std::endl;
+	std::cout << "Gomander " << _id << " taking " << damage << " damages. Life remaining: " << _life << std::endl;
 }
 
 void Gomander::setID(uint16_t value)
