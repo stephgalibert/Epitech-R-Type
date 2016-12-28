@@ -23,7 +23,7 @@ Ravid::~Ravid(void)
 {
 }
 
-void Ravid::update(double delta)
+void Ravid::update(double delta, std::vector<PlayerData> const& players)
 {
 	(void)delta;
 

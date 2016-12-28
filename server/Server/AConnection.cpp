@@ -113,3 +113,8 @@ std::pair<uint16_t, uint16_t> const& AConnection::getPosition(void) const
 {
 	return (_position);
 }
+
+PlayerData const& AConnection::getPlayerData(void) const
+{
+	return (_playerData);
+}

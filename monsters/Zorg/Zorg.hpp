@@ -25,7 +25,7 @@ public:
 	Zorg(void);
 	virtual ~Zorg(void);
 
-	virtual void update(double delta);
+	virtual void update(double delta, std::vector<PlayerData> const& players);
 	virtual void takeDamage(uint8_t damage);
 
 	virtual void setID(uint16_t value);

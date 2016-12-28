@@ -12,6 +12,7 @@
 
 #include "StaticTools.hpp"
 #include "ConnectionManager.hpp"
+#include "PlayerData.hpp"
 
 class Party;
 class PartyManager;
@@ -49,6 +50,7 @@ public:
 	bool isRunning(void) const;
 	bool isReady(void) const;
 	std::pair<uint16_t, uint16_t> const& getPosition(void) const;
+	PlayerData const& getPlayerData(void) const;
 
 	virtual void do_read(bool error) = 0;
 	virtual void do_write(void) = 0;
@@ -67,5 +69,7 @@ private:
 	uint8_t _life;
 	uint16_t _score;
 	std::string _name;
+
+	PlayerData _playerData;
 };
 

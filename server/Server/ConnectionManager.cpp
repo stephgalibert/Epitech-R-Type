@@ -89,6 +89,17 @@ void ConnectionManager::newConnection(std::shared_ptr<AConnection> connection)
 	}
 }
 
+std::vector<PlayerData> &ConnectionManager::getPlayersData(void)
+{
+	_playersData.clear();
+	for (auto &it : _connections) {
+		if (it->getLife() > 0) {
+			_playersData.push_back(it->getPlayerData());
+		}
+	}
+	return (_playersData);
+}
+
 uint8_t ConnectionManager::getPlayerNumber(void)
 {
 	std::lock_guard<std::mutex> lock(_mutex);

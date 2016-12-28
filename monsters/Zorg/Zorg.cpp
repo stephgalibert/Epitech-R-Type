@@ -18,7 +18,7 @@ Zorg::~Zorg(void)
 {
 }
 
-void Zorg::update(double delta)
+void Zorg::update(double delta, std::vector<PlayerData> const& players)
 {
 	(void)delta;
 

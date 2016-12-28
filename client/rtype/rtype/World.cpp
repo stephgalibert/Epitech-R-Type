@@ -48,17 +48,10 @@ void World::update(float delta)
 					Region->retrieve(collision, (*it));
 					for (auto it_sub : collision) {
 						if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
-								&& it_sub->isCollidingWith(*it)) {
+							&& it_sub->isCollidingWith(*it)) {
 							it_sub->collision(Client, (*it));
 						}
 					}
-
-					//for (auto it_sub : Entities) {
-					//	if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
-					//		&& it_sub->isCollidingWith(*it)) {
-					//		it_sub->collision(Client, (*it));
-					//	}
-					//}
 				}
 
 				++it;
