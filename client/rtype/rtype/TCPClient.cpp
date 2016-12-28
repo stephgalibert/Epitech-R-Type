@@ -84,7 +84,7 @@ IClient &TCPClient::operator<<(std::shared_ptr<ICommand> packet)
 
 void TCPClient::read(void)
 {
-  boost::asio::async_read(_socket, _read.prepare(1024), boost::asio::transfer_at_least(1),
+  boost::asio::async_read(_socket, _read, boost::asio::transfer_at_least(1),
 		boost::bind(&TCPClient::do_read, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred));
