@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MenuPopup.hpp"
-#include "MenuTextField.hpp"
+#include "MenuTextForm.hpp"
 
 class MenuTextInputPopup : public MenuPopup {
 	static const float LABEL_LATERAL_PADDING;
@@ -23,16 +23,17 @@ public:
 public:
 	virtual void setPosition(sf::Vector2f const &position);
 	virtual void setSize(sf::Vector2f const &size);
-	void setLabel(std::string const &label);
-	void setTextFieldContent(std::string const &content);
-	void clearTextFieldContent(void);
-	void setFont(sf::Font const *font);
+	void resizeAndCenter(void);
+	void setTextFieldContent(std::string const &field, std::string const &content);
+	void clearContents(void);
+	void removeFields(void);
+	void addField(std::string const &name, std::string const &content = "");
 
 public:
-	std::string const &getTextFieldContent(void) const;
+	std::string const &getTextFieldContent(std::string const &field) const;
+	MenuTextForm const &getForm(void) const;
 
 private:
-	sf::Text _label;
-	MenuTextField _textField;
+	MenuTextForm _form;
 };
 

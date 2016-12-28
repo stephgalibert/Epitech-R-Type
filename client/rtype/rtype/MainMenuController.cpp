@@ -75,9 +75,6 @@ void MainMenuController::init()
 		_form.addField(FORM_PLAYER_NAME, FORM_PLAYER_NAME_DEFAULT);
 		_form.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, _form.getIdealHeight()));
 
-		_inputPopup.setFont(menuFont);
-		_inputPopup.centerOnScreen();
-
 		_confirmPopup.setFont(menuFont);
 		_confirmPopup.setMessage("Confirm ?");
 		_confirmPopup.centerOnScreen();
@@ -429,9 +426,12 @@ bool MainMenuController::handleSelectingInput(InputHandler &input) {
 			_selectedServer = _browser.getSelected();
 			_connectData.game = _browser.getContent().at(_selectedServer).name;
 			_fsm = State::ST_Username;
-			_inputPopup.clearTextFieldContent();
-			_inputPopup.setLabel("Username:");
-			_inputPopup.setTextFieldContent(_connectData.username);
+			_inputPopup.removeFields();
+			_inputPopup.addField("Username", _connectData.username);
+			if (_browser.getContent().at(_selectedServer).hasPassword) {
+				_inputPopup.addField("Password");
+			}
+			_inputPopup.resizeAndCenter();
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
@@ -445,11 +445,17 @@ bool MainMenuController::handleSelectingInput(InputHandler &input) {
 
 bool MainMenuController::handleUsernamePopupInput(InputHandler &input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Return)) {
+		if (input.isKeyDown(sf::Keyboard::Return) && _inputPopup.getForm().getFocusedField() == _inputPopup.getForm().getFieldCount() - 1) {
 			_keyboardEventDelta = 0.f;
-			_connectData.username = _inputPopup.getTextFieldContent();
-			if (_connectData.username.empty())
-				_connectData.username = FORM_PLAYER_NAME_DEFAULT;
+			try {
+				_connectData.username = _inputPopup.getTextFieldContent("Username");
+				if (_connectData.username.empty())
+					_connectData.username = FORM_PLAYER_NAME_DEFAULT;
+				_connectData.password = _inputPopup.getTextFieldContent("Password");
+			}
+			catch (std::runtime_error const &) {
+
+			}
 			_pushAction = SelectedAction::PLAY;
 			_fsm = State::ST_Menu;
 			return true;
