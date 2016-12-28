@@ -10,6 +10,7 @@
 #include "MenuConfirmPopup.hpp"
 #include "MenuTextInputPopup.hpp"
 #include "MenuCredits.hpp"
+#include "MenuOptions.hpp"
 #include "IClient.hpp"
 
 class MainMenuController : public AController
@@ -55,15 +56,17 @@ public:
 		ST_Username = 25,
 		ST_Creating = 30,
 		ST_ConfirmCreate = 35,
-		ST_Credits = 40
+		ST_Credits = 40,
+		ST_Options = 50
 	};
 
 public:
 	enum SelectedAction : short {
 		PLAY = 0,
 		CREATE = 1,
-		QUIT = 2,
-		CREDITS = 3,
+		OPTIONS = 2,
+		QUIT = 3,
+		CREDITS = 4,
 		NONE = -1
 	};
 
@@ -72,6 +75,8 @@ public:
 		std::string game;
 		std::string password;
 		std::string username;
+		std::string hostIp;
+		std::string port;
 	};
 
 public:
@@ -105,6 +110,7 @@ private:
 	bool handleMenuInput(InputHandler &input);
 	bool handleSplashInput(InputHandler &input);
 	bool handleCreditsInput(InputHandler &input);
+	bool handleOptionsInput(InputHandler &input);
 
 
 private:
@@ -133,4 +139,5 @@ private:
 	MenuConfirmPopup _confirmPopup;
 	MenuTextInputPopup _inputPopup;
 	MenuCredits _creditsScreen;
+	MenuOptions _optionsScreen;
 };

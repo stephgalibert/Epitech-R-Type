@@ -62,6 +62,7 @@ void MainMenuController::init()
 
 		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), menuFont));
 		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), menuFont));
+		_buttons.push_back(MenuButton("Options", static_cast<short>(SelectedAction::OPTIONS), menuFont));
 		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), menuFont));
 		_buttons.push_back(MenuButton("Credits", static_cast<short>(SelectedAction::CREDITS), menuFont));
 		
@@ -78,6 +79,10 @@ void MainMenuController::init()
 		_confirmPopup.setFont(menuFont);
 		_confirmPopup.setMessage("Confirm ?");
 		_confirmPopup.centerOnScreen();
+
+		_optionsScreen.init();
+		_optionsScreen.setPosition(_browser.getPosition());
+		_optionsScreen.setWidth(SERVER_BROWSER_WIDTH);
 
 		_creditsScreen.init(menuFont);
 		_creditsScreen.setPosition(_browser.getPosition());
@@ -126,6 +131,8 @@ bool MainMenuController::input(InputHandler &input)
 		return handleCreateConfirmPopupInput(input);
 	case State::ST_Credits:
 		return handleCreditsInput(input);
+	case State::ST_Options:
+		return handleOptionsInput(input);
 	case State::ST_None:
 	default:
 		break;
@@ -186,6 +193,11 @@ bool MainMenuController::keyReturn(void) {
 		_fsm = State::ST_Credits;
 		break;
 	}
+	case SelectedAction::OPTIONS: {
+		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
+		_fsm = State::ST_Options;
+		break;
+	}
 	case SelectedAction::NONE:
 	default:
 		break;
@@ -214,6 +226,7 @@ void MainMenuController::update(float delta)
 	case State::ST_Creating:
 	case State::ST_ConfirmCreate:
 	case State::ST_Credits:
+	case State::ST_Options:
 		updateMenu(delta);
 		break;
 	case State::ST_None:
@@ -329,6 +342,9 @@ void MainMenuController::draw(sf::RenderWindow &window)
 		}
 		else if (_fsm == State::ST_Credits) {
 			window.draw(_creditsScreen);
+		}
+		else if (_fsm == State::ST_Options) {
+			window.draw(_optionsScreen);
 		}
 		if (_fsm == State::ST_ConfirmCreate) {
 			window.draw(_confirmPopup);
@@ -515,6 +531,27 @@ bool MainMenuController::handleCreditsInput(InputHandler & input) {
 		else if (input.isKeyDown(sf::Keyboard::Up) || input.isKeyDown(sf::Keyboard::Down)) {
 			_fsm = State::ST_Menu;
 			return handleMenuInput(input);
+		}
+	}
+	return false;
+}
+
+bool MainMenuController::handleOptionsInput(InputHandler &input) {
+	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
+		if (input.isKeyDown(sf::Keyboard::Escape)) {
+			_fsm = State::ST_Menu;
+			_keyboardEventDelta = 0.f;
+			return true;
+		}
+		else if (input.isKeyDown(sf::Keyboard::Return) && _optionsScreen.getForm().getFocusedField() + 1 == _optionsScreen.getForm().getFieldCount()) {
+			_fsm = State::ST_Menu;
+			_keyboardEventDelta = 0.f;
+			_connectData.hostIp = _optionsScreen.getHost();
+			_connectData.port = _optionsScreen.getPort();
+			return true;
+		}
+		else if (_optionsScreen.input(input)) {
+			_keyboardEventDelta = 0.f;
 		}
 	}
 	return false;
