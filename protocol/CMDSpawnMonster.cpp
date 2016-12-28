@@ -3,7 +3,7 @@
 CMDSpawnMonster::CMDSpawnMonster(uint16_t id, uint16_t x, uint16_t y, uint8_t health,
 								 uint16_t velocity, uint8_t angle, std::string const& type)
 {
-	_data = static_cast<SpawnMonster *>(malloc(sizeof(SpawnMonster) + type.size() + 1));
+	_data = static_cast<SpawnMonster *>(malloc(sizeof(SpawnMonster) + type.size()));
 
 	_data->cmdType = getCommandType();
 	_data->id = id;
@@ -23,14 +23,14 @@ CMDSpawnMonster::CMDSpawnMonster(void)
 CMDSpawnMonster::~CMDSpawnMonster(void)
 {
 	if (_data) {
-		delete (_data);
+		free (_data);
 	}
 }
 
 void CMDSpawnMonster::loadFromMemory(char const *data)
 {
 	SpawnMonster const *spawn = reinterpret_cast<const SpawnMonster *>(data);
-	_data = static_cast<SpawnMonster *>(malloc(sizeof(SpawnMonster) + spawn->size + 1));
+	_data = static_cast<SpawnMonster *>(malloc(sizeof(SpawnMonster) + spawn->size));
 
 	_data->cmdType = getCommandType();
 	_data->id = spawn->id;

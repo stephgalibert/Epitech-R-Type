@@ -316,7 +316,7 @@
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
     <ClCompile Include="BossIncomingController.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\game</Filter>
     </ClCompile>
     <ClCompile Include="MenuOptions.cpp">
       <Filter>Fichiers sources\menu</Filter>
@@ -603,7 +603,7 @@
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="BossIncomingController.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="MenuOptions.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>

@@ -5,6 +5,7 @@ FireBall::FireBall(void)
 	setCollisionType(COLLISION_MISSILE);
 	setVelocity(230.f);
 	initFrame();
+	_delta = 0;
 }
 
 FireBall::~FireBall(void)

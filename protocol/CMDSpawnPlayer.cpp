@@ -8,7 +8,7 @@ CMDSpawnPlayer::CMDSpawnPlayer(void)
 CMDSpawnPlayer::CMDSpawnPlayer(uint16_t id, uint16_t x, uint16_t y, uint8_t health,
 								bool isPlayer, std::string const& username)
 {
-	_data = static_cast<SpawnPlayer *>(malloc(sizeof(SpawnPlayer) + username.size() + 1));
+	_data = static_cast<SpawnPlayer *>(malloc(sizeof(SpawnPlayer) + username.size()));
 
 	_data->cmdType = getCommandType();
 	_data->id = id;
@@ -34,7 +34,7 @@ void CMDSpawnPlayer::loadFromMemory(char const *data)
 	if (_data) {
 		free(_data);
 	}
-	_data = static_cast<SpawnPlayer *>(malloc(sizeof(SpawnPlayer) + player->size + 1));
+	_data = static_cast<SpawnPlayer *>(malloc(sizeof(SpawnPlayer) + player->size));
 
 	_data->cmdType = getCommandType();
 	_data->id = player->id;

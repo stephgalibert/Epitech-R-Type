@@ -2,7 +2,7 @@
 
 CMDMessage::CMDMessage(std::string const& msg)
 {
-	_data = (Message *)malloc(sizeof(Message) + msg.size() + 1);
+	_data = (Message *)malloc(sizeof(Message) + msg.size());
 	_data->cmdType = getCommandType();
 	_data->size = (uint16_t)msg.size();
 
@@ -28,7 +28,7 @@ void CMDMessage::loadFromMemory(char const *data)
 	if (_data) {
 		free(_data);
 	}
-	_data = (Message *)malloc(sizeof(Message) + message->size + 1);
+	_data = (Message *)malloc(sizeof(Message) + message->size);
 	_data->cmdType = getCommandType();
 	_data->size = message->size;
 

@@ -3,6 +3,7 @@
 FPSCounter::FPSCounter(void)
 {
 	_resolution = StaticTools::GetResolution();
+	_delta = 0;
 }
 
 FPSCounter::~FPSCounter(void)

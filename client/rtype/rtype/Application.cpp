@@ -44,9 +44,9 @@ void Application::init(std::string const& username, std::string const& host, std
 		
 		_menu.init();
 
-		//if (!_username.empty()) {
-		//	play();
-		//}
+		if (!_username.empty()) {
+			play();
+		}
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "application: " << e.what() << std::endl;
@@ -150,17 +150,16 @@ void Application::updateMenu(float delta)
 	default:
 		break;
 	}
-	
-	/*
-	// TEST:
-	while (!_client.isConnected());
-	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
 
-	_menu.mute();
-	_state = ApplicationState::AS_Game;
-	_game = new GameController(_client);
-	_game->init();
-	_game->connectToParty(_username, _host, _pwd);*/
+	// TEST:
+	//while (!_client.isConnected());
+	//_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
+
+	//_menu.mute();
+	//_state = ApplicationState::AS_Game;
+	//_game = new GameController(_client);
+	//_game->init();
+	//_game->connectToParty(_username, _host, _pwd);
 }
 void Application::updateGame(float delta)
 {

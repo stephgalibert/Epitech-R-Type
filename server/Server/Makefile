@@ -54,6 +54,7 @@ SRCS		+=	UnixDirectoryParser.cpp
 SRCS		+=	ADirectoryParser.cpp
 SRCS		+=	LevelManager.cpp
 SRCS		+=	LevelParser.cpp
+SRCS		+=	PowerupManager.cpp
 
 SRCS		+=	../../common/StaticTools.cpp
 SRCS		+=	../../common/Generator.cpp
@@ -87,13 +88,22 @@ all:		$(NAME)
 $(NAME):	$(OBJS)
 		$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
 		make -C ../../monsters/Zorg/
+		make -C ../../monsters/Ravid/
+		make -C ../../monsters/Dop/
+		make -C ../../monsters/Gomander/
 
 re:		fclean all
 
 clean:
 		$(RM) $(OBJS)
 		make clean -C ../../monsters/Zorg/
+		make clean -C ../../monsters/Ravid/
+		make clean -C ../../monsters/Dop/
+		make clean -C ../../monsters/Gomander/
 
 fclean: 	clean
 		$(RM) $(NAME)
 		make fclean -C ../../monsters/Zorg/
+		make fclean -C ../../monsters/Ravid/
+		make fclean -C ../../monsters/Dop/
+		make fclean -C ../../monsters/Gomander/
