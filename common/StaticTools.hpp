@@ -8,6 +8,8 @@
 #include <iterator>
 #include <vector>
 
+#include <stdint.h>
+
 class StaticTools
 {
 public:

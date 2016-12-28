@@ -2,7 +2,7 @@
 
 CMDGetParty::CMDGetParty(std::string const& name, uint8_t nbPlayer, bool pwdPresent, bool running)
 {
-	_data = (GetParty *)malloc(sizeof(GetParty) + name.size() + 1);
+	_data = (GetParty *)malloc(sizeof(GetParty) + name.size());
 	_data->cmdType = getCommandType();
 	_data->nbPlayer = nbPlayer;
 	_data->pwdPresent = pwdPresent;
@@ -15,6 +15,9 @@ CMDGetParty::CMDGetParty(void)
 {
 	_data = (GetParty *)malloc(sizeof(GetParty));
 	_data->cmdType = getCommandType();
+	_data->nbPlayer = 0;
+	_data->pwdPresent = false;
+	_data->running = false;
 	_data->size = 0;
 }
 
@@ -32,7 +35,7 @@ void CMDGetParty::loadFromMemory(char const *data)
 	if (_data) {
 		free(_data);
 	}
-	_data = (GetParty *)malloc(sizeof(GetParty) + getParty->size + 1);
+	_data = (GetParty *)malloc(sizeof(GetParty) + getParty->size);
 	_data->cmdType = getCommandType();
 	_data->size = getParty->size;
 	_data->nbPlayer = getParty->nbPlayer;

@@ -110,7 +110,6 @@ void Zork::move(float delta)
 void Zork::shoot(Fire const& param)
 {
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
-	sf::Vector2f const& pos = getPosition();
 	
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;

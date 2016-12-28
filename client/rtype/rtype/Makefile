@@ -102,7 +102,11 @@ SRCS		+=	MenuCredits.cpp
 SRCS		+=	GameWinController.cpp
 SRCS		+=	RequestSpawnMonster.cpp
 SRCS		+=	Zork.cpp
+SRCS		+=	Dop.cpp
+SRCS		+=	Ravid.cpp
+SRCS		+=	Gomander.cpp
 SRCS		+=	FireBall.cpp
+SRCS		+=	BossIncomingController.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp

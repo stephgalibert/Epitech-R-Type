@@ -24,6 +24,7 @@ Player::Player()
 	_deltaLoadedShot = 0.f;
 	_deltaInvincibleAnim = 0.f;
 	_invincibleAnimState = false;
+	_currentDirection = FRAME_MID;
 }
 
 Player::~Player(void)
