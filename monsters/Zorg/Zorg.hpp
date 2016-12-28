@@ -10,6 +10,7 @@
 #include <vector>
 #include <cmath>
 
+#include "LuaHandler.hpp"
 #include "IMonster.hpp"
 
 class Zorg : public IMonster
@@ -60,6 +61,7 @@ private:
 	std::vector<float> _canonsDegrees; // en degrée (ou radian ?)
 	State _state;
 	AngleState _angleState;
+	LuaHandler _lh;
 };
 
 extern "C" MONSTER_API IMonster *entry(void)

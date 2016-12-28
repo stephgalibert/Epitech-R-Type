@@ -1,6 +1,7 @@
 #include "Zorg.hpp"
 
 Zorg::Zorg(void)
+	: _lh("Zorg")
 {
 	_delta = 0;
 	_id = 0;
@@ -22,6 +23,7 @@ void Zorg::update(double delta)
 {
 	(void)delta;
 
+	_lh.getTarget();
 	_delta += delta;
 	if (_angleState == AngleState::Increase) {
 		if (getAngle() < 230) {
