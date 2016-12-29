@@ -7,6 +7,7 @@
 #include <list>
 #include <stdexcept>
 #include <mutex>
+#include <queue>
 
 #include "Timer.hpp"
 #include "AEntity.hpp"
@@ -31,7 +32,7 @@ public:
 	template<typename T>
 	static T *spawnEntity(void)
 	{
-		std::lock_guard<std::mutex> lock(Mutex);
+		//std::lock_guard<std::mutex> lock(Mutex);
 
 		T *entity = new T;
 
@@ -41,6 +42,7 @@ public:
 
 private:
 	static std::list<AEntity *> Entities;
+	static std::queue<AEntity *> Queue;
 	static std::mutex Mutex;
 	static IClient *Client;
 	static Player **ThePlayer;

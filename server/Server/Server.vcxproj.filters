@@ -389,5 +389,8 @@
     <ClInclude Include="PowerupManager.hpp">
       <Filter>Fichiers d%27en-tête\Party</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\common\PlayerData.hpp">
+      <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

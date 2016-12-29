@@ -29,7 +29,7 @@ void ConnectionManager::broadcast(std::shared_ptr<AConnection> connection, std::
 	std::lock_guard<std::mutex> lock(_mutex);
 
 	for (auto &it : _connections) {
-		if (it->getID() != connection->getID()) {
+		if (it->getPlayerData().id != connection->getPlayerData().id) {
 			it->sync_write(command);
 		}
 	}
@@ -67,10 +67,11 @@ void ConnectionManager::newConnection(std::shared_ptr<AConnection> connection)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
 
-	uint16_t id = connection->getID();
-	uint16_t x = connection->getPosition().first;
-	uint16_t y = connection->getPosition().second;
+	uint16_t id = connection->getPlayerData().id;
+	uint16_t x = static_cast<uint16_t>(connection->getPlayerData().x);
+	uint16_t y = static_cast<uint16_t>(connection->getPlayerData().y);
 	uint8_t health = connection->getLife();
+	//float velocity = connection->getVelocity();
 	std::string const& name = connection->getName();
 
 	connection->sync_write(std::make_shared<CMDSpawnPlayer>(id, x, y, health, true, name));
@@ -80,12 +81,42 @@ void ConnectionManager::newConnection(std::shared_ptr<AConnection> connection)
 	}
 
 	for (auto &it : _connections) {
-		id = it->getID();
-		x = it->getPosition().first;
-		y = it->getPosition().second;
+		id = it->getPlayerData().id;
+		x = static_cast<uint16_t>(it->getPlayerData().x);
+		y = static_cast<uint16_t>(it->getPlayerData().y);
 		health = it->getLife();
 		std::string const& name = it->getName();
-		connection->sync_write(std::make_shared<CMDSpawnPlayer>(id, x, y, health, false, name));
+		connection->sync_write(std::make_shared<CMDSpawnPlayer>(id, x, y, health, /*velocity, */false, name));
+	}
+}
+
+std::vector<PlayerData> &ConnectionManager::getPlayersData(void)
+{
+	_playersData.clear();
+	for (auto &it : _connections) {
+		if (it->getLife() > 0) {
+			_playersData.push_back(it->getPlayerData());
+		}
+	}
+	return (_playersData);
+}
+
+void ConnectionManager::move(uint16_t id, Move *move)
+{
+	for (auto it : _connections) {
+		if (it->getPlayerData().id == id) {
+			it->setDirection(move->direction);
+			uint16_t x = static_cast<uint16_t>(it->getPlayerData().x);
+			uint16_t y = static_cast<uint16_t>(it->getPlayerData().y);
+			move->position = StaticTools::SerializePosition(x, y);
+		}
+	}
+}
+
+void ConnectionManager::update(double delta)
+{
+	for (auto &it : _connections) {
+		it->update(delta);
 	}
 }
 

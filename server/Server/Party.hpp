@@ -29,6 +29,7 @@ public:
 
 	void broadcast(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
 	void broadcast(std::shared_ptr<ICommand> data);
+	void move(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> data);
 	void fire(std::shared_ptr<ICommand> cmd);
 	void destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd);
 	void collision(std::shared_ptr<AConnection> owner, std::shared_ptr<ICommand> cmd);

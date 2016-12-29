@@ -20,7 +20,7 @@ void BossIncomingController::init(void)
 		_text.setFont(ProjectResource::TheProjectResource.getFontByKey("font_state"));
 
 		_text.setCharacterSize(26);
-		_color = sf::Color::Red;
+		_color = sf::Color(255, 0, 0, 0);
 		_text.setFillColor(_color);
 		_text.setString(_string);
 

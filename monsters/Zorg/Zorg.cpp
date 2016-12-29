@@ -1,6 +1,7 @@
 #include "Zorg.hpp"
 
 Zorg::Zorg(void)
+	: _lh("Zorg")
 {
 	_delta = 0;
 	_id = 0;
@@ -18,10 +19,11 @@ Zorg::~Zorg(void)
 {
 }
 
-void Zorg::update(double delta)
+void Zorg::update(double delta, std::vector<PlayerData> const& players)
 {
 	(void)delta;
 
+	_lh.getTarget();
 	_delta += delta;
 	if (_angleState == AngleState::Increase) {
 		if (getAngle() < 230) {

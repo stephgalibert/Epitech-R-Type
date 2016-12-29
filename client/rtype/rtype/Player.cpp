@@ -114,6 +114,8 @@ void Player::collision(IClient *client, AEntity *other)
 		  if (getCollisionType() != COLLISION_NONE
 			  && (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
+			  setExplode(true);
+
 			setCollisioned(true);
 			client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
 			setCollisionType(COLLISION_NONE);
@@ -141,7 +143,7 @@ void Player::applyCollision(CollisionType type, AEntity *other)
 
 void Player::input(InputHandler &input)
 {
-	if (isDead() || _currentDirection == FRAME_EXP) {
+	if (isDead() || _currentDirection == FRAME_EXP || isExploding()) {
 		return;
 	}
 
@@ -231,6 +233,7 @@ void Player::respawn(void)
 	_targetFrame = 0;
 	setVisiblity(VISIBILITY_VISIBLE);
 	setDead(false);
+	setExplode(false);
 	setVelocity(150);
 	_delta = 0;
 	_deltaLastShoot = 0;
@@ -390,15 +393,6 @@ void Player::keyboard(InputHandler &input)
 	//static bool t = false;
 	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
 	//	t = true;
-	//	FireBall *ball = World::spawnEntity<FireBall>();
-	//	ball->setCollisionType(COLLISION_NONE);
-	//	ball->setPosition(getPosition());
-	//	ball->setReadyForInit(true);
-	//	//Zork *zork = World::spawnEntity<Zork>();
-	//	//zork->setPosition(getPosition());
-	//	//zork->setVelocity(150);
-	//	//zork->setAngle(180);
-	//	//zork->setReadyForInit(true);
 	//}
 }
 
@@ -519,6 +513,7 @@ void Player::collisionDestruction(void)
 {
 	setCollisioned(true);
 	setCollisionType(COLLISION_NONE);
+	setExplode(true);
 
 	Explosion *explosion = World::spawnEntity<Explosion>();
 	explosion->setPosition(getPosition());

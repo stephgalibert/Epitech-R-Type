@@ -6,16 +6,35 @@ AConnection::AConnection(ConnectionManager &cm, RequestHandler &rh, PartyManager
 	  _pm(pm),
 	  _running(false),
 	  _ready(false),
-	  _id(0),
+	  //_id(0),
 	  _life(3),
 	  _score(0)
 {
-	_position.first = 20;
-	_position.second = 20;
+	//_position.first = 0;
+	//_position.second = 0;
+	_playerData.id = 0;
+	_playerData.x = 0;
+	_playerData.y = 0;
 }
 
 AConnection::~AConnection(void)
 {
+}
+
+void AConnection::update(double delta)
+{
+	if (_angle != -1) {
+		double x = std::cos(_radians) * _velocity * delta;
+		double y = std::sin(_radians) * _velocity * delta;
+
+		if (_playerData.x + x < 0 || _playerData.x + x > StaticTools::GetResolution().first) {
+			x = 0;
+		}
+		if (_playerData.y + y < 0 || _playerData.y + y > StaticTools::GetResolution().second) {
+			y = 0;
+		}
+		setPosition(_playerData.x + x, _playerData.y + y);
+	}
 }
 
 ConnectionManager &AConnection::getConnectionManager(void)
@@ -40,7 +59,8 @@ void AConnection::setCurrentParty(std::shared_ptr<Party> party)
 
 void AConnection::setID(uint16_t id)
 {
-	_id = id;
+	//_id = id;
+	_playerData.id = id;
 }
 
 void AConnection::setName(std::string const& name)
@@ -68,10 +88,41 @@ void AConnection::setReady(bool value)
 	_ready = value;
 }
 
-void AConnection::setPosition(std::pair<uint16_t, uint16_t> const& position)
+void AConnection::setPosition(double x, double y)
 {
-	_position.first = position.first;
-	_position.second = position.second;
+	_playerData.x = x;
+	_playerData.y = y;
+}
+
+void AConnection::setDirection(int direction)
+{
+	setAngle(-1);
+	if (direction & NORTH) {
+		setAngle(-90.f);
+	}
+	else if (direction & SOUTH) {
+		setAngle(90.f);
+	}
+
+	if (direction & EAST) {
+		setAngle(std::ceil(getAngle() / 2.f));
+	}
+	else if (direction & WEAST) {
+		setAngle(std::floor(-180.f - getAngle() / 2.f));
+	}
+
+	_direction = direction;
+}
+
+void AConnection::setVelocity(float velocity)
+{
+	_velocity = velocity;
+}
+
+void AConnection::setAngle(float angle)
+{
+	_angle = angle;
+	_radians = _angle * (2.f * 3.14159265f) / 360.f;
 }
 
 std::shared_ptr<Party> AConnection::getCurrentParty(void) const
@@ -79,10 +130,10 @@ std::shared_ptr<Party> AConnection::getCurrentParty(void) const
 	return (_party);
 }
 
-uint16_t AConnection::getID(void) const
-{
-	return (_id);
-}
+//uint16_t AConnection::getID(void) const
+//{
+//	return (_id);
+//}
 
 std::string const& AConnection::getName(void) const
 {
@@ -109,7 +160,22 @@ bool AConnection::isReady(void) const
 	return (_ready);
 }
 
-std::pair<uint16_t, uint16_t> const& AConnection::getPosition(void) const
+//std::pair<double, double> const& AConnection::getPosition(void) const
+//{
+//	return (_position);
+//}
+
+float AConnection::getAngle(void) const
 {
-	return (_position);
+	return (_angle);
+}
+
+float AConnection::getVelocity(void) const
+{
+	return (_velocity);
+}
+
+PlayerData const& AConnection::getPlayerData(void) const
+{
+	return (_playerData);
 }

@@ -66,7 +66,7 @@ void MonsterManager::update(double delta)
 	}
 
 	for (auto &it : _monsters) {
-		it->update(delta);
+		it->update(delta, _cm.getPlayersData());
 		switch (it->popAction())
 		{
 		case IMonster::State::Fire:

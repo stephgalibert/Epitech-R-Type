@@ -2,6 +2,9 @@
 
 Explosion::Explosion(void)
 {
+	_shape = NULL;
+	_w = 256 * 0.2f;
+	_h = 256 * 0.2f;
 }
 
 Explosion::~Explosion(void)
@@ -15,15 +18,15 @@ void Explosion::init(void)
 		setMatrixSize(sf::Vector2i(8, 6));
 		computeCellSize();
 
-		setOrigin(256 * 0.1f, 256 * 0.1f);
-		sf::RectangleShape *shape = new sf::RectangleShape();
-		shape->setTextureRect(sf::IntRect(0, 0, 256, 256));
-		shape->setSize(sf::Vector2f(256 * 0.2f, 256 * 0.2f));
+		_shape = new sf::RectangleShape();
+		_shape->setTextureRect(sf::IntRect(0, 0, 256, 256));
+		_shape->setSize(sf::Vector2f(_w, _h));
+		setOrigin(_w / 2, _h / 2);
 
 		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("explosions");
 		texture->setSmooth(true);
 
-		setShape(shape);
+		setShape(_shape);
 		setTexture(texture);
 
 		ProjectResource::TheProjectResource.getSoundByKey("explosions")->play();
@@ -37,4 +40,16 @@ void Explosion::init(void)
 void Explosion::destroy(IClient &client)
 {
 	(void)client;
+}
+
+void Explosion::setSize(float w, float h)
+{
+	if (_shape) {
+		_shape->setSize(sf::Vector2f(w, h));
+		setOrigin(w / 2, h / 2);
+	}
+	else {
+		_w = w;
+		_h = h;
+	}
 }

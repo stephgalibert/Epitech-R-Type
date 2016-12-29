@@ -69,9 +69,11 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 							(unsigned int)((percent / 100.f) * (float)resolution.second) - 80);
 	uint8_t health = 3;
 
-	connection->setPosition(std::make_pair(x, y));
+	connection->setPosition(x, y);
 	connection->setID(id);
 	connection->setLife(health);
+	connection->setVelocity(150);
+	connection->setAngle(-1);
 	// ...
 
 	_cm.newConnection(connection);
@@ -86,7 +88,7 @@ void Party::addConnection(std::shared_ptr<AConnection> connection)
 void Party::removeConnection(std::shared_ptr<AConnection> connection)
 {
 	std::lock_guard<std::mutex> lock(_mutex);
-	uint16_t id = connection->getID();
+	uint16_t id = connection->getPlayerData().id;
 
 	_cm.leave(connection);
 	broadcast(connection, std::make_shared<CMDDisconnected>(id));
@@ -106,6 +108,16 @@ void Party::broadcast(std::shared_ptr<ICommand> data)
 	_cm.broadcast(data);
 }
 
+void Party::move(std::shared_ptr<AConnection> connection, std::shared_ptr<ICommand> cmd)
+{
+	Move *move = reinterpret_cast<Move *>(cmd->getData());
+
+	if (move->id_tomove < 5) {
+		_cm.move(move->id_tomove, move);
+	}
+	_cm.broadcast(connection, cmd);
+}
+
 void Party::fire(std::shared_ptr<ICommand> cmd)
 {
 	Fire *fire = reinterpret_cast<Fire *>(cmd->getData());
@@ -121,12 +133,12 @@ void Party::destroyed(std::shared_ptr<AConnection> connection, std::shared_ptr<I
 	Destroyed const *destroyed = reinterpret_cast<Destroyed const *>(cmd->getData());
 
 	if (!_mm.destroyed(destroyed->id)) {
-		if (connection->getID() == destroyed->id) {
+		if (connection->getPlayerData().id == destroyed->id) {
 			connection->setLife(connection->getLife() - 1);
 			if (connection->getLife() > 0) {
-				uint16_t x = connection->getPosition().first;
-				uint16_t y = connection->getPosition().second;
-				broadcast(std::make_shared<CMDRespawn>(connection->getID(), x, y, connection->getLife()));
+				uint16_t x = static_cast<uint16_t>(connection->getPlayerData().x);
+				uint16_t y = static_cast<uint16_t>(connection->getPlayerData().y);
+				broadcast(std::make_shared<CMDRespawn>(connection->getPlayerData().id, x, y, connection->getLife()));
 			}
 			else {
 				broadcast(std::make_shared<CMDMessage>("Player " + connection->getName() + " is dead"));
@@ -148,7 +160,11 @@ void Party::collision(std::shared_ptr<AConnection> owner, std::shared_ptr<IComma
 	if (_fires.find(collision->id_first) != _fires.cend()) {
 		_mm.takeDamage(collision->id_second);
 		_mm.addPlayerScore(owner, collision->id_second);
-		broadcast(std::make_shared<CMDScore>(owner->getID(), owner->getScore()));
+		broadcast(std::make_shared<CMDScore>(owner->getPlayerData().id, owner->getScore()));
+	}
+	else {
+		_mm.takeDamage(collision->id_second);
+		//std::cout << "collision betweend " << collision->id_first << " and " << collision->id_second << std::endl;
 	}
 	broadcast(cmd);
 }
@@ -185,7 +201,7 @@ void Party::loop(void)
 
 bool Party::isReady(void)
 {
-	return (_cm.getPlayerNumber() > 0);
+	return (_cm.getPlayerNumber() > 3);
 }
 
 bool Party::isFinished(void)
@@ -234,6 +250,7 @@ void Party::playing(double delta)
 
 	_mm.update(delta);
 	_pm.update(delta, _nextID);
+	_cm.update(delta);
 
 	if (!_cm.isPlayersAlive()) {
 		_state = GameStatusType::GameOver;
@@ -249,6 +266,7 @@ void Party::gameOver(double delta)
 {
 	_delta += delta;
 
+	_cm.update(delta);
 	if (_delta > 1.f) {
 		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
@@ -261,10 +279,12 @@ void Party::gameWin(double delta)
 {
 	_delta += delta;
 
-	if (_delta > 5.f) {
+	_cm.update(delta);
+	if (_delta > 1.f) {
 		broadcast(std::make_shared<CMDMessage>("No more ennemy left, congratulation !!!"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
 		_delta = 0.f;
 		_cm.closeAll();
 	}
+	//std::cout << _delta << std::endl;
 }

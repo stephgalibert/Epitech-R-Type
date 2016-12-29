@@ -1,14 +1,18 @@
 #include "Gomander.hpp"
+#include "World.hpp"
+#include "Explosion.hpp"
 
 const float Gomander::COEF_RESIZE = 2.f;
 
 Gomander::Gomander(void)
 {
 	_delta = 0;
+	_deltaExplosing = 0;
 	_currentFrame = 0;
 	_deltaInvincibleAnim = 0.f;
 	_invincibleAnimState = false;
 	initFrame();
+	_nbExplosion = 0;
 }
 
 Gomander::~Gomander(void)
@@ -40,9 +44,21 @@ void Gomander::update(float delta)
 {
 	_delta += delta;
 
-	updateFrame();
-	refreshInvincibility(delta);
-	ANPC::update(delta);
+	if (isExploding()) {
+		refreshExplosion(delta);
+	}
+	else {
+		if (getPosition().x < 200) {
+			setAngle(0);
+		}
+		else if (getPosition().x > StaticTools::GetResolution().first - 200) {
+			setAngle(180);
+		}
+
+		updateFrame();
+		refreshInvincibility(delta);
+		ANPC::update(delta);
+	}
 }
 
 void Gomander::destroy(IClient &client)
@@ -53,7 +69,7 @@ void Gomander::destroy(IClient &client)
 void Gomander::collision(IClient *client, AEntity *other)
 {
 	(void)client;
-	if (!isInvincible() && !hasCollisioned() && !other->isInvincible()
+	if (!isInvincible() && !hasCollisioned() && !other->isInvincible() && other->getID() > 0
 		&& other->getID() < 29999) {
 
 		if (getCollisionType() != COLLISION_NONE
@@ -85,7 +101,7 @@ void Gomander::applyCollision(CollisionType type, AEntity *other)
 
 void Gomander::move(float delta)
 {
-	if (getAngle() != -1) {
+	if (getAngle() != -1 && !isExploding()) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
 		float y = std::sin(getRadians()) * getVelocity() * delta;
 
@@ -152,8 +168,6 @@ void Gomander::updateFrame(void)
 		}
 
 		sf::IntRect const& r = _frames.at(_currentFrame);
-		//_shape->setSize(sf::Vector2f(r.width * COEF_RESIZE, r.height * COEF_RESIZE));
-		//setOrigin((r.width * COEF_RESIZE) / 2.f, (r.height * COEF_RESIZE) / 2.f);
 		getShape()->setTextureRect(sf::IntRect(r.left, r.top, r.width, r.height));
 		_delta = 0.f;
 	}
@@ -164,12 +178,14 @@ void Gomander::collisionDestruction(void)
 	setCollisioned(true);
 	setCollisionType(COLLISION_NONE);
 
-	//Explosion *explosion = World::spawnEntity<Explosion>();
-	//explosion->setPosition(getPosition());
-	//explosion->setReadyForInit(true);
-
 	if (getHealth() == 1) {
-		recycle();
+		setExplode(true);
+
+		//Explosion *explosion = World::spawnEntity<Explosion>();
+		//explosion->setPosition(getPosition());
+		//explosion->setReadyForInit(true);
+
+		//recycle();
 	}
 	else {
 		setHealth(getHealth() - 1);
@@ -200,5 +216,36 @@ void Gomander::refreshInvincibility(float delta)
 	}
 	else {
 		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+	}
+}
+
+void Gomander::refreshExplosion(float delta)
+{
+	_deltaExplosing += delta;
+	if (_deltaExplosing > 0.3f) {
+
+		++_nbExplosion;
+		if (_nbExplosion < 18) {
+			sf::Vector2f const& pos = getPosition();
+
+			uint16_t x = _generator(0, 300);
+			uint16_t y = _generator(0, 300);
+			float size = static_cast<float>(_generator(40, 140));
+
+			Explosion *explosion = World::spawnEntity<Explosion>();
+			explosion->setPosition(pos.x - 150 + x, pos.y - 150 + y);
+			explosion->setSize(size, size);
+			explosion->setReadyForInit(true);
+		}
+		else if (_nbExplosion == 18) {
+			Explosion *explosion = World::spawnEntity<Explosion>();
+			explosion->setPosition(getPosition());
+			explosion->setSize(450.f, 450.f);
+			explosion->setReadyForInit(true);
+		}
+		else {
+			recycle();
+		}
+		_deltaExplosing = 0;
 	}
 }

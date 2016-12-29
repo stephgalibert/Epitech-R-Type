@@ -26,6 +26,7 @@ class UDPClient : public IClient
 	virtual void write(std::shared_ptr<ICommand> packet);
 	virtual void disconnect(void);
 	virtual void run(void);
+	virtual void setRemote(std::string const& ip, std::string const& port);
 	virtual bool isConnected(void) const;
 	virtual GameController *getGameController(void) const;
 	virtual MainMenuController &getMainMenuController(void);

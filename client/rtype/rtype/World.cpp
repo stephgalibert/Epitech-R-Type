@@ -1,6 +1,7 @@
 #include "World.hpp"
 
 std::list<AEntity *> World::Entities;
+std::queue<AEntity *> World::Queue;
 std::mutex World::Mutex;
 IClient *World::Client = NULL;
 Player **World::ThePlayer = NULL;
@@ -18,7 +19,7 @@ void World::init(Player **player, IClient *client)
 
 void World::update(float delta)
 {
-	std::lock_guard<std::mutex> lock(Mutex);
+	//std::lock_guard<std::mutex> lock(Mutex);
 	std::list<AEntity *>::iterator it = std::begin(Entities);
 	std::vector<AEntity *> collision;
 
@@ -28,6 +29,7 @@ void World::update(float delta)
 		if ((*it)->isWaitingForRecycle() ||
 				pos.x < 0 - ((*it)->getBoundingBox().width / 2) || pos.x - ((*it)->getBoundingBox().width / 2) > StaticTools::GetResolution().first ||
 				pos.y < 0 - ((*it)->getBoundingBox().height / 2) || pos.y - ((*it)->getBoundingBox().height / 2) > StaticTools::GetResolution().second) {
+
 			(*it)->destroy(*Client);
 			delete (*it);
 			it = Entities.erase(it);
@@ -48,17 +50,10 @@ void World::update(float delta)
 					Region->retrieve(collision, (*it));
 					for (auto it_sub : collision) {
 						if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
-								&& it_sub->isCollidingWith(*it)) {
+							&& it_sub->isCollidingWith(*it)) {
 							it_sub->collision(Client, (*it));
 						}
 					}
-
-					//for (auto it_sub : Entities) {
-					//	if (it_sub->isInitialized() && it_sub->getID() != (*it)->getID()
-					//		&& it_sub->isCollidingWith(*it)) {
-					//		it_sub->collision(Client, (*it));
-					//	}
-					//}
 				}
 
 				++it;
