@@ -321,6 +321,9 @@
     <ClCompile Include="MenuOptions.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSlider.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -606,6 +609,9 @@
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="MenuOptions.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSlider.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>

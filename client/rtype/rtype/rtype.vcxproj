@@ -206,6 +206,7 @@
     <ClCompile Include="MenuOptions.cpp" />
     <ClCompile Include="MenuPopup.cpp" />
     <ClCompile Include="MenuServerBrowser.cpp" />
+    <ClCompile Include="MenuSlider.cpp" />
     <ClCompile Include="MenuTextField.cpp" />
     <ClCompile Include="MenuTextForm.cpp" />
     <ClCompile Include="MessageLayout.cpp" />
@@ -303,6 +304,7 @@
     <ClInclude Include="MenuOptions.hpp" />
     <ClInclude Include="MenuPopup.hpp" />
     <ClInclude Include="MenuServerBrowser.hpp" />
+    <ClInclude Include="MenuSlider.hpp" />
     <ClInclude Include="MenuTextField.hpp" />
     <ClInclude Include="MenuTextForm.hpp" />
     <ClInclude Include="MessageLayout.hpp" />

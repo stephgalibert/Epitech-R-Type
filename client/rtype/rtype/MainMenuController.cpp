@@ -1,6 +1,5 @@
 #include "MainMenuController.hpp"
 #include "MainMenuResource.hpp"
-#include "IClient.hpp"
 
 const uint32_t MainMenuController::BUTTON_Y_SPACING = 45;
 const uint32_t MainMenuController::BUTTON_Y_ORIGIN = 50;
@@ -63,8 +62,9 @@ void MainMenuController::init()
 		_buttons.push_back(MenuButton("Browse servers", static_cast<short>(SelectedAction::PLAY), menuFont));
 		_buttons.push_back(MenuButton("Create game", static_cast<short>(SelectedAction::CREATE), menuFont));
 		_buttons.push_back(MenuButton("Options", static_cast<short>(SelectedAction::OPTIONS), menuFont));
-		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), menuFont));
 		_buttons.push_back(MenuButton("Credits", static_cast<short>(SelectedAction::CREDITS), menuFont));
+		_buttons.push_back(MenuButton("Quit", static_cast<short>(SelectedAction::QUIT), menuFont));
+		
 		
 		_browser.setPosition(sf::Vector2f(SERVER_BROWSER_POS_X, SERVER_BROWSER_POS_Y));
 		_browser.setSize(sf::Vector2f(SERVER_BROWSER_WIDTH, MenuServerBrowser::getHeightForItems(SERVER_BROWSER_ITEMS_SHOWN)));
@@ -80,9 +80,9 @@ void MainMenuController::init()
 		_confirmPopup.setMessage("Confirm ?");
 		_confirmPopup.centerOnScreen();
 
-		_optionsScreen.init();
-		_optionsScreen.setPosition(_browser.getPosition());
+		_optionsScreen.init(menuFont);
 		_optionsScreen.setWidth(SERVER_BROWSER_WIDTH);
+		_optionsScreen.setPosition(_browser.getPosition());
 
 		_creditsScreen.init(menuFont);
 		_creditsScreen.setPosition(_browser.getPosition());
@@ -197,6 +197,9 @@ bool MainMenuController::keyReturn(void) {
 		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
 		_optionsScreen.setHost(_connectData.hostIp);
 		_optionsScreen.setPort(_connectData.port);
+		_optionsScreen.setMusicValue(StaticTools::musicVolume);
+		_optionsScreen.setSoundValue(StaticTools::soundVolume);
+		_optionsScreen.resetFocus();
 		_fsm = State::ST_Options;
 		break;
 	}
@@ -425,7 +428,6 @@ bool MainMenuController::handleCreateConfirmPopupInput(InputHandler &input) {
 			_keyboardEventDelta = 0.f;
 			if (_confirmPopup.isConfirmed()) {
 				_client.write(std::make_shared<CMDCreateParty>(_connectData.game, _connectData.password));
-				std::cout << "Creating game \"" << _connectData.game << "\"; password is \"" << _connectData.password << "\"; user is \"" << _connectData.username << "\"" << std::endl;
 				_pushAction = SelectedAction::CREATE;
 				_fsm = State::ST_Menu;
 			}
@@ -553,9 +555,11 @@ bool MainMenuController::handleOptionsInput(InputHandler &input) {
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Return) && _optionsScreen.getForm().getFocusedField() + 1 == _optionsScreen.getForm().getFieldCount()) {
+		else if (input.isKeyDown(sf::Keyboard::Return) && _optionsScreen.getFocusedItem() == MenuOptions::FocusedItem::MUSIC_SLIDER) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
+			StaticTools::musicVolume = _optionsScreen.getMusicValue();
+			StaticTools::soundVolume = _optionsScreen.getSoundValue();
 			_connectData.hostIp = _optionsScreen.getHost();
 			_connectData.port = _optionsScreen.getPort();
 			_pushAction = SelectedAction::OPTIONS;

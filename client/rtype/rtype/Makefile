@@ -108,6 +108,7 @@ SRCS		+=	Gomander.cpp
 SRCS		+=	FireBall.cpp
 SRCS		+=	BossIncomingController.cpp
 SRCS		+=	MenuOptions.cpp
+SRCS		+=	MenuSlider.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp
