@@ -32,18 +32,18 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "C:\Github\R-Type\client\rtype\Debug\rtype.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\rsrc\*"; DestDir: "{app}\rsrc"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Github\R-Type\client\rtype\Debug\monsters\*"; DestDir: "{app}\monsters"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Github\R-Type\client\rtype\Debug\levels\*"; DestDir: "{app}\levels"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Github\R-Type\client\rtype\Debug\Server.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\config.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\sfml-audio-d-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\sfml-graphics-d-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\sfml-network-d-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\sfml-system-d-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\sfml-window-d-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Github\R-Type\client\rtype\Debug\openal32.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Github\R-Type\client\rtype\Release\rtype.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Github\R-Type\client\rtype\Release\rsrc\*"; DestDir: "{app}\rsrc"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Github\R-Type\client\rtype\Release\monsters\*.dll"; DestDir: "{app}\monsters"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Github\R-Type\client\rtype\Release\levels\*"; DestDir: "{app}\levels"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Github\R-Type\client\rtype\Release\Server.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Github\R-Type\client\rtype\Release\config.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libraries\SFML-2.4.0\bin\sfml-audio-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libraries\SFML-2.4.0\bin\sfml-graphics-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libraries\SFML-2.4.0\bin\sfml-network-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libraries\SFML-2.4.0\bin\sfml-system-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libraries\SFML-2.4.0\bin\sfml-window-2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libraries\SFML-2.4.0\bin\openal32.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

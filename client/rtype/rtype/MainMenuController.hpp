@@ -85,6 +85,8 @@ public:
 	virtual void update(float delta);
 	virtual void draw(sf::RenderWindow &window);
 	virtual void recycle(void);
+
+public:
 	void forceState(const State state);
 	void mute(void) const;
 	void unmute(void) const;
@@ -93,6 +95,8 @@ public:
 	ConnectData const &getConnectData(void) const;
 	void addBrowserEntry(GetParty const &data);
 	void clearConnectData(void);
+	void setHostIp(std::string const &hostIp);
+	void setPort(std::string const &port);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));

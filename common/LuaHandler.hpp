@@ -1,9 +1,11 @@
 #pragma once
 
-#include "lua_adapter.hpp"
 #include <string>
-#include <set>
+#include <vector>
 #include <utility>
+
+#include "lua_adapter.hpp"
+#include "PlayerData.hpp"
 
 class LuaHandler
 {
@@ -13,7 +15,7 @@ public:
 
 	void loadLuaFile(void);
 	void closeLuaFile(void);
-	std::pair<uint16_t, uint16_t> getTarget(void);
+	std::pair<uint16_t, uint16_t> getTarget(std::pair<double, double> mobPos, std::vector<PlayerData> const& players);
 private:
 	std::string _luaFileName;
 	LuaAdapter *_lua;
