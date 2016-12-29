@@ -21,6 +21,7 @@ void Laser::init(void)
 {
 	_shape = new sf::RectangleShape;
 	_shape->setSize(sf::Vector2f(18, 14));
+	_shape->setRotation(getAngle());
 	setOrigin(9, 7);
 
 	try {

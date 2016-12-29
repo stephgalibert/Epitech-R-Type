@@ -17,6 +17,7 @@ Mate::Mate(void)
 	_loadedShot = false;
 	_deltaInvincibleAnim = 0.f;
 	_invincibleAnimState = false;
+	_force = NULL;
 }
 
 Mate::~Mate(void)
@@ -26,6 +27,9 @@ Mate::~Mate(void)
 	}
 	for (auto it : _drawablePowerUps) {
 		it->recycle();
+	}
+	if (_force) {
+		_force->recycle();
 	}
 }
 
@@ -165,8 +169,10 @@ void Mate::move(float delta)
 			_loadedPowder->setPosition(pos.x + 48, pos.y + 3);
 		}
 		for (auto it : _drawablePowerUps) {
-			//it->ADrawable::move(x, y);
 			it->attachToEntity(this);
+		}
+		if (_force) {
+			_force->attachToEntity(this);
 		}
 	}
 }
@@ -180,7 +186,7 @@ void Mate::shoot(Fire const& param)
 
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
-	//MissileType type = param.type;
+	MissileType type = param.type;
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
@@ -191,21 +197,33 @@ void Mate::shoot(Fire const& param)
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	Laser *laser = World::spawnEntity<Laser>();
-	laser->setID(id);
-	laser->setLevel(param.level);
-	laser->setPosition(x, y);
-	laser->setOwnerID(id_launcher);
-	laser->setAngle(angle);
-	laser->setVelocity(velocity);
-	laser->setColor(id_launcher);
-	laser->setReadyForInit(true);
+	if (type == MissileType::Laser) {
+		Laser *laser = World::spawnEntity<Laser>();
+		laser->setID(id);
+		laser->setLevel(param.level);
+		laser->setPosition(x, y);
+		laser->setOwnerID(id_launcher);
+		laser->setAngle(angle);
+		laser->setVelocity(velocity);
+		laser->setColor(id_launcher);
+		laser->setReadyForInit(true);
 
-	if (!_powder) {
-		_powder = World::spawnEntity<Powdered>();
-		_powder->setPosition(getPosition().x + 35, y + 2.f);
-		_powder->setColor(getID());
-		_powder->setReadyForInit(true);
+		if (!_powder) {
+			_powder = World::spawnEntity<Powdered>();
+			_powder->setPosition(getPosition().x + 35, y + 2.f);
+			_powder->setColor(getID());
+			_powder->setReadyForInit(true);
+		}
+	}
+	else {
+		DoubleLaser *laser = World::spawnEntity<DoubleLaser>();
+		laser->setID(id);
+		laser->setLevel(param.level);
+		laser->setPosition(x, y);
+		laser->setOwnerID(id_launcher);
+		laser->setAngle(angle);
+		laser->setVelocity(velocity);
+		laser->setReadyForInit(true);
 	}
 }
 
@@ -349,6 +367,10 @@ void Mate::collisionDestruction(void)
 		it->recycle();
 	}
 	_drawablePowerUps.clear();
+	if (_force) {
+		_force->recycle();
+		_force = NULL;
+	}
 }
 
 void Mate::collisionPowerUp(AEntity *other)
@@ -356,8 +378,17 @@ void Mate::collisionPowerUp(AEntity *other)
 	APowerUp *powerUp = dynamic_cast<APowerUp *>(other);
 	if (other) {
 		other->setCollisionType(COLLISION_NONE);
-		powerUp->attachToEntity(this);
-		_drawablePowerUps.push_back(powerUp);
+		Force *force = dynamic_cast<Force *>(other);
+		if (force) {
+			if (!_force) {
+				_force = force;
+			}
+			else {
+				_force->upgrade();
+				_force->attachToEntity(this);
+				other->recycle();
+			}
+		}
 	}
 }
 

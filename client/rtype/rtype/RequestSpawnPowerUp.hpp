@@ -2,7 +2,7 @@
 
 #include "IRequest.hpp"
 #include "APowerUp.hpp"
-#include "IncreaseNumberOfCanon.hpp"
+#include "Force.hpp"
 
 class RequestSpawnPowerUp : public IRequest
 {

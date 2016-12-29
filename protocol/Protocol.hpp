@@ -25,8 +25,9 @@ enum class ShipType : uint8_t
 enum class MissileType : uint8_t
 {
 	Standard = 0,
-	MT_FriendFire_Lv1 = 1,
-	FireBall = 2
+	Laser = 1,
+	DoubleLaser = 2,
+	FireBall = 3
 };
 
 enum class PowerUPsType : uint8_t
