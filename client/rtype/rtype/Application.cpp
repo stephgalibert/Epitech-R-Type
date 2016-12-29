@@ -144,6 +144,9 @@ void Application::updateMenu(float delta)
 		_username = _menu.getConnectData().username;
 		play();
 		break;
+	case MainMenuController::SelectedAction::OPTIONS:
+		//Change host ip and port
+		break;
 	case MainMenuController::SelectedAction::QUIT:
 		_quit = true;
 		break;

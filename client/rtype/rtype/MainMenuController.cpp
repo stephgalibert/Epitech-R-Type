@@ -195,6 +195,8 @@ bool MainMenuController::keyReturn(void) {
 	}
 	case SelectedAction::OPTIONS: {
 		MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_2);
+		_optionsScreen.setHost(_connectData.hostIp);
+		_optionsScreen.setPort(_connectData.port);
 		_fsm = State::ST_Options;
 		break;
 	}
@@ -308,6 +310,14 @@ void MainMenuController::clearConnectData(void) {
 	_connectData.game = "";
 	_connectData.password = "";
 	_connectData.password = "";
+}
+
+void MainMenuController::setHostIp(std::string const &hostIp) {
+	_connectData.hostIp = hostIp;
+}
+
+void MainMenuController::setPort(std::string const &port) {
+	_connectData.port = port;
 }
 
 void MainMenuController::mute(void) const {
@@ -548,6 +558,7 @@ bool MainMenuController::handleOptionsInput(InputHandler &input) {
 			_keyboardEventDelta = 0.f;
 			_connectData.hostIp = _optionsScreen.getHost();
 			_connectData.port = _optionsScreen.getPort();
+			_pushAction = SelectedAction::OPTIONS;
 			return true;
 		}
 		else if (_optionsScreen.input(input)) {
