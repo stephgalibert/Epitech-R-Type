@@ -261,9 +261,6 @@
     <ClCompile Include="APowerUp.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="IncreaseNumberOfCanon.cpp">
-      <Filter>Fichiers sources\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="RequestScore.cpp">
       <Filter>Fichiers sources\request</Filter>
     </ClCompile>
@@ -320,6 +317,12 @@
     </ClCompile>
     <ClCompile Include="MenuOptions.cpp">
       <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleLaser.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Force.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
     <ClCompile Include="MenuSlider.cpp">
       <Filter>Fichiers sources\menu</Filter>
@@ -551,9 +554,6 @@
     <ClInclude Include="RequestScore.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
-    <ClInclude Include="IncreaseNumberOfCanon.hpp">
-      <Filter>Fichiers d%27en-tête\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="APowerUp.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
@@ -610,6 +610,12 @@
     </ClInclude>
     <ClInclude Include="MenuOptions.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleLaser.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Force.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
     <ClInclude Include="MenuSlider.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>

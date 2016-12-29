@@ -4,13 +4,14 @@
 
 #include "APC.hpp"
 #include "Laser.hpp"
+#include "DoubleLaser.hpp"
 #include "Explosion.hpp"
 #include "Powdered.hpp"
 #include "LoadedPowdered.hpp"
 
 #include "HUDController.hpp"
-#include "IncreaseNumberOfCanon.hpp"
 #include "APowerUp.hpp"
+#include "Force.hpp"
 
 class IClient;
 
@@ -23,7 +24,7 @@ private:
 	static const uint8_t FRAME_EXP;
 
 public:
-	Player();
+	Player(void);
 	virtual ~Player(void);
 
 	virtual void init(void);
@@ -60,6 +61,7 @@ private:
 private:
 	float _delta;
 	float _deltaLastShoot;
+	float _deltaCtrl;
 	IClient *_client;
 	HUDController *_hud;
 	bool _decrease;
@@ -77,7 +79,7 @@ private:
 	float _deltaInvincibleAnim;
 	bool _invincibleAnimState;
 
-	//IncreaseNumberOfCanon *_increaseNumberOfCanon;
 	std::list<APowerUp *> _drawablePowerUps;
+	Force *_force;
 };
 

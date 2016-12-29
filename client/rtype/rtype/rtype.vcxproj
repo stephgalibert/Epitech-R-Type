@@ -178,9 +178,11 @@
     <ClCompile Include="ConnectionLostController.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
     <ClCompile Include="Dop.cpp" />
+    <ClCompile Include="DoubleLaser.cpp" />
     <ClCompile Include="EscapeLayout.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="Force.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameOverController.cpp" />
@@ -188,7 +190,6 @@
     <ClCompile Include="Gomander.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
-    <ClCompile Include="IncreaseNumberOfCanon.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="LoadArea.cpp" />
@@ -271,9 +272,11 @@
     <ClInclude Include="ConnectionLostController.hpp" />
     <ClInclude Include="DisplayArea.hpp" />
     <ClInclude Include="Dop.hpp" />
+    <ClInclude Include="DoubleLaser.hpp" />
     <ClInclude Include="EscapeLayout.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="FireBall.hpp" />
+    <ClInclude Include="Force.hpp" />
     <ClInclude Include="FPSCounter.hpp" />
     <ClInclude Include="GameController.hpp" />
     <ClInclude Include="GameOverController.hpp" />
@@ -283,7 +286,6 @@
     <ClInclude Include="HUDController.hpp" />
     <ClInclude Include="IClient.hpp" />
     <ClInclude Include="ADrawable.hpp" />
-    <ClInclude Include="IncreaseNumberOfCanon.hpp" />
     <ClInclude Include="InputHandler.hpp" />
     <ClInclude Include="IReader.hpp" />
     <ClInclude Include="IRequest.hpp" />

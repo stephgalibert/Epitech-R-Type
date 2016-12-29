@@ -163,7 +163,7 @@ void MonsterManager::shoot(IMonster *monster)
 	std::vector<float> const& canonDegrees = monster->getCanonDegrees();
 
 	for (size_t i = 0; i < canons.size(); ++i) {
-		MissileType type = MissileType::MT_FriendFire_Lv1;
+		MissileType type = MissileType::FireBall;
 		uint16_t id = _nextID++;
 		uint16_t id_owner = monster->getID();
 		uint16_t x = static_cast<uint16_t>(monster->getPosition().first) + canons[i].first;

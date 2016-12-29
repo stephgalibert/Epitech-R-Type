@@ -224,6 +224,9 @@ void Gomander::refreshExplosion(float delta)
 	_deltaExplosing += delta;
 	if (_deltaExplosing > 0.3f) {
 
+		sf::Color const& color = getShape()->getFillColor();
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+
 		++_nbExplosion;
 		if (_nbExplosion < 18) {
 			sf::Vector2f const& pos = getPosition();
