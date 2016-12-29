@@ -48,6 +48,13 @@ void Gomander::update(float delta)
 		refreshExplosion(delta);
 	}
 	else {
+		if (getPosition().x < 200) {
+			setAngle(0);
+		}
+		else if (getPosition().x > StaticTools::GetResolution().first - 200) {
+			setAngle(180);
+		}
+
 		updateFrame();
 		refreshInvincibility(delta);
 		ANPC::update(delta);
@@ -94,7 +101,7 @@ void Gomander::applyCollision(CollisionType type, AEntity *other)
 
 void Gomander::move(float delta)
 {
-	if (getAngle() != -1 && !isExploding()) {
+	if (getAngle() != -1 && !isExploding() /*&& getPosition().x > 200 && getPosition().y < StaticTools::GetResolution().first - 200*/) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
 		float y = std::sin(getRadians()) * getVelocity() * delta;
 
@@ -172,12 +179,13 @@ void Gomander::collisionDestruction(void)
 	setCollisionType(COLLISION_NONE);
 
 	if (getHealth() == 1) {
-		setExplode(true);
+		//setExplode(true);
 
 		Explosion *explosion = World::spawnEntity<Explosion>();
 		explosion->setPosition(getPosition());
 		explosion->setReadyForInit(true);
 
+		recycle();
 	}
 	else {
 		setHealth(getHealth() - 1);

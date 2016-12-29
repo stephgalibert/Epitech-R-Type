@@ -17,7 +17,6 @@ void RequestLoadedPowder::execute(std::shared_ptr<AConnection> owner,
 	std::shared_ptr<Party> party = owner->getCurrentParty();
 
 	if (party) {
-		std::cout << "load powder request" << std::endl;
 		party->broadcast(owner, received);
 	}
 }

@@ -26,6 +26,8 @@ public:
 	void newConnection(std::shared_ptr<AConnection> connection);
 	std::vector<PlayerData> &getPlayersData(void);
 
+	void move(uint16_t id, Move *move);
+	void update(double delta);
 	uint8_t getPlayerNumber(void);
 	bool isPlayersAlive(void);
 

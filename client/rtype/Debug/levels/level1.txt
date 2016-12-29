@@ -4,7 +4,7 @@
 # POWERUP IncreaseNumberOfCanon 1 200 200
 
 # vague 1
-# MONSTER Zork 2.5 50
+MONSTER Zork 2.5 50
 # MONSTER Zork 2.5 300
 # MONSTER Zork 2.5 550
 
@@ -49,4 +49,4 @@
 # POWERUP IncreaseNumberOfCanon 33 200 200
 
 # final vague
-BOSS Gomander 5 580
+BOSS Gomander 10 580

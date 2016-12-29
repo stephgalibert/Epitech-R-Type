@@ -4,6 +4,7 @@
 #include <memory>
 #include <queue>
 #include <functional>
+#include <cmath>
 
 #include "ISocket.hpp"
 #include "RequestHandler.hpp"
@@ -17,6 +18,11 @@
 class Party;
 class PartyManager;
 
+#define EAST 1
+#define WEAST 2
+#define NORTH 4
+#define SOUTH 8
+
 class AConnection : public std::enable_shared_from_this<AConnection>
 {
 public:
@@ -29,6 +35,8 @@ public:
 	virtual void write(std::shared_ptr<ICommand> command) = 0;
 	virtual void sync_write(std::shared_ptr<ICommand> command) = 0;
 
+	void update(double delta);
+
 	ConnectionManager &getConnectionManager(void);
 	PartyManager &getPartyManager(void);
 	RequestHandler &getRequestHandler(void);
@@ -40,16 +48,22 @@ public:
 	void setScore(uint16_t score);
 	void setRunning(bool value);
 	void setReady(bool value);
-	void setPosition(std::pair<uint16_t, uint16_t> const& position);
+	//void setPosition(std::pair<double, double> const& position);
+	void setPosition(double x, double y);
+	void setDirection(int direction);
+	void setVelocity(float velocity);
+	void setAngle(float angle);
 
 	std::shared_ptr<Party> getCurrentParty(void) const;
-	uint16_t getID(void) const;
+	//uint16_t getID(void) const;
 	std::string const& getName(void) const;
 	uint8_t getLife(void) const;
 	uint16_t getScore(void) const;
 	bool isRunning(void) const;
 	bool isReady(void) const;
-	std::pair<uint16_t, uint16_t> const& getPosition(void) const;
+	//std::pair<double, double> const& getPosition(void) const;
+	float getAngle(void) const;
+	float getVelocity(void) const;
 	PlayerData const& getPlayerData(void) const;
 
 	virtual void do_read(bool error) = 0;
@@ -62,13 +76,17 @@ private:
 
 	std::shared_ptr<Party> _party;
 	bool _running;
-	std::pair<uint16_t, uint16_t> _position;
+	//std::pair<double, double> _position;
 	bool _ready;
 
-	uint16_t _id;
+	//uint16_t _id;
 	uint8_t _life;
 	uint16_t _score;
 	std::string _name;
+	int _direction;
+	float _velocity;
+	float _angle;
+	float _radians;
 
 	PlayerData _playerData;
 };

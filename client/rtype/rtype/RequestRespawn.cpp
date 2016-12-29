@@ -13,7 +13,6 @@ RequestRespawn::~RequestRespawn(void)
 void RequestRespawn::execute(IClient &client, std::shared_ptr<ICommand> data,
 							 std::shared_ptr<ICommand> &toSend)
 {
-	std::cout << "receiving respawn request" << std::endl;
 	(void)client;
 	(void)toSend;
 	Respawn *respawn = (Respawn *)data->getData();
