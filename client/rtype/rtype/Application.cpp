@@ -131,9 +131,7 @@ void Application::updateMenu(float delta)
 {
 	_fps.update(delta);
 	_menu.update(delta);
-	/*
-	switch (_menu.pullAction())
-	{
+	switch (_menu.pullAction()) {
 	case MainMenuController::SelectedAction::CREATE:
 		_host = _menu.getConnectData().game;
 		_pwd = _menu.getConnectData().password;
@@ -153,8 +151,9 @@ void Application::updateMenu(float delta)
 		break;
 	default:
 		break;
-	}*/
+	}
 
+		/*
 	// TEST:
 	while (!_client.isConnected());
 	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
@@ -163,8 +162,9 @@ void Application::updateMenu(float delta)
 	_state = ApplicationState::AS_Game;
 	_game = new GameController(_client);
 	_game->init();
-	_game->connectToParty(_username, _host, _pwd);
+	_game->connectToParty(_username, _host, _pwd);*/
 }
+
 void Application::updateGame(float delta)
 {
 	_fps.update(delta);
