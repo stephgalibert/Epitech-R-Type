@@ -88,11 +88,8 @@ void AConnection::setReady(bool value)
 	_ready = value;
 }
 
-//void AConnection::setPosition(std::pair<double, double> const& position)
 void AConnection::setPosition(double x, double y)
 {
-	//_position.first = position.first;
-	//_position.second = position.second;
 	_playerData.x = x;
 	_playerData.y = y;
 }
@@ -112,9 +109,6 @@ void AConnection::setDirection(int direction)
 	}
 	else if (direction & WEAST) {
 		setAngle(std::floor(-180.f - getAngle() / 2.f));
-	}
-	else {
-		std::cout << std::endl;
 	}
 
 	_direction = direction;

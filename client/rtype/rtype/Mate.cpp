@@ -219,6 +219,7 @@ void Mate::respawn(void)
 	_targetFrame = 0;
 	setVisiblity(VISIBILITY_VISIBLE);
 	setDead(false);
+	setExplode(false);
 	setVelocity(150);
 	_delta = 0;
 }
@@ -326,6 +327,7 @@ void Mate::collisionDestruction(void)
 {
 	setCollisioned(true);
 	setCollisionType(COLLISION_NONE);
+	setExplode(true);
 
 	Explosion *explosion = World::spawnEntity<Explosion>();
 	explosion->setPosition(getPosition());

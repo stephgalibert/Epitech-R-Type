@@ -162,6 +162,10 @@ void Party::collision(std::shared_ptr<AConnection> owner, std::shared_ptr<IComma
 		_mm.addPlayerScore(owner, collision->id_second);
 		broadcast(std::make_shared<CMDScore>(owner->getPlayerData().id, owner->getScore()));
 	}
+	else {
+		_mm.takeDamage(collision->id_second);
+		//std::cout << "collision betweend " << collision->id_first << " and " << collision->id_second << std::endl;
+	}
 	broadcast(cmd);
 }
 
@@ -197,7 +201,7 @@ void Party::loop(void)
 
 bool Party::isReady(void)
 {
-	return (_cm.getPlayerNumber() > 1);
+	return (_cm.getPlayerNumber() > 3);
 }
 
 bool Party::isFinished(void)
@@ -276,10 +280,11 @@ void Party::gameWin(double delta)
 	_delta += delta;
 
 	_cm.update(delta);
-	if (_delta > 5.f) {
+	if (_delta > 1.f) {
 		broadcast(std::make_shared<CMDMessage>("No more ennemy left, congratulation !!!"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
 		_delta = 0.f;
 		_cm.closeAll();
 	}
+	//std::cout << _delta << std::endl;
 }

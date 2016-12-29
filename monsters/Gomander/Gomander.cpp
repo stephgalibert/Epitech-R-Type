@@ -4,7 +4,7 @@ Gomander::Gomander(void)
 {
 	_delta = 0;
 	_id = 0;
-	_life = 20;
+	_life = 2;
 	_fireRate = 1.f;
 	_velocity = 250;
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-75, -55));
@@ -65,8 +65,6 @@ void Gomander::takeDamage(uint8_t damage)
 	else {
 		_life -= damage;
 	}
-
-	std::cout << "Gomander " << _id << " taking " << damage << " damages. Life remaining: " << _life << std::endl;
 }
 
 void Gomander::setID(uint16_t value)

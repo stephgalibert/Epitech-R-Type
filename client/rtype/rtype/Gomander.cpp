@@ -101,7 +101,7 @@ void Gomander::applyCollision(CollisionType type, AEntity *other)
 
 void Gomander::move(float delta)
 {
-	if (getAngle() != -1 && !isExploding() /*&& getPosition().x > 200 && getPosition().y < StaticTools::GetResolution().first - 200*/) {
+	if (getAngle() != -1 && !isExploding()) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
 		float y = std::sin(getRadians()) * getVelocity() * delta;
 
@@ -179,13 +179,13 @@ void Gomander::collisionDestruction(void)
 	setCollisionType(COLLISION_NONE);
 
 	if (getHealth() == 1) {
-		//setExplode(true);
+		setExplode(true);
 
-		Explosion *explosion = World::spawnEntity<Explosion>();
-		explosion->setPosition(getPosition());
-		explosion->setReadyForInit(true);
+		//Explosion *explosion = World::spawnEntity<Explosion>();
+		//explosion->setPosition(getPosition());
+		//explosion->setReadyForInit(true);
 
-		recycle();
+		//recycle();
 	}
 	else {
 		setHealth(getHealth() - 1);
@@ -221,29 +221,31 @@ void Gomander::refreshInvincibility(float delta)
 
 void Gomander::refreshExplosion(float delta)
 {
-	//_deltaExplosing += delta;
-	//if (_deltaExplosing > 0.3f) {
+	_deltaExplosing += delta;
+	if (_deltaExplosing > 0.3f) {
 
-	//	Laser *laser = World::spawnEntity<Laser>();
-	//	laser->setReadyForInit(true);
+		++_nbExplosion;
+		if (_nbExplosion < 18) {
+			sf::Vector2f const& pos = getPosition();
 
-	//	_delta = 0;
-	//}
-	//	++_nbExplosion;
-	//	if (_nbExplosion < 3) {
-	//		sf::Vector2f const& pos = getPosition();
+			uint16_t x = _generator(0, 300);
+			uint16_t y = _generator(0, 300);
+			float size = static_cast<float>(_generator(40, 140));
 
-	//		uint16_t x = _generator(0, 100);
-	//		uint16_t y = _generator(0, 100);
-
-	//		std::cout << "explode" << std::endl;
-	//		Explosion *explosion = World::spawnEntity<Explosion>();
-	//		explosion->setPosition(pos.x, pos.y);
-	//		explosion->setReadyForInit(true);
-	//	}
-	//	else {
-	//		recycle();
-	//	}
-	//	_deltaExplosing = 0;
-	//}
+			Explosion *explosion = World::spawnEntity<Explosion>();
+			explosion->setPosition(pos.x - 150 + x, pos.y - 150 + y);
+			explosion->setSize(size, size);
+			explosion->setReadyForInit(true);
+		}
+		else if (_nbExplosion == 18) {
+			Explosion *explosion = World::spawnEntity<Explosion>();
+			explosion->setPosition(getPosition());
+			explosion->setSize(450.f, 450.f);
+			explosion->setReadyForInit(true);
+		}
+		else {
+			recycle();
+		}
+		_deltaExplosing = 0;
+	}
 }
