@@ -7,6 +7,8 @@
 #include "LoadedPowdered.hpp"
 
 #include "APowerUp.hpp"
+#include "Force.hpp"
+#include "DoubleLaser.hpp"
 
 class Mate : public ANPC
 {
@@ -59,4 +61,5 @@ private:
 	bool _invincibleAnimState;
 
 	std::list<APowerUp *> _drawablePowerUps;
+	Force *_force;
 };

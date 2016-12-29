@@ -25,6 +25,8 @@ Player::Player()
 	_deltaInvincibleAnim = 0.f;
 	_invincibleAnimState = false;
 	_currentDirection = FRAME_MID;
+	_force = NULL;
+	_deltaCtrl = 0;
 }
 
 Player::~Player(void)
@@ -37,6 +39,9 @@ Player::~Player(void)
 	}
 	for (auto it : _drawablePowerUps) {
 		it->recycle();
+	}
+	if (_force) {
+		_force->recycle();
 	}
 }
 
@@ -71,6 +76,7 @@ void Player::update(float delta)
 
 	_delta += delta;
 	_deltaLastShoot += delta;
+	_deltaCtrl += delta;
 
 	refreshInvincibility(delta);
 
@@ -182,6 +188,9 @@ void Player::move(float delta)
 		for (auto it : _drawablePowerUps) {
 			it->attachToEntity(this);
 		}
+		if (_force) {
+  			_force->attachToEntity(this);
+		}
 	}
 }
 
@@ -194,32 +203,43 @@ void Player::shoot(Fire const& param)
 
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
-	//MissileType type = param.type;
+	MissileType type = param.type;
 	uint16_t id = param.id;
 	uint16_t id_launcher = param.id_launcher;
 	uint16_t x = 0;
 	uint16_t y = 0;
 	uint8_t velocity = param.velocity;
 	float angle = param.angle;
-	//uint8_t effect = param.effect;
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	Laser *laser = World::spawnEntity<Laser>();
-	laser->setID(id);
-	laser->setLevel(param.level);
-	laser->setPosition(x, y);
-	laser->setOwnerID(id_launcher);
-	laser->setAngle(angle);
-	laser->setVelocity(velocity);
-	laser->setColor(id_launcher);
-	laser->setReadyForInit(true);
+	if (type == MissileType::Laser) {
+		Laser *laser = World::spawnEntity<Laser>();
+		laser->setID(id);
+		laser->setLevel(param.level);
+		laser->setPosition(x, y);
+		laser->setOwnerID(id_launcher);
+		laser->setAngle(angle);
+		laser->setVelocity(velocity);
+		laser->setColor(id_launcher);
+		laser->setReadyForInit(true);
 
-	if (!_powder) {
-		_powder = World::spawnEntity<Powdered>();
-		_powder->setPosition(getPosition().x + 35, y + 2.f);
-		_powder->setColor(getID());
-		_powder->setReadyForInit(true);
+		if (!_powder) {
+			_powder = World::spawnEntity<Powdered>();
+			_powder->setPosition(getPosition().x + 35, y + 2.f);
+			_powder->setColor(getID());
+			_powder->setReadyForInit(true);
+		}
+	}
+	else {
+		DoubleLaser *laser = World::spawnEntity<DoubleLaser>();
+		laser->setID(id);
+		laser->setLevel(param.level);
+		laser->setPosition(x, y);
+		laser->setOwnerID(id_launcher);
+		laser->setAngle(angle);
+		laser->setVelocity(velocity);
+		laser->setReadyForInit(true);
 	}
 }
 
@@ -341,6 +361,14 @@ void Player::keyboard(InputHandler &input)
 		direction |= WEAST;
 	}
 
+	if (input.isKeyDown(sf::Keyboard::Key::LControl) && _deltaCtrl > 0.5f) {
+		if (_force) {
+			_force->inversePosition();
+			_force->attachToEntity(this);
+			_deltaCtrl = 0;
+		}
+	}
+
 	if (getDirection() != direction) {
 		sf::Vector2f const& pos = getPosition();
 		_client->write(std::make_shared<CMDMove>(getID(), (uint16_t)pos.x, (uint16_t)pos.y,
@@ -393,6 +421,10 @@ void Player::keyboard(InputHandler &input)
 	//static bool t = false;
 	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
 	//	t = true;
+
+	//	DoubleLaser *laser = World::spawnEntity<DoubleLaser>();
+	//	laser->setPosition(getPosition());
+	//	laser->setReadyForInit(true);
 	//}
 }
 
@@ -491,8 +523,11 @@ void Player::prepareShot(void)
 			for (auto it : _drawablePowerUps) {
 				fired = it->fire(_client, getID(), sf::Vector2i((int)shot->getPosition().x, (int)pos.y), (int)shot->getVelocity(), shot->getAngle(), shot->getLevel());
 			}
+			if (!fired && _force) {
+				fired = _force->fire(_client, getID(), sf::Vector2i((int)shot->getPosition().x, (int)pos.y), (int)shot->getVelocity(), shot->getAngle(), shot->getLevel());
+			}
 			if (!fired) {
-				_client->write(std::make_shared<CMDFire>(MissileType::MT_FriendFire_Lv1, 0, getID(),
+				_client->write(std::make_shared<CMDFire>(MissileType::Laser, 0, getID(),
 					(int)shot->getPosition().x, (int)pos.y, (int)shot->getVelocity(), shot->getAngle(), 0, shot->getLevel()));
 			}
 		}
@@ -530,6 +565,10 @@ void Player::collisionDestruction(void)
 		it->recycle();
 	}
 	_drawablePowerUps.clear();
+	if (_force) {
+		_force->recycle();
+		_force = NULL;
+	}
 
 	if (_loadedPowder) {
 		_loadedPowder->recycle();
@@ -545,8 +584,40 @@ void Player::collisionPowerUp(AEntity *other)
 	APowerUp *powerUp = dynamic_cast<APowerUp *>(other);
 	if (other) {
 		other->setCollisionType(COLLISION_NONE);
-		powerUp->attachToEntity(this);
-		_drawablePowerUps.push_back(powerUp);
+
+		Force *force = dynamic_cast<Force *>(other);
+		if (force) {
+			if (!_force) {
+				_force = force;
+			}
+			else {
+				_force->upgrade();
+				_force->attachToEntity(this);
+				other->recycle();
+			}
+		}
+		//else {
+
+		//	std::list<APowerUp *>::iterator it = _drawablePowerUps.begin();
+		//	while (it != _drawablePowerUps.cend() && (*it)->getType() != powerUp->getType()) {
+		//		++it;
+		//	}
+		//	if (it != _drawablePowerUps.cend()) {
+		//		if ((*it)->canBeCumulated()) {
+		//			(*it)->upgrade();
+		//			other->recycle();
+		//		}
+		//		else {
+		//			_drawablePowerUps.erase(it);
+		//			powerUp->attachToEntity(this);
+		//			_drawablePowerUps.push_back(powerUp);
+		//		}
+		//	}
+		//	else {
+		//		powerUp->attachToEntity(this);
+		//		_drawablePowerUps.push_back(powerUp);
+		//	}
+		//}
 	}
 }
 

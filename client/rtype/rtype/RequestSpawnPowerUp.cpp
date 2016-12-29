@@ -29,7 +29,7 @@ void RequestSpawnPowerUp::execute(IClient &client, std::shared_ptr<ICommand> dat
 	case PowerUPsType::Standard:
 		break;
 	case PowerUPsType::IncreaseNumberOfCanon:
-		powerup = World::spawnEntity<IncreaseNumberOfCanon>();
+		powerup = World::spawnEntity<Force>();
 		break;
 	default:
 		break;

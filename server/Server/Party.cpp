@@ -121,6 +121,7 @@ void Party::move(std::shared_ptr<AConnection> connection, std::shared_ptr<IComma
 void Party::fire(std::shared_ptr<ICommand> cmd)
 {
 	Fire *fire = reinterpret_cast<Fire *>(cmd->getData());
+	std::cout << "next id: " << _nextID << std::endl;
 	fire->id = _nextID;
 	broadcast(cmd);
 	std::lock_guard<std::mutex> lock(_fireMutex);

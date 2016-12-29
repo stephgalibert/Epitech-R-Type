@@ -27,8 +27,8 @@ void World::update(float delta)
 	while (it != std::end(Entities)) {
 		sf::Vector2f const& pos = (*it)->getPosition();
 		if ((*it)->isWaitingForRecycle() ||
-				pos.x < 0 - ((*it)->getBoundingBox().width / 2) || pos.x - ((*it)->getBoundingBox().width / 2) > StaticTools::GetResolution().first ||
-				pos.y < 0 - ((*it)->getBoundingBox().height / 2) || pos.y - ((*it)->getBoundingBox().height / 2) > StaticTools::GetResolution().second) {
+				pos.x < -100 - ((*it)->getBoundingBox().width / 2) || pos.x - 100 - ((*it)->getBoundingBox().width / 2) > StaticTools::GetResolution().first ||
+				pos.y < -100 - ((*it)->getBoundingBox().height / 2) || pos.y - 100 - ((*it)->getBoundingBox().height / 2) > StaticTools::GetResolution().second) {
 
 			(*it)->destroy(*Client);
 			delete (*it);
