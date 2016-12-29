@@ -13,6 +13,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protocol", "..\..\protocol\protocol.vcxproj", "{AB91CE66-15F9-47C0-961D-CE56B0B7876E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zorg", "..\..\monsters\Zorg\Zorg.vcxproj", "{F1B3F66A-BB5B-4A95-AFFB-8B58D120E535}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DFF8D208-B765-4AC1-9947-118279044B2F} = {DFF8D208-B765-4AC1-9947-118279044B2F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dop", "..\..\monsters\Dop\Dop.vcxproj", "{05D0944F-123B-4B61-B530-385891AFEB1E}"
 EndProject

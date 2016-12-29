@@ -58,6 +58,15 @@ void TCPClient::run(void)
 	_runThread = std::thread(&TCPClient::runThread, this);
 }
 
+void TCPClient::setRemote(std::string const& ip, std::string const& port)
+{
+	_socket.close();
+	_connected = false;
+	_remote = ip;
+	_port = port;
+	connect();
+}
+
 bool TCPClient::isConnected(void) const
 {
 	return (_connected);

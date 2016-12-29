@@ -102,12 +102,6 @@
     <ClCompile Include="ltm.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="lua.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="luac.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="lundump.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>

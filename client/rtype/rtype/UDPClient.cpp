@@ -16,8 +16,6 @@ UDPClient::~UDPClient()
 {
 }
 
-//#include "CMDConnect.hpp"
-//#include "CMDCreateParty.hpp"
 void UDPClient::connect(void)
 {
 	StaticTools::Log << "Connecting ..." << std::endl;
@@ -26,8 +24,14 @@ void UDPClient::connect(void)
 	_sender = *_resolver.resolve(query);
 	read();	
 	StaticTools::Log << "Connected in UDP mod" << std::endl;
-	//write(new CMDCreateParty("name", "pwd"));
-	//write(new CMDConnect("name", "pwd"));
+}
+
+void UDPClient::setRemote(std::string const& ip, std::string const& port)
+{
+	_remote = ip;
+	_port = port;
+	_socket.close();
+	connect();
 }
 
 void UDPClient::write(std::shared_ptr<ICommand> packet)
