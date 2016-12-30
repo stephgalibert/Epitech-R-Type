@@ -67,7 +67,7 @@ void DLManager<T>::addLibrary(std::string const& dirpath, std::string const& pat
 		if (loader) {
 			delete (loader);
 		}
-		throw (e);
+		throw (std::runtime_error(e.what()));
 	}
 	_dls.push_back(loader);
 }

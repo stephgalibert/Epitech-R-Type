@@ -583,7 +583,7 @@ void Player::collisionDestruction(void)
 void Player::collisionPowerUp(AEntity *other)
 {
 	APowerUp *powerUp = dynamic_cast<APowerUp *>(other);
-	if (other) {
+	if (powerUp) {
 		other->setCollisionType(COLLISION_NONE);
 
 		Force *force = dynamic_cast<Force *>(other);
