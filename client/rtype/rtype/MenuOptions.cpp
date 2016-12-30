@@ -1,6 +1,7 @@
 #include "MenuOptions.hpp"
 
 #include "MainMenuResource.hpp"
+#include "StaticTools.hpp"
 
 const std::string MenuOptions::FORM_HOST_FIELD = "Host IP";
 const std::string MenuOptions::FORM_PORT_FIELD = "Port";
@@ -80,9 +81,17 @@ bool MenuOptions::input(InputHandler &input) {
 	case FORM:
 		return _form.input(input);
 	case SOUND_SLIDER:
-		return _soundSlider.input(input);
+		if (_soundSlider.input(input)) {
+			StaticTools::soundVolume = _soundSlider.getValue();
+			return true;
+		}
+		break;
 	case MUSIC_SLIDER:
-		return _musicSlider.input(input);
+		if (_musicSlider.input(input)) {
+			StaticTools::musicVolume = _musicSlider.getValue();
+			return true;
+		}
+		break;
 	default:
 		break;
 	}
@@ -90,24 +99,23 @@ bool MenuOptions::input(InputHandler &input) {
 }
 
 void MenuOptions::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-  (void)states;
 	sf::Text sliderLabel;
 	sliderLabel.setCharacterSize(18u);
 	sliderLabel.setFont(*_font);
 
-	target.draw(_form);
+	target.draw(_form, states);
 
 	sliderLabel.setString("Sound:");
 	sliderLabel.setPosition(sf::Vector2f(_form.getPosition().x, _soundSlider.getPosition().y));
 	sliderLabel.setFillColor(_soundSlider.getColor());
-	target.draw(sliderLabel);
-	target.draw(_soundSlider);
+	target.draw(sliderLabel, states);
+	target.draw(_soundSlider, states);
 
 	sliderLabel.setString("Music:");
 	sliderLabel.setPosition(sf::Vector2f(_form.getPosition().x, _musicSlider.getPosition().y));
-	sliderLabel.setFillColor(_soundSlider.getColor());
-	target.draw(sliderLabel);
-	target.draw(_musicSlider);
+	sliderLabel.setFillColor(_musicSlider.getColor());
+	target.draw(sliderLabel, states);
+	target.draw(_musicSlider, states);
 }
 
 std::string const &MenuOptions::getHost(void) const {
