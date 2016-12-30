@@ -32,7 +32,7 @@ Gomander::~Gomander(void)
 
 void Gomander::update(double delta, std::vector<PlayerData> const& players)
 {
-	(void)delta;
+  (void)players;
 
 	_delta += delta;
 

@@ -15,6 +15,7 @@ MenuSlider::~MenuSlider() {
 }
 
 void MenuSlider::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  (void)states;
 	target.draw(_sliderHorizontalBar);
 	target.draw(_sliderValueBar);
 }

@@ -25,7 +25,7 @@ Dop::~Dop(void)
 
 void Dop::update(double delta, std::vector<PlayerData> const& players)
 {
-	(void)delta;
+  (void)players;
 
 	_delta += delta;
 

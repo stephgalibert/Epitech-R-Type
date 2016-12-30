@@ -90,6 +90,7 @@ bool MenuOptions::input(InputHandler &input) {
 }
 
 void MenuOptions::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  (void)states;
 	sf::Text sliderLabel;
 	sliderLabel.setCharacterSize(18u);
 	sliderLabel.setFont(*_font);

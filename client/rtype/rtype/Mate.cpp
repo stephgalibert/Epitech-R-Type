@@ -377,7 +377,7 @@ void Mate::collisionDestruction(void)
 void Mate::collisionPowerUp(AEntity *other)
 {
 	APowerUp *powerUp = dynamic_cast<APowerUp *>(other);
-	if (other) {
+	if (powerUp) {
 		other->setCollisionType(COLLISION_NONE);
 		Force *force = dynamic_cast<Force *>(other);
 		if (force) {

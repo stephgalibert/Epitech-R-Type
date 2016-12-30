@@ -25,7 +25,7 @@ Ravid::~Ravid(void)
 
 void Ravid::update(double delta, std::vector<PlayerData> const& players)
 {
-	(void)delta;
+  (void)players;
 
 	_delta += delta;
 
