@@ -97,6 +97,8 @@ public:
 	void clearConnectData(void);
 	void setHostIp(std::string const &hostIp);
 	void setPort(std::string const &port);
+	void setMusicVolume(const float volume);
+	void setSoundVolume(const float volume);
 
 private:
 	void addKeyAction(const sf::Keyboard::Key key, bool (MainMenuController::*func)(void));

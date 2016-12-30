@@ -90,6 +90,8 @@ void MainMenuController::init()
 		_action = SelectedAction::PLAY;
 		_fsm = State::ST_SplashStart;
 
+		setMusicVolume(StaticTools::musicVolume);
+		setSoundVolume(StaticTools::soundVolume);
 		unmute();
 	}
 	catch (std::exception const& e) {
@@ -321,6 +323,17 @@ void MainMenuController::setHostIp(std::string const &hostIp) {
 
 void MainMenuController::setPort(std::string const &port) {
 	_connectData.port = port;
+}
+
+void MainMenuController::setMusicVolume(const float volume) {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).setVolume(volume);
+}
+
+void MainMenuController::setSoundVolume(const float volume) {
+	MainMenuResource::menuResourceManager.getSoundByKey(MainMenuResource::NAV_SOUND_0)->setVolume(volume);
+	MainMenuResource::menuResourceManager.getSoundByKey(MainMenuResource::NAV_SOUND_1)->setVolume(volume);
+	MainMenuResource::menuResourceManager.getSoundByKey(MainMenuResource::NAV_SOUND_2)->setVolume(volume);
+	MainMenuResource::menuResourceManager.getSoundByKey(MainMenuResource::NAV_SOUND_3)->setVolume(volume);
 }
 
 void MainMenuController::mute(void) const {
@@ -561,12 +574,16 @@ bool MainMenuController::handleOptionsInput(InputHandler &input) {
 			_keyboardEventDelta = 0.f;
 			StaticTools::musicVolume = _optionsScreen.getMusicValue();
 			StaticTools::soundVolume = _optionsScreen.getSoundValue();
+			setMusicVolume(StaticTools::musicVolume);
+			setSoundVolume(StaticTools::soundVolume);
 			_connectData.hostIp = _optionsScreen.getHost();
 			_connectData.port = _optionsScreen.getPort();
 			_pushAction = SelectedAction::OPTIONS;
 			return true;
 		}
 		else if (_optionsScreen.input(input)) {
+			setMusicVolume(StaticTools::musicVolume);
+			setSoundVolume(StaticTools::soundVolume);
 			_keyboardEventDelta = 0.f;
 		}
 	}
