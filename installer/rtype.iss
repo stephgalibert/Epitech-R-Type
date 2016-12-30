@@ -38,8 +38,8 @@ begin
   fileName := ExpandConstant('{app}\launcher.bat');
   SetArrayLength(lines, 3);
   lines[0] := 'cd "' + ExpandConstant('{app}') + '"';
-  lines[1] := 'start ./rtype "" "%1"';
-  Result := SaveStringsToFile(filename,lines,true);
+  lines[1] := 'start "" "./rtype.exe" "%1"';
+  Result := SaveStringsToFile(filename,lines,false);
   exit;                                
 end;
 
