@@ -40,6 +40,7 @@ public:
 	virtual std::pair<double, double> const& getPosition(void) const;
 	virtual std::vector<std::pair<uint16_t, uint16_t> > const& getCanonRelativePosition(void) const;
 	virtual std::vector<float> const& getCanonDegrees(void) const;
+	virtual std::vector<uint8_t> const& getCanonVelocity(void) const;
 
 private:
 	double _delta;
@@ -51,7 +52,8 @@ private:
 	double _angle; // angle de l'entité
 	double _radians;
 	std::vector<std::pair<uint16_t, uint16_t> > _canonsRelativePosition; // positions des canons en relatif à l'entité
-	std::vector<float> _canonsDegrees; // en degrée (ou radian ?)
+	std::vector<float> _canonsDegrees;
+	std::vector<uint8_t> _canonsVelocity;
 	State _state;
 	int _direction;
 };

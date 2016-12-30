@@ -24,6 +24,13 @@ Gomander::Gomander(void)
 	_canonsDegrees.emplace_back<float>(-70);
 	_canonsDegrees.emplace_back<float>(-70);
 	_direction = WEAST;
+
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
 }
 
 Gomander::~Gomander(void)
@@ -149,4 +156,9 @@ std::vector<std::pair<uint16_t, uint16_t> > const& Gomander::getCanonRelativePos
 std::vector<float> const& Gomander::getCanonDegrees(void) const
 {
 	return (_canonsDegrees);
+}
+
+std::vector<uint8_t> const& Gomander::getCanonVelocity(void) const
+{
+	return (_canonsVelocity);
 }

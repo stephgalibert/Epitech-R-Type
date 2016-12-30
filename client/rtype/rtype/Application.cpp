@@ -55,9 +55,9 @@ void Application::init(std::string const& username, std::string const& host, std
 		_menu.setHostIp(_ip);
 		_menu.setPort(_port);
 
-		if (!_username.empty()) {
-			play();
-		}
+		//if (!_username.empty()) {
+		//	play();
+		//}
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "application: " << e.what() << std::endl;
@@ -142,29 +142,29 @@ void Application::updateMenu(float delta)
 {
 	_fps.update(delta);
 	_menu.update(delta);
-	switch (_menu.pullAction()) {
-	case MainMenuController::SelectedAction::CREATE:
-		_host = _menu.getConnectData().game;
-		_pwd = _menu.getConnectData().password;
-		_username = _menu.getConnectData().username;
-		createGame();
-	case MainMenuController::SelectedAction::PLAY:
-		_host = _menu.getConnectData().game;
-		_pwd = _menu.getConnectData().password;
-		_username = _menu.getConnectData().username;
-		play();
-		break;
-	case MainMenuController::SelectedAction::OPTIONS:
-		//_client.setRemote(_menu.getConnectData().hostIp, _menu.getConnectData().port);
-		break;
-	case MainMenuController::SelectedAction::QUIT:
-		_quit = true;
-		break;
-	default:
-		break;
-	}
 
-		/*
+	//switch (_menu.pullAction()) {
+	//case MainMenuController::SelectedAction::CREATE:
+	//	_host = _menu.getConnectData().game;
+	//	_pwd = _menu.getConnectData().password;
+	//	_username = _menu.getConnectData().username;
+	//	createGame();
+	//case MainMenuController::SelectedAction::PLAY:
+	//	_host = _menu.getConnectData().game;
+	//	_pwd = _menu.getConnectData().password;
+	//	_username = _menu.getConnectData().username;
+	//	play();
+	//	break;
+	//case MainMenuController::SelectedAction::OPTIONS:
+	//	//_client.setRemote(_menu.getConnectData().hostIp, _menu.getConnectData().port);
+	//	break;
+	//case MainMenuController::SelectedAction::QUIT:
+	//	_quit = true;
+	//	break;
+	//default:
+	//	break;
+	//}
+
 	// TEST:
 	while (!_client.isConnected());
 	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
@@ -173,7 +173,7 @@ void Application::updateMenu(float delta)
 	_state = ApplicationState::AS_Game;
 	_game = new GameController(_client);
 	_game->init();
-	_game->connectToParty(_username, _host, _pwd);*/
+	_game->connectToParty(_username, _host, _pwd);
 }
 
 void Application::updateGame(float delta)

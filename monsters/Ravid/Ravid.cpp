@@ -17,6 +17,10 @@ Ravid::Ravid(void)
 	_canonsDegrees.emplace_back<float>(180);
 	_canonsDegrees.emplace_back<float>(180);
 	_canonsDegrees.emplace_back<float>(180);
+
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
+	_canonsVelocity.emplace_back(230);
 }
 
 Ravid::~Ravid(void)
@@ -132,4 +136,9 @@ std::vector<std::pair<uint16_t, uint16_t> > const& Ravid::getCanonRelativePositi
 std::vector<float> const& Ravid::getCanonDegrees(void) const
 {
 	return (_canonsDegrees);
+}
+
+std::vector<uint8_t> const& Ravid::getCanonVelocity(void) const
+{
+	return (_canonsVelocity);
 }

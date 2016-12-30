@@ -217,6 +217,7 @@
     <ClCompile Include="ProjectResource.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Ravid.cpp" />
+    <ClCompile Include="RedMissile.cpp" />
     <ClCompile Include="RequestBuilder.cpp" />
     <ClCompile Include="RequestCollision.cpp" />
     <ClCompile Include="RequestDestroyed.cpp" />
@@ -316,6 +317,7 @@
     <ClInclude Include="ProjectResource.hpp" />
     <ClInclude Include="QuadTree.hpp" />
     <ClInclude Include="Ravid.hpp" />
+    <ClInclude Include="RedMissile.hpp" />
     <ClInclude Include="RequestBuilder.hpp" />
     <ClInclude Include="RequestCollision.hpp" />
     <ClInclude Include="RequestDestroyed.hpp" />

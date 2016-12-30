@@ -423,7 +423,7 @@ void Player::keyboard(InputHandler &input)
 	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
 	//	t = true;
 
-	//	DoubleLaser *laser = World::spawnEntity<DoubleLaser>();
+	//	RedMissile *laser = World::spawnEntity<RedMissile>();
 	//	laser->setPosition(getPosition());
 	//	laser->setReadyForInit(true);
 	//}

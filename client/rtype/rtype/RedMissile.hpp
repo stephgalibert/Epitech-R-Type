@@ -2,14 +2,14 @@
 
 #include "AProjectile.hpp"
 
-class DoubleLaser : public AProjectile
+class RedMissile : public AProjectile
 {
 private:
 	static const float COEF_RESIZE;
 
 public:
-	DoubleLaser(void);
-	virtual ~DoubleLaser(void);
+	RedMissile(void);
+	virtual ~RedMissile(void);
 
 	virtual void init(void);
 	virtual void update(float delta);
@@ -25,6 +25,8 @@ private:
 private:
 	sf::RectangleShape *_shape;
 	float _delta;
+	float _deltaFall;
 	uint8_t _currentFrame;
 	std::vector<sf::IntRect> _frames;
 };
+

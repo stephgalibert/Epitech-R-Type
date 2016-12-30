@@ -46,6 +46,7 @@ void ProjectResource::load(void)
 		addTexture("ravid", "./rsrc/sprites/ravid.png");
 		addTexture("gomander", "./rsrc/sprites/gomander.png");
 		addTexture("e_shots1", "./rsrc/sprites/e_shots1.png");
+		addTexture("missile1", "./rsrc/sprites/missile1.png");
 	}
 	catch (std::runtime_error const& e) {
 		throw (e);

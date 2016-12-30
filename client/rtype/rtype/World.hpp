@@ -40,6 +40,8 @@ public:
 		return (entity);
 	}
 
+	//template <typename T> 
+
 private:
 	static std::list<AEntity *> Entities;
 	static std::queue<AEntity *> Queue;

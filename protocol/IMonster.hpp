@@ -47,4 +47,5 @@ public:
 	virtual std::pair<double, double> const& getPosition(void) const = 0; // ?
 	virtual std::vector<std::pair<uint16_t, uint16_t> > const& getCanonRelativePosition(void) const = 0;
 	virtual std::vector<float> const& getCanonDegrees(void) const = 0;
+	virtual std::vector<uint8_t> const& getCanonVelocity(void) const = 0;
 };

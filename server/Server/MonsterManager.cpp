@@ -161,6 +161,7 @@ void MonsterManager::shoot(IMonster *monster)
 {
 	std::vector<std::pair<uint16_t, uint16_t> > const& canons = monster->getCanonRelativePosition();
 	std::vector<float> const& canonDegrees = monster->getCanonDegrees();
+	std::vector<uint8_t> canonVelocity = monster->getCanonVelocity();
 
 	for (size_t i = 0; i < canons.size(); ++i) {
 		MissileType type = MissileType::FireBall;
@@ -168,9 +169,8 @@ void MonsterManager::shoot(IMonster *monster)
 		uint16_t id_owner = monster->getID();
 		uint16_t x = static_cast<uint16_t>(monster->getPosition().first) + canons[i].first;
 		uint16_t y = static_cast<uint16_t>(monster->getPosition().second) + canons[i].second;
-		uint8_t velocity = 230; // canon dependant
+		uint8_t velocity = canonVelocity[i];
 		float angle = canonDegrees[i];
-		//uint8_t angle = _generator(120, 195);
 		uint8_t effect = 0;
 		uint8_t level = 0;
 

@@ -13,6 +13,8 @@
 #include "APowerUp.hpp"
 #include "Force.hpp"
 
+#include "RedMissile.hpp"
+
 class IClient;
 
 class Player : public APC

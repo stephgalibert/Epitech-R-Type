@@ -2,4 +2,4 @@
 # POWERUP type seconds x y
 
 # final vague
-BOSS Gomander 50 580
+# BOSS Gomander 50 580

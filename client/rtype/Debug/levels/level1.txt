@@ -38,9 +38,9 @@ MONSTER Zork 6 300
 MONSTER Zork 6 550
 
 # vague 2
-MONSTER Dop 15 100
-MONSTER Dop 15 350
-MONSTER Dop 15 600
+MONSTER Dop 15 75
+MONSTER Dop 17 75
+MONSTER Dop 19 75
 
 # vague 3
 MONSTER Ravid 30 150
@@ -48,4 +48,4 @@ MONSTER Ravid 30 350
 MONSTER Ravid 30 550
 
 # final vague
-BOSS Gomander 50 580
+# BOSS Gomander 50 580

@@ -107,7 +107,8 @@ void Dop::shoot(Fire const& param)
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	FireBall *laser = World::spawnEntity<FireBall>();
+	//FireBall *laser = World::spawnEntity<FireBall>();
+	RedMissile *laser = World::spawnEntity<RedMissile>();
 	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);

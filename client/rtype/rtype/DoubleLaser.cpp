@@ -101,16 +101,6 @@ void DoubleLaser::updateFrame(void)
 
 void DoubleLaser::initFrame(void)
 {
-	// 53 551 - 14 38
-	// 70 546 - 20 48
-	// 103 542 - 29 56
-	// 136 541 - 39 58
-	// 185 541 - 49 58
-	// 234 541 - 57 58
-	// 39 607 - 63 58
-	// 104 607 - 66 58
-	// 171 607 - 62 58
-	// 234 607 - 66 58
 	_frames.emplace_back(53, 551, 14, 38);
 	_frames.emplace_back(70, 546, 20, 48);
 	_frames.emplace_back(103, 542, 29, 56);

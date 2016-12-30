@@ -5,18 +5,16 @@ Dop::Dop(void)
 	_delta = 0;
 	_id = 0;
 	_life = 2;
-	_fireRate = 2.f;
-	_velocity = 75;
-	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-40, -10));
-	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-40, 10));
+	_fireRate = 1.5f;
+	_velocity = 100;
+	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-40, 0));
 	setAngle(180);
 	_state = State::None;
 
-	// à l'ia de changer ça :
 	_canonsDegrees.emplace_back<float>(180);
-	_canonsDegrees.emplace_back<float>(180);
+	_canonsVelocity.emplace_back(150);
 
-
+	_delta = _fireRate;
 }
 
 Dop::~Dop(void)
@@ -132,4 +130,9 @@ std::vector<std::pair<uint16_t, uint16_t> > const& Dop::getCanonRelativePosition
 std::vector<float> const& Dop::getCanonDegrees(void) const
 {
 	return (_canonsDegrees);
+}
+
+std::vector<uint8_t> const& Dop::getCanonVelocity(void) const
+{
+	return (_canonsVelocity);
 }

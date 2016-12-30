@@ -327,6 +327,9 @@
     <ClCompile Include="MenuSlider.cpp">
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
+    <ClCompile Include="RedMissile.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -619,6 +622,9 @@
     </ClInclude>
     <ClInclude Include="MenuSlider.hpp">
       <Filter>Fichiers d%27en-tête\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMissile.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

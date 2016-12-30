@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ANPC.hpp"
-#include "FireBall.hpp"
+#include "RedMissile.hpp"
 #include "Explosion.hpp"
 
 class Dop : public ANPC

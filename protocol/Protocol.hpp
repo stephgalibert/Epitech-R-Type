@@ -27,7 +27,8 @@ enum class MissileType : uint8_t
 	Standard = 0,
 	Laser = 1,
 	DoubleLaser = 2,
-	FireBall = 3
+	FireBall = 3,
+	RedMissile = 4
 };
 
 enum class PowerUPsType : uint8_t

@@ -13,6 +13,7 @@ Zorg::Zorg(void)
 	_canonsDegrees.emplace_back<float>(180);
 	_state = State::None;
 	_angleState = AngleState::Increase;
+	_canonsVelocity.emplace_back(230);
 }
 
 Zorg::~Zorg(void)
@@ -146,4 +147,9 @@ std::vector<std::pair<uint16_t, uint16_t> > const& Zorg::getCanonRelativePositio
 std::vector<float> const& Zorg::getCanonDegrees(void) const
 {
 	return (_canonsDegrees);
+}
+
+std::vector<uint8_t> const& Zorg::getCanonVelocity(void) const
+{
+	return (_canonsVelocity);
 }
