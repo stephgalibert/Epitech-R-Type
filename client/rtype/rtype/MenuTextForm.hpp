@@ -31,6 +31,7 @@ public:
 	void clearFieldsContent(void);
 	void removeFields(void);
 	void setFocusedField(const uint32_t field);
+	void setActive(const bool active);
 
 public:
 	sf::Vector2f const &getSize(void) const;
@@ -41,6 +42,7 @@ public:
 	MenuTextField const &getField(std::string const &fieldName) const;
 	uint32_t getDrawnFieldsMax(void) const;
 	uint32_t getFocusedField(void) const;
+	bool isActive(void) const;
 
 private:
 	MenuTextField &getField(std::string const &fieldName);
@@ -48,6 +50,7 @@ private:
 
 private:
 	uint32_t _focusedField;
+	bool _active;
 
 private:
 	sf::RectangleShape _frame;

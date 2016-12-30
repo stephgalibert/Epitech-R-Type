@@ -8,6 +8,9 @@
 
 std::ofstream StaticTools::Log;
 
+uint32_t StaticTools::musicVolume = 100u;
+uint32_t StaticTools::soundVolume = 100u;
+
 std::pair<short, short> StaticTools::GetResolution(void)
 {
 	return (std::make_pair<short, short>(1280, 720));

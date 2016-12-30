@@ -324,6 +324,9 @@
     <ClCompile Include="Force.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSlider.cpp">
+      <Filter>Fichiers sources\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -613,6 +616,9 @@
     </ClInclude>
     <ClInclude Include="Force.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSlider.hpp">
+      <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

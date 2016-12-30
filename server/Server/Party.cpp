@@ -201,7 +201,7 @@ void Party::loop(void)
 
 bool Party::isReady(void)
 {
-	return (_cm.getPlayerNumber() > 0);
+	return (_cm.getPlayerNumber() > 1);
 }
 
 bool Party::isFinished(void)

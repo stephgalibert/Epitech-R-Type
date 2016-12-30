@@ -30,8 +30,8 @@ std::pair<uint16_t, uint16_t> LuaHandler::getTarget(std::pair<double, double> mo
 		return (std::make_pair(0, 0));
 	for (int i = 0; i < 10; i++)
 		playerPos[i] = -1;
-	mobPos.first = playerPos[0];
-	mobPos.second = playerPos[1];
+	playerPos[0] = mobPos.first;
+	playerPos[1] = mobPos.second;
 	c = 2;
 	for (auto & element : players) {
 		playerPos[c] = element.x;
@@ -39,6 +39,7 @@ std::pair<uint16_t, uint16_t> LuaHandler::getTarget(std::pair<double, double> mo
 		c += 2;
 	}
 	_lua->callFunction("getTarget", 10, playerPos, result);
-	result = 0;
+	if (result > players.size())
+		return (std::make_pair(0, 0));
 	return (std::make_pair(players[result].x, players[result].y));
 }

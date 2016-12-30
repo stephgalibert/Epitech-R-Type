@@ -21,5 +21,8 @@ public:
 	static void SplitString(std::string const& s, char delim, std::vector<std::string> &elems);
 
 	static std::ofstream Log;
+
+	static uint32_t soundVolume;
+	static uint32_t musicVolume;
 };
 

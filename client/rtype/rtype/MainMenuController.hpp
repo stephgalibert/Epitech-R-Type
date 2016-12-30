@@ -65,8 +65,8 @@ public:
 		PLAY = 0,
 		CREATE = 1,
 		OPTIONS = 2,
-		QUIT = 3,
-		CREDITS = 4,
+		CREDITS = 3,
+		QUIT = 4,
 		NONE = -1
 	};
 

@@ -11,7 +11,7 @@ const float MenuTextForm::FORM_LATERAL_PADDING = 10.f;
 const float MenuTextForm::FORM_VERTICAL_PADDING = 10.f;
 const float MenuTextForm::TEXT_FIELD_HEIGHT = 40.f;
 
-MenuTextForm::MenuTextForm() : _focusedField(0) {
+MenuTextForm::MenuTextForm() : _focusedField(0), _active(true) {
 	_frame.setFillColor(DEFAULT_BACKGROUND_COLOR);
 	_frame.setOutlineThickness(FRAME_OUTILINE_THICKNESS);
 }
@@ -34,7 +34,7 @@ void MenuTextForm::draw(sf::RenderTarget &target, sf::RenderStates states) const
 			label.setPosition(sf::Vector2f(_fields.at(i).second.getPosition().x, _fields.at(i).second.getPosition().y - FORM_VERTICAL_PADDING - LABEL_FONT_CHAR_SIZE));
 			target.draw(label);
 			target.draw(_fields.at(i).second);
-			if (i != _focusedField) {
+			if (!_active || i != _focusedField) {
 				inactiveCover.setPosition(_fields.at(i).second.getPosition());
 				inactiveCover.setSize(_fields.at(i).second.getSize());
 				target.draw(inactiveCover, states);
@@ -111,6 +111,10 @@ void MenuTextForm::setFocusedField(const uint32_t field) {
 	updateLayout();
 }
 
+void MenuTextForm::setActive(const bool active) {
+	_active = active;
+}
+
 sf::Vector2f const &MenuTextForm::getSize(void) const {
 	return _frame.getSize();
 }
@@ -150,6 +154,10 @@ uint32_t MenuTextForm::getDrawnFieldsMax(void) const {
 
 uint32_t MenuTextForm::getFocusedField(void) const {
 	return _focusedField;
+}
+
+bool MenuTextForm::isActive(void) const {
+	return _active;
 }
 
 MenuTextField &MenuTextForm::getField(std::string const &fieldName) {
