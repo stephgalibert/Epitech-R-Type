@@ -28,6 +28,32 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
+[Code]
+function CreateBatch(): boolean;
+var
+  fileName : string;
+  lines : TArrayOfString;
+begin
+  Result := true;
+  fileName := ExpandConstant('{app}\launcher.bat');
+  SetArrayLength(lines, 3);
+  lines[0] := 'cd "' + ExpandConstant('{app}') + '"';
+  lines[1] := 'start ./rtype "" %1';
+  Result := SaveStringsToFile(filename,lines,true);
+  exit;                                
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if  CurStep=ssPostInstall then
+    begin
+         CreateBatch();
+    end
+end;
+
+[UninstallDelete]
+Type: files; Name: "{app}\launcher.bat"
+
 [Files]
 Source: "C:\Github\R-Type\client\rtype\Release\rtype.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Github\R-Type\client\rtype\Release\rsrc\*"; DestDir: "{app}\rsrc"; Flags: ignoreversion recursesubdirs createallsubdirs
