@@ -22,7 +22,7 @@ public:
 
 	static std::ofstream Log;
 
-	static uint32_t soundVolume;
-	static uint32_t musicVolume;
+	static float soundVolume;
+	static float musicVolume;
 };
 

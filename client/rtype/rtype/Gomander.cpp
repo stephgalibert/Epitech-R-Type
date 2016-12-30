@@ -111,6 +111,7 @@ void Gomander::move(float delta)
 
 void Gomander::shoot(Fire const& param)
 {
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->setVolume(StaticTools::soundVolume);
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
 	uint16_t id = param.id;

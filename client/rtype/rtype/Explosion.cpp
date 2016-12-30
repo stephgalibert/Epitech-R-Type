@@ -29,6 +29,7 @@ void Explosion::init(void)
 		setShape(_shape);
 		setTexture(texture);
 
+		ProjectResource::TheProjectResource.getSoundByKey("explosions")->setVolume(StaticTools::soundVolume);
 		ProjectResource::TheProjectResource.getSoundByKey("explosions")->play();
 	}
 	catch (std::exception const& e) {

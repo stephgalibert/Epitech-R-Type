@@ -48,6 +48,7 @@ void GameOverController::update(float delta)
 	_delta += delta;
 
 	if (!_started) {
+		ProjectResource::TheProjectResource.getMusicByKey("game_over").setVolume(StaticTools::musicVolume);
 		ProjectResource::TheProjectResource.getMusicByKey("game_over").play();
 		_started = true;
 	}

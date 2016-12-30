@@ -48,6 +48,7 @@ void GameWinController::update(float delta)
 	_delta += delta;
 
 	if (!_started) {
+		ProjectResource::TheProjectResource.getMusicByKey("game_win").setVolume(StaticTools::musicVolume);
 		ProjectResource::TheProjectResource.getMusicByKey("game_win").play();
 		_started = true;
 	}

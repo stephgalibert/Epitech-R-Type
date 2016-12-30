@@ -26,8 +26,8 @@ public:
 	std::string const &getHost(void) const;
 	std::string const &getPort(void) const;
 	MenuTextForm const &getForm(void) const;
-	uint32_t getSoundValue(void) const;
-	uint32_t getMusicValue(void) const;
+	float getSoundValue(void) const;
+	float getMusicValue(void) const;
 	uint8_t getFocusedItem(void) const;
 
 public:
@@ -35,8 +35,8 @@ public:
 	void setWidth(const float width);
 	void setHost(std::string const &host);
 	void setPort(std::string const &port);
-	void setSoundValue(const uint32_t value);
-	void setMusicValue(const uint32_t value);
+	void setSoundValue(const float value);
+	void setMusicValue(const float value);
 	void resetFocus(void);
 
 public:

@@ -11,6 +11,7 @@ BossIncomingController::BossIncomingController(void)
 
 BossIncomingController::~BossIncomingController(void)
 {
+	ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").setVolume(StaticTools::musicVolume);
 	ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").stop();
 }
 
@@ -43,6 +44,7 @@ void BossIncomingController::update(float delta)
 {
 	if (!_started) {
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").stop();
+		ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").setVolume(StaticTools::musicVolume);
 		ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").setLoop(true);
 		ProjectResource::TheProjectResource.getMusicByKey("boss_incoming").play();
 		_started = true;

@@ -121,11 +121,11 @@ MenuTextForm const &MenuOptions::getForm(void) const {
 	return _form;
 }
 
-uint32_t MenuOptions::getSoundValue(void) const {
+float MenuOptions::getSoundValue(void) const {
 	return _soundSlider.getValue();
 }
 
-uint32_t MenuOptions::getMusicValue(void) const {
+float MenuOptions::getMusicValue(void) const {
 	return _musicSlider.getValue();
 }
 
@@ -153,11 +153,11 @@ void MenuOptions::setPort(std::string const &port) {
 	_form.setFieldContent(FORM_PORT_FIELD, port);
 }
 
-void MenuOptions::setSoundValue(const uint32_t value) {
+void MenuOptions::setSoundValue(const float value) {
 	_soundSlider.setValue(value);
 }
 
-void MenuOptions::setMusicValue(const uint32_t value) {
+void MenuOptions::setMusicValue(const float value) {
 	_musicSlider.setValue(value);
 }
 

@@ -11,7 +11,7 @@ class MenuSlider : public sf::Drawable {
 	static const sf::Color DEFAULT_COLOR;
 
 public:
-	MenuSlider(uint32_t value = 0u);
+	MenuSlider(float value = 0.f);
 	virtual ~MenuSlider();
 
 public:
@@ -22,19 +22,19 @@ public:
 public:
 	sf::Vector2f const &getPosition(void) const;
 	sf::Vector2f const &getSize(void) const;
-	uint32_t getValue(void) const;
+	float getValue(void) const;
 	sf::Color const &getColor(void) const;
 
 public:
 	void setPosition(sf::Vector2f const &position);
 	void setSize(sf::Vector2f const &size);
-	void setValue(const uint32_t value);
+	void setValue(const float value);
 	void setColor(sf::Color const &color);
 
 private:
 	sf::Vector2f _position;
 	sf::Vector2f _size;
-	uint32_t _value;
+	float _value;
 
 private:
 	sf::RectangleShape _sliderHorizontalBar;

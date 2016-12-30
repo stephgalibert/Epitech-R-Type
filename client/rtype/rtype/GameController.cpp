@@ -240,6 +240,7 @@ void GameController::updateWaiting(float delta)
 void GameController::updatePlaying(float delta)
 {
 	if (_prevState != _state && _state != GameStatusType::BossIncoming) {
+		ProjectResource::TheProjectResource.getMusicByKey("stage_01").setVolume(StaticTools::musicVolume);
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").setLoop(true);
 		ProjectResource::TheProjectResource.getMusicByKey("stage_01").play();
 		_prevState = _state;

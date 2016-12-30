@@ -109,6 +109,7 @@ void Zork::move(float delta)
 
 void Zork::shoot(Fire const& param)
 {
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->setVolume(StaticTools::soundVolume);
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 	
 	uint16_t id = param.id;

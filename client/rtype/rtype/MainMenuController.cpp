@@ -328,6 +328,7 @@ void MainMenuController::mute(void) const {
 }
 
 void MainMenuController::unmute(void) const {
+	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).setVolume(StaticTools::musicVolume);
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).setLoop(true);
 	ProjectResource::TheProjectResource.getMusicByKey(ProjectResource::MAIN_THEME).play();
 }

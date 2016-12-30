@@ -5,7 +5,7 @@ const uint32_t MenuSlider::MIN_VALUE = 0u;
 const float MenuSlider::VALUE_BAR_WIDTH = 5u;
 const sf::Color MenuSlider::DEFAULT_COLOR = sf::Color::White;
 
-MenuSlider::MenuSlider(uint32_t value) {
+MenuSlider::MenuSlider(float value) {
 	setValue(value);
 	setColor(DEFAULT_COLOR);
 	updateDisplay();
@@ -51,7 +51,7 @@ sf::Vector2f const & MenuSlider::getSize(void) const {
 	return _size;
 }
 
-uint32_t MenuSlider::getValue(void) const {
+float MenuSlider::getValue(void) const {
 	return _value;
 }
 
@@ -69,7 +69,7 @@ void MenuSlider::setSize(sf::Vector2f const &size) {
 	updateDisplay();
 }
 
-void MenuSlider::setValue(const uint32_t value) {
+void MenuSlider::setValue(const float value) {
 	if (value > MAX_VALUE)
 		_value = MAX_VALUE;
 	else if (value < MIN_VALUE)

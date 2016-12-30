@@ -201,6 +201,7 @@ void Player::shoot(Fire const& param)
 		_loadedPowder = NULL;
 	}
 
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->setVolume(StaticTools::soundVolume);
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
 	MissileType type = param.type;

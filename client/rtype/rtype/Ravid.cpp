@@ -97,6 +97,7 @@ void Ravid::move(float delta)
 
 void Ravid::shoot(Fire const& param)
 {
+	ProjectResource::TheProjectResource.getSoundByKey("shot")->setVolume(StaticTools::soundVolume);
 	ProjectResource::TheProjectResource.getSoundByKey("shot")->play();
 
 	uint16_t id = param.id;
