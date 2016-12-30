@@ -33,7 +33,7 @@ function CreateRoom() {
 }
 
 function connectParty() {
-    window.open(prefix_link + $('#User_Connect_Txt').val() + room_name + $('#Pass_Connect_Txt').val());
+    window.open(prefix_link + $('#User_Connect_Txt').val() + " " + room_name + " " + $('#Pass_Connect_Txt').val());
 }
 
 function UpdateParty() {
