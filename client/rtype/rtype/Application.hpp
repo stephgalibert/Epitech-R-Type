@@ -64,6 +64,9 @@ private:
 	std::unordered_map<ApplicationState, std::function<void(float)>, EnumHash> _updates;
 	std::unordered_map<ApplicationState, std::function<void(sf::RenderWindow &)>, EnumHash> _draws;
 
+	std::string _ip;
+	std::string _port;
+
 	/* to remove later */
 	std::string _username;
 	std::string _host;

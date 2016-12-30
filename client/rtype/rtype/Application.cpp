@@ -1,7 +1,10 @@
 #include "Application.hpp"
 
 Application::Application(std::string const& ip, std::string const& port)
-	: _client(&_game, _menu, ip, port), _menu(_client)
+	: _client(&_game, _menu, ip, port),
+	  _menu(_client),
+	  _ip(ip),
+	  _port(port)
 {
 	std::pair<short, short> resolution = StaticTools::GetResolution();
 
@@ -26,6 +29,12 @@ Application::Application(std::string const& ip, std::string const& port)
 
 Application::~Application(void)
 {
+	//if (_menu) {
+	//	delete (_menu);
+	//}
+	//if (_client) {
+	//	delete (_client);
+	//}
 }
 
 void Application::init(std::string const& username, std::string const& host, std::string const& pwd)
@@ -43,10 +52,12 @@ void Application::init(std::string const& username, std::string const& host, std
 		_inputHandler.init();
 		
 		_menu.init();
+		_menu.setHostIp(_ip);
+		_menu.setPort(_port);
 
-		//if (!_username.empty()) {
-		//	play();
-		//}
+		if (!_username.empty()) {
+			play();
+		}
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "application: " << e.what() << std::endl;
@@ -98,7 +109,7 @@ void Application::createGame(void)
 	//_host = data.game;
 	//_pwd = data.password;
 
-	while (!_client.isConnected());
+	//while (!_client.isConnected());
 	_client.write(std::make_shared<CMDCreateParty>(_host, _pwd));
 }
 
@@ -144,7 +155,7 @@ void Application::updateMenu(float delta)
 		play();
 		break;
 	case MainMenuController::SelectedAction::OPTIONS:
-		//Change host ip and port
+		//_client.setRemote(_menu.getConnectData().hostIp, _menu.getConnectData().port);
 		break;
 	case MainMenuController::SelectedAction::QUIT:
 		_quit = true;

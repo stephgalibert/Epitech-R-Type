@@ -19,14 +19,11 @@ void WinServerSocket::init(std::string const & listenHost, short listenPort)
 	_port = listenPort;
 
 	SOCKADDR_IN sin;
-	//char ipstr[INET6_ADDRSTRLEN];
 	int ret = 0;
 	u_long socket_state = 0;
 
 
 	sin.sin_family = AF_INET;
-	//sin.sin_addr.s_addr = inet_pton(AF_INET, _host.c_str(), ipstr);
-	//sin.sin_addr.s_addr = inet_addr(_host.c_str());
 	sin.sin_addr.s_addr = INADDR_ANY;
 	sin.sin_port = htons(_port);
 	_socket = socket(AF_INET, SOCK_STREAM, 0);

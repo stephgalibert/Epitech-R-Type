@@ -23,8 +23,8 @@ void Zorg::update(double delta, std::vector<PlayerData> const& players)
 {
 	(void)delta;
 
-	std::pair<uint16_t, uint16_t> target = _lh.getTarget(this->getPosition(), players);
-	_canonsDegrees[0] = ((std::atan2(this->getPosition().second - target.second, this->getPosition().first - target.first)) * 180 / 3.14159265359) - 180;
+	std::pair<uint16_t, uint16_t> target = _lh.getTarget(getPosition(), players);
+	_canonsDegrees[0] = static_cast<float>((std::atan2(getPosition().second - target.second, getPosition().first - target.first)) * 180.f / 3.14159265359f) - 180.f;
 	_delta += delta;
 	if (_angleState == AngleState::Increase) {
 		if (getAngle() < 230) {

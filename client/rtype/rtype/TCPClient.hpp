@@ -6,6 +6,7 @@
 #include <queue>
 #include <fstream>
 #include <mutex>
+#include <memory>
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
@@ -46,7 +47,7 @@ private:
 	boost::asio::io_service _io_service;
 	boost::asio::deadline_timer _timer;
 	boost::asio::ip::tcp::resolver _resolver;
-	boost::asio::ip::tcp::socket _socket;
+	std::shared_ptr<boost::asio::ip::tcp::socket> _socket;
 
 	boost::asio::streambuf _read;
 	std::queue<std::shared_ptr<ICommand> > _toWrites;
