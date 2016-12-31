@@ -533,6 +533,12 @@ bool MainMenuController::handleMenuInput(InputHandler &input) {
 				return keyAction.second();
 			}
 		}
+		if (isJoystickConfirmed(input))
+			return keyReturn();
+		else if (input.isJoystickDown())
+			return keyDown();
+		else if (input.isJoystickUp())
+			return keyUp();
 	}
 	return false;
 }
