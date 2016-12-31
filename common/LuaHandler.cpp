@@ -2,7 +2,7 @@
 
 LuaHandler::LuaHandler(std::string const& mobName)
 {
-	_luaFileName = mobName + ".lua";
+	_luaFileName = "./rsrc/script/" + mobName + ".lua";
 	loadLuaFile();
 }
 
@@ -25,9 +25,16 @@ std::pair<uint16_t, uint16_t> LuaHandler::getTarget(std::pair<double, double> mo
 	int playerPos[10];
 	int result = 0;
 	int c;
+	static int rand = -1;
 
+	rand += 1;
 	if (!players.size())
 		return (std::make_pair(0, 0));
+	if (rand % 2) {
+		int target = _gen(1, players.size()) - 1;		
+		return (std::make_pair(static_cast<uint16_t>(players[target].x),
+			static_cast<uint16_t>(players[target].y)));
+	}
 	for (int i = 0; i < 10; i++)
 		playerPos[i] = -1;
 	playerPos[0] = static_cast<int>(mobPos.first);
@@ -42,5 +49,5 @@ std::pair<uint16_t, uint16_t> LuaHandler::getTarget(std::pair<double, double> mo
 	if (result > static_cast<int>(players.size()))
 		return (std::make_pair(0, 0));
 	return (std::make_pair(static_cast<uint16_t>(players[result].x),
-			static_cast<int>(players[result].y)));
+			static_cast<uint16_t>(players[result].y)));
 }

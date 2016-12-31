@@ -152,11 +152,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\Generator.hpp" />
     <ClInclude Include="..\..\common\LuaHandler.hpp" />
     <ClInclude Include="..\..\common\lua_adapter.hpp" />
     <ClInclude Include="Zorg.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\common\Generator.cpp" />
     <ClCompile Include="..\..\common\LuaHandler.cpp" />
     <ClCompile Include="..\..\common\lua_adapter.cpp" />
     <ClCompile Include="Zorg.cpp" />

@@ -1,6 +1,9 @@
 # visual studio
 *.VC.db
 *.VC.VC.opendb
+*.exp
+*.ilk
+*.bsc
 
 # Prerequisites
 *.d
