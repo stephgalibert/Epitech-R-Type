@@ -1,16 +1,10 @@
 #include "Health.hpp"
 
-const float Health::MAX_HEALTH = 3.f;
-
 Health::Health(void)
 {
-	_shape = NULL;
-	_resolution = StaticTools::GetResolution();
-	_health = 0;
 	_delta = 0;
-	_deltaLife = 0;
-	_inverse = false;
-	_state = State::HealthOn;
+	_currentFrame = 0;
+	_ownerID = 0;
 }
 
 Health::~Health(void)
@@ -19,101 +13,60 @@ Health::~Health(void)
 
 void Health::init(void)
 {
-	_initSize = sf::Vector2f(20, 157);
-	_initPos = sf::Vector2f(20 + 6, _resolution.second - 289.f);
+	sf::RectangleShape *shape = new sf::RectangleShape;
+	shape->setSize(sf::Vector2f(29, 24));
 
-	_shape = new sf::ConvexShape(4);
-	_shape->setPoint(0, sf::Vector2f(0, 0));
-	_shape->setPoint(1, sf::Vector2f(_initSize.x, _initSize.x));
-	_shape->setPoint(2, sf::Vector2f(_initSize.x, _initSize.x + _initSize.y));
-	_shape->setPoint(3, sf::Vector2f(0, _initSize.y));
+	try {sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("health");
+		texture->setSmooth(true);
 
-	_color = sf::Color(170, 0, 0, 180);
-	_shape->setFillColor(_color);
-
-	setPosition(_initPos);
-	setShape(_shape);
+		setShape(shape);
+		setTexture(texture);
+	}
+	catch (std::exception const& e) {
+		StaticTools::Log << e.what() << std::endl;
+	}
 }
 
 void Health::update(float delta)
 {
-	switch (_state)
-	{
-	case Health::State::HealthOn:
-		updateHealthOn(delta);
-		break;
-	case Health::State::HealthOff:
-		updateHealthOff(delta);
-		break;
-	default:
-		break;
-	}
+	(void)delta;
 }
 
 void Health::destroy(IClient &client)
 {
-	(void)client;
-}
-
-void Health::setHealth(uint8_t health)
-{
-	if (health > MAX_HEALTH)
-		return;
-
-	_health = health;
-	if (_health < 3) {
-		_deltaLife = 3;
-	}
-
-	float coef = (100.f * health) / MAX_HEALTH;
-	sf::Vector2f size;
-	sf::Vector2f pos;
-
-	size.x = _initSize.x;
-	size.y = _initSize.y * (coef / 100.f);
-
-	_shape->setPoint(0, sf::Vector2f(0, 0));
-	_shape->setPoint(1, sf::Vector2f(size.x, size.x));
-	_shape->setPoint(2, sf::Vector2f(size.x, size.x + size.y));
-	_shape->setPoint(3, sf::Vector2f(0, size.y));
-
-	coef = 100 - coef;
-	pos.x = _initPos.x;
-	pos.y = _initPos.y + _initSize.y * (coef / 100.f);
-	setPosition(pos);
-}
-
-void Health::updateHealthOn(float delta)
-{
-  (void)delta;
-	if (_deltaLife > 0.f) {
-		_delta = 0;
-		_state = State::HealthOff;
+	if (_ownerID > 0) {
+		client.write(std::make_shared<CMDEffect>(EffectType::AddLife, _ownerID, true));
 	}
 }
 
-void Health::updateHealthOff(float delta)
+std::string Health::getType(void) const
 {
-	if (_deltaLife > 0.f) {
-		_delta += delta;
-		if (_delta > 0.2f) {
-			if (_inverse) {
-				_color.a = 40;
-			}
-			else {
-				_color.a = 180;
-			}
-			_inverse = !_inverse;
-			_shape->setFillColor(_color);
-			_delta = 0;
-		}
-		_deltaLife -= delta;
+	return ("health");
+}
+
+void Health::attachToEntity(AEntity *entity)
+{
+	if (entity->getHealth() > 0 && entity->getHealth() < 3) {
+		entity->setHealth(entity->getHealth() + 1);
+		_ownerID = entity->getID();
+		recycle();
 	}
 	else {
-		_delta = 0;
-		_state = State::HealthOn;
-		_color.a = 180;
-		_shape->setFillColor(_color);
-		_inverse = false;
+		setCollisionType(COLLISION_PUP);
+		setCollisioned(false);
 	}
+}
+
+bool Health::fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos, uint8_t velocity, float angle, uint8_t level)
+{
+	return (false);
+}
+
+bool Health::canBeCumulated(void) const
+{
+	return (true);
+}
+
+void Health::upgrade(void)
+{
 }

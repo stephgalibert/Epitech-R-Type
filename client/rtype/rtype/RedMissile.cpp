@@ -1,10 +1,11 @@
 #include "RedMissile.hpp"
+#include "World.hpp"
 
-const float RedMissile::COEF_RESIZE = 1.3f;
+const float RedMissile::COEF_RESIZE = 1.f;
 
 RedMissile::RedMissile(void)
 {
-	setCollisionType(COLLISION_MISSILE);
+	setCollisionType(COLLISION_FATAL);
 	initFrame();
 	_delta = 0;
 	_deltaFall = 0;
@@ -62,9 +63,13 @@ void RedMissile::collision(IClient *client, AEntity *other)
 	(void)client;
 	if (!other->isInvincible() && !hasCollisioned()
 		&& other->getID() > 0 && other->getID() < 29999
-		&& other->getCollisionType() == COLLISION_FATAL) {
+		&& (other->getCollisionType() == COLLISION_FATAL || other->getCollisionType() == COLLISION_MISSILE)) {
 
 		setCollisioned(true);
+
+		Explosion *explosion = World::spawnEntity<Explosion>();
+		explosion->setPosition(getPosition());
+		explosion->setReadyForInit(true);
 		recycle();
 	}
 }
@@ -77,7 +82,7 @@ void RedMissile::applyCollision(CollisionType type, AEntity *other)
 	case CollisionType::None:
 		break;
 	case CollisionType::Destruction:
-		recycle();
+		collisionDestruction();
 		break;
 	case CollisionType::PowerUP:
 		break;
@@ -93,9 +98,6 @@ void RedMissile::updateFrame(void)
 		if (_currentFrame < _frames.size() - 1) {
 			++_currentFrame;
 		}
-		//else {
-		//	_currentFrame = 0;
-		//}
 
 		sf::IntRect const& rect = _frames.at(_currentFrame);
 		setOrigin((rect.width * COEF_RESIZE) / 2.f, 0);
@@ -127,4 +129,10 @@ void RedMissile::initFrame(void)
 	_frames.emplace_back(2, 0, 20, 45);
 
 	_currentFrame = 0;
+}
+
+void RedMissile::collisionDestruction(void)
+{
+	
+	recycle();
 }

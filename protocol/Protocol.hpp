@@ -34,7 +34,8 @@ enum class MissileType : uint8_t
 enum class PowerUPsType : uint8_t
 {
 	Standard = 0,
-	IncreaseNumberOfCanon = 1
+	Force = 1,
+	Health = 2
 };
 
 enum class ObstacleType : uint8_t
@@ -68,7 +69,8 @@ enum class CollisionType : uint8_t
 enum class EffectType : uint8_t
 {
 	None = 0,
-	ScoreX2 = 1
+	ScoreX2 = 1,
+	AddLife = 2
 };
 
 struct Effect

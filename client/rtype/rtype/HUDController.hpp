@@ -2,7 +2,7 @@
 
 #include "AController.hpp"
 
-#include "Health.hpp"
+#include "HealthBar.hpp"
 #include "LoadedShotLayout.hpp"
 
 class HUDController : public AController
@@ -23,7 +23,7 @@ public:
 
 private:
 	float _delta;
-	Health _health;
+	HealthBar _health;
 	LoadedShotLayout _shot;
 	sf::RectangleShape _shape;
 	sf::CircleShape _colorShape;

@@ -599,28 +599,9 @@ void Player::collisionPowerUp(AEntity *other)
 				other->recycle();
 			}
 		}
-		//else {
-
-		//	std::list<APowerUp *>::iterator it = _drawablePowerUps.begin();
-		//	while (it != _drawablePowerUps.cend() && (*it)->getType() != powerUp->getType()) {
-		//		++it;
-		//	}
-		//	if (it != _drawablePowerUps.cend()) {
-		//		if ((*it)->canBeCumulated()) {
-		//			(*it)->upgrade();
-		//			other->recycle();
-		//		}
-		//		else {
-		//			_drawablePowerUps.erase(it);
-		//			powerUp->attachToEntity(this);
-		//			_drawablePowerUps.push_back(powerUp);
-		//		}
-		//	}
-		//	else {
-		//		powerUp->attachToEntity(this);
-		//		_drawablePowerUps.push_back(powerUp);
-		//	}
-		//}
+		else {
+			powerUp->attachToEntity(this);
+		}
 	}
 }
 

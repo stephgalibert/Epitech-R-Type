@@ -256,6 +256,7 @@ void GameController::updatePlaying(float delta)
 	}
 
 	if (_player) {
+		_hud.setHealth(_player->getHealth());
 		_hud.update(delta);
 	}
 

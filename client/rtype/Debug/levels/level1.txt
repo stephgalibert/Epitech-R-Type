@@ -1,8 +1,8 @@
 # MONSTER type seconds y
 # POWERUP type seconds x y
 
-POWERUP IncreaseNumberOfCanon 1 200 200
-POWERUP IncreaseNumberOfCanon 1 250 250
+POWERUP Force 1 200 200
+POWERUP Force 1 250 250
 
 # vague 1
 MONSTER Zork 2.5 50
@@ -37,6 +37,10 @@ MONSTER Zork 6 50
 MONSTER Zork 6 300
 MONSTER Zork 6 550
 
+POWERUP Health 7 300 300
+POWERUP Health 8 600 600
+POWERUP Health 9 450 100
+
 # vague 2
 MONSTER Dop 15 75
 MONSTER Dop 17 75
@@ -48,4 +52,4 @@ MONSTER Ravid 30 350
 MONSTER Ravid 30 550
 
 # final vague
-# BOSS Gomander 50 580
+BOSS Gomander 50 580

@@ -48,7 +48,6 @@ void Force::update(float delta)
 
 void Force::destroy(IClient &client)
 {
-	(void)client;
 	if (_ownerID > 0) {
 		client.write(std::make_shared<CMDEffect>(EffectType::ScoreX2, _ownerID, false));
 	}

@@ -189,6 +189,7 @@
     <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="GameWinController.cpp" />
     <ClCompile Include="Gomander.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HUDController.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="GameOverController.hpp" />
     <ClInclude Include="GameWinController.hpp" />
     <ClInclude Include="Gomander.hpp" />
+    <ClInclude Include="HealthBar.hpp" />
     <ClInclude Include="Health.hpp" />
     <ClInclude Include="HUDController.hpp" />
     <ClInclude Include="IClient.hpp" />
