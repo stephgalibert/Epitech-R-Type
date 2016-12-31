@@ -87,19 +87,19 @@ bool InputHandler::isExiting(void) const
 }
 
 bool InputHandler::isJoystickDown(void) const {
-	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::Y) < -JOYSTICK_DEAD_ZONE;
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::Y) < -50;
 }
 
 bool InputHandler::isJoystickUp(void) const {
-	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::Y) > JOYSTICK_DEAD_ZONE;
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::Y) > 70;
 }
 
 bool InputHandler::isJoystickLeft(void) const {
-	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::X) < -JOYSTICK_DEAD_ZONE;
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::X) < -70;
 }
 
 bool InputHandler::isJoystickRight(void) const {
-	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::X) > JOYSTICK_DEAD_ZONE;
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::X) > 70;
 }
 
 void InputHandler::keyPressed(sf::Event const& e)
