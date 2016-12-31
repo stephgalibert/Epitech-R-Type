@@ -1,5 +1,0 @@
-# MONSTER type seconds y
-# POWERUP type seconds x y
-
-# final vague
-# BOSS Gomander 50 580

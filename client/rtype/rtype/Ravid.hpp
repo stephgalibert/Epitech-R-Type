@@ -3,6 +3,7 @@
 #include "ANPC.hpp"
 #include "FireBall.hpp"
 #include "Explosion.hpp"
+#include "Generator.hpp"
 
 class Ravid : public ANPC
 {
@@ -41,14 +42,18 @@ private:
 	void collisionDestruction(void);
 
 	void refreshInvincibility(float delta);
+	void refreshExplosion(float delta);
 
 private:
 	float _delta;
+	float _deltaExplosing;
 	size_t _currentFrame;
 	sf::RectangleShape *_shape;
 	std::vector<sf::IntRect> _frames;
 	float _deltaInvincibleAnim;
 	bool _invincibleAnimState;
 	AnimationState _animState;
+	int _nbExplosion;
+	Generator _generator;
 };
 

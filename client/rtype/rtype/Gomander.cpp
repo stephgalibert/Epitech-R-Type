@@ -181,12 +181,6 @@ void Gomander::collisionDestruction(void)
 
 	if (getHealth() == 1) {
 		setExplode(true);
-
-		//Explosion *explosion = World::spawnEntity<Explosion>();
-		//explosion->setPosition(getPosition());
-		//explosion->setReadyForInit(true);
-
-		//recycle();
 	}
 	else {
 		setHealth(getHealth() - 1);

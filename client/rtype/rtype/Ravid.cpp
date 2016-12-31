@@ -10,6 +10,8 @@ Ravid::Ravid(void)
 	_invincibleAnimState = false;
 	initFrame();
 	_animState = AnimationState::Forward;
+	_nbExplosion = 0;
+	_deltaExplosing = 0;
 }
 
 Ravid::~Ravid(void)
@@ -42,6 +44,9 @@ void Ravid::update(float delta)
 {
 	_delta += delta;
 
+	if (isExploding()) {
+		refreshExplosion(delta);
+	}
 	updateFrame();
 	refreshInvincibility(delta);
 	ANPC::update(delta);
@@ -178,20 +183,7 @@ void Ravid::collisionDestruction(void)
 	setCollisionType(COLLISION_NONE);
 
 	if (getHealth() == 1) {
-
-		Explosion *explosion0 = World::spawnEntity<Explosion>();
-		explosion0->setPosition(pos.x - 10, pos.y - 20);
-		explosion0->setReadyForInit(true);
-
-		Explosion *explosion1 = World::spawnEntity<Explosion>();
-		explosion1->setPosition(pos.x + 5, pos.y);
-		explosion1->setReadyForInit(true);
-
-		Explosion *explosion2 = World::spawnEntity<Explosion>();
-		explosion2->setPosition(pos.x, pos.y + 20);
-		explosion2->setReadyForInit(true);
-
-		recycle();
+		setExplode(true);
 	}
 	else {
 		Explosion *explosion = World::spawnEntity<Explosion>();
@@ -226,5 +218,39 @@ void Ravid::refreshInvincibility(float delta)
 	}
 	else {
 		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+	}
+}
+
+void Ravid::refreshExplosion(float delta)
+{
+	_deltaExplosing += delta;
+	if (_deltaExplosing > 0.3f) {
+
+		sf::Color const& color = getShape()->getFillColor();
+		getShape()->setFillColor(sf::Color(color.r, color.g, color.b, 255));
+
+		++_nbExplosion;
+		if (_nbExplosion < 4) {
+			sf::Vector2f const& pos = getPosition();
+
+			uint16_t x = _generator(0, 60);
+			uint16_t y = _generator(0, 100);
+			float size = static_cast<float>(_generator(40, 80));
+
+			Explosion *explosion = World::spawnEntity<Explosion>();
+			explosion->setPosition(pos.x - 30 + x, pos.y - 50 + y);
+			explosion->setSize(size, size);
+			explosion->setReadyForInit(true);
+		}
+		else if (_nbExplosion == 4) {
+			Explosion *explosion = World::spawnEntity<Explosion>();
+			explosion->setPosition(getPosition());
+			explosion->setSize(100.f, 100.f);
+			explosion->setReadyForInit(true);
+		}
+		else {
+			recycle();
+		}
+		_deltaExplosing = 0;
 	}
 }

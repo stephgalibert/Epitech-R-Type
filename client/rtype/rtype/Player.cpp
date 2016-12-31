@@ -472,6 +472,14 @@ void Player::joystick(InputHandler &input)
 		_currentDirection = FRAME_BOT;
 	}
 
+	if (input.isJoystickButtonDown(1) && _deltaCtrl > 0.5f) {
+		if (_force) {
+			_force->inversePosition();
+			_force->attachToEntity(this);
+			_deltaCtrl = 0;
+		}
+	}
+
 	if (_deltaLoadedShot > 0.2f && !_loadedPowder) {
 		_loadedPowder = World::spawnEntity<LoadedPowdered>();
 		_loadedPowder->setPosition(getPosition().x + 48, getPosition().y + 3);

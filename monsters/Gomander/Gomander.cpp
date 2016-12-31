@@ -4,7 +4,7 @@ Gomander::Gomander(void)
 {
 	_delta = 0;
 	_id = 0;
-	_life = 2;
+	_life = 5;
 	_fireRate = 1.f;
 	_velocity = 250;
 	_canonsRelativePosition.emplace_back<std::pair<uint16_t, uint16_t> >(std::make_pair(-75, -55));
