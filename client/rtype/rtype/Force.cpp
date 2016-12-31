@@ -104,7 +104,7 @@ bool Force::canBeCumulated(void) const
 
 void Force::upgrade(void)
 {
-	if (_level < _frames.size()) {
+	if (_level < _frames.size() - 1) {
 		++_level;
 	}
 }

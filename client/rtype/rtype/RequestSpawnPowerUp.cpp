@@ -40,7 +40,6 @@ void RequestSpawnPowerUp::execute(IClient &client, std::shared_ptr<ICommand> dat
 	}
 
 	if (powerup) {
-		std::cout << "spawn power up with ID " << id << std::endl;
 		powerup->setID(id);
 		powerup->setPosition(sf::Vector2f(x, y));
 		powerup->setReadyForInit(true);
