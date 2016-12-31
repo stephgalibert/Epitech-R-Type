@@ -30,11 +30,11 @@ void MenuConfirmPopup::draw(sf::RenderTarget &target, sf::RenderStates states) c
 }
 
 bool MenuConfirmPopup::input(InputHandler &input) {
-	if (input.isKeyDown(sf::Keyboard::Right)) {
+	if (input.isKeyDown(sf::Keyboard::Right) || input.isJoystickRight()) {
 		_confirmButton.setState(MenuButton::State::INACTIVE);
 		_cancelButton.setState(MenuButton::State::HOVERED);
 	}
-	else if (input.isKeyDown(sf::Keyboard::Left)) {
+	else if (input.isKeyDown(sf::Keyboard::Left) || input.isJoystickLeft()) {
 		_confirmButton.setState(MenuButton::State::HOVERED);
 		_cancelButton.setState(MenuButton::State::INACTIVE);
 	}

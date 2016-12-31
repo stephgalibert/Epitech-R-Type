@@ -64,7 +64,7 @@ bool InputHandler::isJoystickPresent(void) const
 	return (_joystickPresent);
 }
 
-float InputHandler::getJoystickAxis(unsigned int id, sf::Joystick::Axis axis)
+float InputHandler::getJoystickAxis(unsigned int id, sf::Joystick::Axis axis) const
 {
 	return (sf::Joystick::getAxisPosition(id, axis));
 }
@@ -84,6 +84,22 @@ char InputHandler::popTextEntered(void)
 bool InputHandler::isExiting(void) const
 {
 	return (_exit);
+}
+
+bool InputHandler::isJoystickDown(void) const {
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::Y) < -JOYSTICK_DEAD_ZONE;
+}
+
+bool InputHandler::isJoystickUp(void) const {
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::Y) > JOYSTICK_DEAD_ZONE;
+}
+
+bool InputHandler::isJoystickLeft(void) const {
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::X) < -JOYSTICK_DEAD_ZONE;
+}
+
+bool InputHandler::isJoystickRight(void) const {
+	return isJoystickPresent() && getJoystickAxis(0, sf::Joystick::X) > JOYSTICK_DEAD_ZONE;
 }
 
 void InputHandler::keyPressed(sf::Event const& e)

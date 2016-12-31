@@ -413,7 +413,7 @@ bool MainMenuController::handleCreatingInput(InputHandler &input) {
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Return) && _form.getFocusedField() + 1 == _form.getFieldCount()) {
+		else if ((input.isKeyDown(sf::Keyboard::Return) || isJoystickConfirmed(input)) && _form.getFocusedField() + 1 == _form.getFieldCount()) {
 			try {
 				_connectData.game = _form.getFieldContent(FORM_GAME_NAME);
 				_connectData.password = _form.getFieldContent(FORM_PASSWORD);
@@ -438,7 +438,7 @@ bool MainMenuController::handleCreatingInput(InputHandler &input) {
 
 bool MainMenuController::handleCreateConfirmPopupInput(InputHandler &input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Return)) {
+		if (input.isKeyDown(sf::Keyboard::Return) || isJoystickConfirmed(input)) {
 			_keyboardEventDelta = 0.f;
 			if (_confirmPopup.isConfirmed()) {
 				_client.write(std::make_shared<CMDCreateParty>(_connectData.game, _connectData.password));
@@ -450,7 +450,7 @@ bool MainMenuController::handleCreateConfirmPopupInput(InputHandler &input) {
 			}
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Escape)) {
+		else if (input.isKeyDown(sf::Keyboard::Escape) || isJoystickCancel(input)) {
 			_keyboardEventDelta = 0.f;
 			_fsm = State::ST_Creating;
 			return true;
@@ -465,7 +465,7 @@ bool MainMenuController::handleCreateConfirmPopupInput(InputHandler &input) {
 
 bool MainMenuController::handleSelectingInput(InputHandler &input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Right)) {
+		if (input.isKeyDown(sf::Keyboard::Escape) || input.isKeyDown(sf::Keyboard::Right) || isJoystickCancel(input)) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			return true;
@@ -474,7 +474,7 @@ bool MainMenuController::handleSelectingInput(InputHandler &input) {
 			_browser.clearContent();
 			_client.write(std::make_shared<CMDGetParty>());
 		}
-		else if (input.isKeyDown(sf::Keyboard::Return) && _browser.getContent().size() > 0) {
+		else if ((input.isKeyDown(sf::Keyboard::Return) || isJoystickConfirmed(input)) && _browser.getContent().size() > 0) {
 			_selectedServer = _browser.getSelected();
 			_connectData.game = _browser.getContent().at(_selectedServer).name;
 			_fsm = State::ST_Username;
@@ -497,7 +497,7 @@ bool MainMenuController::handleSelectingInput(InputHandler &input) {
 
 bool MainMenuController::handleUsernamePopupInput(InputHandler &input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Return) && _inputPopup.getForm().getFocusedField() == _inputPopup.getForm().getFieldCount() - 1) {
+		if ((input.isKeyDown(sf::Keyboard::Return) || isJoystickConfirmed(input)) && _inputPopup.getForm().getFocusedField() == _inputPopup.getForm().getFieldCount() - 1) {
 			_keyboardEventDelta = 0.f;
 			try {
 				_connectData.username = _inputPopup.getTextFieldContent("Username");
@@ -512,7 +512,7 @@ bool MainMenuController::handleUsernamePopupInput(InputHandler &input) {
 			_fsm = State::ST_Menu;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Escape)) {
+		else if (input.isKeyDown(sf::Keyboard::Escape) || isJoystickCancel(input)) {
 			_keyboardEventDelta = 0.f;
 			_fsm = State::ST_Selecting;
 			return true;
@@ -538,7 +538,7 @@ bool MainMenuController::handleMenuInput(InputHandler &input) {
 }
 
 bool MainMenuController::handleSplashInput(InputHandler &input) {
-	if (input.isKeyDown(sf::Keyboard::Space) || input.isKeyDown(sf::Keyboard::Return)) {
+	if (input.isKeyDown(sf::Keyboard::Space) || input.isKeyDown(sf::Keyboard::Return) || isJoystickConfirmed(input) || isJoystickCancel(input)) {
 		abortSplash();
 		return true;
 	}
@@ -549,12 +549,14 @@ bool MainMenuController::handleCreditsInput(InputHandler & input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
 		if (input.isKeyDown(sf::Keyboard::Escape) ||
 			input.isKeyDown(sf::Keyboard::Return) ||
-			input.isKeyDown(sf::Keyboard::Right)) {
+			input.isKeyDown(sf::Keyboard::Right) ||
+			isJoystickCancel(input) ||
+			isJoystickConfirmed(input)) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Up) || input.isKeyDown(sf::Keyboard::Down)) {
+		else if (input.isKeyDown(sf::Keyboard::Up) || input.isKeyDown(sf::Keyboard::Down) || input.isJoystickDown()) {
 			_fsm = State::ST_Menu;
 			return handleMenuInput(input);
 		}
@@ -564,12 +566,12 @@ bool MainMenuController::handleCreditsInput(InputHandler & input) {
 
 bool MainMenuController::handleOptionsInput(InputHandler &input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Escape)) {
+		if (input.isKeyDown(sf::Keyboard::Escape) || isJoystickCancel(input)) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Return) && _optionsScreen.getFocusedItem() == MenuOptions::FocusedItem::MUSIC_SLIDER) {
+		else if ((input.isKeyDown(sf::Keyboard::Return) || isJoystickConfirmed(input)) && _optionsScreen.getFocusedItem() == MenuOptions::FocusedItem::MUSIC_SLIDER) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			StaticTools::musicVolume = _optionsScreen.getMusicValue();
@@ -588,4 +590,12 @@ bool MainMenuController::handleOptionsInput(InputHandler &input) {
 		}
 	}
 	return false;
+}
+
+bool MainMenuController::isJoystickConfirmed(InputHandler const &input) {
+	return input.isJoystickPresent() && (input.isJoystickButtonDown(0) || input.isJoystickButtonDown(7)); //A or Start
+}
+
+bool MainMenuController::isJoystickCancel(InputHandler const &input) {
+	return input.isJoystickPresent() && (input.isJoystickButtonDown(1) || input.isJoystickButtonDown(6)); //B or Back
 }

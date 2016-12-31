@@ -454,7 +454,7 @@ void Player::joystick(InputHandler &input)
 	if (getDirection() != direction) {
 		sf::Vector2f const& pos = getPosition();
 		_client->write(std::make_shared<CMDMove>(getID(), (uint16_t)pos.x, (uint16_t)pos.y,
-			(uint16_t)getVelocity(), direction));
+			(uint16_t)getVelocity(), direction)); 
 		setDirection(direction);
 	}
 

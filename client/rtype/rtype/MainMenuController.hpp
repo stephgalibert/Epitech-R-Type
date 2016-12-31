@@ -118,6 +118,9 @@ private:
 	bool handleCreditsInput(InputHandler &input);
 	bool handleOptionsInput(InputHandler &input);
 
+private:
+	bool isJoystickConfirmed(InputHandler const &input);
+	bool isJoystickCancel(InputHandler const &input);
 
 private:
 	bool keyUp(void);

@@ -32,7 +32,8 @@ void MenuOptions::init(sf::Font *font) {
 }
 
 bool MenuOptions::input(InputHandler &input) {
-	if (input.isKeyDown(sf::Keyboard::Return) || input.isKeyDown(sf::Keyboard::Down)) {
+	if (input.isKeyDown(sf::Keyboard::Return) || input.isKeyDown(sf::Keyboard::Down)
+		|| input.isJoystickDown() || (input.isJoystickPresent() && input.isJoystickButtonDown(0))) {
 		if (_focusedItem == FORM && _form.getFocusedField() + 1 == _form.getFieldCount()) {
 			_focusedItem = SOUND_SLIDER;
 			_soundSlider.setColor(SLIDER_FOCUSED_COLOR);
@@ -46,7 +47,7 @@ bool MenuOptions::input(InputHandler &input) {
 			return true;
 		}
 	}
-	else if (input.isKeyDown(sf::Keyboard::Up)) {
+	else if (input.isKeyDown(sf::Keyboard::Up) || input.isJoystickUp()) {
 		if (_focusedItem == SOUND_SLIDER) {
 			_focusedItem = FORM;
 			_soundSlider.setColor(SLIDER_INACTIVE_COLOR);

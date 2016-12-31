@@ -20,13 +20,13 @@ void MenuSlider::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 bool MenuSlider::input(InputHandler &input) {
-	if (input.isKeyDown(sf::Keyboard::Right)) {
+	if (input.isKeyDown(sf::Keyboard::Right) || input.isJoystickRight()) {
 		if (_value < MAX_VALUE)
 			_value++;
 		updateDisplay();
 		return true;
 	}
-	else if (input.isKeyDown(sf::Keyboard::Left)) {
+	else if (input.isKeyDown(sf::Keyboard::Left) || input.isJoystickLeft()) {
 		if (_value > MIN_VALUE)
 			_value--;
 		updateDisplay();

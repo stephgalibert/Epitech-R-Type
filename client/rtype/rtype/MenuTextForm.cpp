@@ -45,13 +45,14 @@ void MenuTextForm::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 bool MenuTextForm::input(InputHandler &input) {
 	if (!_fields.empty()) {
-		if (input.isKeyDown(sf::Keyboard::Down) || input.isKeyDown(sf::Keyboard::Tab) || input.isKeyDown(sf::Keyboard::Return)) {
+		if (input.isKeyDown(sf::Keyboard::Down) || input.isKeyDown(sf::Keyboard::Tab) || input.isKeyDown(sf::Keyboard::Return)
+			|| input.isJoystickDown() || (input.isJoystickPresent() && input.isJoystickButtonDown(0))) {
 			if (_focusedField < _fields.size() - 1)
 				_focusedField++;
 			updateLayout();
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Up)) {
+		else if (input.isKeyDown(sf::Keyboard::Up) || input.isJoystickDown()) {
 			if (_focusedField != 0)
 				_focusedField--;
 			updateLayout();

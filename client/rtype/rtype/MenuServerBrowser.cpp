@@ -91,7 +91,7 @@ void MenuServerBrowser::draw(sf::RenderTarget &target, sf::RenderStates states) 
 }
 
 bool MenuServerBrowser::input(InputHandler &input) {
-	if (input.isKeyDown(sf::Keyboard::Up)) {
+	if (input.isKeyDown(sf::Keyboard::Up) || input.isJoystickUp()) {
 		_selected--;
 		if (_selected < 0)
 			_selected = (_content.size() ? _content.size() - 1 : 0);
@@ -99,7 +99,7 @@ bool MenuServerBrowser::input(InputHandler &input) {
 			MainMenuResource::menuResourceManager.playSound(MainMenuResource::NAV_SOUND_3);
 		return true;
 	}
-	else if (input.isKeyDown(sf::Keyboard::Down)) {
+	else if (input.isKeyDown(sf::Keyboard::Down) || input.isJoystickDown()) {
 		_selected++;
 		if (static_cast<size_t>(_selected) >= _content.size())
 			_selected = 0;

@@ -23,9 +23,14 @@ public:
 	bool isJoystickPresent(void) const;
 	bool isTextEntered(void) const;
 
-	float getJoystickAxis(unsigned int id, sf::Joystick::Axis axis);
+	float getJoystickAxis(unsigned int id, sf::Joystick::Axis axis) const;
 	char popTextEntered(void);
 	bool isExiting(void) const;
+
+	bool isJoystickDown(void) const;
+	bool isJoystickUp(void) const;
+	bool isJoystickLeft(void) const;
+	bool isJoystickRight(void) const;
 
 private:
 	void keyPressed(sf::Event const& e);
