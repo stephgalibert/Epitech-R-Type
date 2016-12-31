@@ -88,7 +88,12 @@ void MonsterManager::addPlayerScore(std::shared_ptr<AConnection> player, uint16_
 	std::list<IMonster *>::iterator it = _monsters.begin();
 	while (it != _monsters.cend()) {
 		if ((*it)->getID() == monsterID) {
-			player->setScore(player->getScore() + (*it)->getScoreValue());
+			if (player->isEffectPresent(EffectType::ScoreX2)) {
+				player->setScore(player->getScore() + (*it)->getScoreValue() * 2);
+			}
+			else {
+				player->setScore(player->getScore() + (*it)->getScoreValue());
+			}
 			return;
 		}
 		++it;

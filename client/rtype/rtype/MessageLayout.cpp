@@ -32,6 +32,7 @@ void MessageLayout::update(float delta)
 	_delta += delta;
 
 	if (!_texts.empty() && _delta > 2.f) {
+		std::lock_guard<std::mutex> lock(_mutex);
 		pop();
 		_delta = 0;
 	}
@@ -43,6 +44,7 @@ void MessageLayout::recycle(void)
 
 void MessageLayout::addMessage(std::string const& msg)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
 	std::list<sf::Text>::iterator it = _texts.emplace<sf::Text>(_texts.begin(), {});
 
 	if (it != std::end(_texts)) {
@@ -52,9 +54,9 @@ void MessageLayout::addMessage(std::string const& msg)
 		it->setString(msg);
 	}
 
-	if (_texts.size() > 5) {
-		_texts.pop_back();
-	}
+	//if (_texts.size() > 5) {
+	//	pop();
+	//}
 
 	size_t i = 0;
 	for (auto &it : _texts) {

@@ -1,6 +1,7 @@
 #include "Player.hpp"
 #include "IClient.hpp"
 #include "APowerUp.hpp"
+#include "ForceBall.hpp"
 
 const uint8_t Player::FRAME_TOP = 0;
 const uint8_t Player::FRAME_MID = 1;
@@ -423,7 +424,7 @@ void Player::keyboard(InputHandler &input)
 	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
 	//	t = true;
 
-	//	RedMissile *laser = World::spawnEntity<RedMissile>();
+	//	ForceBall *laser = World::spawnEntity<ForceBall>();
 	//	laser->setPosition(getPosition());
 	//	laser->setReadyForInit(true);
 	//}
@@ -589,6 +590,7 @@ void Player::collisionPowerUp(AEntity *other)
 		Force *force = dynamic_cast<Force *>(other);
 		if (force) {
 			if (!_force) {
+				_client->write(std::make_shared<CMDEffect>(EffectType::ScoreX2, getID(), true));
 				_force = force;
 			}
 			else {

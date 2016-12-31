@@ -204,6 +204,9 @@
     <ClCompile Include="PowerupManager.cpp">
       <Filter>Fichiers sources\Party</Filter>
     </ClCompile>
+    <ClCompile Include="RequestEffect.cpp">
+      <Filter>Fichiers sources\Request</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -391,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="..\..\common\PlayerData.hpp">
       <Filter>Fichiers d%27en-tête\Party</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestEffect.hpp">
+      <Filter>Fichiers d%27en-tête\Request</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

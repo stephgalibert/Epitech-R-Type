@@ -330,6 +330,9 @@
     <ClCompile Include="RedMissile.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="ForceBall.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -624,6 +627,9 @@
       <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
     <ClInclude Include="RedMissile.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceBall.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>

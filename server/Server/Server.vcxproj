@@ -43,6 +43,7 @@
     <ClCompile Include="RequestCreateParty.cpp" />
     <ClCompile Include="RequestDestroyed.cpp" />
     <ClCompile Include="RequestDisconnect.cpp" />
+    <ClCompile Include="RequestEffect.cpp" />
     <ClCompile Include="RequestFire.cpp" />
     <ClCompile Include="RequestGameStatus.cpp" />
     <ClCompile Include="RequestGetParty.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="RequestCreateParty.hpp" />
     <ClInclude Include="RequestDestroyed.hpp" />
     <ClInclude Include="RequestDisconnect.hpp" />
+    <ClInclude Include="RequestEffect.hpp" />
     <ClInclude Include="RequestFire.hpp" />
     <ClInclude Include="RequestGameStatus.hpp" />
     <ClInclude Include="RequestGetParty.hpp" />

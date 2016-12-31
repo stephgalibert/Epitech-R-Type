@@ -43,7 +43,6 @@ void RedMissile::update(float delta)
 	AProjectile::update(delta);
 
 	if (_currentFrame == _frames.size() - 1) {
-		// 180 => 90 en 3 seconds
 		if (_deltaFall <= 3.f) {
 			float angle = 180 - (_deltaFall / 3.f) * 90.f;
 			setAngle(angle);

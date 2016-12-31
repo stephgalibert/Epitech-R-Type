@@ -22,5 +22,6 @@ enum class CommandType : uint8_t
 	LoadedPowder = 15,
 	SpawnPowerUp = 16,
 	Disconnect = 17,
-	SpawnPlayer = 18
+	SpawnPlayer = 18,
+	Effect = 19
 };

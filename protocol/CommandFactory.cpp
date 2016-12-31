@@ -17,7 +17,8 @@ const std::unordered_map<CommandType, std::function<std::shared_ptr<ICommand>(vo
 	{ CommandType::Message, std::bind(&CommandFactory::cmd_message) },
 	{ CommandType::SpawnPowerUp, std::bind(&CommandFactory::cmd_spawnPowerup) },
 	{ CommandType::Disconnect, std::bind(&CommandFactory::cmd_disconnect) },
-	{ CommandType::SpawnPlayer, std::bind(&CommandFactory::cmd_spawnPlayer) }
+	{ CommandType::SpawnPlayer, std::bind(&CommandFactory::cmd_spawnPlayer) },
+	{ CommandType::Effect, std::bind(&CommandFactory::cmd_effect) }
 };
 
 std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
@@ -26,6 +27,11 @@ std::shared_ptr<ICommand> CommandFactory::Build(CommandType type)
 		return (Commands.at(type)());
 	}
 	return (NULL);
+}
+
+std::shared_ptr<ICommand> CommandFactory::cmd_effect(void)
+{
+	return std::make_shared<CMDEffect>();
 }
 
 std::shared_ptr<ICommand> CommandFactory::cmd_spawnPlayer(void)

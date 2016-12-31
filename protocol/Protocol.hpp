@@ -65,6 +65,20 @@ enum class CollisionType : uint8_t
 	PowerUP = 2
 };
 
+enum class EffectType : uint8_t
+{
+	None = 0,
+	ScoreX2 = 1
+};
+
+struct Effect
+{
+	CommandType cmdType;
+	EffectType type;
+	uint16_t id;
+	bool to_add;
+};
+
 struct Ping
 {
 	CommandType cmdType;

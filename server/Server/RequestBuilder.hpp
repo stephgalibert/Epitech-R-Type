@@ -21,6 +21,7 @@
 #include "RequestMessage.hpp"
 #include "RequestScore.hpp"
 #include "RequestDisconnect.hpp"
+#include "RequestEffect.hpp"
 
 class RequestBuilder
 {
@@ -28,6 +29,7 @@ public:
 	static std::unique_ptr<IRequest> Build(CommandType type);
 
 private:
+	static std::unique_ptr<IRequest> create_EffectRequest(void);
 	static std::unique_ptr<IRequest> create_DisconnectRequest(void);
 	static std::unique_ptr<IRequest> create_ScoreRequest(void);
 	static std::unique_ptr<IRequest> create_MessageRequest(void);
