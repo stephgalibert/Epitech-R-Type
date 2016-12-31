@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ANPC.hpp"
-#include "FireBall.hpp"
+#include "BigFireBall.hpp"
 #include "Explosion.hpp"
 #include "Generator.hpp"
 

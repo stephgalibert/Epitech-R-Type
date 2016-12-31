@@ -114,7 +114,7 @@ void Ravid::shoot(Fire const& param)
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	FireBall *laser = World::spawnEntity<FireBall>();
+	BigFireBall *laser = World::spawnEntity<BigFireBall>();
 	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);

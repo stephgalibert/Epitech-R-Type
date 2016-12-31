@@ -174,6 +174,7 @@
     <ClCompile Include="AProjectile.cpp" />
     <ClCompile Include="AStatic.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BigFireBall.cpp" />
     <ClCompile Include="BossIncomingController.cpp" />
     <ClCompile Include="ConnectionLostController.cpp" />
     <ClCompile Include="DisplayArea.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="AProjectile.hpp" />
     <ClInclude Include="AStatic.hpp" />
     <ClInclude Include="Background.hpp" />
+    <ClInclude Include="BigFireBall.hpp" />
     <ClInclude Include="BossIncomingController.hpp" />
     <ClInclude Include="CacheManager.hpp" />
     <ClInclude Include="ConnectionLostController.hpp" />

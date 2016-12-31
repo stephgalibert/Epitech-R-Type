@@ -1,6 +1,6 @@
-#include "FireBall.hpp"
+#include "BigFireBall.hpp"
 
-FireBall::FireBall(void)
+BigFireBall::BigFireBall(void)
 {
 	setCollisionType(COLLISION_MISSILE);
 	setVelocity(230.f);
@@ -8,18 +8,18 @@ FireBall::FireBall(void)
 	_delta = 0;
 }
 
-FireBall::~FireBall(void)
+BigFireBall::~BigFireBall(void)
 {
 }
 
-void FireBall::init(void)
+void BigFireBall::init(void)
 {
 	_shape = new sf::RectangleShape;
-	_shape->setSize(sf::Vector2f(18, 14));
-	setOrigin(9, 7);
+	_shape->setSize(sf::Vector2f(18, 18));
+	setOrigin(9, 9);
 
 	try {
-		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("e_shots1");
+		sf::Texture *texture = ProjectResource::TheProjectResource.getTextureByKey("powerups1");
 		texture->setSmooth(true);
 
 		setShape(_shape);
@@ -32,7 +32,7 @@ void FireBall::init(void)
 	}
 }
 
-void FireBall::update(float delta)
+void BigFireBall::update(float delta)
 {
 	_delta += delta;
 
@@ -40,14 +40,14 @@ void FireBall::update(float delta)
 	AProjectile::update(delta);
 }
 
-void FireBall::destroy(IClient &client)
+void BigFireBall::destroy(IClient &client)
 {
 	client.write(std::make_shared<CMDDestroyed>(getID()));
 }
 
-void FireBall::collision(IClient *client, AEntity *other)
+void BigFireBall::collision(IClient *client, AEntity *other)
 {
-  (void)client;
+	(void)client;
 	if (!other->isInvincible() && !hasCollisioned()
 		&& other->getID() > 0 && other->getID() < 29999
 		&& other->getCollisionType() == COLLISION_FATAL) {
@@ -57,7 +57,7 @@ void FireBall::collision(IClient *client, AEntity *other)
 	}
 }
 
-void FireBall::applyCollision(CollisionType type, AEntity *other)
+void BigFireBall::applyCollision(CollisionType type, AEntity *other)
 {
 	(void)other;
 	switch (type)
@@ -74,7 +74,7 @@ void FireBall::applyCollision(CollisionType type, AEntity *other)
 	}
 }
 
-void FireBall::updateFrame(void)
+void BigFireBall::updateFrame(void)
 {
 	if (_shape && _delta > 0.08f) {
 
@@ -92,13 +92,12 @@ void FireBall::updateFrame(void)
 	}
 }
 
-void FireBall::initFrame(void)
+void BigFireBall::initFrame(void)
 {
-	if (_frames.size() == 0) {
-		_frames.emplace_back(135, 5, 9, 8);
-		_frames.emplace_back(152, 5, 9, 8);
-		_frames.emplace_back(169, 5, 9, 8);
-		_frames.emplace_back(187, 5, 9, 8);
-	}
+	_frames.emplace_back(228, 451, 18, 18);
+	_frames.emplace_back(246, 451, 18, 18);
+	_frames.emplace_back(264, 451, 18, 18);
+	_frames.emplace_back(282, 451, 18, 18);
+
 	_currentFrame = 0;
 }

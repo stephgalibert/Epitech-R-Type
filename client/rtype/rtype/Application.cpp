@@ -14,6 +14,7 @@ Application::Application(std::string const& ip, std::string const& port)
 	_window.create(sf::VideoMode(resolution.first, resolution.second), "R-Type", sf::Style::Default, context);
 	_window.setPosition(sf::Vector2i(0, 0));
 	_window.setVerticalSyncEnabled(true);
+	_window.setMouseCursorVisible(false);
 
 	_state = ApplicationState::AS_MainMenu;
 	_inputs[ApplicationState::AS_MainMenu] = std::bind(&Application::inputMenu, this, std::placeholders::_1);

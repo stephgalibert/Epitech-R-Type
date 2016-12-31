@@ -336,6 +336,9 @@
     <ClCompile Include="Health.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="BigFireBall.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -636,6 +639,9 @@
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
     <ClInclude Include="Health.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BigFireBall.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>
