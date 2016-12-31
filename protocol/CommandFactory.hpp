@@ -25,6 +25,7 @@
 #include "CMDSpawnPowerUp.hpp"
 #include "CMDDisconnect.hpp"
 #include "CMDSpawnPlayer.hpp"
+#include "CMDEffect.hpp"
 
 class CommandFactory
 {
@@ -32,6 +33,7 @@ public:
 	static std::shared_ptr<ICommand> Build(CommandType type);
 
 private:
+	static std::shared_ptr<ICommand> cmd_effect(void);
 	static std::shared_ptr<ICommand> cmd_spawnPlayer(void);
 	static std::shared_ptr<ICommand> cmd_disconnect(void);
 	static std::shared_ptr<ICommand> cmd_spawnPowerup(void);

@@ -48,23 +48,22 @@ public:
 	void setScore(uint16_t score);
 	void setRunning(bool value);
 	void setReady(bool value);
-	//void setPosition(std::pair<double, double> const& position);
 	void setPosition(double x, double y);
 	void setDirection(int direction);
 	void setVelocity(float velocity);
 	void setAngle(float angle);
+	void setEffect(EffectType type, bool toAdd);
 
 	std::shared_ptr<Party> getCurrentParty(void) const;
-	//uint16_t getID(void) const;
 	std::string const& getName(void) const;
 	uint8_t getLife(void) const;
 	uint16_t getScore(void) const;
 	bool isRunning(void) const;
 	bool isReady(void) const;
-	//std::pair<double, double> const& getPosition(void) const;
 	float getAngle(void) const;
 	float getVelocity(void) const;
 	PlayerData const& getPlayerData(void) const;
+	bool isEffectPresent(EffectType type) const;
 
 	virtual void do_read(bool error) = 0;
 	virtual void do_write(void) = 0;
@@ -89,5 +88,6 @@ private:
 	float _radians;
 
 	PlayerData _playerData;
+	std::set<EffectType> _effects;
 };
 

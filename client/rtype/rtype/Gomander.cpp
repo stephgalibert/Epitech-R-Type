@@ -47,18 +47,17 @@ void Gomander::update(float delta)
 	if (isExploding()) {
 		refreshExplosion(delta);
 	}
-	else {
-		if (getPosition().x < 200) {
-			setAngle(0);
-		}
-		else if (getPosition().x > StaticTools::GetResolution().first - 200) {
-			setAngle(180);
-		}
 
-		updateFrame();
-		refreshInvincibility(delta);
-		ANPC::update(delta);
+	if (getPosition().x < 200) {
+		setAngle(0);
 	}
+	else if (getPosition().x > StaticTools::GetResolution().first - 200) {
+		setAngle(180);
+	}
+
+	updateFrame();
+	refreshInvincibility(delta);
+	ANPC::update(delta);
 }
 
 void Gomander::destroy(IClient &client)
@@ -101,7 +100,7 @@ void Gomander::applyCollision(CollisionType type, AEntity *other)
 
 void Gomander::move(float delta)
 {
-	if (getAngle() != -1 && !isExploding()) {
+	if (getAngle() != -1) {
 		float x = std::cos(getRadians()) * getVelocity() * delta;
 		float y = std::sin(getRadians()) * getVelocity() * delta;
 
@@ -123,7 +122,7 @@ void Gomander::shoot(Fire const& param)
 
 	StaticTools::DeserializePosition(param.position, x, y);
 
-	FireBall *laser = World::spawnEntity<FireBall>();
+	BigFireBall *laser = World::spawnEntity<BigFireBall>();
 	laser->setID(id);
 	laser->setLevel(param.level);
 	laser->setPosition(x, y);
@@ -181,12 +180,6 @@ void Gomander::collisionDestruction(void)
 
 	if (getHealth() == 1) {
 		setExplode(true);
-
-		//Explosion *explosion = World::spawnEntity<Explosion>();
-		//explosion->setPosition(getPosition());
-		//explosion->setReadyForInit(true);
-
-		//recycle();
 	}
 	else {
 		setHealth(getHealth() - 1);

@@ -46,6 +46,11 @@ void PowerupManager::update(double delta, uint16_t &nextID)
 
 void PowerupManager::spawnPowerup(PowerupInformation const& info, uint16_t &nextID)
 {
-	_cm.broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::IncreaseNumberOfCanon, nextID, info.x, info.y));
+	if (info.type == "Force") {
+		_cm.broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::Force, nextID, info.x, info.y));
+	}
+	else if (info.type == "Health") {
+		_cm.broadcast(std::make_shared<CMDSpawnPowerUp>(PowerUPsType::Health, nextID, info.x, info.y));
+	}
 	++nextID;
 }

@@ -34,7 +34,8 @@ enum class MissileType : uint8_t
 enum class PowerUPsType : uint8_t
 {
 	Standard = 0,
-	IncreaseNumberOfCanon = 1
+	Force = 1,
+	Health = 2
 };
 
 enum class ObstacleType : uint8_t
@@ -63,6 +64,21 @@ enum class CollisionType : uint8_t
 	None = 0,
 	Destruction = 1,
 	PowerUP = 2
+};
+
+enum class EffectType : uint8_t
+{
+	None = 0,
+	ScoreX2 = 1,
+	AddLife = 2
+};
+
+struct Effect
+{
+	CommandType cmdType;
+	EffectType type;
+	uint16_t id;
+	bool to_add;
 };
 
 struct Ping

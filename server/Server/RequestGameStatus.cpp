@@ -15,9 +15,4 @@ void RequestGameStatus::execute(std::shared_ptr<AConnection> owner,
 	(void)reply;
 	(void)owner;
 	(void)received;
-	//std::shared_ptr<Party> party = owner->getCurrentParty();
-
-	//if (party) {
-	//	party->fire(received);
-	//}
 }

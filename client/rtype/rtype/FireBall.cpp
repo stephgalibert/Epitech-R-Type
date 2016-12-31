@@ -54,9 +54,6 @@ void FireBall::collision(IClient *client, AEntity *other)
 
 		setCollisioned(true);
 		recycle();
-		//if (getOwnerID() == World::GetPlayer()->getID()) {
-		//client->write(std::make_shared<CMDCollision>(CollisionType::Destruction, getID(), other->getID()));
-		//}
 	}
 }
 
@@ -80,11 +77,10 @@ void FireBall::applyCollision(CollisionType type, AEntity *other)
 void FireBall::updateFrame(void)
 {
 	if (_shape && _delta > 0.08f) {
-		if (_currentFrame == 1) {
+
+		++_currentFrame;
+		if (_currentFrame == _frames.size()) {
 			_currentFrame = 0;
-		}
-		else {
-			++_currentFrame;
 		}
 
 		sf::IntRect const& rect = _frames.at(_currentFrame);

@@ -40,6 +40,8 @@ void ProjectResource::load(void)
 		addTexture("background2", "./rsrc/sprites/background2.png");
 		addTexture("explosions", "./rsrc/sprites/explosions.png");
 		addTexture("powerups1", "./rsrc/sprites/powerups1.png");
+		addTexture("force", "./rsrc/sprites/force.png");
+		addTexture("health", "./rsrc/sprites/health.png");
 
 		addTexture("zorg", "./rsrc/sprites/zorg.png");
 		addTexture("dop", "./rsrc/sprites/dop.png");

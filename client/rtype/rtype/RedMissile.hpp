@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AProjectile.hpp"
+#include "Explosion.hpp"
 
 class RedMissile : public AProjectile
 {
@@ -21,6 +22,8 @@ public:
 private:
 	void initFrame(void);
 	void updateFrame(void);
+
+	void collisionDestruction(void);
 
 private:
 	sf::RectangleShape *_shape;

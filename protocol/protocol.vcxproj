@@ -136,6 +136,7 @@
     <ClCompile Include="CMDDestroyed.cpp" />
     <ClCompile Include="CMDDisconnect.cpp" />
     <ClCompile Include="CMDDisconnected.cpp" />
+    <ClCompile Include="CMDEffect.cpp" />
     <ClCompile Include="CMDError.cpp" />
     <ClCompile Include="CMDFire.cpp" />
     <ClCompile Include="CMDGameStatus.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="CMDDestroyed.hpp" />
     <ClInclude Include="CMDDisconnect.hpp" />
     <ClInclude Include="CMDDisconnected.hpp" />
+    <ClInclude Include="CMDEffect.hpp" />
     <ClInclude Include="CMDError.hpp" />
     <ClInclude Include="CMDFire.hpp" />
     <ClInclude Include="CMDGameStatus.hpp" />

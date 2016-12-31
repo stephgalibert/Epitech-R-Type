@@ -1,6 +1,7 @@
 #include "Player.hpp"
 #include "IClient.hpp"
 #include "APowerUp.hpp"
+#include "ForceBall.hpp"
 
 const uint8_t Player::FRAME_TOP = 0;
 const uint8_t Player::FRAME_MID = 1;
@@ -423,7 +424,7 @@ void Player::keyboard(InputHandler &input)
 	//if (input.isKeyDown(sf::Keyboard::A) && !t) {
 	//	t = true;
 
-	//	RedMissile *laser = World::spawnEntity<RedMissile>();
+	//	ForceBall *laser = World::spawnEntity<ForceBall>();
 	//	laser->setPosition(getPosition());
 	//	laser->setReadyForInit(true);
 	//}
@@ -469,6 +470,14 @@ void Player::joystick(InputHandler &input)
 	}
 	else if (direction == SOUTH) {
 		_currentDirection = FRAME_BOT;
+	}
+
+	if (input.isJoystickButtonDown(1) && _deltaCtrl > 0.5f) {
+		if (_force) {
+			_force->inversePosition();
+			_force->attachToEntity(this);
+			_deltaCtrl = 0;
+		}
 	}
 
 	if (_deltaLoadedShot > 0.2f && !_loadedPowder) {
@@ -589,6 +598,7 @@ void Player::collisionPowerUp(AEntity *other)
 		Force *force = dynamic_cast<Force *>(other);
 		if (force) {
 			if (!_force) {
+				_client->write(std::make_shared<CMDEffect>(EffectType::ScoreX2, getID(), true));
 				_force = force;
 			}
 			else {
@@ -597,28 +607,9 @@ void Player::collisionPowerUp(AEntity *other)
 				other->recycle();
 			}
 		}
-		//else {
-
-		//	std::list<APowerUp *>::iterator it = _drawablePowerUps.begin();
-		//	while (it != _drawablePowerUps.cend() && (*it)->getType() != powerUp->getType()) {
-		//		++it;
-		//	}
-		//	if (it != _drawablePowerUps.cend()) {
-		//		if ((*it)->canBeCumulated()) {
-		//			(*it)->upgrade();
-		//			other->recycle();
-		//		}
-		//		else {
-		//			_drawablePowerUps.erase(it);
-		//			powerUp->attachToEntity(this);
-		//			_drawablePowerUps.push_back(powerUp);
-		//		}
-		//	}
-		//	else {
-		//		powerUp->attachToEntity(this);
-		//		_drawablePowerUps.push_back(powerUp);
-		//	}
-		//}
+		else {
+			powerUp->attachToEntity(this);
+		}
 	}
 }
 

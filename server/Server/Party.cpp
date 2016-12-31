@@ -201,7 +201,7 @@ void Party::loop(void)
 
 bool Party::isReady(void)
 {
-	return (_cm.getPlayerNumber() > 1);
+	return (_cm.getPlayerNumber() > 0);
 }
 
 bool Party::isFinished(void)
@@ -268,7 +268,6 @@ void Party::gameOver(double delta)
 
 	_cm.update(delta);
 	if (_delta > 1.f) {
-		broadcast(std::make_shared<CMDMessage>("No more player alive, game over !"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameOver));
 		_delta = 0.f;
 		_cm.closeAll();
@@ -281,7 +280,6 @@ void Party::gameWin(double delta)
 
 	_cm.update(delta);
 	if (_delta > 1.f) {
-		broadcast(std::make_shared<CMDMessage>("No more ennemy left, congratulation !!!"));
 		broadcast(std::make_shared<CMDGameStatus>(GameStatusType::GameWin));
 		_delta = 0.f;
 		_cm.closeAll();

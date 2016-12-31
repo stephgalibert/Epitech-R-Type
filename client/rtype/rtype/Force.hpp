@@ -1,8 +1,9 @@
 #pragma once
 
 #include <unordered_map>
+
 #include "APowerUp.hpp"
-#include <unordered_map>
+#include "ForceBall.hpp"
 
 class Force : public APowerUp
 {
@@ -41,6 +42,9 @@ private:
 	size_t _currentFrame;
 	Position _pos;
 	std::unordered_map<size_t, std::vector<sf::IntRect> > _frames;
-	// ici les différentes AEntity 
+
+	// ici les différentes AEntity
+	ForceBall *_ball;
+	uint16_t _ownerID;
 };
 

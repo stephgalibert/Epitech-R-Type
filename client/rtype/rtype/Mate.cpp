@@ -390,6 +390,9 @@ void Mate::collisionPowerUp(AEntity *other)
 				other->recycle();
 			}
 		}
+		else {
+			powerUp->attachToEntity(this);
+		}
 	}
 }
 

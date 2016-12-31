@@ -1,4 +1,5 @@
 #include "Force.hpp"
+#include "World.hpp"
 
 Force::Force(void)
 {
@@ -6,6 +7,10 @@ Force::Force(void)
 	_level = 0;
 	_currentFrame = 0;
 	_pos = Position::Forward;
+
+	_ball = World::spawnEntity<ForceBall>();
+	_ball->setReadyForInit(true);
+	_ownerID = 0;
 }
 
 Force::~Force(void)
@@ -43,7 +48,11 @@ void Force::update(float delta)
 
 void Force::destroy(IClient &client)
 {
-	(void)client;
+	if (_ownerID > 0) {
+		client.write(std::make_shared<CMDEffect>(EffectType::ScoreX2, _ownerID, false));
+	}
+	_ball->recycle();
+	_ball = NULL;
 }
 
 std::string Force::getType(void) const
@@ -54,6 +63,11 @@ std::string Force::getType(void) const
 void Force::attachToEntity(AEntity *entity)
 {
 	sf::Vector2f const& pos = entity->getPosition();
+
+	if (_ball) {
+		_ownerID = entity->getID();
+		_ball->setPosition(pos.x - 50, pos.y - 20);
+	}
 
 	if (_pos == Position::Forward || _level == 0) {
 		setPosition(pos.x + 50, pos.y + 2);
@@ -90,7 +104,7 @@ bool Force::canBeCumulated(void) const
 
 void Force::upgrade(void)
 {
-	if (_level < _frames.size()) {
+	if (_level < _frames.size() - 1) {
 		++_level;
 	}
 }

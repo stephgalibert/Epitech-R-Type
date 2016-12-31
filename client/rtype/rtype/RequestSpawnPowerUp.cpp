@@ -1,5 +1,6 @@
 #include "RequestSpawnPowerUp.hpp"
 #include "World.hpp"
+#include "Health.hpp"
 
 RequestSpawnPowerUp::RequestSpawnPowerUp(void)
 {
@@ -28,15 +29,17 @@ void RequestSpawnPowerUp::execute(IClient &client, std::shared_ptr<ICommand> dat
 	{
 	case PowerUPsType::Standard:
 		break;
-	case PowerUPsType::IncreaseNumberOfCanon:
+	case PowerUPsType::Force:
 		powerup = World::spawnEntity<Force>();
+		break;
+	case PowerUPsType::Health:
+		powerup = World::spawnEntity<Health>();
 		break;
 	default:
 		break;
 	}
 
 	if (powerup) {
-		std::cout << "spawn power up with ID " << id << std::endl;
 		powerup->setID(id);
 		powerup->setPosition(sf::Vector2f(x, y));
 		powerup->setReadyForInit(true);

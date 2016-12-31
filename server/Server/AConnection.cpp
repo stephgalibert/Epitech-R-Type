@@ -10,8 +10,6 @@ AConnection::AConnection(ConnectionManager &cm, RequestHandler &rh, PartyManager
 	  _life(3),
 	  _score(0)
 {
-	//_position.first = 0;
-	//_position.second = 0;
 	_playerData.id = 0;
 	_playerData.x = 0;
 	_playerData.y = 0;
@@ -125,15 +123,20 @@ void AConnection::setAngle(float angle)
 	_radians = _angle * (2.f * 3.14159265f) / 360.f;
 }
 
+void AConnection::setEffect(EffectType type, bool toAdd)
+{
+	if (toAdd) {
+		_effects.insert(type);
+	}
+	else {
+		_effects.erase(type);
+	}
+}
+
 std::shared_ptr<Party> AConnection::getCurrentParty(void) const
 {
 	return (_party);
 }
-
-//uint16_t AConnection::getID(void) const
-//{
-//	return (_id);
-//}
 
 std::string const& AConnection::getName(void) const
 {
@@ -160,11 +163,6 @@ bool AConnection::isReady(void) const
 	return (_ready);
 }
 
-//std::pair<double, double> const& AConnection::getPosition(void) const
-//{
-//	return (_position);
-//}
-
 float AConnection::getAngle(void) const
 {
 	return (_angle);
@@ -178,4 +176,9 @@ float AConnection::getVelocity(void) const
 PlayerData const& AConnection::getPlayerData(void) const
 {
 	return (_playerData);
+}
+
+bool AConnection::isEffectPresent(EffectType type) const
+{
+	return (_effects.find(type) != _effects.cend());
 }

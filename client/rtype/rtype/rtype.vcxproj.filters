@@ -228,9 +228,6 @@
     <ClCompile Include="..\..\..\common\Generator.cpp">
       <Filter>Fichiers sources\tools</Filter>
     </ClCompile>
-    <ClCompile Include="Health.cpp">
-      <Filter>Fichiers sources\game</Filter>
-    </ClCompile>
     <ClCompile Include="ScoreController.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
@@ -328,6 +325,18 @@
       <Filter>Fichiers sources\menu</Filter>
     </ClCompile>
     <ClCompile Include="RedMissile.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceBall.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Fichiers sources\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BigFireBall.cpp">
       <Filter>Fichiers sources\graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -503,9 +512,6 @@
     <ClInclude Include="HUDController.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
-    <ClInclude Include="Health.hpp">
-      <Filter>Fichiers d%27en-tête\game</Filter>
-    </ClInclude>
     <ClInclude Include="RequestRespawn.hpp">
       <Filter>Fichiers d%27en-tête\request</Filter>
     </ClInclude>
@@ -624,6 +630,18 @@
       <Filter>Fichiers d%27en-tête\menu</Filter>
     </ClInclude>
     <ClInclude Include="RedMissile.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceBall.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.hpp">
+      <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.hpp">
+      <Filter>Fichiers d%27en-tête\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="BigFireBall.hpp">
       <Filter>Fichiers d%27en-tête\graphics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,19 +1,9 @@
 #pragma once
 
-#include "ADrawable.hpp"
-#include "StaticTools.hpp"
+#include "APowerUp.hpp"
 
-class Health : public ADrawable
+class Health : public APowerUp
 {
-private:
-	static const float MAX_HEALTH;
-
-	enum class State : uint8_t
-	{
-		HealthOn = 0,
-		HealthOff = 1
-	};
-
 public:
 	Health(void);
 	virtual ~Health(void);
@@ -22,22 +12,17 @@ public:
 	virtual void update(float delta);
 	virtual void destroy(IClient &client);
 
-	void setHealth(uint8_t health);
+	virtual std::string getType(void) const;
+	virtual void attachToEntity(AEntity *entity);
+	virtual bool fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos,
+		uint8_t velocity, float angle, uint8_t level);
 
-private:
-	void updateHealthOn(float delta);
-	void updateHealthOff(float delta);
+	virtual bool canBeCumulated(void) const;
+	virtual void upgrade(void);
 
 private:
 	float _delta;
-	float _deltaLife;
-	bool _inverse;
-	State _state;
-
-	sf::ConvexShape *_shape;
-	std::pair<short, short> _resolution;
-	sf::Color _color;
-	sf::Vector2f _initSize;
-	sf::Vector2f _initPos;
-	uint8_t _health;
+	size_t _currentFrame;
+	uint16_t _ownerID;
 };
+

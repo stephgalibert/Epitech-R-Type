@@ -6,6 +6,7 @@
 
 #include "lua_adapter.hpp"
 #include "PlayerData.hpp"
+#include "Generator.hpp"
 
 class LuaHandler
 {
@@ -19,4 +20,5 @@ public:
 private:
 	std::string _luaFileName;
 	LuaAdapter *_lua;
+	Generator _gen;
 };
