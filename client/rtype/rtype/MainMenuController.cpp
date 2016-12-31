@@ -14,7 +14,7 @@ const uint32_t MainMenuController::TITLE_CHAR_SPACING = 15;
 const float MainMenuController::SPLASH_PX_PER_SEC = StaticTools::GetResolution().first / 1.5f;
 const uint32_t MainMenuController::SPLASH_INIT_POS = StaticTools::GetResolution().first;
 const uint32_t MainMenuController::SPLASH_TITLE_TARGET_POS = StaticTools::GetResolution().first / 5;
-const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.13f;
+const float MainMenuController::KEYBOARD_EVENT_DELTA_MIN = 0.135f;
 const float MainMenuController::SERVER_BROWSER_POS_X = 75.f;
 const float MainMenuController::SERVER_BROWSER_POS_Y = 60.f;
 const float MainMenuController::SERVER_BROWSER_WIDTH = StaticTools::GetResolution().first / 2.f + 10.f;
@@ -25,6 +25,7 @@ const std::string MainMenuController::FORM_PASSWORD = "Password";
 const std::string MainMenuController::FORM_PASSWORD_DEFAULT = "pwd1";
 const std::string MainMenuController::FORM_PLAYER_NAME = "Player Name";
 const std::string MainMenuController::FORM_PLAYER_NAME_DEFAULT = "Player";
+const float MainMenuController::JOYSTICK_EVENT_DELTA_MIN = 0.25f;
 
 MainMenuController::MainMenuController(IClient &client)
 	: _client(client),
@@ -408,7 +409,7 @@ MainMenuController::ConnectData const &MainMenuController::getConnectData(void) 
 
 bool MainMenuController::handleCreatingInput(InputHandler &input) {
 	if (_keyboardEventDelta >= KEYBOARD_EVENT_DELTA_MIN) {
-		if (input.isKeyDown(sf::Keyboard::Escape)) {
+		if (input.isKeyDown(sf::Keyboard::Escape) || isJoystickCancel(input)) {
 			_fsm = State::ST_Menu;
 			_keyboardEventDelta = 0.f;
 			return true;
@@ -535,9 +536,9 @@ bool MainMenuController::handleMenuInput(InputHandler &input) {
 		}
 		if (isJoystickConfirmed(input))
 			return keyReturn();
-		else if (input.isJoystickDown())
+		else if (isJoystickDown(input))
 			return keyDown();
-		else if (input.isJoystickUp())
+		else if (isJoystickUp(input))
 			return keyUp();
 	}
 	return false;
@@ -562,7 +563,7 @@ bool MainMenuController::handleCreditsInput(InputHandler & input) {
 			_keyboardEventDelta = 0.f;
 			return true;
 		}
-		else if (input.isKeyDown(sf::Keyboard::Up) || input.isKeyDown(sf::Keyboard::Down) || input.isJoystickDown()) {
+		else if (input.isKeyDown(sf::Keyboard::Up) || input.isKeyDown(sf::Keyboard::Down) || (input.isJoystickDown() || input.isJoystickUp())) {
 			_fsm = State::ST_Menu;
 			return handleMenuInput(input);
 		}
@@ -599,9 +600,17 @@ bool MainMenuController::handleOptionsInput(InputHandler &input) {
 }
 
 bool MainMenuController::isJoystickConfirmed(InputHandler const &input) {
-	return input.isJoystickPresent() && (input.isJoystickButtonDown(0) || input.isJoystickButtonDown(7)); //A or Start
+	return _keyboardEventDelta >= JOYSTICK_EVENT_DELTA_MIN && input.isJoystickPresent() && (input.isJoystickButtonDown(0) || input.isJoystickButtonDown(7)); //A or Start
 }
 
 bool MainMenuController::isJoystickCancel(InputHandler const &input) {
-	return input.isJoystickPresent() && (input.isJoystickButtonDown(1) || input.isJoystickButtonDown(6)); //B or Back
+	return _keyboardEventDelta >= JOYSTICK_EVENT_DELTA_MIN && input.isJoystickPresent() && (input.isJoystickButtonDown(1) || input.isJoystickButtonDown(6)); //B or Back
+}
+
+bool MainMenuController::isJoystickUp(InputHandler const &input) {
+	return _keyboardEventDelta >= JOYSTICK_EVENT_DELTA_MIN && input.isJoystickUp();
+}
+
+bool MainMenuController::isJoystickDown(InputHandler const &input) {
+	return _keyboardEventDelta >= JOYSTICK_EVENT_DELTA_MIN && input.isJoystickDown();
 }

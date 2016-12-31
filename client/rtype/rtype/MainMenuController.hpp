@@ -38,6 +38,7 @@ class MainMenuController : public AController
 	static const std::string FORM_PASSWORD_DEFAULT;
 	static const std::string FORM_PLAYER_NAME;
 	static const std::string FORM_PLAYER_NAME_DEFAULT;
+	static const float JOYSTICK_EVENT_DELTA_MIN;
 
 public:
 	MainMenuController(IClient &client);
@@ -121,6 +122,8 @@ private:
 private:
 	bool isJoystickConfirmed(InputHandler const &input);
 	bool isJoystickCancel(InputHandler const &input);
+	bool isJoystickUp(InputHandler const &input);
+	bool isJoystickDown(InputHandler const &input);
 
 private:
 	bool keyUp(void);
