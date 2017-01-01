@@ -24,7 +24,7 @@ void TCPServer::init(void)
 	_ss = std::make_shared<UnixServerSocket>();
 #endif
 	try {
-		_ss->init("127.0.0.1", 4242);
+		_ss->init("0.0.0.0", 4242);
 	}
 	catch (std::exception const& e) {
 		throw (std::runtime_error(e.what()));
