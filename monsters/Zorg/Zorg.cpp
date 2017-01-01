@@ -23,11 +23,12 @@ Zorg::~Zorg(void)
 void Zorg::update(double delta, std::vector<PlayerData> const& players)
 {
 	(void)delta;
+	bool fire = true;
 
 	std::pair<uint16_t, uint16_t> target = _lh.getTarget(getPosition(), players);
 	_canonsDegrees[0] = static_cast<float>((std::atan2(getPosition().second - target.second, getPosition().first - target.first)) * 180.f / 3.14159265359f) - 180.f;
 	if (_canonsDegrees[0] < -270 || _canonsDegrees[0] > -90)
-		_canonsDegrees[0] = -180;
+		fire = false;
 	_delta += delta;
 	if (_angleState == AngleState::Increase) {
 		if (getAngle() < 230) {
@@ -49,7 +50,7 @@ void Zorg::update(double delta, std::vector<PlayerData> const& players)
 	move(std::cos(_radians) * _velocity * delta, std::sin(_radians) * getVelocity() * delta);
 	//std::cout << "#" << getID() << " x: " << _position.first << std::endl;
 
-	if (_delta > getFireRate()) {
+	if (_delta > getFireRate() && fire) {
 		_state = State::Fire;
 		_delta = 0;
 	}

@@ -10,6 +10,7 @@
 #include <vector>
 #include <cmath>
 
+#include "LuaHandler.hpp"
 #include "IMonster.hpp"
 
 class Ravid : public IMonster
@@ -42,6 +43,8 @@ public:
 	virtual std::vector<uint8_t> const& getCanonVelocity(void) const;
 
 private:
+	bool CanShoot(void);
+	void clearTargets(void);
 	double _delta;
 	uint16_t _id;
 	uint8_t _life;
@@ -52,8 +55,10 @@ private:
 	double _radians;
 	std::vector<std::pair<uint16_t, uint16_t> > _canonsRelativePosition; // positions des canons en relatif à l'entité
 	std::vector<float> _canonsDegrees;
+	std::vector<std::pair<uint16_t, uint16_t>> _targets;
 	std::vector<uint8_t> _canonsVelocity;
 	State _state;
+	LuaHandler _lh;
 };
 
 extern "C" MONSTER_API IMonster *entry(void)
