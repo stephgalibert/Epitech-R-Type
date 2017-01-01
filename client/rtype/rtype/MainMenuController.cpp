@@ -315,7 +315,7 @@ void MainMenuController::addBrowserEntry(GetParty const &data) {
 void MainMenuController::clearConnectData(void) {
 	_connectData.game = "";
 	_connectData.password = "";
-	_connectData.password = "";
+	_connectData.username = "";
 }
 
 void MainMenuController::setHostIp(std::string const &hostIp) {
@@ -504,6 +504,7 @@ bool MainMenuController::handleUsernamePopupInput(InputHandler &input) {
 				_connectData.username = _inputPopup.getTextFieldContent("Username");
 				if (_connectData.username.empty())
 					_connectData.username = FORM_PLAYER_NAME_DEFAULT;
+				_connectData.password = "";
 				_connectData.password = _inputPopup.getTextFieldContent("Password");
 			}
 			catch (std::runtime_error const &) {
