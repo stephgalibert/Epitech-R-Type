@@ -55,7 +55,7 @@ private:
 	double _radians;
 	std::vector<std::pair<uint16_t, uint16_t> > _canonsRelativePosition; // positions des canons en relatif à l'entité
 	std::vector<float> _canonsDegrees;
-	std::vector<std::pair<uint16_t, uint16_t>> _targets;
+	std::vector<std::pair<int16_t, int16_t>> _targets;
 	std::vector<uint8_t> _canonsVelocity;
 	State _state;
 	LuaHandler _lh;
