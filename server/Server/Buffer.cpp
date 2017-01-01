@@ -9,14 +9,14 @@ Buffer::Buffer(void)
 Buffer::~Buffer(void)
 {
 	if (_data != NULL) {
-		delete (_data);
+	  delete[] (_data);
 	}
 }
 
 void Buffer::prepare(size_t len)
 {
 	if (_data) {
-		delete (_data);
+		delete[] (_data);
 	}
 	_data = new char[len];
 	memset(_data, 0, len);
@@ -35,7 +35,7 @@ void Buffer::consume(size_t len)
 		return;
 	}
 	if (_size - len == 0) {
-		delete (_data);
+		delete[] (_data);
 		_data = NULL;
 		_size = 0;
 		return;
@@ -45,7 +45,7 @@ void Buffer::consume(size_t len)
 	char *tmp = new char[_size];
 	memset(tmp, 0, _size);
 	memcpy(tmp, &_data[len], _size);
-	delete (_data);
+	delete[] (_data);
 	_data = tmp;
 }
 
@@ -59,7 +59,7 @@ void Buffer::reallocate(char *data, size_t size)
 	else {
 		memcpy(tmp, _data, _size);
 		memcpy(&tmp[_size], data, size);
-		delete (_data);
+		delete[] (_data);
 	}
 	_size += size;
 	_data = tmp;
