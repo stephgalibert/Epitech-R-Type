@@ -56,9 +56,9 @@ void Application::init(std::string const& username, std::string const& host, std
 		_menu.setHostIp(_ip);
 		_menu.setPort(_port);
 
-		//if (!_username.empty()) {
-		//	play();
-		//}
+		if (!_username.empty()) {
+			play();
+		}
 	}
 	catch (std::exception const& e) {
 		StaticTools::Log << "application: " << e.what() << std::endl;

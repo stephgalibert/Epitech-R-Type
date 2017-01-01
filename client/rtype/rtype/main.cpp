@@ -8,9 +8,9 @@
 
 int main(int ac, char **av)
 {
-//#ifdef WIN32
-//	FreeConsole();
-//#endif
+#ifdef WIN32
+	FreeConsole();
+#endif
 	StaticTools::Log.open("client.log", std::ios::out | std::ios::app);
 
 	XMLReader config;
@@ -27,11 +27,11 @@ int main(int ac, char **av)
 			pwd = av[4];
 		}
 	}
-	 else { // TEST:
-		username = "test";
-		host = "host";
-		pwd = "pwd";
-	}
+	// else { // TEST:
+	//	username = "test";
+	//	host = "host";
+	//	pwd = "pwd";
+	//}
 
 	try {
 		config.readFromFile("config.xml");
