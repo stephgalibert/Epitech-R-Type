@@ -1,6 +1,7 @@
 #include "Ravid.hpp"
 
 Ravid::Ravid(void)
+	: _lh("Ravid")
 {
 	_delta = 0;
 	_id = 0;
@@ -21,6 +22,10 @@ Ravid::Ravid(void)
 	_canonsVelocity.emplace_back(230);
 	_canonsVelocity.emplace_back(230);
 	_canonsVelocity.emplace_back(230);
+
+	_targets.push_back(std::make_pair(-1, -1));
+	_targets.push_back(std::make_pair(-1, -1));
+	_targets.push_back(std::make_pair(-1, -1));
 }
 
 Ravid::~Ravid(void)
@@ -31,12 +36,19 @@ void Ravid::update(double delta, std::vector<PlayerData> const& players)
 {
   (void)players;
 
+
+	clearTargets();
+	_lh.getMultiTarget(getPosition(), players, _targets, 3);
+	for (uint8_t i = 0; i < 3; i++) {
+		_canonsDegrees[i] = static_cast<float>((std::atan2(getPosition().second - _targets[i].second, getPosition().first - _targets[i].first)) * 180.f / 3.14159265359f) - 180.f;
+	}
 	_delta += delta;
+
 
 	move(std::cos(_radians) * _velocity * delta, 0);
 	//std::cout << "#" << getID() << " x: " << _position.first << std::endl;
 
-	if (_delta > getFireRate()) {
+	if (_delta > getFireRate() && CanShoot()) {
 		_state = State::Fire;
 		_delta = 0;
 	}
@@ -141,4 +153,22 @@ std::vector<float> const& Ravid::getCanonDegrees(void) const
 std::vector<uint8_t> const& Ravid::getCanonVelocity(void) const
 {
 	return (_canonsVelocity);
+}
+
+void Ravid::clearTargets(void)
+{
+	for (uint8_t i = 0; i < 3; i++) {
+		_targets[i].first = -1;
+		_targets[i].second = -1;
+	}
+}
+
+bool Ravid::CanShoot(void) {
+	uint16_t c = 0;
+
+	for (uint8_t i = 0; i < 3; i++) {
+		if (_canonsDegrees[i] < -270 || _canonsDegrees[i] > -90)
+			c++;
+	}
+	return (c != 3);
 }
