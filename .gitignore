@@ -36,7 +36,6 @@
 # Executables
 *.out
 *.app
-*.exe
 
 # Logs
 *.log
