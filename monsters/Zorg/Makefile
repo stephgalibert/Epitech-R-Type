@@ -12,6 +12,7 @@ LDFLAGS		+=	-L../../LuaLib/LuaLib/ -llua
 NAME		=	../../server/Server/monsters/Zorg.so
 
 SRCS		+=	Zorg.cpp
+SRCS		+=	Generator.cpp
 SRCS		+=	../../common/LuaHandler.cpp
 SRCS		+=	../../common/lua_adapter.cpp
 

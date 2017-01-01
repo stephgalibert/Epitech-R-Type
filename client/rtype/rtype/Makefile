@@ -110,6 +110,10 @@ SRCS		+=	FireBall.cpp
 SRCS		+=	BossIncomingController.cpp
 SRCS		+=	MenuOptions.cpp
 SRCS		+=	MenuSlider.cpp
+SRCS		+=	HealthBar.cpp
+SRCS		+=	ForceBall.cpp
+SRCS		+=	RedMissile.cpp
+SRCS		+=	BigFireBall.cpp
 
 SRCS		+=	../../../common/StaticTools.cpp
 SRCS		+=	../../../common/Generator.cpp
@@ -132,6 +136,7 @@ SRCS		+=	../../../protocol/CMDMove.cpp
 SRCS		+=	../../../protocol/CMDPing.cpp
 SRCS		+=	../../../protocol/CMDSpawnMonster.cpp
 SRCS		+=	../../../protocol/CMDMessage.cpp
+SRCS		+=	../../../protocol/CMDEffect.cpp
 SRCS		+=	../../../protocol/CMDSpawnPowerUp.cpp
 SRCS		+=	../../../protocol/CommandFactory.cpp
 

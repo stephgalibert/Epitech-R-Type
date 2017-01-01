@@ -28,6 +28,7 @@ SRCS		+=	RequestFire.cpp
 SRCS		+=	RequestLoadedPowder.cpp
 SRCS		+=	RequestRespawn.cpp
 SRCS		+=	RequestGetParty.cpp
+SRCS		+=	RequestEffect.cpp
 SRCS		+=	SendToAsyncTask.cpp
 SRCS		+=	Timer.cpp
 SRCS		+=	main.cpp
@@ -78,6 +79,7 @@ SRCS		+=	../../protocol/CMDPing.cpp
 SRCS		+=	../../protocol/CMDMessage.cpp
 SRCS		+=	../../protocol/CMDSpawnPowerUp.cpp
 SRCS		+=	../../protocol/CMDSpawnMonster.cpp
+SRCS		+=	../../protocol/CMDEffect.cpp
 SRCS		+=	../../protocol/CommandFactory.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)

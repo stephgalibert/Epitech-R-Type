@@ -59,6 +59,12 @@ void Health::attachToEntity(AEntity *entity)
 
 bool Health::fire(IClient *client, uint16_t playerID, sf::Vector2i const& pos, uint8_t velocity, float angle, uint8_t level)
 {
+  (void)client;
+  (void)playerID;
+  (void)pos;
+  (void)velocity;
+  (void)angle;
+  (void)level;
 	return (false);
 }
 

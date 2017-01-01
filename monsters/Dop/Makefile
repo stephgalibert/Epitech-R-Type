@@ -12,6 +12,7 @@ LDFLAGS		+=	-L../../LuaLib/LuaLib/ -llua
 NAME		=	../../server/Server/monsters/Dop.so
 
 SRCS		+=	Dop.cpp
+SRCS		+=	Generator.cpp
 SRCS		+=	../../common/LuaHandler.cpp
 SRCS		+=	../../common/lua_adapter.cpp
 

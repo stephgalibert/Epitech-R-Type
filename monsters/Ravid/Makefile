@@ -12,6 +12,7 @@ LDFLAGS		+=	-L../../LuaLib/LuaLib/ -llua
 NAME		=	../../server/Server/monsters/Ravid.so
 
 SRCS		+=	Ravid.cpp
+SRCS		+=	Generator.cpp
 SRCS		+=	../../common/LuaHandler.cpp
 SRCS		+=	../../common/lua_adapter.cpp
 

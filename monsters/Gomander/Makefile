@@ -12,6 +12,7 @@ LDFLAGS		+=	-L../../LuaLib/LuaLib/ -llua
 NAME		=	../../server/Server/monsters/Gomander.so
 
 SRCS		+=	Gomander.cpp
+SRCS		+=	Generator.cpp
 SRCS		+=	StaticTools.cpp
 SRCS		+=	../../common/LuaHandler.cpp
 SRCS		+=	../../common/lua_adapter.cpp
